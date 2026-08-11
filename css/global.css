@@ -788,3 +788,409 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* =========================================
+   SIGN IN MODAL
+========================================= */
+
+.signin-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding-top: 90px;
+
+  z-index: 10000;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+/* Modal visible */
+
+.signin-modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================================
+   MODAL BOX
+========================================= */
+
+.signin-modal {
+  width: 90%;
+  max-width: 420px;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+
+  overflow: hidden;
+
+  transform: translateY(-20px);
+
+  transition: transform 0.25s ease;
+}
+
+.signin-modal-overlay.show .signin-modal {
+  transform: translateY(0);
+}
+
+/* =========================================
+   MODAL HEADER
+========================================= */
+
+.signin-modal-header {
+  height: 65px;
+
+  padding: 0 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.signin-modal-header h2 {
+  font-size: 20px;
+  font-weight: 500;
+
+  color: #333333;
+}
+
+/* Close */
+
+.signin-modal-close {
+  width: 35px;
+  height: 35px;
+
+  border: none;
+  background: transparent;
+
+  font-size: 30px;
+  font-weight: 300;
+
+  color: #777777;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: color 0.2s ease;
+}
+
+.signin-modal-close:hover {
+  color: #e51937;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.signin-modal-content {
+  padding: 25px;
+}
+
+.signin-welcome {
+  margin-bottom: 22px;
+
+  font-size: 14px;
+
+  color: #777777;
+
+  text-align: center;
+}
+
+/* =========================================
+   GOOGLE BUTTON
+========================================= */
+
+.google-signin-btn {
+  width: 100%;
+  height: 45px;
+
+  border: 1px solid #dddddd;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #333333;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.google-signin-btn:hover {
+  background: #f8f8f8;
+  border-color: #cccccc;
+}
+
+/* Google Icon */
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  color: #4285f4;
+}
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.signin-divider {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 23px 0;
+}
+
+.signin-divider span {
+  flex: 1;
+
+  height: 1px;
+
+  background: #eeeeee;
+}
+
+.signin-divider p {
+  font-size: 11px;
+
+  color: #999999;
+}
+
+/* =========================================
+   INPUT GROUP
+========================================= */
+
+.signin-input-group {
+  margin-bottom: 17px;
+}
+
+.signin-input-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  color: #444444;
+}
+
+.signin-input-group input {
+  width: -webkit-fill-available;
+  height: 44px;
+
+  padding: 0 12px;
+
+  border: 1px solid #dddddd;
+
+  border-radius: 4px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  color: #333333;
+
+  transition: border-color 0.2s ease;
+}
+
+.signin-input-group input:focus {
+  border-color: #e51937;
+
+  box-shadow: 0 0 0 2px rgba(229, 25, 55, 0.08);
+}
+
+.signin-input-group input::placeholder {
+  color: #999999;
+}
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 60px;
+}
+
+.password-toggle {
+  position: absolute;
+
+  right: 10px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #e51937;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   FORGOT PASSWORD
+========================================= */
+
+.forgot-password {
+  display: block;
+
+  width: fit-content;
+
+  margin-top: -5px;
+  margin-bottom: 20px;
+
+  font-size: 12px;
+
+  color: #e51937;
+
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.signin-submit-btn {
+  width: 100%;
+  height: 45px;
+
+  border: none;
+
+  border-radius: 4px;
+
+  background: #e51937;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.signin-submit-btn:hover {
+  background: #c9142f;
+}
+
+/* =========================================
+   CREATE ACCOUNT
+========================================= */
+
+.signup-text {
+  margin-top: 22px;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  color: #777777;
+}
+
+.signup-link {
+  border: none;
+  background: transparent;
+
+  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+
+  color: #e51937;
+
+  cursor: pointer;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .signin-modal-overlay {
+    padding-top: 60px;
+  }
+
+  .signin-modal {
+    width: 94%;
+  }
+
+  .signin-modal-header {
+    height: 58px;
+
+    padding: 0 17px;
+  }
+
+  .signin-modal-header h2 {
+    font-size: 18px;
+  }
+
+  .signin-modal-content {
+    padding: 20px;
+  }
+}

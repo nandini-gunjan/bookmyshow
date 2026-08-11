@@ -20,6 +20,7 @@ async function loadNavbar() {
 
     // Initialize navbar features
     initializeLocationModal();
+    initializeSigninModal();
   } catch (error) {
     console.error("Navbar Error:", error);
   }
@@ -136,5 +137,83 @@ function initializeLocationModal() {
     const locationText = document.querySelector(".location-btn span");
 
     locationText.textContent = city;
+  }
+}
+
+/* =========================================
+   SIGN IN MODAL
+========================================= */
+
+function initializeSigninModal() {
+  const signinButton = document.querySelector(".sign-in-btn");
+
+  const signinModal = document.getElementById("signinModal");
+
+  const closeButton = document.getElementById("closeSigninModal");
+
+  const passwordInput = document.getElementById("signinPassword");
+
+  const passwordToggle = document.getElementById("passwordToggle");
+
+  /* -----------------------------------------
+       Open Modal
+    ----------------------------------------- */
+
+  signinButton.addEventListener("click", () => {
+    signinModal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+  });
+
+  /* -----------------------------------------
+       Close Modal
+    ----------------------------------------- */
+
+  closeButton.addEventListener("click", closeSigninModal);
+
+  /* -----------------------------------------
+       Click Outside
+    ----------------------------------------- */
+
+  signinModal.addEventListener("click", (event) => {
+    if (event.target === signinModal) {
+      closeSigninModal();
+    }
+  });
+
+  /* -----------------------------------------
+       ESC Key
+    ----------------------------------------- */
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && signinModal.classList.contains("show")) {
+      closeSigninModal();
+    }
+  });
+
+  /* -----------------------------------------
+       Show / Hide Password
+    ----------------------------------------- */
+
+  passwordToggle.addEventListener("click", () => {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+
+      passwordToggle.textContent = "Hide";
+    } else {
+      passwordInput.type = "password";
+
+      passwordToggle.textContent = "Show";
+    }
+  });
+
+  /* -----------------------------------------
+       Close Function
+    ----------------------------------------- */
+
+  function closeSigninModal() {
+    signinModal.classList.remove("show");
+
+    document.body.style.overflow = "";
   }
 }

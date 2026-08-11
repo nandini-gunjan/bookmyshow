@@ -12,7 +12,8 @@ It is a clone of BookMyShow website with some additional features and improvemen
 # Plan: First we will work on this
 1. Frontend
   - Global
-    - Header
+    - Header - Done
+    - Sidebar
     - Footer
     - Filter
   - Home
@@ -45,4 +46,5 @@ It is a clone of BookMyShow website with some additional features and improvemen
       * categories tags
       * Activities list
 
-> Currently working on header
+> [ x ] Header
+> [  ] Sign in

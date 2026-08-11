@@ -172,4 +172,81 @@
       </div>
     </div>
   </div>
+
+  <!-- ================= SIGN IN MODAL ================= -->
+
+  <div class="signin-modal-overlay" id="signinModal">
+    <div class="signin-modal">
+      <!-- Modal Header -->
+      <div class="signin-modal-header">
+        <h2>Sign in</h2>
+
+        <button
+          class="signin-modal-close"
+          id="closeSigninModal"
+          aria-label="Close sign in modal"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="signin-modal-content">
+        <p class="signin-welcome">Sign in to continue to BookItBro</p>
+
+        <!-- Google Sign In -->
+        <button class="google-signin-btn">
+          <span class="google-icon"> G </span>
+
+          <span> Continue with Google </span>
+        </button>
+
+        <!-- Divider -->
+        <div class="signin-divider">
+          <span></span>
+
+          <p>OR</p>
+
+          <span></span>
+        </div>
+
+        <!-- Email -->
+        <div class="signin-input-group">
+          <label for="signinEmail"> Email </label>
+
+          <input type="email" id="signinEmail" placeholder="Enter your email" />
+        </div>
+
+        <!-- Password -->
+        <div class="signin-input-group">
+          <label for="signinPassword"> Password </label>
+
+          <div class="password-input">
+            <input
+              type="password"
+              id="signinPassword"
+              placeholder="Enter your password"
+            />
+
+            <button type="button" class="password-toggle" id="passwordToggle">
+              Show
+            </button>
+          </div>
+        </div>
+
+        <!-- Forgot Password -->
+        <a href="#" class="forgot-password"> Forgot password? </a>
+
+        <!-- Sign In -->
+        <button class="signin-submit-btn">Sign in</button>
+
+        <!-- Sign Up -->
+        <p class="signup-text">
+          Don't have an account?
+
+          <button type="button" class="signup-link">Create account</button>
+        </p>
+      </div>
+    </div>
+  </div>
 </header>
