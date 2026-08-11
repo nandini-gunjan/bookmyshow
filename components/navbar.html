@@ -1,1 +1,175 @@
-Hello
+<header class="navbar">
+  <!-- ================= TOP NAVBAR ================= -->
+
+  <div class="navbar-top">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="index.html" class="logo"> Book<span>It</span>Bro </a>
+
+      <!-- Search -->
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="text"
+          placeholder="Search for Movies, Events, Plays, Sports and Activities"
+        />
+      </div>
+
+      <!-- Right Side -->
+      <div class="nav-right">
+        <!-- Location -->
+        <button class="location-btn">
+          <span>Mumbai</span>
+          <img
+            src="assets/svgs/arrow-down-sign-to-navigate.png"
+            alt="dropdown"
+            class="arrow"
+          />
+        </button>
+
+        <!-- Sign In -->
+        <button class="sign-in-btn">Sign in</button>
+
+        <!-- Menu -->
+        <button class="menu-btn" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BOTTOM NAVBAR ================= -->
+
+  <div class="navbar-bottom">
+    <div class="nav-container bottom-container">
+      <!-- Main Navigation -->
+      <nav class="main-nav">
+        <a href="index.html" class="active"> Movies </a>
+
+        <a href="#"> Stream </a>
+
+        <a href="#"> Events </a>
+
+        <a href="#"> Plays </a>
+
+        <a href="#"> Sports </a>
+
+        <a href="#"> Activities </a>
+      </nav>
+
+      <!-- Secondary Navigation -->
+      <nav class="secondary-nav">
+        <a href="#"> List Your Show </a>
+
+        <a href="#"> Corporates </a>
+
+        <a href="#"> Offers </a>
+
+        <a href="#"> Gift Cards </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ================= LOCATION MODAL ================= -->
+
+  <div class="location-modal-overlay" id="locationModal">
+    <div class="location-modal">
+      <!-- Modal Header -->
+      <div class="location-modal-header">
+        <h2>Select Location</h2>
+
+        <button
+          class="location-modal-close"
+          id="closeLocationModal"
+          aria-label="Close location modal"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Search Location -->
+      <div class="location-search">
+        <span class="location-search-icon">⌕</span>
+
+        <input
+          type="text"
+          id="locationSearch"
+          placeholder="Search for your city"
+        />
+      </div>
+
+      <!-- Popular Cities -->
+      <div class="popular-location-section">
+        <h3>Popular Cities</h3>
+
+        <div class="cities-grid">
+          <button class="city-option" data-city="Mumbai">
+            <span class="city-icon">📍</span>
+            <span>Mumbai</span>
+          </button>
+
+          <button class="city-option" data-city="Delhi-NCR">
+            <span class="city-icon">📍</span>
+            <span>Delhi-NCR</span>
+          </button>
+
+          <button class="city-option" data-city="Bengaluru">
+            <span class="city-icon">📍</span>
+            <span>Bengaluru</span>
+          </button>
+
+          <button class="city-option" data-city="Hyderabad">
+            <span class="city-icon">📍</span>
+            <span>Hyderabad</span>
+          </button>
+
+          <button class="city-option" data-city="Ahmedabad">
+            <span class="city-icon">📍</span>
+            <span>Ahmedabad</span>
+          </button>
+
+          <button class="city-option" data-city="Chennai">
+            <span class="city-icon">📍</span>
+            <span>Chennai</span>
+          </button>
+
+          <button class="city-option" data-city="Pune">
+            <span class="city-icon">📍</span>
+            <span>Pune</span>
+          </button>
+
+          <button class="city-option" data-city="Kolkata">
+            <span class="city-icon">📍</span>
+            <span>Kolkata</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Other Cities -->
+      <div class="all-cities">
+        <h3>Other Cities</h3>
+
+        <div class="city-list">
+          <button class="city-option" data-city="Jaipur">Jaipur</button>
+
+          <button class="city-option" data-city="Surat">Surat</button>
+
+          <button class="city-option" data-city="Lucknow">Lucknow</button>
+
+          <button class="city-option" data-city="Nagpur">Nagpur</button>
+
+          <button class="city-option" data-city="Indore">Indore</button>
+
+          <button class="city-option" data-city="Chandigarh">Chandigarh</button>
+
+          <button class="city-option" data-city="Bhopal">Bhopal</button>
+
+          <button class="city-option" data-city="Patna">Patna</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
