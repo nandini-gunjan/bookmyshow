@@ -235,7 +235,9 @@
         </div>
 
         <!-- Forgot Password -->
-        <a href="#" class="forgot-password"> Forgot password? </a>
+        <button type="button" id="forgot-password-btn" class="forgot-password">
+          Forgot password?
+        </button>
 
         <!-- Sign In -->
         <button class="signin-submit-btn">Sign in</button>
@@ -246,6 +248,181 @@
 
           <button type="button" class="signup-link">Create account</button>
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+     CREATE ACCOUNT MODAL
+========================================= -->
+
+  <div class="signup-modal-overlay" id="signupModal">
+    <div class="signup-modal">
+      <!-- Modal Header -->
+
+      <div class="signup-modal-header">
+        <h2>Create account</h2>
+
+        <button
+          class="signup-modal-close"
+          id="closeSignupModal"
+          aria-label="Close create account modal"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+
+      <div class="signup-modal-content">
+        <p class="signup-welcome">Create your BookItBro account</p>
+
+        <!-- Error -->
+
+        <p class="signup-error" id="signupError"></p>
+
+        <!-- Name -->
+
+        <div class="signup-input-group">
+          <label for="signupName"> Full name </label>
+
+          <input
+            type="text"
+            id="signupName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+          />
+        </div>
+
+        <!-- Email -->
+
+        <div class="signup-input-group">
+          <label for="signupEmail"> Email </label>
+
+          <input
+            type="email"
+            id="signupEmail"
+            placeholder="Enter your email"
+            autocomplete="email"
+          />
+        </div>
+
+        <!-- Password -->
+
+        <div class="signup-input-group">
+          <label for="signupPassword"> Password </label>
+
+          <div class="signup-password-input">
+            <input
+              type="password"
+              id="signupPassword"
+              placeholder="Create a password"
+              autocomplete="new-password"
+            />
+
+            <button
+              type="button"
+              class="signup-password-toggle"
+              id="signupPasswordToggle"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+
+        <div class="signup-input-group">
+          <label for="signupConfirmPassword"> Confirm password </label>
+
+          <div class="signup-password-input">
+            <input
+              type="password"
+              id="signupConfirmPassword"
+              placeholder="Confirm your password"
+              autocomplete="new-password"
+            />
+
+            <button
+              type="button"
+              class="signup-password-toggle"
+              id="signupConfirmPasswordToggle"
+            >
+              Show
+            </button>
+          </div>
+        </div>
+
+        <!-- Create Account Button -->
+
+        <button type="button" class="signup-submit-btn">Create account</button>
+
+        <!-- Already have account -->
+
+        <p class="already-account-text">
+          Already have an account?
+
+          <button type="button" class="back-to-signin-btn">Sign in</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+     FORGOT PASSWORD MODAL
+========================================= -->
+
+  <div class="forgot-modal-overlay" id="forgotPasswordModal">
+    <div class="forgot-modal">
+      <!-- Header -->
+
+      <div class="forgot-modal-header">
+        <h2>Forgot password?</h2>
+
+        <button
+          type="button"
+          class="forgot-modal-close"
+          id="closeForgotPasswordModal"
+          aria-label="Close forgot password modal"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Content -->
+
+      <div class="forgot-modal-content">
+        <p class="forgot-description">
+          Enter your email address and we'll send you a link to reset your
+          password.
+        </p>
+
+        <!-- Error / Success -->
+
+        <p class="forgot-message" id="forgotPasswordMessage"></p>
+
+        <!-- Email -->
+
+        <div class="forgot-input-group">
+          <label for="forgotPasswordEmail"> Email </label>
+
+          <input
+            type="email"
+            id="forgotPasswordEmail"
+            placeholder="Enter your email"
+            autocomplete="email"
+          />
+        </div>
+
+        <!-- Send Button -->
+
+        <button type="button" class="forgot-submit-btn">Send reset link</button>
+
+        <!-- Back -->
+
+        <button type="button" class="back-to-signin-from-forgot">
+          Back to sign in
+        </button>
       </div>
     </div>
   </div>

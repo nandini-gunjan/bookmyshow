@@ -2,7 +2,12 @@
 // IMPORT AUTH FUNCTIONS
 // =========================================
 
-import { signInWithEmail, signInWithGoogle } from "./auth.js";
+import {
+  signInWithEmail,
+  signInWithGoogle,
+  createAccount,
+  resetPassword,
+} from "./auth.js";
 
 // =========================================
 // LOAD NAVBAR
@@ -27,8 +32,9 @@ async function loadNavbar() {
     // Initialize navbar features
 
     initializeLocationModal();
-
     initializeSigninModal();
+    initializeSignupModal();
+    initializeForgotPasswordModal();
   } catch (error) {
     console.error("Navbar Error:", error);
   }
@@ -154,17 +160,15 @@ function initializeLocationModal() {
 
 function initializeSigninModal() {
   const signinButton = document.querySelector(".sign-in-btn");
-
   const signinModal = document.getElementById("signinModal");
-
   const closeButton = document.getElementById("closeSigninModal");
+  const signupLink = document.querySelector(".signup-link");
 
   // =========================================
   // INPUTS
   // =========================================
 
   const emailInput = document.getElementById("signinEmail");
-
   const passwordInput = document.getElementById("signinPassword");
 
   // =========================================
@@ -172,10 +176,24 @@ function initializeSigninModal() {
   // =========================================
 
   const signinSubmitButton = document.querySelector(".signin-submit-btn");
-
   const googleSigninButton = document.querySelector(".google-signin-btn");
-
   const passwordToggle = document.getElementById("passwordToggle");
+
+  // =========================================
+  // OPEN SIGNUP MODAL
+  // =========================================
+
+  signupLink.addEventListener("click", () => {
+    signinModal.classList.remove("show");
+
+    const signupModal = document.getElementById("signupModal");
+
+    signupModal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("signupName").focus();
+  });
 
   // =========================================
   // OPEN MODAL
@@ -368,29 +386,75 @@ function updateNavbarAfterLogin(user) {
 }
 
 // =========================================
-// SIGN IN ERROR
+// SIGNUP ERROR MESSAGE
 // =========================================
 
-function showSigninError(message) {
-  let errorElement = document.getElementById("signinError");
-
-  // Create error element
-
-  if (!errorElement) {
-    errorElement = document.createElement("p");
-
-    errorElement.id = "signinError";
-
-    errorElement.className = "signin-error";
-
-    const content = document.querySelector(".signin-modal-content");
-
-    content.insertBefore(errorElement, content.firstChild);
-  }
+function showSignupError(message) {
+  const errorElement = document.getElementById("signupError");
 
   errorElement.textContent = message;
 
   errorElement.style.display = "block";
+}
+
+// =========================================
+// HIDE SIGNUP ERROR
+// =========================================
+
+function hideSignupError() {
+  const errorElement = document.getElementById("signupError");
+
+  errorElement.textContent = "";
+
+  errorElement.style.display = "none";
+}
+
+// =========================================
+// FIREBASE SIGNUP ERROR HANDLER
+// =========================================
+
+function showFirebaseSignupError(error) {
+  let message = "Unable to create your account. Please try again.";
+
+  switch (error.code) {
+    // -------------------------------------
+    // EMAIL ALREADY EXISTS
+    // -------------------------------------
+
+    case "auth/email-already-in-use":
+      message = "An account already exists with this email.";
+
+      break;
+
+    // -------------------------------------
+    // INVALID EMAIL
+    // -------------------------------------
+
+    case "auth/invalid-email":
+      message = "Please enter a valid email address.";
+
+      break;
+
+    // -------------------------------------
+    // WEAK PASSWORD
+    // -------------------------------------
+
+    case "auth/weak-password":
+      message = "Password is too weak. Please choose a stronger password.";
+
+      break;
+
+    // -------------------------------------
+    // NETWORK ERROR
+    // -------------------------------------
+
+    case "auth/network-request-failed":
+      message = "Network error. Please check your connection.";
+
+      break;
+  }
+
+  showSignupError(message);
 }
 
 // =========================================
@@ -438,4 +502,454 @@ function showFirebaseAuthError(error) {
   }
 
   showSigninError(message);
+}
+
+// =========================================
+// SIGN UP MODAL
+// =========================================
+
+function initializeSignupModal() {
+  const signupModal = document.getElementById("signupModal");
+
+  const closeButton = document.getElementById("closeSignupModal");
+
+  const signupName = document.getElementById("signupName");
+
+  const signupEmail = document.getElementById("signupEmail");
+
+  const signupPassword = document.getElementById("signupPassword");
+
+  const confirmPassword = document.getElementById("signupConfirmPassword");
+
+  const signupButton = document.querySelector(".signup-submit-btn");
+
+  const passwordToggle = document.getElementById("signupPasswordToggle");
+
+  const confirmPasswordToggle = document.getElementById(
+    "signupConfirmPasswordToggle",
+  );
+
+  const backToSignin = document.querySelector(".back-to-signin-btn");
+
+  // =========================================
+  // HIDE ERROR WHILE TYPING
+  // =========================================
+
+  const signupInputs = [
+    signupName,
+    signupEmail,
+    signupPassword,
+    confirmPassword,
+  ];
+
+  signupInputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      hideSignupError();
+    });
+  });
+
+  // =========================================
+  // CLOSE
+  // =========================================
+
+  closeButton.addEventListener("click", closeSignupModal);
+
+  // =========================================
+  // CLICK OUTSIDE
+  // =========================================
+
+  signupModal.addEventListener("click", (event) => {
+    if (event.target === signupModal) {
+      closeSignupModal();
+    }
+  });
+
+  // =========================================
+  // ESC KEY
+  // =========================================
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && signupModal.classList.contains("show")) {
+      closeSignupModal();
+    }
+  });
+
+  // =========================================
+  // PASSWORD TOGGLE
+  // =========================================
+
+  passwordToggle.addEventListener("click", () => {
+    if (signupPassword.type === "password") {
+      signupPassword.type = "text";
+
+      passwordToggle.textContent = "Hide";
+    } else {
+      signupPassword.type = "password";
+
+      passwordToggle.textContent = "Show";
+    }
+  });
+
+  // =========================================
+  // CONFIRM PASSWORD TOGGLE
+  // =========================================
+
+  confirmPasswordToggle.addEventListener("click", () => {
+    if (confirmPassword.type === "password") {
+      confirmPassword.type = "text";
+
+      confirmPasswordToggle.textContent = "Hide";
+    } else {
+      confirmPassword.type = "password";
+
+      confirmPasswordToggle.textContent = "Show";
+    }
+  });
+
+  // =========================================
+  // BACK TO SIGN IN
+  // =========================================
+
+  backToSignin.addEventListener("click", () => {
+    closeSignupModal();
+
+    const signinModal = document.getElementById("signinModal");
+
+    signinModal.classList.add("show");
+
+    document.getElementById("signinEmail").focus();
+  });
+
+  // =========================================
+  // CREATE ACCOUNT
+  // =========================================
+
+  signupButton.addEventListener("click", async () => {
+    const name = signupName.value.trim();
+
+    const email = signupEmail.value.trim();
+
+    const password = signupPassword.value;
+
+    const confirmPasswordValue = confirmPassword.value;
+
+    // =========================================
+    // VALIDATION
+    // =========================================
+
+    hideSignupError();
+
+    // -----------------------------------------
+    // NAME
+    // -----------------------------------------
+
+    if (!name) {
+      showSignupError("Please enter your full name.");
+
+      signupName.focus();
+
+      return;
+    }
+
+    // -----------------------------------------
+    // EMAIL
+    // -----------------------------------------
+
+    if (!email) {
+      showSignupError("Please enter your email.");
+
+      signupEmail.focus();
+
+      return;
+    }
+
+    // -----------------------------------------
+    // PASSWORD
+    // -----------------------------------------
+
+    if (!password) {
+      showSignupError("Please create a password.");
+
+      signupPassword.focus();
+
+      return;
+    }
+
+    // -----------------------------------------
+    // CONFIRM PASSWORD
+    // -----------------------------------------
+
+    if (!confirmPasswordValue) {
+      showSignupError("Please confirm your password.");
+
+      confirmPassword.focus();
+
+      return;
+    }
+
+    // -----------------------------------------
+    // PASSWORD LENGTH
+    // -----------------------------------------
+
+    if (password.length < 6) {
+      showSignupError("Password must contain at least 6 characters.");
+
+      signupPassword.focus();
+
+      return;
+    }
+
+    // -----------------------------------------
+    // PASSWORD MATCH
+    // -----------------------------------------
+
+    if (password !== confirmPasswordValue) {
+      showSignupError("Passwords do not match.");
+
+      confirmPassword.focus();
+
+      return;
+    }
+
+    // =====================================
+    // DISABLE BUTTON
+    // =====================================
+
+    signupButton.disabled = true;
+
+    signupButton.textContent = "Creating account...";
+
+    // =====================================
+    // FIREBASE
+    // =====================================
+
+    const result = await createAccount(name, email, password);
+
+    // =====================================
+    // ENABLE BUTTON
+    // =====================================
+
+    signupButton.disabled = false;
+
+    signupButton.textContent = "Create account";
+
+    // =====================================
+    // RESULT
+    // =====================================
+
+    if (result.success) {
+      console.log("Account successfully created:", result.user);
+
+      closeSignupModal();
+
+      updateNavbarAfterLogin(result.user);
+    } else {
+      showFirebaseSignupError(result.error);
+    }
+  });
+
+  // =========================================
+  // CLOSE FUNCTION
+  // =========================================
+
+  function closeSignupModal() {
+    signupModal.classList.remove("show");
+
+    document.body.style.overflow = "";
+  }
+
+  // =========================================
+  // FORGOT PASSWORD BUTTON
+  // =========================================
+
+  const forgotPasswordButton = document.querySelector(".forgot-password");
+
+  forgotPasswordButton.addEventListener("click", () => {
+    // Close sign in modal
+
+    signinModal.classList.remove("show");
+
+    // Open forgot password modal
+
+    const forgotModal = document.getElementById("forgotPasswordModal");
+
+    forgotModal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+    // Focus email input
+
+    document.getElementById("forgotPasswordEmail").focus();
+  });
+}
+
+// =========================================
+// FORGOT PASSWORD MODAL
+// =========================================
+
+function initializeForgotPasswordModal() {
+  const forgotModal = document.getElementById("forgotPasswordModal");
+
+  const closeButton = document.getElementById("closeForgotPasswordModal");
+
+  const emailInput = document.getElementById("forgotPasswordEmail");
+
+  const submitButton = document.querySelector(".forgot-submit-btn");
+
+  const backToSignin = document.querySelector(".back-to-signin-from-forgot");
+
+  const message = document.getElementById("forgotPasswordMessage");
+
+  // =========================================
+  // CLOSE MODAL
+  // =========================================
+
+  closeButton.addEventListener("click", closeForgotModal);
+
+  // =========================================
+  // CLICK OUTSIDE
+  // =========================================
+
+  forgotModal.addEventListener("click", (event) => {
+    if (event.target === forgotModal) {
+      closeForgotModal();
+    }
+  });
+
+  // =========================================
+  // ESC KEY
+  // =========================================
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && forgotModal.classList.contains("show")) {
+      closeForgotModal();
+    }
+  });
+
+  // =========================================
+  // HIDE MESSAGE WHILE TYPING
+  // =========================================
+
+  emailInput.addEventListener("input", () => {
+    message.textContent = "";
+
+    message.className = "forgot-message";
+  });
+
+  // =========================================
+  // SEND RESET EMAIL
+  // =========================================
+
+  submitButton.addEventListener("click", async () => {
+    const email = emailInput.value.trim();
+
+    // -------------------------------
+    // VALIDATION
+    // -------------------------------
+
+    if (!email) {
+      showForgotError("Please enter your email.");
+
+      emailInput.focus();
+
+      return;
+    }
+
+    // -------------------------------
+    // DISABLE BUTTON
+    // -------------------------------
+
+    submitButton.disabled = true;
+
+    submitButton.textContent = "Sending...";
+
+    // -------------------------------
+    // FIREBASE
+    // -------------------------------
+
+    const result = await resetPassword(email);
+
+    // -------------------------------
+    // ENABLE BUTTON
+    // -------------------------------
+
+    submitButton.disabled = false;
+
+    submitButton.textContent = "Send reset link";
+
+    // -------------------------------
+    // RESULT
+    // -------------------------------
+
+    if (result.success) {
+      message.textContent = "Password reset link sent. Check your email.";
+
+      message.className = "forgot-message success";
+
+      emailInput.value = "";
+    } else {
+      showFirebaseForgotError(result.error);
+    }
+  });
+
+  // =========================================
+  // BACK TO SIGN IN
+  // =========================================
+
+  backToSignin.addEventListener("click", () => {
+    closeForgotModal();
+
+    const signinModal = document.getElementById("signinModal");
+
+    signinModal.classList.add("show");
+
+    document.getElementById("signinEmail").focus();
+  });
+
+  // =========================================
+  // CLOSE FUNCTION
+  // =========================================
+
+  function closeForgotModal() {
+    forgotModal.classList.remove("show");
+
+    document.body.style.overflow = "";
+  }
+
+  // =========================================
+  // ERROR MESSAGE
+  // =========================================
+
+  function showForgotError(text) {
+    message.textContent = text;
+
+    message.className = "forgot-message error";
+  }
+
+  // =========================================
+  // FIREBASE ERROR
+  // =========================================
+
+  function showFirebaseForgotError(error) {
+    let text = "Unable to send reset email. Please try again.";
+
+    switch (error.code) {
+      case "auth/invalid-email":
+        text = "Please enter a valid email address.";
+
+        break;
+
+      case "auth/user-not-found":
+        text = "No account was found with this email.";
+
+        break;
+
+      case "auth/network-request-failed":
+        text = "Network error. Please check your connection.";
+
+        break;
+    }
+
+    showForgotError(text);
+  }
 }
