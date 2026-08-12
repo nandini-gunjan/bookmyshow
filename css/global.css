@@ -1938,3 +1938,210 @@
 
   line-height: 1.4;
 }
+
+/* =========================================
+   ACCOUNT WRAPPER
+========================================= */
+
+.account-wrapper {
+  position: relative;
+}
+
+/* =========================================
+   LOGGED-IN BUTTON
+========================================= */
+
+.sign-in-btn.logged-in {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================================
+   USER INITIAL
+========================================= */
+
+.user-initial {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f84464;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================
+   USER NAME
+========================================= */
+
+.user-name {
+  max-width: 100px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   ACCOUNT DROPDOWN
+========================================= */
+
+.account-dropdown {
+  position: absolute;
+
+  top: calc(100% + 12px);
+  right: 0;
+
+  width: 280px;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+  padding: 8px;
+
+  z-index: 1000;
+
+  display: none;
+}
+
+/* =========================================
+   SHOW DROPDOWN
+========================================= */
+
+.account-dropdown.show {
+  display: block;
+}
+
+/* =========================================
+   ACCOUNT HEADER
+========================================= */
+
+.account-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px;
+}
+
+/* =========================================
+   ACCOUNT AVATAR
+========================================= */
+
+.account-avatar {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f84464;
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* =========================================
+   ACCOUNT INFO
+========================================= */
+
+.account-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.account-name {
+  color: #222222;
+
+  font-size: 14px;
+}
+
+.account-email {
+  color: #777777;
+
+  font-size: 12px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.account-divider {
+  height: 1px;
+
+  background: #eeeeee;
+
+  margin: 5px 0;
+}
+
+/* =========================================
+   MENU ITEMS
+========================================= */
+
+.account-menu-item,
+.account-logout {
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  text-align: left;
+
+  padding: 11px 12px;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   MENU HOVER
+========================================= */
+
+.account-menu-item:hover {
+  background: #f5f5f5;
+}
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+.account-logout {
+  color: #d71939;
+
+  font-weight: 500;
+}
+
+.account-logout:hover {
+  background: #fff1f3;
+}

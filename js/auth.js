@@ -9,6 +9,8 @@ import {
   sendPasswordResetEmail,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
+  signOut,
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import { auth } from "./firebase.js";
@@ -131,7 +133,47 @@ async function resetPassword(email) {
 }
 
 // =========================================
+// AUTH STATE LISTENER
+// =========================================
+
+function listenToAuthState(callback) {
+  return onAuthStateChanged(auth, (user) => {
+    callback(user);
+  });
+}
+
+// =========================================
+// SIGN OUT
+// =========================================
+
+async function signOutUser() {
+  try {
+    await signOut(auth);
+
+    console.log("User signed out successfully.");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error("Sign out error:", error);
+
+    return {
+      success: false,
+      error: error,
+    };
+  }
+}
+
+// =========================================
 // EXPORT
 // =========================================
 
-export { signInWithEmail, signInWithGoogle, createAccount, resetPassword };
+export {
+  signInWithEmail,
+  signInWithGoogle,
+  createAccount,
+  resetPassword,
+  listenToAuthState,
+  signOutUser,
+};

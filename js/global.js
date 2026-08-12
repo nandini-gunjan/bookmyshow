@@ -1,12 +1,10 @@
-// =========================================
-// IMPORT AUTH FUNCTIONS
-// =========================================
-
 import {
   signInWithEmail,
   signInWithGoogle,
   createAccount,
   resetPassword,
+  listenToAuthState,
+  signOutUser,
 } from "./auth.js";
 
 // =========================================
@@ -35,6 +33,8 @@ async function loadNavbar() {
     initializeSigninModal();
     initializeSignupModal();
     initializeForgotPasswordModal();
+    initializeAuthState();
+    initializeAccountDropdown();
   } catch (error) {
     console.error("Navbar Error:", error);
   }
@@ -182,12 +182,6 @@ function initializeSigninModal() {
     });
   });
 
-  [emailInput, passwordInput].forEach((input) => {
-    input.addEventListener("input", () => {
-      hideSigninError();
-    });
-  });
-
   // =========================================
   // BUTTONS
   // =========================================
@@ -213,10 +207,14 @@ function initializeSigninModal() {
   });
 
   // =========================================
-  // OPEN MODAL
+  // OPEN SIGN IN MODAL
   // =========================================
 
   signinButton.addEventListener("click", () => {
+    if (signinButton.classList.contains("logged-in")) {
+      return;
+    }
+
     signinModal.classList.add("show");
 
     document.body.style.overflow = "hidden";
@@ -386,159 +384,102 @@ function initializeSigninModal() {
 }
 
 // =========================================
+// AUTH SESSION
+// =========================================
+
+function initializeAuthState() {
+  listenToAuthState((user) => {
+    if (user) {
+      // User is logged in
+      updateNavbarAfterLogin(user);
+
+      console.log("User is logged in:", user);
+    } else {
+      // User is logged out
+      resetNavbarAfterLogout();
+
+      console.log("No user is logged in.");
+    }
+  });
+}
+
+// =========================================
 // UPDATE NAVBAR AFTER LOGIN
 // =========================================
 
 function updateNavbarAfterLogin(user) {
   const signinButton = document.querySelector(".sign-in-btn");
 
+  const accountAvatar = document.querySelector(".account-avatar");
+
+  const accountName = document.querySelector(".account-name");
+
+  const accountEmail = document.querySelector(".account-email");
+
+  if (!signinButton || !user) {
+    return;
+  }
+
+  // -----------------------------------------
+  // USER INFORMATION
+  // -----------------------------------------
+
+  const displayName = user.displayName || "Account";
+
+  const email = user.email || "";
+
+  const initial =
+    displayName !== "Account"
+      ? displayName.charAt(0).toUpperCase()
+      : email.charAt(0).toUpperCase();
+
+  // -----------------------------------------
+  // UPDATE SIGN IN BUTTON
+  // -----------------------------------------
+
+  signinButton.innerHTML = `
+        <span class="user-initial">
+            ${initial}
+        </span>
+
+        <span class="user-name">
+            ${displayName}
+        </span>
+    `;
+
+  signinButton.classList.add("logged-in");
+
+  // -----------------------------------------
+  // UPDATE DROPDOWN
+  // -----------------------------------------
+
+  if (accountAvatar) {
+    accountAvatar.textContent = initial;
+  }
+
+  if (accountName) {
+    accountName.textContent = displayName;
+  }
+
+  if (accountEmail) {
+    accountEmail.textContent = email;
+  }
+}
+
+// =========================================
+// UPDATE NAVBAR AFTER LOGIN
+// =========================================
+
+function resetNavbarAfterLogout() {
+  const signinButton = document.querySelector(".sign-in-btn");
+
   if (!signinButton) {
     return;
   }
 
-  // Get user's display name
+  signinButton.innerHTML = "Sign in";
 
-  const displayName = user.displayName;
-
-  // Get first letter
-
-  const initial = displayName
-    ? displayName.charAt(0).toUpperCase()
-    : user.email.charAt(0).toUpperCase();
-
-  // Change button
-
-  signinButton.innerHTML = `
-    <span class="user-initial">
-      ${initial}
-    </span>
-    <span class="user-name">
-      ${displayName || "Account"}
-    </span>
-  `;
-
-  // Mark as logged in
-
-  signinButton.classList.add("logged-in");
-}
-
-// =========================================
-// SIGNUP ERROR MESSAGE
-// =========================================
-
-function showSignupError(message) {
-  const errorElement = document.getElementById("signupError");
-
-  errorElement.textContent = message;
-
-  errorElement.style.display = "block";
-}
-
-// =========================================
-// HIDE SIGNUP ERROR
-// =========================================
-
-function hideSignupError() {
-  const errorElement = document.getElementById("signupError");
-
-  errorElement.textContent = "";
-
-  errorElement.style.display = "none";
-}
-
-// =========================================
-// FIREBASE SIGNUP ERROR HANDLER
-// =========================================
-
-function showFirebaseSignupError(error) {
-  let message = "Unable to create your account. Please try again.";
-
-  switch (error.code) {
-    // -------------------------------------
-    // EMAIL ALREADY EXISTS
-    // -------------------------------------
-
-    case "auth/email-already-in-use":
-      message = "An account already exists with this email.";
-
-      break;
-
-    // -------------------------------------
-    // INVALID EMAIL
-    // -------------------------------------
-
-    case "auth/invalid-email":
-      message = "Please enter a valid email address.";
-
-      break;
-
-    // -------------------------------------
-    // WEAK PASSWORD
-    // -------------------------------------
-
-    case "auth/weak-password":
-      message = "Password is too weak. Please choose a stronger password.";
-
-      break;
-
-    // -------------------------------------
-    // NETWORK ERROR
-    // -------------------------------------
-
-    case "auth/network-request-failed":
-      message = "Network error. Please check your connection.";
-
-      break;
-  }
-
-  showSignupError(message);
-}
-
-// =========================================
-// FIREBASE ERROR HANDLER
-// =========================================
-
-function showFirebaseAuthError(error) {
-  let message = "Unable to sign in. Please try again.";
-
-  switch (error.code) {
-    case "auth/invalid-email":
-      message = "Please enter a valid email address.";
-
-      break;
-
-    case "auth/invalid-credential":
-      message = "Incorrect email or password.";
-
-      break;
-
-    case "auth/user-disabled":
-      message = "This account has been disabled.";
-
-      break;
-
-    case "auth/too-many-requests":
-      message = "Too many attempts. Please try again later.";
-
-      break;
-
-    case "auth/popup-closed-by-user":
-      message = "Google sign-in was cancelled.";
-
-      break;
-
-    case "auth/popup-blocked":
-      message = "Your browser blocked the Google sign-in popup.";
-
-      break;
-
-    case "auth/network-request-failed":
-      message = "Network error. Please check your connection.";
-
-      break;
-  }
-
-  showSigninError(message);
+  signinButton.classList.remove("logged-in");
 }
 
 // =========================================
@@ -966,6 +907,202 @@ function initializeForgotPasswordModal() {
 
     showForgotError(text);
   }
+}
+
+// =========================================
+// ACCOUNT DROPDOWN
+// =========================================
+
+function initializeAccountDropdown() {
+  const accountWrapper = document.querySelector(".account-wrapper");
+
+  const signinButton = document.querySelector(".sign-in-btn");
+
+  const accountDropdown = document.querySelector(".account-dropdown");
+
+  const signOutButton = document.querySelector(".account-logout");
+
+  if (!accountWrapper || !signinButton || !accountDropdown) {
+    return;
+  }
+
+  // -----------------------------------------
+  // OPEN / CLOSE DROPDOWN
+  // -----------------------------------------
+
+  signinButton.addEventListener("click", (event) => {
+    // Only open dropdown when logged in
+    if (!signinButton.classList.contains("logged-in")) {
+      return;
+    }
+
+    event.stopPropagation();
+
+    accountDropdown.classList.toggle("show");
+  });
+
+  // -----------------------------------------
+  // CLOSE WHEN CLICKING OUTSIDE
+  // -----------------------------------------
+
+  document.addEventListener("click", (event) => {
+    if (!accountWrapper.contains(event.target)) {
+      accountDropdown.classList.remove("show");
+    }
+  });
+
+  // -----------------------------------------
+  // ESC KEY
+  // -----------------------------------------
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      accountDropdown.classList.remove("show");
+    }
+  });
+
+  // =========================================
+  // SIGN OUT
+  // =========================================
+
+  signOutButton.addEventListener("click", async () => {
+    signOutButton.disabled = true;
+
+    signOutButton.textContent = "Signing out...";
+
+    const result = await signOutUser();
+
+    if (result.success) {
+      accountDropdown.classList.remove("show");
+
+      console.log("Signed out.");
+    } else {
+      signOutButton.disabled = false;
+
+      signOutButton.textContent = "Sign out";
+
+      console.error("Could not sign out:", result.error);
+    }
+  });
+}
+
+// =========================================
+// SIGNUP ERROR MESSAGE
+// =========================================
+
+function showSignupError(message) {
+  const errorElement = document.getElementById("signupError");
+
+  errorElement.textContent = message;
+
+  errorElement.style.display = "block";
+}
+
+// =========================================
+// HIDE SIGNUP ERROR
+// =========================================
+
+function hideSignupError() {
+  const errorElement = document.getElementById("signupError");
+
+  errorElement.textContent = "";
+
+  errorElement.style.display = "none";
+}
+
+// =========================================
+// FIREBASE SIGNUP ERROR HANDLER
+// =========================================
+
+function showFirebaseSignupError(error) {
+  let message = "Unable to create your account. Please try again.";
+
+  switch (error.code) {
+    // -------------------------------------
+    // EMAIL ALREADY EXISTS
+    // -------------------------------------
+
+    case "auth/email-already-in-use":
+      message = "An account already exists with this email.";
+
+      break;
+
+    // -------------------------------------
+    // INVALID EMAIL
+    // -------------------------------------
+
+    case "auth/invalid-email":
+      message = "Please enter a valid email address.";
+
+      break;
+
+    // -------------------------------------
+    // WEAK PASSWORD
+    // -------------------------------------
+
+    case "auth/weak-password":
+      message = "Password is too weak. Please choose a stronger password.";
+
+      break;
+
+    // -------------------------------------
+    // NETWORK ERROR
+    // -------------------------------------
+
+    case "auth/network-request-failed":
+      message = "Network error. Please check your connection.";
+
+      break;
+  }
+
+  showSignupError(message);
+}
+
+// =========================================
+// FIREBASE ERROR HANDLER
+// =========================================
+
+function showFirebaseAuthError(error) {
+  let message = "Unable to sign in. Please try again.";
+
+  switch (error.code) {
+    case "auth/invalid-email":
+      message = "Please enter a valid email address.";
+
+      break;
+
+    case "auth/invalid-credential":
+      message = "Incorrect email or password.";
+
+      break;
+
+    case "auth/user-disabled":
+      message = "This account has been disabled.";
+
+      break;
+
+    case "auth/too-many-requests":
+      message = "Too many attempts. Please try again later.";
+
+      break;
+
+    case "auth/popup-closed-by-user":
+      message = "Google sign-in was cancelled.";
+
+      break;
+
+    case "auth/popup-blocked":
+      message = "Your browser blocked the Google sign-in popup.";
+
+      break;
+
+    case "auth/network-request-failed":
+      message = "Network error. Please check your connection.";
+
+      break;
+  }
+
+  showSigninError(message);
 }
 
 // =========================================
