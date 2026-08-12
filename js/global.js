@@ -159,6 +159,7 @@ function initializeLocationModal() {
 // =========================================
 
 function initializeSigninModal() {
+  const forgotPasswordButton = document.querySelector(".forgot-password");
   const signinButton = document.querySelector(".sign-in-btn");
   const signinModal = document.getElementById("signinModal");
   const closeButton = document.getElementById("closeSigninModal");
@@ -346,6 +347,22 @@ function initializeSigninModal() {
 
     document.body.style.overflow = "";
   }
+
+  // =========================================
+  // OPEN FORGOT PASSWORD MODAL
+  // =========================================
+
+  forgotPasswordButton.addEventListener("click", () => {
+    signinModal.classList.remove("show");
+
+    const forgotModal = document.getElementById("forgotPasswordModal");
+
+    forgotModal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("forgotPasswordEmail").focus();
+  });
 }
 
 // =========================================
@@ -757,30 +774,6 @@ function initializeSignupModal() {
 
     document.body.style.overflow = "";
   }
-
-  // =========================================
-  // FORGOT PASSWORD BUTTON
-  // =========================================
-
-  const forgotPasswordButton = document.querySelector(".forgot-password");
-
-  forgotPasswordButton.addEventListener("click", () => {
-    // Close sign in modal
-
-    signinModal.classList.remove("show");
-
-    // Open forgot password modal
-
-    const forgotModal = document.getElementById("forgotPasswordModal");
-
-    forgotModal.classList.add("show");
-
-    document.body.style.overflow = "hidden";
-
-    // Focus email input
-
-    document.getElementById("forgotPasswordEmail").focus();
-  });
 }
 
 // =========================================
@@ -882,7 +875,8 @@ function initializeForgotPasswordModal() {
     // -------------------------------
 
     if (result.success) {
-      message.textContent = "Password reset link sent. Check your email.";
+      message.textContent =
+        "If an account exists with this email, a password reset link has been sent. Please check your inbox and spam folder.";
 
       message.className = "forgot-message success";
 
@@ -940,8 +934,8 @@ function initializeForgotPasswordModal() {
         break;
 
       case "auth/user-not-found":
-        text = "No account was found with this email.";
-
+        text =
+          "If an account exists with this email, a password reset link has been sent. Please check your inbox and spam folder.";
         break;
 
       case "auth/network-request-failed":
