@@ -1914,3 +1914,27 @@
     padding: 20px;
   }
 }
+
+/* =========================================
+   SIGN IN ERROR
+========================================= */
+
+.signin-error {
+  display: none;
+
+  margin: -5px 0 15px;
+
+  padding: 9px 12px;
+
+  border-radius: 4px;
+
+  background: #fff1f2;
+
+  border: 1px solid #ffd5d9;
+
+  color: #d7193f;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}

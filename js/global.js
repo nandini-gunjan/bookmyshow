@@ -173,6 +173,22 @@ function initializeSigninModal() {
   const passwordInput = document.getElementById("signinPassword");
 
   // =========================================
+  // HIDE ERROR WHILE TYPING
+  // =========================================
+
+  [emailInput, passwordInput].forEach((input) => {
+    input.addEventListener("input", () => {
+      hideSigninError();
+    });
+  });
+
+  [emailInput, passwordInput].forEach((input) => {
+    input.addEventListener("input", () => {
+      hideSigninError();
+    });
+  });
+
+  // =========================================
   // BUTTONS
   // =========================================
 
@@ -259,9 +275,13 @@ function initializeSigninModal() {
 
     const password = passwordInput.value;
 
+    hideSigninError();
+
     // ---------------------------------------
     // VALIDATION
     // ---------------------------------------
+
+    hideSigninError();
 
     if (!email) {
       showSigninError("Please enter your email.");
@@ -946,4 +966,28 @@ function initializeForgotPasswordModal() {
 
     showForgotError(text);
   }
+}
+
+// =========================================
+// SHOW SIGN IN ERROR
+// =========================================
+
+function showSigninError(message) {
+  const errorElement = document.getElementById("signinError");
+
+  errorElement.textContent = message;
+
+  errorElement.style.display = "block";
+}
+
+// =========================================
+// HIDE SIGN IN ERROR
+// =========================================
+
+function hideSigninError() {
+  const errorElement = document.getElementById("signinError");
+
+  errorElement.textContent = "";
+
+  errorElement.style.display = "none";
 }
