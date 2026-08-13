@@ -15,6 +15,14 @@ import {
 
 import { auth } from "./firebase.js";
 
+import {
+  doc,
+  setDoc,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import { db } from "./firebase.js";
+
 // =========================================
 // EMAIL + PASSWORD SIGN IN
 // =========================================
@@ -51,13 +59,40 @@ async function signInWithEmail(email, password) {
 
 async function signInWithGoogle() {
   try {
+    // =====================================
+    // GOOGLE PROVIDER
+    // =====================================
+
     const provider = new GoogleAuthProvider();
+
+    // =====================================
+    // SIGN IN WITH GOOGLE
+    // =====================================
 
     const result = await signInWithPopup(auth, provider);
 
     const user = result.user;
 
-    console.log("Google user signed in:", user);
+    // =====================================
+    // STORE USER IN FIRESTORE
+    // =====================================
+
+    await setDoc(
+      doc(db, "users", user.uid),
+      {
+        uid: user.uid,
+        name: user.displayName || "",
+        email: user.email || "",
+        photoURL: user.photoURL || "",
+        provider: "google",
+        lastLogin: serverTimestamp(),
+      },
+      {
+        merge: true,
+      },
+    );
+
+    console.log("Google user signed in and stored:", user);
 
     return {
       success: true,
@@ -79,7 +114,9 @@ async function signInWithGoogle() {
 
 async function createAccount(name, email, password) {
   try {
-    // Create Firebase account
+    // =====================================
+    // CREATE FIREBASE AUTH ACCOUNT
+    // =====================================
 
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -89,13 +126,27 @@ async function createAccount(name, email, password) {
 
     const user = userCredential.user;
 
-    // Save user's name
+    // =====================================
+    // SAVE USER'S DISPLAY NAME
+    // =====================================
 
     await updateProfile(user, {
       displayName: name,
     });
 
-    console.log("Account created:", user);
+    // =====================================
+    // CREATE FIRESTORE USER DOCUMENT
+    // =====================================
+
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      name: name,
+      email: user.email,
+      provider: "password",
+      createdAt: serverTimestamp(),
+    });
+
+    console.log("Account and Firestore profile created:", user);
 
     return {
       success: true,
