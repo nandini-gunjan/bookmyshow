@@ -55,9 +55,9 @@ It is a clone of BookMyShow website with some additional features and improvemen
 - [x] Header
 - [x] Sign in Frontend
 - [x] Sign in Backend
-- [ ] Sidebar Menu
+- [ ] Sidebar Menu (Work in progress - Gunjan)
 - [ ] Search - Trending searches
-- [ ] Movies section
+- [ ] Movies section (Work in progress - Nandini)
 - [ ] Stream section
 - [ ] Events section
 - [ ] Plays section
