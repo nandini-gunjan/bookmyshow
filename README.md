@@ -54,7 +54,7 @@ It is a clone of BookMyShow website with some additional features and improvemen
 
 - [x] Header
 - [x] Sign in Frontend
-- [ ] Sign in Backend
+- [x] Sign in Backend
 - [ ] Sidebar Menu
 - [ ] Search - Trending searches
 - [ ] Movies section
