@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Movies | BookItBro</title>
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="css/header.css" />
+
+    <!-- Category CSS -->
+    <link rel="stylesheet" href="css/category.css" />
+  </head>
+
+  <body>
+    <!-- =========================================
+         GLOBAL NAVBAR
+    ========================================== -->
+
+    <div id="navbar"></div>
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="category-page">
+      <!-- =====================================
+             CATEGORY HEADER
+        ====================================== -->
+
+      <section class="category-header">
+        <div class="category-container">
+          <h1>Movies</h1>
+
+          <p>
+            Explore the latest movies, upcoming releases and popular films near
+            you.
+          </p>
+        </div>
+      </section>
+
+      <!-- =====================================
+             CATEGORY FILTER BAR
+        ====================================== -->
+
+      <section class="category-filter-section">
+        <div class="category-container">
+          <div class="category-filters">
+            <button class="filter-btn active">All</button>
+
+            <button class="filter-btn">Hindi</button>
+
+            <button class="filter-btn">English</button>
+
+            <button class="filter-btn">Tamil</button>
+
+            <button class="filter-btn">Telugu</button>
+
+            <button class="filter-btn">Malayalam</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================
+             RECOMMENDED
+        ====================================== -->
+
+      <section class="content-section">
+        <div class="category-container">
+          <div class="section-heading">
+            <div>
+              <h2>Recommended Movies</h2>
+
+              <p>Movies you might want to watch</p>
+            </div>
+
+            <a href="#" class="view-all"> See All </a>
+          </div>
+
+          <!-- MOVIE CARDS -->
+
+          <div class="movie-grid">
+            <!-- CARD -->
+
+            <article class="movie-card">
+              <div class="movie-poster">
+                <img
+                  src="https://via.placeholder.com/300x450"
+                  alt="Movie poster"
+                />
+
+                <span class="movie-language"> Hindi </span>
+              </div>
+
+              <div class="movie-info">
+                <h3>Movie Name</h3>
+
+                <p>Action / Drama</p>
+              </div>
+            </article>
+
+            <!-- CARD -->
+
+            <article class="movie-card">
+              <div class="movie-poster">
+                <img
+                  src="https://via.placeholder.com/300x450"
+                  alt="Movie poster"
+                />
+
+                <span class="movie-language"> English </span>
+              </div>
+
+              <div class="movie-info">
+                <h3>Movie Name</h3>
+
+                <p>Adventure / Thriller</p>
+              </div>
+            </article>
+
+            <!-- CARD -->
+
+            <article class="movie-card">
+              <div class="movie-poster">
+                <img
+                  src="https://via.placeholder.com/300x450"
+                  alt="Movie poster"
+                />
+
+                <span class="movie-language"> Telugu </span>
+              </div>
+
+              <div class="movie-info">
+                <h3>Movie Name</h3>
+
+                <p>Drama / Romance</p>
+              </div>
+            </article>
+
+            <!-- CARD -->
+
+            <article class="movie-card">
+              <div class="movie-poster">
+                <img
+                  src="https://via.placeholder.com/300x450"
+                  alt="Movie poster"
+                />
+
+                <span class="movie-language"> Hindi </span>
+              </div>
+
+              <div class="movie-info">
+                <h3>Movie Name</h3>
+
+                <p>Comedy / Drama</p>
+              </div>
+            </article>
+
+            <!-- CARD -->
+
+            <article class="movie-card">
+              <div class="movie-poster">
+                <img
+                  src="https://via.placeholder.com/300x450"
+                  alt="Movie poster"
+                />
+
+                <span class="movie-language"> English </span>
+              </div>
+
+              <div class="movie-info">
+                <h3>Movie Name</h3>
+
+                <p>Sci-Fi / Action</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================
+             NOW SHOWING
+        ====================================== -->
+
+      <section class="content-section">
+        <div class="category-container">
+          <div class="section-heading">
+            <div>
+              <h2>Now Showing</h2>
+
+              <p>Movies currently playing in cinemas</p>
+            </div>
+
+            <a href="#" class="view-all"> See All </a>
+          </div>
+
+          <div class="movie-grid">
+            <!-- Cards will go here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================
+             COMING SOON
+        ====================================== -->
+
+      <section class="content-section">
+        <div class="category-container">
+          <div class="section-heading">
+            <div>
+              <h2>Coming Soon</h2>
+
+              <p>Upcoming movies you can look forward to</p>
+            </div>
+
+            <a href="#" class="view-all"> See All </a>
+          </div>
+
+          <div class="movie-grid">
+            <!-- Cards will go here -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="site-footer">
+      <div class="category-container">
+        <p>© 2026 BookItBro. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script type="module" src="js/main.js"></script>
+
+    <script type="module" src="js/category.js"></script>
+  </body>
+</html>

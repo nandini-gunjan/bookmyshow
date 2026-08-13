@@ -2145,3 +2145,46 @@
 .account-logout:hover {
   background: #fff1f3;
 }
+
+@media (max-width: 600px) {
+  .category-container {
+    width: calc(100% - 28px);
+  }
+
+  .category-header h1 {
+    font-size: 24px;
+  }
+
+  .category-header p {
+    font-size: 13px;
+  }
+
+  .content-section {
+    padding: 26px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 16px;
+  }
+
+  .section-heading h2 {
+    font-size: 18px;
+  }
+
+  .section-heading p {
+    display: none;
+  }
+
+  .movie-grid {
+    gap: 14px;
+  }
+
+  .movie-card {
+    flex: 0 0 155px;
+    min-width: 155px;
+  }
+
+  .movie-info h3 {
+    font-size: 14px;
+  }
+}
