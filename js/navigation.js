@@ -2,69 +2,108 @@
 // PAGE NAVIGATION
 // =========================================
 
+import { initializeCategoryPage } from "./category.js";
+
+// =========================================
+// CATEGORY PAGES
+// =========================================
+
+const categoryPages = [
+  "movies",
+  "stream",
+  "events",
+  "plays",
+  "sports",
+  "activities",
+];
+
+// =========================================
+// LOAD PAGE
+// =========================================
+
 async function loadPage(page) {
   const pageContent = document.getElementById("page-content");
 
   if (!pageContent) {
     console.error("Page content container not found.");
+
     return;
   }
 
   try {
-    // -----------------------------------------
+    // =======================================
     // SHOW LOADING
-    // -----------------------------------------
+    // =======================================
 
     pageContent.innerHTML = `
-            <div class="page-loading">
-                Loading...
-            </div>
-        `;
+      <div class="page-loading">
+        Loading...
+      </div>
+    `;
 
-    // -----------------------------------------
-    // LOAD COMPONENT
-    // -----------------------------------------
+    // =======================================
+    // DETERMINE PAGE FILE
+    // =======================================
 
-    const response = await fetch(`section-pages/${page}.html`);
+    let pageFile;
+
+    if (categoryPages.includes(page)) {
+      // Movies, Stream, Events, Plays,
+      // Sports and Activities all use
+      // the same category structure.
+
+      pageFile = "components/category.html";
+    } else {
+      // Other sections have their
+      // own HTML files.
+
+      pageFile = `section-pages/${page}.html`;
+    }
+
+    // =======================================
+    // LOAD HTML
+    // =======================================
+
+    const response = await fetch(pageFile);
 
     if (!response.ok) {
-      throw new Error(`Unable to load ${page}.html`);
+      throw new Error(`Unable to load ${pageFile}`);
     }
 
     const html = await response.text();
 
-    // -----------------------------------------
+    // =======================================
     // DISPLAY PAGE
-    // -----------------------------------------
+    // =======================================
 
     pageContent.innerHTML = html;
 
-    // -----------------------------------------
-    // UPDATE ACTIVE NAVBAR LINK
-    // -----------------------------------------
+    // =======================================
+    // UPDATE ACTIVE NAVIGATION
+    // =======================================
 
     updateActiveNavigation(page);
 
-    // -----------------------------------------
-    // PAGE-SPECIFIC INITIALIZATION
-    // -----------------------------------------
+    // =======================================
+    // INITIALIZE PAGE
+    // =======================================
 
     initializePage(page);
   } catch (error) {
     console.error("Page Loading Error:", error);
 
     pageContent.innerHTML = `
-            <section class="page-error">
+      <section class="page-error">
 
-                <h2>Something went wrong</h2>
+        <h2>Something went wrong</h2>
 
-                <p>
-                    Unable to load this section.
-                    Please try again.
-                </p>
+        <p>
+          Unable to load this section.
+          Please try again.
+        </p>
 
-            </section>
-        `;
+      </section>
+    `;
   }
 }
 
@@ -89,39 +128,21 @@ function updateActiveNavigation(page) {
 // =========================================
 
 function initializePage(page) {
+  // =======================================
+  // CATEGORY PAGES
+  // =======================================
+
+  if (categoryPages.includes(page)) {
+    initializeCategoryPage(page);
+
+    return;
+  }
+
+  // =======================================
+  // OTHER PAGES
+  // =======================================
+
   switch (page) {
-    case "movies":
-      console.log("Movies page initialized");
-
-      // movies.js will be connected here later
-
-      break;
-
-    case "stream":
-      console.log("Stream page initialized");
-
-      break;
-
-    case "events":
-      console.log("Events page initialized");
-
-      break;
-
-    case "plays":
-      console.log("Plays page initialized");
-
-      break;
-
-    case "sports":
-      console.log("Sports page initialized");
-
-      break;
-
-    case "activities":
-      console.log("Activities page initialized");
-
-      break;
-
     case "list-your-show":
       console.log("List Your Show page initialized");
 
@@ -141,6 +162,11 @@ function initializePage(page) {
       console.log("Gift Cards page initialized");
 
       break;
+
+    default:
+      console.warn(`Unknown page: ${page}`);
+
+      break;
   }
 }
 
@@ -151,6 +177,8 @@ function initializePage(page) {
 function initializeNavigation() {
   document.addEventListener("click", (event) => {
     const link = event.target.closest("[data-page]");
+
+    // Not a navigation link
 
     if (!link) {
       return;
@@ -164,24 +192,34 @@ function initializeNavigation() {
       return;
     }
 
-    // Update URL
+    // =====================================
+    // UPDATE URL
+    // =====================================
 
     window.location.hash = page;
   });
 }
 
 // =========================================
-// LOAD PAGE FROM URL
+// LOAD PAGE FROM URL HASH
 // =========================================
 
 function loadPageFromHash() {
   let page = window.location.hash.substring(1);
 
-  // Default page
+  // =======================================
+  // REDIRECT ROOT TO MOVIES
+  // =======================================
 
   if (!page) {
-    page = "movies";
+    window.location.hash = "movies";
+
+    return;
   }
+
+  // =======================================
+  // LOAD REQUESTED PAGE
+  // =======================================
 
   loadPage(page);
 }
@@ -195,13 +233,16 @@ function initializeHashNavigation() {
 }
 
 // =========================================
-// INITIALIZE
+// INITIALIZE PAGE NAVIGATION
 // =========================================
 
 function initializePageNavigation() {
   initializeNavigation();
 
   initializeHashNavigation();
+
+  // Load the initial page
+  loadPageFromHash();
 }
 
 // =========================================
