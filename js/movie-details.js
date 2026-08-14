@@ -679,9 +679,15 @@ function setupBookButtons(movie) {
                     );
 
 
-                    alert(
-                        "Theatre and showtime module will be connected next."
-                    );
+                    button.addEventListener(
+                "click",
+                () => {
+
+                  window.location.href =
+                 `theatre-showtime.html?id=${encodeURIComponent(movie.id)}`;
+
+                }
+            );
 
                 }
             );
