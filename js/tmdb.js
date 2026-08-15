@@ -2,7 +2,8 @@
 // TMDB CONFIGURATION
 // =========================================
 
-const TMDB_API_KEY = "5b051f32b9bfa08eca459e9ab122ca81";
+const TMDB_ACCESS_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YjA1MWYzMmI5YmZhMDhlY2E0NTllOWFiMTIyY2E4MSIsIm5iZiI6MTc4Njc5MDUwOC4yOTIsInN1YiI6IjZhODA0MjZjZGMwNjE3NWExMWIzMmYzOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSKn50ikKCJI5Ooqiu5ysCKJX8vX6tJBooRdYeYyEA4";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -19,17 +20,22 @@ async function getNowPlayingMovies(language = "en-US", region = "IN") {
   try {
     const url =
       `${TMDB_BASE_URL}/movie/now_playing` +
-      `?api_key=${TMDB_API_KEY}` +
-      `&language=${language}` +
+      `?language=${language}` +
       `&region=${region}` +
       `&page=1`;
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+
+      headers: {
+        accept: "application/json",
+
+        Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
+      },
+    });
 
     if (!response.ok) {
-      throw new Error(
-        `TMDB request failed: ${response.status} ${response.statusText}`
-      );
+      throw new Error(`TMDB request failed: ${response.status}`);
     }
 
     const data = await response.json();
@@ -71,7 +77,7 @@ function formatMovie(movie) {
       : "assets/images/no-poster.jpg",
 
     backdrop: movie.backdrop_path
-      ? `${TMDB_BACKDROP_URL}${movie.backdrop_path}`
+      ? `${TMDB_IMAGE_URL}${movie.backdrop_path}`
       : "",
 
     overview: movie.overview || "",
@@ -109,16 +115,21 @@ async function getMovieDetails(movieId) {
 
     const url =
       `${TMDB_BASE_URL}/movie/${movieId}` +
-      `?api_key=${TMDB_API_KEY}` +
-      `&language=en-US` +
+      `?language=en-US` +
       `&append_to_response=credits,videos`;
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+
+      headers: {
+        accept: "application/json",
+
+        Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
+      },
+    });
 
     if (!response.ok) {
-      throw new Error(
-        `TMDB movie details request failed: ${response.status} ${response.statusText}`
-      );
+      throw new Error(`TMDB movie details request failed: ${response.status}`);
     }
 
     const data = await response.json();
@@ -416,11 +427,4 @@ async function getFormattedMovieDetails(movieId) {
 // EXPORT
 // =========================================
 
-export {
-  getNowPlayingMovies,
-  getMovies,
-  formatMovie,
-  getMovieDetails,
-  formatMovieDetails,
-  getFormattedMovieDetails
-};
+export { getNowPlayingMovies, getMovies, formatMovie, getMovieDetails, formatMovieDetails };
