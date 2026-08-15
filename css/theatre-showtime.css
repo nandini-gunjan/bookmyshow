@@ -1,0 +1,905 @@
+/* =====================================================
+   BOOKITBRO - THEATRE / SHOWTIME
+===================================================== */
+
+
+.theatre-page,
+.theatre-page * {
+    box-sizing: border-box;
+}
+
+
+.theatre-page {
+
+    min-height: 100vh;
+
+    background: #f5f5f5;
+
+    color: #222;
+
+    font-family: "Roboto", sans-serif;
+
+    padding-bottom: 100px;
+}
+
+
+
+/* =========================================
+   COMMON CONTAINER
+========================================= */
+
+.page-container {
+
+    width: min(1150px, 100%);
+
+    margin: auto;
+
+    padding-left: 20px;
+
+    padding-right: 20px;
+}
+
+
+
+/* =========================================
+   MOVIE SUMMARY
+========================================= */
+
+.movie-summary {
+
+    background: white;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.movie-summary-container {
+
+    width: min(1150px, 100%);
+
+    margin: auto;
+
+    padding: 25px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+
+.show-movie-poster {
+
+    width: 80px;
+
+    height: 110px;
+
+    object-fit: cover;
+
+    border-radius: 6px;
+
+    background: #ddd;
+}
+
+
+.show-movie-info {
+
+    min-width: 0;
+}
+
+
+.show-movie-info h1 {
+
+    margin: 0 0 9px;
+
+    font-size: 25px;
+
+    font-weight: 600;
+
+    color: #222;
+}
+
+
+.show-movie-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+.show-movie-info p {
+
+    margin: 0;
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+
+/* =========================================
+   DATE SECTION
+========================================= */
+
+.date-section {
+
+    background: white;
+
+    border-bottom: 1px solid #e5e5e5;
+
+    padding: 20px 0;
+}
+
+
+.section-title h2 {
+
+    margin: 0 0 15px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+.date-list {
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+}
+
+
+.date-list::-webkit-scrollbar {
+
+    height: 4px;
+}
+
+
+.date-card {
+
+    min-width: 75px;
+
+    padding: 11px 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    background: white;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    transition: .2s ease;
+}
+
+
+.date-card:hover {
+
+    border-color: #e51937;
+}
+
+
+.date-card.active {
+
+    border-color: #e51937;
+
+    background: #e51937;
+
+    color: white;
+}
+
+
+.date-day {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+}
+
+
+.date-number {
+
+    display: block;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+
+.date-month {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+}
+
+
+
+/* =========================================
+   FILTER
+========================================= */
+
+.filter-section {
+
+    padding: 15px 0;
+
+    background: #f5f5f5;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.filter-bar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.filter-left {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+
+.filter-label {
+
+    margin-right: 5px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.filter-button {
+
+    padding: 8px 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 20px;
+
+    background: white;
+
+    color: #555;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.filter-button:hover {
+
+    border-color: #e51937;
+
+    color: #e51937;
+}
+
+
+.filter-button.active {
+
+    border-color: #e51937;
+
+    background: #e51937;
+
+    color: white;
+}
+
+
+
+/* =========================================
+   THEATRE LIST
+========================================= */
+
+.theatre-list-section {
+
+    padding: 25px 0;
+}
+
+
+.theatre-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+
+.theatre-heading h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+#theatreCount {
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+.theatre-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+
+/* =========================================
+   THEATRE CARD
+========================================= */
+
+.theatre-card {
+
+    padding: 22px;
+
+    background: white;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 8px;
+
+    transition:
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+
+.theatre-card:hover {
+
+    border-color: #ddd;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.06);
+}
+
+
+.theatre-card.hidden {
+
+    display: none;
+}
+
+
+.theatre-main {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.theatre-info {
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.theatre-name {
+
+    margin: 0 0 7px;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: #222;
+}
+
+
+.theatre-location {
+
+    margin-bottom: 8px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+.theatre-features {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+
+.theatre-feature {
+
+    padding: 4px 7px;
+
+    border-radius: 3px;
+
+    background: #f1f1f1;
+
+    color: #777;
+
+    font-size: 10px;
+}
+
+
+.theatre-type {
+
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    padding: 4px 7px;
+
+    border-radius: 3px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.theatre-type.premium {
+
+    background: #fff1d6;
+
+    color: #9a6400;
+}
+
+
+.theatre-type.standard {
+
+    background: #edf7ee;
+
+    color: #367b3d;
+}
+
+
+
+/* =========================================
+   SHOWTIMES
+========================================= */
+
+.showtime-area {
+
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eee;
+}
+
+
+.showtime-heading {
+
+    margin-bottom: 12px;
+
+    color: #666;
+
+    font-size: 12px;
+}
+
+
+.showtime-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.showtime-button {
+
+    min-width: 90px;
+
+    padding: 10px 14px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 5px;
+
+    background: white;
+
+    color: #333;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+    position: relative;
+}
+
+
+.showtime-button:hover {
+
+    border-color: #e51937;
+
+    color: #e51937;
+}
+
+
+.showtime-button.selected {
+
+    border-color: #e51937;
+
+    background: #e51937;
+
+    color: white;
+}
+
+
+.showtime-price {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #888;
+
+    font-size: 10px;
+}
+
+
+.showtime-button.selected .showtime-price {
+
+    color: #ffd9df;
+}
+
+
+.showtime-available {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #4b9b55;
+
+    font-size: 9px;
+}
+
+
+.showtime-button.selected .showtime-available {
+
+    color: #ffe7eb;
+}
+
+
+
+/* =========================================
+   BOTTOM BAR
+========================================= */
+
+.booking-bottom-bar {
+
+    position: fixed;
+
+    z-index: 100;
+
+    right: 0;
+
+    bottom: 0;
+
+    left: 0;
+
+    padding: 12px 20px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    box-shadow:
+        0 -4px 15px rgba(0,0,0,.08);
+}
+
+
+.booking-bottom-content {
+
+    width: min(1150px, 100%);
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.selected-theatre-name {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #222;
+}
+
+
+.selected-time {
+
+    margin-top: 4px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+.continue-button {
+
+    min-width: 180px;
+
+    padding: 13px 25px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #e51937;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.continue-button:disabled {
+
+    background: #ddd;
+
+    color: #999;
+
+    cursor: not-allowed;
+}
+
+
+.continue-button:not(:disabled):hover {
+
+    background: #c91430;
+}
+
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.no-theatres {
+
+    padding: 50px 20px;
+
+    border-radius: 8px;
+
+    background: white;
+
+    text-align: center;
+
+    color: #888;
+}
+
+
+.no-theatres h3 {
+
+    margin: 0 0 8px;
+
+    color: #444;
+
+    font-size: 18px;
+}
+
+
+.no-theatres p {
+
+    margin: 0;
+
+    font-size: 13px;
+}
+
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.theatre-loading {
+
+    min-height: 600px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f5f5f5;
+
+    color: #888;
+}
+
+
+.loading-spinner {
+
+    width: 40px;
+
+    height: 40px;
+
+    margin-bottom: 15px;
+
+    border: 4px solid #ddd;
+
+    border-top-color: #e51937;
+
+    border-radius: 50%;
+
+    animation: loadingSpin .8s linear infinite;
+}
+
+
+@keyframes loadingSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .movie-summary-container {
+
+        align-items: flex-start;
+    }
+
+
+    .show-movie-poster {
+
+        width: 65px;
+
+        height: 90px;
+    }
+
+
+    .show-movie-info h1 {
+
+        font-size: 20px;
+    }
+
+
+    .theatre-main {
+
+        flex-direction: column;
+    }
+
+
+    .booking-bottom-content {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .continue-button {
+
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .page-container {
+
+        padding-left: 14px;
+
+        padding-right: 14px;
+    }
+
+
+    .movie-summary-container {
+
+        padding: 18px 14px;
+    }
+
+
+    .show-movie-meta {
+
+        font-size: 11px;
+    }
+
+
+    .theatre-card {
+
+        padding: 16px;
+    }
+
+
+    .showtime-button {
+
+        min-width: 80px;
+
+        padding: 9px 10px;
+    }
+
+}
