@@ -2,6 +2,8 @@
    BOOKITBRO - MOVIE DETAILS
 ===================================================== */
 
+import { getMovieDetails, formatMovieDetails } from "./tmdb.js";
+
 /* =========================================
    DEMO DATA
 =========================================
@@ -97,38 +99,26 @@ function getMovieId() {
   return params.get("id");
 }
 
-/* =========================================
-   GET MOVIE
-========================================= */
+// =========================================
+// GET MOVIE
+// =========================================
 
 async function getMovie(movieId) {
-  console.log("Movie ID:", movieId);
+  if (!movieId) {
+    console.error("Movie ID is missing.");
 
-  /*
-     ==================================================
-     TEMPORARY
-     ==================================================
+    return null;
+  }
 
-     We return demo data now.
+  console.log("Fetching movie from TMDB:", movieId);
 
-     Later this becomes:
+  const movieData = await getMovieDetails(movieId);
 
-     const response = await fetch(
-         `YOUR_API_URL/${movieId}`
-     );
+  if (!movieData) {
+    return null;
+  }
 
-     const data = await response.json();
-
-     return data;
-
-     ==================================================
-    */
-
-  return {
-    ...demoMovie,
-
-    id: movieId || demoMovie.id,
-  };
+  return formatMovieDetails(movieData);
 }
 
 /* =========================================

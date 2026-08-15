@@ -273,35 +273,49 @@ function renderCategoryItems(items) {
     card.className = "content-card";
 
     card.innerHTML = `
+    
+    <div class="card-image">
 
-      <div class="card-image">
+      <img
+        src="${item.image}"
+        alt="${item.title}"
+        loading="lazy"
+      />
 
-        <img
-          src="${item.image}"
-          alt="${item.title}"
-          loading="lazy"
-        />
-
-        <div class="card-rating">
-          ⭐ ${item.rating}
-        </div>
-
+      <div class="card-rating">
+        ⭐ ${item.rating}
       </div>
 
+    </div>
 
-      <div class="card-details">
 
-        <h3 class="card-title">
-          ${item.title}
-        </h3>
+    <div class="card-details">
 
-        <p class="card-meta">
-          ${item.genre}
-        </p>
+      <h3 class="card-title">
+        ${item.title}
+      </h3>
 
-      </div>
+      <p class="card-meta">
+        ${item.genre || item.language || ""}
+      </p>
 
-    `;
+    </div>
+
+  `;
+
+    // =========================================
+    // OPEN MOVIE DETAILS
+    // =========================================
+
+    card.addEventListener("click", () => {
+      if (!item.id) {
+        console.error("Movie ID is missing:", item);
+
+        return;
+      }
+
+      window.location.href = `movie-details.html?id=${encodeURIComponent(item.id)}`;
+    });
 
     grid.appendChild(card);
   });

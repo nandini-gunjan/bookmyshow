@@ -19,15 +19,15 @@ It is a clone of BookMyShow website with some additional features and improvemen
 
 - Global
   - Header - Done
-  - Sidebar
+  - Sidebar - Done
   - Footer
   - Filter
 - Home
   - Movies (active tab)
-    - Latest release carousel
+    - Latest release carousel - Done
     - Side Filter Menu
     - Language tags
-    - Movie list
+    - Movie list - Done
   - Streams
     - Latest release carousel
     - Streaming Categories horizontal list like
@@ -55,9 +55,9 @@ It is a clone of BookMyShow website with some additional features and improvemen
 - [x] Header
 - [x] Sign in Frontend
 - [x] Sign in Backend
-- [ ] Sidebar Menu (Work in progress - Gunjan)
+- [x] Sidebar Menu
 - [ ] Search - Trending searches
-- [ ] Movies section (Work in progress - Nandini)
+- [x] Movies section
 - [ ] Stream section
 - [ ] Events section
 - [ ] Plays section
