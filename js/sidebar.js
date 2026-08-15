@@ -3,459 +3,235 @@
 ========================================= */
 
 (function () {
+  const SIDEBAR_HTML = "components/sidebar.html";
 
-    const SIDEBAR_HTML =
-        "components/sidebar.html";
+  const SIDEBAR_CSS = "css/sidebar.css";
 
-    const SIDEBAR_CSS =
-        "css/sidebar.css";
-
-
-    /* =========================================
+  /* =========================================
        LOAD CSS
     ========================================= */
 
-    function loadSidebarCSS() {
-
-        if (
-            document.querySelector(
-                'link[data-bookitbro-sidebar]'
-            )
-        ) {
-
-            return;
-        }
-
-
-        const link =
-            document.createElement("link");
-
-
-        link.rel = "stylesheet";
-
-        link.href = SIDEBAR_CSS;
-
-        link.dataset.bookitbroSidebar = "true";
-
-
-        document.head.appendChild(link);
-
+  function loadSidebarCSS() {
+    if (document.querySelector("link[data-bookitbro-sidebar]")) {
+      return;
     }
 
+    const link = document.createElement("link");
 
+    link.rel = "stylesheet";
 
-    /* =========================================
+    link.href = SIDEBAR_CSS;
+
+    link.dataset.bookitbroSidebar = "true";
+
+    document.head.appendChild(link);
+  }
+
+  /* =========================================
        LOAD SIDEBAR HTML
     ========================================= */
 
-    async function loadSidebar() {
+  async function loadSidebar() {
+    loadSidebarCSS();
 
-        loadSidebarCSS();
+    try {
+      const response = await fetch(SIDEBAR_HTML);
 
+      if (!response.ok) {
+        throw new Error("Sidebar HTML could not be loaded.");
+      }
 
-        try {
+      const html = await response.text();
 
-            const response =
-                await fetch(SIDEBAR_HTML);
+      const container = document.createElement("div");
 
+      container.id = "bookitbro-sidebar-root";
 
-            if (!response.ok) {
+      container.innerHTML = html;
 
-                throw new Error(
-                    "Sidebar HTML could not be loaded."
-                );
+      document.body.appendChild(container);
 
-            }
-
-
-            const html =
-                await response.text();
-
-
-            const container =
-                document.createElement("div");
-
-
-            container.id =
-                "bookitbro-sidebar-root";
-
-
-            container.innerHTML =
-                html;
-
-
-            document.body.appendChild(
-                container
-            );
-
-
-            initializeSidebar();
-
-
-        } catch (error) {
-
-            console.error(
-                "BookItBro Sidebar Error:",
-                error
-            );
-
-        }
-
+      initializeSidebar();
+    } catch (error) {
+      console.error("BookItBro Sidebar Error:", error);
     }
+  }
 
-
-
-    /* =========================================
+  /* =========================================
        INITIALIZE
     ========================================= */
 
-    function initializeSidebar() {
+  function initializeSidebar() {
+    const sidebar = document.getElementById("bmsSidebar");
 
-        const sidebar =
-            document.getElementById(
-                "bmsSidebar"
-            );
+    const overlay = document.getElementById("bmsSidebarOverlay");
 
+    const closeButton = document.getElementById("bmsSidebarClose");
 
-        const overlay =
-            document.getElementById(
-                "bmsSidebarOverlay"
-            );
+    const accountButton = document.getElementById("bmsSidebarAccount");
 
+    if (!sidebar || !overlay || !closeButton) {
+      console.error("Sidebar elements missing.");
 
-        const closeButton =
-            document.getElementById(
-                "bmsSidebarClose"
-            );
+      return;
+    }
 
-
-        const accountButton =
-            document.getElementById(
-                "bmsSidebarAccount"
-            );
-
-
-        if (
-            !sidebar ||
-            !overlay ||
-            !closeButton
-        ) {
-
-            console.error(
-                "Sidebar elements missing."
-            );
-
-            return;
-
-        }
-
-
-
-        /* =========================================
+    /* =========================================
            OPEN
         ========================================= */
 
-        function openSidebar() {
+    function openSidebar() {
+      sidebar.classList.add("is-open");
 
-            sidebar.classList.add(
-                "is-open"
-            );
+      overlay.classList.add("is-open");
 
+      sidebar.setAttribute("aria-hidden", "false");
 
-            overlay.classList.add(
-                "is-open"
-            );
+      document.body.classList.add("bms-sidebar-lock");
+    }
 
-
-            sidebar.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-
-            document.body.classList.add(
-                "bms-sidebar-lock"
-            );
-
-        }
-
-
-
-        /* =========================================
+    /* =========================================
            CLOSE
         ========================================= */
 
-        function closeSidebar() {
+    function closeSidebar() {
+      sidebar.classList.remove("is-open");
 
-            sidebar.classList.remove(
-                "is-open"
-            );
+      overlay.classList.remove("is-open");
 
+      sidebar.setAttribute("aria-hidden", "true");
 
-            overlay.classList.remove(
-                "is-open"
-            );
+      document.body.classList.remove("bms-sidebar-lock");
+    }
 
-
-            sidebar.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-
-            document.body.classList.remove(
-                "bms-sidebar-lock"
-            );
-
-        }
-
-
-
-        /* =========================================
+    /* =========================================
            FIND EXISTING MENU BUTTON
         ========================================= */
 
-        function connectMenuButton() {
+    function connectMenuButton() {
+      const menuButton = document.querySelector(".menu-btn");
 
-            const menuButton =
-                document.querySelector(
-                    ".menu-btn"
-                );
+      if (!menuButton) {
+        return false;
+      }
 
+      if (menuButton.dataset.sidebarConnected === "true") {
+        return true;
+      }
 
-            if (!menuButton) {
+      menuButton.dataset.sidebarConnected = "true";
 
-                return false;
+      menuButton.addEventListener("click", openSidebar);
 
-            }
+      return true;
+    }
 
-
-            if (
-                menuButton.dataset
-                    .sidebarConnected === "true"
-            ) {
-
-                return true;
-
-            }
-
-
-            menuButton.dataset
-                .sidebarConnected = "true";
-
-
-            menuButton.addEventListener(
-                "click",
-                openSidebar
-            );
-
-
-            return true;
-
-        }
-
-
-
-        /* =========================================
+    /* =========================================
            CONNECT BUTTON
         ========================================= */
 
-        if (!connectMenuButton()) {
-
-            const observer =
-                new MutationObserver(
-                    function () {
-
-                        if (
-                            connectMenuButton()
-                        ) {
-
-                            observer.disconnect();
-
-                        }
-
-                    }
-                );
-
-
-            observer.observe(
-                document.body,
-                {
-                    childList: true,
-                    subtree: true
-                }
-            );
-
+    if (!connectMenuButton()) {
+      const observer = new MutationObserver(function () {
+        if (connectMenuButton()) {
+          observer.disconnect();
         }
+      });
 
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    }
 
-
-        /* =========================================
+    /* =========================================
            CLOSE BUTTON
         ========================================= */
 
-        closeButton.addEventListener(
-            "click",
-            closeSidebar
-        );
+    closeButton.addEventListener("click", closeSidebar);
 
-
-
-        /* =========================================
+    /* =========================================
            OVERLAY CLICK
         ========================================= */
 
-        overlay.addEventListener(
-            "click",
-            closeSidebar
-        );
+    overlay.addEventListener("click", closeSidebar);
 
-
-
-        /* =========================================
+    /* =========================================
            ESC KEY
         ========================================= */
 
-        document.addEventListener(
-            "keydown",
-            function (event) {
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && sidebar.classList.contains("is-open")) {
+        closeSidebar();
+      }
+    });
 
-                if (
-                    event.key === "Escape" &&
-                    sidebar.classList.contains(
-                        "is-open"
-                    )
-                ) {
-
-                    closeSidebar();
-
-                }
-
-            }
-        );
-
-
-
-        /* =========================================
+    /* =========================================
            ACCOUNT
         ========================================= */
 
-        if (accountButton) {
+    if (accountButton) {
+      accountButton.addEventListener("click", function () {
+        closeSidebar();
 
-            accountButton.addEventListener(
-                "click",
-                function () {
+        /*
+         * Connect this to your existing
+         * sign-in button.
+         */
 
-                    closeSidebar();
+        const signInButton = document.querySelector(".sign-in-btn");
 
-
-                    /*
-                     * Connect this to your existing
-                     * sign-in button.
-                     */
-
-                    const signInButton =
-                        document.querySelector(
-                            ".sign-in-btn"
-                        );
-
-
-                    if (signInButton) {
-
-                        signInButton.click();
-
-                    }
-
-                }
-            );
-
+        if (signInButton) {
+          signInButton.click();
         }
+      });
+    }
 
-
-
-        /* =========================================
+    /* =========================================
            SIDEBAR ITEMS
         ========================================= */
 
-        const items =
-            document.querySelectorAll(
-                ".bms-sidebar-item"
-            );
+    const items = document.querySelectorAll(".bms-sidebar-item");
 
+    items.forEach(function (item) {
+      item.addEventListener("click", function () {
+        const action = item.dataset.action;
 
-        items.forEach(
-            function (item) {
+        closeSidebar();
 
-                item.addEventListener(
-                    "click",
-                    function () {
+        /*
+         * For now we log the action.
+         *
+         * Later we will connect:
+         *
+         * movies    → Movies page
+         * events    → Events page
+         * plays     → Plays page
+         * sports    → Sports page
+         * activities → Activities page
+         * orders    → My Orders
+         * offers    → Offers
+         */
 
-                        const action =
-                            item.dataset.action;
+        console.log("Sidebar:", action);
 
-
-                        closeSidebar();
-
-
-                        /*
-                         * For now we log the action.
-                         *
-                         * Later we will connect:
-                         *
-                         * movies    → Movies page
-                         * events    → Events page
-                         * plays     → Plays page
-                         * sports    → Sports page
-                         * activities → Activities page
-                         * orders    → My Orders
-                         * offers    → Offers
-                         */
-
-                        console.log(
-                            "Sidebar:",
-                            action
-                        );
-
-
-                        document.dispatchEvent(
-                            new CustomEvent(
-                                "bookitbro:sidebar-action",
-                                {
-                                    detail: {
-                                        action: action
-                                    }
-                                }
-                            )
-                        );
-
-                    }
-                );
-
-            }
+        document.dispatchEvent(
+          new CustomEvent("bookitbro:sidebar-action", {
+            detail: {
+              action: action,
+            },
+          }),
         );
+      });
+    });
+  }
 
-    }
-
-
-
-    /* =========================================
+  /* =========================================
        START
     ========================================= */
 
-    if (
-        document.readyState ===
-        "loading"
-    ) {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            loadSidebar
-        );
-
-    } else {
-
-        loadSidebar();
-
-    }
-
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadSidebar);
+  } else {
+    loadSidebar();
+  }
 })();

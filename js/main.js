@@ -7,12 +7,15 @@ import {
   signOutUser,
 } from "./auth.js";
 
+import { initializePageNavigation } from "./navigation.js";
+
 // =========================================
 // LOAD NAVBAR
 // =========================================
 
 document.addEventListener("DOMContentLoaded", () => {
   loadNavbar();
+  initializePageNavigation();
 });
 
 async function loadNavbar() {
