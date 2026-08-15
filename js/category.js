@@ -2,15 +2,13 @@
 // CATEGORY PAGE
 // =========================================
 
+import { getMovies } from "./tmdb.js";
+
 // =========================================
-// CATEGORY CONFIGURATION
+// CATEGORY DATA
 // =========================================
 
 const categoryData = {
-  // =======================================
-  // MOVIES
-  // =======================================
-
   movies: {
     title: "Recommended Movies",
 
@@ -22,52 +20,8 @@ const categoryData = {
 
     languages: ["All", "Hindi", "English", "Marathi", "Tamil", "Telugu"],
 
-    items: [
-      {
-        title: "Saiyaara",
-        language: "Hindi",
-        rating: "8.2",
-        genre: "Romance, Drama",
-        image: "https://image.tmdb.org/t/p/w500/saiyaara.jpg",
-      },
-
-      {
-        title: "Mission Impossible",
-        language: "English",
-        rating: "8.1",
-        genre: "Action, Thriller",
-        image: "https://image.tmdb.org/t/p/w500/mission.jpg",
-      },
-
-      {
-        title: "Thudarum",
-        language: "Malayalam",
-        rating: "8.0",
-        genre: "Drama, Thriller",
-        image: "https://image.tmdb.org/t/p/w500/thudarum.jpg",
-      },
-
-      {
-        title: "Housefull 5",
-        language: "Hindi",
-        rating: "7.4",
-        genre: "Comedy",
-        image: "https://image.tmdb.org/t/p/w500/housefull.jpg",
-      },
-
-      {
-        title: "Marathi Movie",
-        language: "Marathi",
-        rating: "8.0",
-        genre: "Drama",
-        image: "https://image.tmdb.org/t/p/w500/marathi.jpg",
-      },
-    ],
+    items: [],
   },
-
-  // =======================================
-  // STREAM
-  // =======================================
 
   stream: {
     title: "Stream",
@@ -80,36 +34,8 @@ const categoryData = {
 
     languages: ["All", "Hindi", "English", "Tamil", "Telugu"],
 
-    items: [
-      {
-        title: "The Last of Us",
-        language: "English",
-        rating: "8.7",
-        genre: "Drama, Thriller",
-        image: "https://image.tmdb.org/t/p/w500/stream1.jpg",
-      },
-
-      {
-        title: "Special Ops",
-        language: "Hindi",
-        rating: "8.2",
-        genre: "Action, Thriller",
-        image: "https://image.tmdb.org/t/p/w500/stream2.jpg",
-      },
-
-      {
-        title: "The Family Man",
-        language: "Hindi",
-        rating: "8.4",
-        genre: "Drama, Action",
-        image: "https://image.tmdb.org/t/p/w500/stream3.jpg",
-      },
-    ],
+    items: [],
   },
-
-  // =======================================
-  // EVENTS
-  // =======================================
 
   events: {
     title: "Events",
@@ -122,36 +48,8 @@ const categoryData = {
 
     languages: ["All", "Hindi", "English", "Marathi"],
 
-    items: [
-      {
-        title: "Live Music Concert",
-        language: "English",
-        rating: "4.7",
-        genre: "Music",
-        image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a",
-      },
-
-      {
-        title: "Comedy Night",
-        language: "Hindi",
-        rating: "4.6",
-        genre: "Comedy",
-        image: "https://images.unsplash.com/photo-1527224857830-43a7acc85260",
-      },
-
-      {
-        title: "Music Festival",
-        language: "English",
-        rating: "4.8",
-        genre: "Festival",
-        image: "https://images.unsplash.com/photo-1506157786151-b8491531f063",
-      },
-    ],
+    items: [],
   },
-
-  // =======================================
-  // PLAYS
-  // =======================================
 
   plays: {
     title: "Plays",
@@ -164,28 +62,8 @@ const categoryData = {
 
     languages: ["All", "Hindi", "English", "Marathi"],
 
-    items: [
-      {
-        title: "And Then There Were None",
-        language: "English",
-        rating: "4.8",
-        genre: "Drama",
-        image: "https://images.unsplash.com/photo-1503095396549-807759245b35",
-      },
-
-      {
-        title: "Marathi Natak",
-        language: "Marathi",
-        rating: "4.7",
-        genre: "Drama",
-        image: "https://images.unsplash.com/photo-1514306191717-452ec28c7814",
-      },
-    ],
+    items: [],
   },
-
-  // =======================================
-  // SPORTS
-  // =======================================
 
   sports: {
     title: "Sports",
@@ -198,36 +76,8 @@ const categoryData = {
 
     languages: ["All", "Cricket", "Football", "Tennis"],
 
-    items: [
-      {
-        title: "Cricket Match",
-        language: "Cricket",
-        rating: "4.9",
-        genre: "Cricket",
-        image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da",
-      },
-
-      {
-        title: "Football Championship",
-        language: "Football",
-        rating: "4.8",
-        genre: "Football",
-        image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
-      },
-
-      {
-        title: "Tennis Championship",
-        language: "Tennis",
-        rating: "4.7",
-        genre: "Tennis",
-        image: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8",
-      },
-    ],
+    items: [],
   },
-
-  // =======================================
-  // ACTIVITIES
-  // =======================================
 
   activities: {
     title: "Activities",
@@ -240,23 +90,7 @@ const categoryData = {
 
     languages: ["All", "Family", "Adventure", "Kids"],
 
-    items: [
-      {
-        title: "Adventure Park",
-        language: "Adventure",
-        rating: "4.8",
-        genre: "Adventure",
-        image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0",
-      },
-
-      {
-        title: "Kids Activity Zone",
-        language: "Kids",
-        rating: "4.6",
-        genre: "Kids",
-        image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368",
-      },
-    ],
+    items: [],
   },
 };
 
@@ -272,7 +106,7 @@ let currentItems = [];
 // INITIALIZE CATEGORY PAGE
 // =========================================
 
-function initializeCategoryPage(category = "movies") {
+async function initializeCategoryPage(category = "movies") {
   console.log("Initializing category:", category);
 
   currentCategory = category;
@@ -285,35 +119,51 @@ function initializeCategoryPage(category = "movies") {
     return;
   }
 
-  currentItems = data.items;
+  // =======================================
+  // MOVIES
+  // =======================================
 
-  // ---------------------------------------
+  if (category === "movies") {
+    showCategoryLoading();
+
+    const movies = await getMovies();
+
+    currentItems = movies;
+  } else {
+    // =====================================
+    // OTHER CATEGORIES
+    // =====================================
+
+    currentItems = data.items || [];
+  }
+
+  // =======================================
   // UPDATE TEXT
-  // ---------------------------------------
+  // =======================================
 
   updateCategoryText(data);
 
-  // ---------------------------------------
+  // =======================================
   // UPDATE LANGUAGES
-  // ---------------------------------------
+  // =======================================
 
   updateLanguageFilters(data.languages);
 
-  // ---------------------------------------
+  // =======================================
   // RENDER ITEMS
-  // ---------------------------------------
+  // =======================================
 
   renderCategoryItems(currentItems);
 
-  // ---------------------------------------
+  // =======================================
   // INITIALIZE FILTERS
-  // ---------------------------------------
+  // =======================================
 
   initializeLanguageFilters();
 
-  // ---------------------------------------
+  // =======================================
   // INITIALIZE CAROUSEL
-  // ---------------------------------------
+  // =======================================
 
   initializeCarousel();
 }
@@ -585,6 +435,34 @@ function initializeCarousel() {
       showSlide(currentSlide);
     });
   });
+}
+
+// =========================================
+// CATEGORY LOADING
+// =========================================
+
+function showCategoryLoading() {
+  const grid = document.getElementById("categoryGrid");
+
+  if (!grid) {
+    return;
+  }
+
+  grid.style.display = "grid";
+
+  grid.innerHTML = `
+
+    <div class="category-loading">
+
+      <div class="loading-spinner"></div>
+
+      <p>
+        Loading movies...
+      </p>
+
+    </div>
+
+  `;
 }
 
 // =========================================
