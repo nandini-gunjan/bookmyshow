@@ -107,6 +107,8 @@ let currentItems = [];
 // =========================================
 
 async function initializeCategoryPage(category = "movies") {
+  console.log("Initializing category:", category);
+
   currentCategory = category;
 
   const data = categoryData[category];
