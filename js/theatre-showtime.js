@@ -2,32 +2,25 @@
    BOOKITBRO - THEATRE / SHOWTIME
 ===================================================== */
 
-
 /* =========================================
    MOVIE DATA
 ========================================= */
 
 const movieData = {
+  id: "demo-001",
 
-    id: "demo-001",
+  title: "Kalki 2898 AD",
 
-    title: "Kalki 2898 AD",
+  poster: "https://via.placeholder.com/300x450?text=Movie+Poster",
 
-    poster:
-        "https://via.placeholder.com/300x450?text=Movie+Poster",
+  language: "Hindi",
 
-    language: "Hindi",
+  genre: "Action, Sci-Fi",
 
-    genre: "Action, Sci-Fi",
+  duration: "3h 1m",
 
-    duration: "3h 1m",
-
-    description:
-        "Select a theatre and showtime to book your movie tickets."
-
+  description: "Select a theatre and showtime to book your movie tickets.",
 };
-
-
 
 /* =========================================
    THEATRE DATA
@@ -41,259 +34,222 @@ const movieData = {
 ========================================= */
 
 const theatres = [
+  {
+    id: "th001",
 
-    {
+    name: "PVR INOX",
 
-        id: "th001",
+    location: "Phoenix Mall, Pune",
 
-        name: "PVR INOX",
+    type: "premium",
 
-        location: "Phoenix Mall, Pune",
+    features: ["IMAX", "Dolby Atmos", "Recliner"],
 
-        type: "premium",
+    shows: [
+      {
+        id: "show001",
 
-        features: [
-            "IMAX",
-            "Dolby Atmos",
-            "Recliner"
-        ],
+        time: "10:30 AM",
 
-        shows: [
+        price: 250,
 
-            {
-                id: "show001",
+        available: "Available",
+      },
 
-                time: "10:30 AM",
+      {
+        id: "show002",
 
-                price: 250,
+        time: "1:45 PM",
 
-                available: "Available"
-            },
+        price: 280,
 
-            {
-                id: "show002",
+        available: "Available",
+      },
 
-                time: "1:45 PM",
+      {
+        id: "show003",
 
-                price: 280,
+        time: "5:15 PM",
 
-                available: "Available"
-            },
+        price: 300,
 
-            {
-                id: "show003",
+        available: "Fast Filling",
+      },
 
-                time: "5:15 PM",
+      {
+        id: "show004",
 
-                price: 300,
+        time: "8:30 PM",
 
-                available: "Fast Filling"
-            },
+        price: 320,
 
-            {
-                id: "show004",
+        available: "Available",
+      },
+    ],
+  },
 
-                time: "8:30 PM",
+  {
+    id: "th002",
 
-                price: 320,
+    name: "Cinepolis",
 
-                available: "Available"
-            }
+    location: "Seasons Mall, Pune",
 
-        ]
+    type: "premium",
 
-    },
+    features: ["Dolby Atmos", "Recliner", "Premium Seats"],
 
+    shows: [
+      {
+        id: "show005",
 
-    {
+        time: "11:00 AM",
 
-        id: "th002",
+        price: 220,
 
-        name: "Cinepolis",
+        available: "Available",
+      },
 
-        location: "Seasons Mall, Pune",
+      {
+        id: "show006",
 
-        type: "premium",
+        time: "2:30 PM",
 
-        features: [
-            "Dolby Atmos",
-            "Recliner",
-            "Premium Seats"
-        ],
+        price: 250,
 
-        shows: [
+        available: "Available",
+      },
 
-            {
-                id: "show005",
+      {
+        id: "show007",
 
-                time: "11:00 AM",
+        time: "6:00 PM",
 
-                price: 220,
+        price: 290,
 
-                available: "Available"
-            },
+        available: "Fast Filling",
+      },
 
-            {
-                id: "show006",
+      {
+        id: "show008",
 
-                time: "2:30 PM",
+        time: "9:15 PM",
 
-                price: 250,
+        price: 310,
 
-                available: "Available"
-            },
+        available: "Available",
+      },
+    ],
+  },
 
-            {
-                id: "show007",
+  {
+    id: "th003",
 
-                time: "6:00 PM",
+    name: "City Pride",
 
-                price: 290,
+    location: "Kothrud, Pune",
 
-                available: "Fast Filling"
-            },
+    type: "standard",
 
-            {
-                id: "show008",
+    features: ["Parking", "Food & Beverages"],
 
-                time: "9:15 PM",
+    shows: [
+      {
+        id: "show009",
 
-                price: 310,
+        time: "10:00 AM",
 
-                available: "Available"
-            }
+        price: 160,
 
-        ]
+        available: "Available",
+      },
 
-    },
+      {
+        id: "show010",
 
+        time: "1:00 PM",
 
-    {
+        price: 180,
 
-        id: "th003",
+        available: "Available",
+      },
 
-        name: "City Pride",
+      {
+        id: "show011",
 
-        location: "Kothrud, Pune",
+        time: "4:15 PM",
 
-        type: "standard",
+        price: 190,
 
-        features: [
-            "Parking",
-            "Food & Beverages"
-        ],
+        available: "Available",
+      },
 
-        shows: [
+      {
+        id: "show012",
 
-            {
-                id: "show009",
+        time: "7:30 PM",
 
-                time: "10:00 AM",
+        price: 210,
 
-                price: 160,
+        available: "Fast Filling",
+      },
+    ],
+  },
 
-                available: "Available"
-            },
+  {
+    id: "th004",
 
-            {
-                id: "show010",
+    name: "INOX",
 
-                time: "1:00 PM",
+    location: "Amanora Mall, Pune",
 
-                price: 180,
+    type: "standard",
 
-                available: "Available"
-            },
+    features: ["Parking", "Food Court"],
 
-            {
-                id: "show011",
+    shows: [
+      {
+        id: "show013",
 
-                time: "4:15 PM",
+        time: "11:30 AM",
 
-                price: 190,
+        price: 180,
 
-                available: "Available"
-            },
+        available: "Available",
+      },
 
-            {
-                id: "show012",
+      {
+        id: "show014",
 
-                time: "7:30 PM",
+        time: "3:00 PM",
 
-                price: 210,
+        price: 200,
 
-                available: "Fast Filling"
-            }
+        available: "Available",
+      },
 
-        ]
+      {
+        id: "show015",
 
-    },
+        time: "6:30 PM",
 
+        price: 220,
 
-    {
+        available: "Available",
+      },
 
-        id: "th004",
+      {
+        id: "show016",
 
-        name: "INOX",
+        time: "9:45 PM",
 
-        location: "Amanora Mall, Pune",
+        price: 240,
 
-        type: "standard",
-
-        features: [
-            "Parking",
-            "Food Court"
-        ],
-
-        shows: [
-
-            {
-                id: "show013",
-
-                time: "11:30 AM",
-
-                price: 180,
-
-                available: "Available"
-            },
-
-            {
-                id: "show014",
-
-                time: "3:00 PM",
-
-                price: 200,
-
-                available: "Available"
-            },
-
-            {
-                id: "show015",
-
-                time: "6:30 PM",
-
-                price: 220,
-
-                available: "Available"
-            },
-
-            {
-                id: "show016",
-
-                time: "9:45 PM",
-
-                price: 240,
-
-                available: "Fast Filling"
-            }
-
-        ]
-
-    }
-
+        available: "Fast Filling",
+      },
+    ],
+  },
 ];
-
-
 
 /* =========================================
    SELECTED DATA
@@ -307,103 +263,51 @@ let selectedShow = null;
 
 let activeFilter = "all";
 
-
-
 /* =========================================
    LOAD NAVBAR
 ========================================= */
 
 async function loadNavbar() {
+  const navbar = document.getElementById("navbar");
 
-    const navbar =
-        document.getElementById("navbar");
+  if (!navbar) {
+    return;
+  }
 
+  try {
+    const response = await fetch("components/navbar.html");
 
-    if (!navbar) {
-
-        return;
-
+    if (!response.ok) {
+      throw new Error("Navbar failed to load.");
     }
 
-
-    try {
-
-        const response =
-            await fetch(
-                "components/navbar.html"
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Navbar failed to load."
-            );
-
-        }
-
-
-        navbar.innerHTML =
-            await response.text();
-
-
-    } catch (error) {
-
-        console.error(
-            "Navbar error:",
-            error
-        );
-
-    }
-
+    navbar.innerHTML = await response.text();
+  } catch (error) {
+    console.error("Navbar error:", error);
+  }
 }
-
-
 
 /* =========================================
    LOAD COMPONENT
 ========================================= */
 
 async function loadTheatreComponent() {
+  const page = document.getElementById("theatrePage");
 
-    const page =
-        document.getElementById(
-            "theatrePage"
-        );
+  try {
+    const response = await fetch("components/theatre-showtime.html");
 
+    if (!response.ok) {
+      throw new Error("Theatre component failed to load.");
+    }
 
-    try {
+    page.innerHTML = await response.text();
 
-        const response =
-            await fetch(
-                "components/theatre-showtime.html"
-            );
+    initializeTheatrePage();
+  } catch (error) {
+    console.error(error);
 
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Theatre component failed to load."
-            );
-
-        }
-
-
-        page.innerHTML =
-            await response.text();
-
-
-        initializeTheatrePage();
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        page.innerHTML = `
+    page.innerHTML = `
 
             <div class="theatre-loading">
 
@@ -418,186 +322,96 @@ async function loadTheatreComponent() {
             </div>
 
         `;
-
-    }
-
+  }
 }
-
-
 
 /* =========================================
    INITIALIZE
 ========================================= */
 
 function initializeTheatrePage() {
+  populateMovie();
 
-    populateMovie();
+  generateDates();
 
-    generateDates();
+  renderTheatres();
 
-    renderTheatres();
+  setupFilters();
 
-    setupFilters();
-
-    updateBottomBar();
-
+  updateBottomBar();
 }
-
-
 
 /* =========================================
    MOVIE INFORMATION
 ========================================= */
 
 function populateMovie() {
+  setText("showMovieTitle", movieData.title);
 
-    setText(
-        "showMovieTitle",
-        movieData.title
-    );
+  setText("showMovieLanguage", movieData.language);
 
+  setText("showMovieGenre", movieData.genre);
 
-    setText(
-        "showMovieLanguage",
-        movieData.language
-    );
+  setText("showMovieDuration", movieData.duration);
 
+  setText("showMovieDescription", movieData.description);
 
-    setText(
-        "showMovieGenre",
-        movieData.genre
-    );
+  const poster = document.getElementById("showMoviePoster");
 
+  if (poster) {
+    poster.src = movieData.poster;
 
-    setText(
-        "showMovieDuration",
-        movieData.duration
-    );
-
-
-    setText(
-        "showMovieDescription",
-        movieData.description
-    );
-
-
-    const poster =
-        document.getElementById(
-            "showMoviePoster"
-        );
-
-
-    if (poster) {
-
-        poster.src =
-            movieData.poster;
-
-        poster.alt =
-            movieData.title;
-
-    }
-
+    poster.alt = movieData.title;
+  }
 }
-
-
 
 /* =========================================
    GENERATE DATES
 ========================================= */
 
 function generateDates() {
+  const dateList = document.getElementById("dateList");
 
-    const dateList =
-        document.getElementById(
-            "dateList"
-        );
+  if (!dateList) {
+    return;
+  }
 
+  dateList.innerHTML = "";
 
-    if (!dateList) {
+  const today = new Date();
 
-        return;
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
 
+    date.setDate(today.getDate() + i);
+
+    const day = date.toLocaleDateString("en-IN", {
+      weekday: "short",
+    });
+
+    const month = date.toLocaleDateString("en-IN", {
+      month: "short",
+    });
+
+    const number = date.getDate();
+
+    const dateValue = date.toISOString().split("T")[0];
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+
+    button.className = "date-card";
+
+    if (i === 0) {
+      button.classList.add("active");
+
+      selectedDate = dateValue;
     }
 
+    button.dataset.date = dateValue;
 
-    dateList.innerHTML = "";
-
-
-    const today =
-        new Date();
-
-
-    for (
-        let i = 0;
-        i < 7;
-        i++
-    ) {
-
-        const date =
-            new Date(today);
-
-
-        date.setDate(
-            today.getDate() + i
-        );
-
-
-        const day =
-            date.toLocaleDateString(
-                "en-IN",
-                {
-                    weekday: "short"
-                }
-            );
-
-
-        const month =
-            date.toLocaleDateString(
-                "en-IN",
-                {
-                    month: "short"
-                }
-            );
-
-
-        const number =
-            date.getDate();
-
-
-        const dateValue =
-            date.toISOString()
-                .split("T")[0];
-
-
-        const button =
-            document.createElement(
-                "button"
-            );
-
-
-        button.type = "button";
-
-        button.className =
-            "date-card";
-
-
-        if (i === 0) {
-
-            button.classList.add(
-                "active"
-            );
-
-            selectedDate =
-                dateValue;
-
-        }
-
-
-        button.dataset.date =
-            dateValue;
-
-
-        button.innerHTML = `
+    button.innerHTML = `
 
             <span class="date-day">
                 ${i === 0 ? "Today" : day}
@@ -613,150 +427,74 @@ function generateDates() {
 
         `;
 
+    button.addEventListener("click", () => {
+      selectDate(dateValue, button);
+    });
 
-        button.addEventListener(
-            "click",
-            () => {
-
-                selectDate(
-                    dateValue,
-                    button
-                );
-
-            }
-        );
-
-
-        dateList.appendChild(
-            button
-        );
-
-    }
-
+    dateList.appendChild(button);
+  }
 }
-
-
 
 /* =========================================
    SELECT DATE
 ========================================= */
 
-function selectDate(
-    date,
-    selectedButton
-) {
+function selectDate(date, selectedButton) {
+  selectedDate = date;
 
-    selectedDate =
-        date;
+  document.querySelectorAll(".date-card").forEach((button) => {
+    button.classList.remove("active");
+  });
 
+  selectedButton.classList.add("active");
 
-    document
-        .querySelectorAll(
-            ".date-card"
-        )
-        .forEach(
-            (button) => {
-
-                button.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    selectedButton.classList.add(
-        "active"
-    );
-
-
-    /*
+  /*
         Later:
         API request can happen here
         based on selected date.
     */
 
-
-    resetSelectedShow();
-
+  resetSelectedShow();
 }
-
-
 
 /* =========================================
    RENDER THEATRES
 ========================================= */
 
 function renderTheatres() {
+  const list = document.getElementById("theatreList");
 
-    const list =
-        document.getElementById(
-            "theatreList"
-        );
+  const count = document.getElementById("theatreCount");
 
+  if (!list) {
+    return;
+  }
 
-    const count =
-        document.getElementById(
-            "theatreCount"
-        );
+  list.innerHTML = "";
 
+  let visibleCount = 0;
 
-    if (!list) {
+  theatres.forEach((theatre) => {
+    const matchesFilter =
+      activeFilter === "all" || theatre.type === activeFilter;
 
-        return;
-
+    if (!matchesFilter) {
+      return;
     }
 
+    visibleCount++;
 
-    list.innerHTML = "";
+    const card = createTheatreCard(theatre);
 
+    list.appendChild(card);
+  });
 
-    let visibleCount = 0;
+  if (count) {
+    count.textContent = `${visibleCount} theatres`;
+  }
 
-
-    theatres.forEach(
-        (theatre) => {
-
-            const matchesFilter =
-                activeFilter === "all" ||
-                theatre.type === activeFilter;
-
-
-            if (!matchesFilter) {
-
-                return;
-
-            }
-
-
-            visibleCount++;
-
-
-            const card =
-                createTheatreCard(
-                    theatre
-                );
-
-
-            list.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-    if (count) {
-
-        count.textContent =
-            `${visibleCount} theatres`;
-
-    }
-
-
-    if (!visibleCount) {
-
-        list.innerHTML = `
+  if (!visibleCount) {
+    list.innerHTML = `
 
             <div class="no-theatres">
 
@@ -771,62 +509,37 @@ function renderTheatres() {
             </div>
 
         `;
-
-    }
-
+  }
 }
-
-
 
 /* =========================================
    CREATE THEATRE CARD
 ========================================= */
 
-function createTheatreCard(
-    theatre
-) {
+function createTheatreCard(theatre) {
+  const card = document.createElement("div");
 
-    const card =
-        document.createElement(
-            "div"
-        );
+  card.className = "theatre-card";
 
+  card.dataset.type = theatre.type;
 
-    card.className =
-        "theatre-card";
-
-
-    card.dataset.type =
-        theatre.type;
-
-
-    const features =
-        theatre.features
-            .map(
-                (feature) => `
+  const features = theatre.features
+    .map(
+      (feature) => `
 
                     <span class="theatre-feature">
                         ${feature}
                     </span>
 
-                `
-            )
-            .join("");
+                `,
+    )
+    .join("");
 
+  const shows = theatre.shows
+    .map((show) => createShowButton(theatre, show))
+    .join("");
 
-    const shows =
-        theatre.shows
-            .map(
-                (show) =>
-                    createShowButton(
-                        theatre,
-                        show
-                    )
-            )
-            .join("");
-
-
-    card.innerHTML = `
+  card.innerHTML = `
 
         <div class="theatre-main">
 
@@ -875,50 +588,25 @@ function createTheatreCard(
 
     `;
 
-
-    /*
+  /*
         Add event listeners
     */
 
-    card
-        .querySelectorAll(
-            ".showtime-button"
-        )
-        .forEach(
-            (button) => {
+  card.querySelectorAll(".showtime-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectShow(theatre, button.dataset.showId);
+    });
+  });
 
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        selectShow(
-                            theatre,
-                            button.dataset.showId
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    return card;
-
+  return card;
 }
-
-
 
 /* =========================================
    CREATE SHOW BUTTON
 ========================================= */
 
-function createShowButton(
-    theatre,
-    show
-) {
-
-    return `
+function createShowButton(theatre, show) {
+  return `
 
         <button
             type="button"
@@ -940,452 +628,227 @@ function createShowButton(
         </button>
 
     `;
-
 }
-
-
 
 /* =========================================
    SELECT SHOW
 ========================================= */
 
-function selectShow(
-    theatre,
-    showId
-) {
+function selectShow(theatre, showId) {
+  const show = theatre.shows.find((item) => item.id === showId);
 
-    const show =
-        theatre.shows.find(
-            (item) =>
-                item.id === showId
-        );
+  if (!show) {
+    return;
+  }
 
+  selectedTheatre = theatre;
 
-    if (!show) {
+  selectedShow = show;
 
-        return;
-
-    }
-
-
-    selectedTheatre =
-        theatre;
-
-
-    selectedShow =
-        show;
-
-
-    /*
+  /*
         Remove previous selection
     */
 
-    document
-        .querySelectorAll(
-            ".showtime-button"
-        )
-        .forEach(
-            (button) => {
+  document.querySelectorAll(".showtime-button").forEach((button) => {
+    button.classList.remove("selected");
+  });
 
-                button.classList.remove(
-                    "selected"
-                );
-
-            }
-        );
-
-
-    /*
+  /*
         Select clicked button
     */
 
-    const selectedButton =
-        document.querySelector(
-            `[data-show-id="${showId}"]`
-        );
+  const selectedButton = document.querySelector(`[data-show-id="${showId}"]`);
 
+  if (selectedButton) {
+    selectedButton.classList.add("selected");
+  }
 
-    if (selectedButton) {
-
-        selectedButton.classList.add(
-            "selected"
-        );
-
-    }
-
-
-    updateBottomBar();
-
+  updateBottomBar();
 }
-
-
 
 /* =========================================
    UPDATE BOTTOM BAR
 ========================================= */
 
 function updateBottomBar() {
+  const theatreName = document.getElementById("selectedTheatreName");
 
-    const theatreName =
-        document.getElementById(
-            "selectedTheatreName"
-        );
+  const showTime = document.getElementById("selectedShowTime");
 
+  const continueButton = document.getElementById("continueButton");
 
-    const showTime =
-        document.getElementById(
-            "selectedShowTime"
-        );
+  if (!theatreName || !showTime || !continueButton) {
+    return;
+  }
 
+  if (selectedTheatre && selectedShow) {
+    theatreName.textContent = selectedTheatre.name;
 
-    const continueButton =
-        document.getElementById(
-            "continueButton"
-        );
+    showTime.textContent = `${selectedShow.time} • ₹${selectedShow.price}`;
 
+    continueButton.disabled = false;
 
-    if (
-        !theatreName ||
-        !showTime ||
-        !continueButton
-    ) {
+    continueButton.textContent = "Select Seats";
+  } else {
+    theatreName.textContent = "Select a showtime";
 
-        return;
+    showTime.textContent = "Choose your preferred theatre and time.";
 
-    }
+    continueButton.disabled = true;
 
-
-    if (
-        selectedTheatre &&
-        selectedShow
-    ) {
-
-        theatreName.textContent =
-            selectedTheatre.name;
-
-
-        showTime.textContent =
-            `${selectedShow.time} • ₹${selectedShow.price}`;
-
-
-        continueButton.disabled =
-            false;
-
-
-        continueButton.textContent =
-            "Select Seats";
-
-
-    } else {
-
-        theatreName.textContent =
-            "Select a showtime";
-
-
-        showTime.textContent =
-            "Choose your preferred theatre and time.";
-
-
-        continueButton.disabled =
-            true;
-
-
-        continueButton.textContent =
-            "Select Showtime";
-
-    }
-
+    continueButton.textContent = "Select Showtime";
+  }
 }
-
-
 
 /* =========================================
    RESET SELECTED SHOW
 ========================================= */
 
 function resetSelectedShow() {
+  selectedTheatre = null;
 
-    selectedTheatre =
-        null;
+  selectedShow = null;
 
+  document.querySelectorAll(".showtime-button").forEach((button) => {
+    button.classList.remove("selected");
+  });
 
-    selectedShow =
-        null;
-
-
-    document
-        .querySelectorAll(
-            ".showtime-button"
-        )
-        .forEach(
-            (button) => {
-
-                button.classList.remove(
-                    "selected"
-                );
-
-            }
-        );
-
-
-    updateBottomBar();
-
+  updateBottomBar();
 }
-
-
 
 /* =========================================
    FILTERS
 ========================================= */
 
 function setupFilters() {
+  document.querySelectorAll(".filter-button[data-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
 
-    document
-        .querySelectorAll(
-            ".filter-button[data-filter]"
-        )
-        .forEach(
-            (button) => {
+      document
+        .querySelectorAll(".filter-button[data-filter]")
+        .forEach((item) => {
+          item.classList.remove("active");
+        });
 
-                button.addEventListener(
-                    "click",
-                    () => {
+      button.classList.add("active");
 
-                        activeFilter =
-                            button.dataset.filter;
+      resetSelectedShow();
 
+      renderTheatres();
+    });
+  });
 
-                        document
-                            .querySelectorAll(
-                                ".filter-button[data-filter]"
-                            )
-                            .forEach(
-                                (item) => {
-
-                                    item.classList.remove(
-                                        "active"
-                                    );
-
-                                }
-                            );
-
-
-                        button.classList.add(
-                            "active"
-                        );
-
-
-                        resetSelectedShow();
-
-
-                        renderTheatres();
-
-                    }
-                );
-
-            }
-        );
-
-
-    /*
+  /*
         Price button
     */
 
-    const priceButton =
-        document.getElementById(
-            "priceFilter"
-        );
+  const priceButton = document.getElementById("priceFilter");
 
+  if (priceButton) {
+    priceButton.addEventListener("click", () => {
+      sortByPrice();
+    });
+  }
 
-    if (priceButton) {
-
-        priceButton.addEventListener(
-            "click",
-            () => {
-
-                sortByPrice();
-
-            }
-        );
-
-    }
-
-
-    /*
+  /*
         Continue button
     */
 
-    const continueButton =
-        document.getElementById(
-            "continueButton"
-        );
+  const continueButton = document.getElementById("continueButton");
 
-
-    if (continueButton) {
-
-        continueButton.addEventListener(
-            "click",
-            goToSeatSelection
-        );
-
-    }
-
+  if (continueButton) {
+    continueButton.addEventListener("click", goToSeatSelection);
+  }
 }
-
-
 
 /* =========================================
    SORT BY PRICE
 ========================================= */
 
 function sortByPrice() {
+  theatres.forEach((theatre) => {
+    theatre.shows.sort((a, b) => a.price - b.price);
+  });
 
-    theatres.forEach(
-        (theatre) => {
-
-            theatre.shows.sort(
-                (a, b) =>
-                    a.price - b.price
-            );
-
-        }
-    );
-
-
-    renderTheatres();
-
+  renderTheatres();
 }
-
-
 
 /* =========================================
    GO TO SEAT SELECTION
 ========================================= */
 
 function goToSeatSelection() {
+  if (!selectedTheatre || !selectedShow) {
+    return;
+  }
 
-    if (
-        !selectedTheatre ||
-        !selectedShow
-    ) {
-
-        return;
-
-    }
-
-
-    /*
+  /*
         Save selected booking data.
 
         This makes the next page
         easy to build.
     */
 
-    const bookingData = {
+  const bookingData = {
+    movieId: movieData.id,
 
-        movieId:
-            movieData.id,
+    movieTitle: movieData.title,
 
-        movieTitle:
-            movieData.title,
+    date: selectedDate,
 
-        date:
-            selectedDate,
+    theatreId: selectedTheatre.id,
 
-        theatreId:
-            selectedTheatre.id,
+    theatreName: selectedTheatre.name,
 
-        theatreName:
-            selectedTheatre.name,
+    location: selectedTheatre.location,
 
-        location:
-            selectedTheatre.location,
+    showId: selectedShow.id,
 
-        showId:
-            selectedShow.id,
+    showTime: selectedShow.time,
 
-        showTime:
-            selectedShow.time,
+    price: selectedShow.price,
+  };
 
-        price:
-            selectedShow.price
+  sessionStorage.setItem("bookItBroBooking", JSON.stringify(bookingData));
 
-    };
-
-
-    sessionStorage.setItem(
-        "bookItBroBooking",
-        JSON.stringify(
-            bookingData
-        )
-    );
-
-
-    /*
+  /*
         NEXT MODULE:
 
         seat-selection.html
     */
 
-    window.location.href =
-        `seat-selection.html?movie=${encodeURIComponent(movieData.id)}`;
-
+  window.location.href = `seat-selection.html?movie=${encodeURIComponent(movieData.id)}`;
 }
-
-
 
 /* =========================================
    HELPERS
 ========================================= */
 
-function setText(
-    id,
-    value
-) {
+function setText(id, value) {
+  const element = document.getElementById(id);
 
-    const element =
-        document.getElementById(id);
-
-
-    if (element) {
-
-        element.textContent =
-            value ?? "";
-
-    }
-
+  if (element) {
+    element.textContent = value ?? "";
+  }
 }
 
+function capitalize(text) {
+  if (!text) {
+    return "";
+  }
 
-function capitalize(
-    text
-) {
-
-    if (!text) {
-
-        return "";
-
-    }
-
-
-    return text.charAt(0).toUpperCase()
-        + text.slice(1);
-
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
-
-
 
 /* =========================================
    START PAGE
 ========================================= */
 
 async function startTheatrePage() {
+  await loadNavbar();
 
-    await loadNavbar();
-
-    await loadTheatreComponent();
-
+  await loadTheatreComponent();
 }
-
 
 startTheatrePage();

@@ -2,7 +2,6 @@
    BOOKITBRO - MOVIE DETAILS
 ===================================================== */
 
-
 /* =========================================
    DEMO DATA
 =========================================
@@ -15,122 +14,97 @@
 ========================================= */
 
 const demoMovie = {
+  id: "demo-001",
 
-    id: "demo-001",
+  title: "Kalki 2898 AD",
 
-    title: "Kalki 2898 AD",
+  poster: "https://image.tmdb.org/t/p/w500/1D7Q2hN5r9fL5vK5M7s0W7Z7b7M.jpg",
 
-    poster:
-        "https://image.tmdb.org/t/p/w500/1D7Q2hN5r9fL5vK5M7s0W7Z7b7M.jpg",
+  backdrop:
+    "https://image.tmdb.org/t/p/original/1D7Q2hN5r9fL5vK5M7s0W7Z7b7M.jpg",
 
-    backdrop:
-        "https://image.tmdb.org/t/p/original/1D7Q2hN5r9fL5vK5M7s0W7Z7b7M.jpg",
+  rating: 8.5,
 
-    rating: 8.5,
+  votes: "125K",
 
-    votes: "125K",
+  certificate: "UA",
 
-    certificate: "UA",
+  duration: "3h 1m",
 
-    duration: "3h 1m",
+  language: "Hindi",
 
-    language: "Hindi",
+  genre: "Action, Sci-Fi, Adventure",
 
-    genre: "Action, Sci-Fi, Adventure",
+  description:
+    "A futuristic epic adventure set in a world where humanity fights for survival.",
 
-    description:
-        "A futuristic epic adventure set in a world where humanity fights for survival.",
+  about:
+    "This is temporary movie information. Later this section will be populated dynamically using movie API data.",
 
-    about:
-        "This is temporary movie information. Later this section will be populated dynamically using movie API data.",
+  trailer: "https://www.youtube.com/embed/kQDd1AhGIHk",
 
-    trailer:
-        "https://www.youtube.com/embed/kQDd1AhGIHk",
+  cast: [
+    {
+      name: "Prabhas",
+      role: "Bhairava",
+      image: "https://via.placeholder.com/105",
+    },
 
+    {
+      name: "Deepika Padukone",
+      role: "Sumathi",
+      image: "https://via.placeholder.com/105",
+    },
 
-    cast: [
+    {
+      name: "Amitabh Bachchan",
+      role: "Ashwatthama",
+      image: "https://via.placeholder.com/105",
+    },
 
-        {
-            name: "Prabhas",
-            role: "Bhairava",
-            image: "https://via.placeholder.com/105"
-        },
+    {
+      name: "Kamal Haasan",
+      role: "Yaskin",
+      image: "https://via.placeholder.com/105",
+    },
+  ],
 
-        {
-            name: "Deepika Padukone",
-            role: "Sumathi",
-            image: "https://via.placeholder.com/105"
-        },
+  crew: [
+    {
+      name: "Nag Ashwin",
+      role: "Director",
+    },
 
-        {
-            name: "Amitabh Bachchan",
-            role: "Ashwatthama",
-            image: "https://via.placeholder.com/105"
-        },
+    {
+      name: "C. Ashwini Dutt",
+      role: "Producer",
+    },
 
-        {
-            name: "Kamal Haasan",
-            role: "Yaskin",
-            image: "https://via.placeholder.com/105"
-        }
-
-    ],
-
-
-    crew: [
-
-        {
-            name: "Nag Ashwin",
-            role: "Director"
-        },
-
-        {
-            name: "C. Ashwini Dutt",
-            role: "Producer"
-        },
-
-        {
-            name: "Santhosh Narayanan",
-            role: "Music Director"
-        }
-
-    ]
-
+    {
+      name: "Santhosh Narayanan",
+      role: "Music Director",
+    },
+  ],
 };
-
-
 
 /* =========================================
    GET MOVIE ID
 ========================================= */
 
 function getMovieId() {
+  const params = new URLSearchParams(window.location.search);
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    return params.get("id");
-
+  return params.get("id");
 }
-
-
 
 /* =========================================
    GET MOVIE
 ========================================= */
 
 async function getMovie(movieId) {
+  console.log("Movie ID:", movieId);
 
-    console.log(
-        "Movie ID:",
-        movieId
-    );
-
-
-    /*
+  /*
      ==================================================
      TEMPORARY
      ==================================================
@@ -150,122 +124,76 @@ async function getMovie(movieId) {
      ==================================================
     */
 
+  return {
+    ...demoMovie,
 
-    return {
-
-        ...demoMovie,
-
-        id:
-            movieId ||
-            demoMovie.id
-
-    };
-
+    id: movieId || demoMovie.id,
+  };
 }
-
-
 
 /* =========================================
    LOAD COMPONENT
 ========================================= */
 
 async function loadMovieDetails() {
+  const container = document.getElementById("movieDetailsContainer");
 
-    const container =
-        document.getElementById(
-            "movieDetailsContainer"
-        );
+  if (!container) {
+    console.error("Movie details container not found.");
 
+    return;
+  }
 
-    if (!container) {
-
-        console.error(
-            "Movie details container not found."
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        /*
+  try {
+    /*
          ==========================================
          GET MOVIE ID
          ==========================================
         */
 
-        const movieId =
-            getMovieId();
+    const movieId = getMovieId();
 
-
-        /*
+    /*
          ==========================================
          GET MOVIE DATA
          ==========================================
         */
 
-        const movie =
-            await getMovie(movieId);
+    const movie = await getMovie(movieId);
 
+    if (!movie) {
+      showMovieNotFound();
 
-        if (!movie) {
+      return;
+    }
 
-            showMovieNotFound();
-
-            return;
-
-        }
-
-
-        /*
+    /*
          ==========================================
          LOAD COMPONENT
          ==========================================
         */
 
-        const response =
-            await fetch(
-                "components/movie-details.html"
-            );
+    const response = await fetch("components/movie-details.html");
 
+    if (!response.ok) {
+      throw new Error("Movie details component could not be loaded.");
+    }
 
-        if (!response.ok) {
+    const componentHTML = await response.text();
 
-            throw new Error(
-                "Movie details component could not be loaded."
-            );
+    container.innerHTML = componentHTML;
 
-        }
-
-
-        const componentHTML =
-            await response.text();
-
-
-        container.innerHTML =
-            componentHTML;
-
-
-        /*
+    /*
          ==========================================
          POPULATE
          ==========================================
         */
 
-        populateMovie(movie);
+    populateMovie(movie);
+  } catch (error) {
+    console.error("Movie Details Error:", error);
 
-
-    } catch (error) {
-
-        console.error(
-            "Movie Details Error:",
-            error
-        );
-
-
-        container.innerHTML = `
+    container.innerHTML = `
 
             <div class="movie-details-loading">
 
@@ -280,261 +208,142 @@ async function loadMovieDetails() {
             </div>
 
         `;
-
-    }
-
+  }
 }
-
-
 
 /* =========================================
    POPULATE MOVIE
 ========================================= */
 
 function populateMovie(movie) {
-
-
-    /* =====================================
+  /* =====================================
        TITLE
     ===================================== */
 
-    setText(
-        "movieTitle",
-        movie.title
-    );
+  setText("movieTitle", movie.title);
 
-
-    /* =====================================
+  /* =====================================
        RATING
     ===================================== */
 
-    setText(
-        "movieRating",
-        movie.rating
-    );
+  setText("movieRating", movie.rating);
 
+  setText("movieVotes", movie.votes);
 
-    setText(
-        "movieVotes",
-        movie.votes
-    );
-
-
-    /* =====================================
+  /* =====================================
        META
     ===================================== */
 
-    setText(
-        "movieCertificate",
-        movie.certificate
-    );
+  setText("movieCertificate", movie.certificate);
 
+  setText("movieDuration", movie.duration);
 
-    setText(
-        "movieDuration",
-        movie.duration
-    );
+  setText("movieLanguage", movie.language);
 
+  setText("movieGenre", movie.genre);
 
-    setText(
-        "movieLanguage",
-        movie.language
-    );
-
-
-    setText(
-        "movieGenre",
-        movie.genre
-    );
-
-
-    /* =====================================
+  /* =====================================
        DESCRIPTION
     ===================================== */
 
-    setText(
-        "movieDescription",
-        movie.description
-    );
+  setText("movieDescription", movie.description);
 
+  setText("movieAbout", movie.about);
 
-    setText(
-        "movieAbout",
-        movie.about
-    );
-
-
-    /* =====================================
+  /* =====================================
        POSTER
     ===================================== */
 
-    const poster =
-        document.getElementById(
-            "moviePoster"
-        );
+  const poster = document.getElementById("moviePoster");
 
+  if (poster) {
+    poster.src = movie.poster;
 
-    if (poster) {
+    poster.alt = movie.title;
+  }
 
-        poster.src =
-            movie.poster;
-
-        poster.alt =
-            movie.title;
-
-    }
-
-
-    /* =====================================
+  /* =====================================
        BACKDROP
     ===================================== */
 
-    const backdrop =
-        document.getElementById(
-            "movieBackdrop"
-        );
+  const backdrop = document.getElementById("movieBackdrop");
 
+  if (backdrop) {
+    backdrop.style.setProperty("--movie-backdrop", `url("${movie.backdrop}")`);
+  }
 
-    if (backdrop) {
-
-        backdrop.style.setProperty(
-            "--movie-backdrop",
-            `url("${movie.backdrop}")`
-        );
-
-    }
-
-
-    /* =====================================
+  /* =====================================
        TRAILER
     ===================================== */
 
-    const trailer =
-        document.getElementById(
-            "movieTrailer"
-        );
+  const trailer = document.getElementById("movieTrailer");
 
+  if (trailer && movie.trailer) {
+    trailer.src = movie.trailer;
+  }
 
-    if (
-        trailer &&
-        movie.trailer
-    ) {
-
-        trailer.src =
-            movie.trailer;
-
-    }
-
-
-    /* =====================================
+  /* =====================================
        CAST
     ===================================== */
 
-    renderCast(
-        movie.cast
-    );
+  renderCast(movie.cast);
 
-
-    /* =====================================
+  /* =====================================
        CREW
     ===================================== */
 
-    renderCrew(
-        movie.crew
-    );
+  renderCrew(movie.crew);
 
-
-    /* =====================================
+  /* =====================================
        BUTTONS
     ===================================== */
 
-    setupBookButtons(
-        movie
-    );
+  setupBookButtons(movie);
 
-
-    setupTrailerButton();
-
+  setupTrailerButton();
 }
-
-
 
 /* =========================================
    SET TEXT
 ========================================= */
 
-function setText(
-    elementId,
-    value
-) {
+function setText(elementId, value) {
+  const element = document.getElementById(elementId);
 
-    const element =
-        document.getElementById(
-            elementId
-        );
+  if (!element) {
+    return;
+  }
 
-
-    if (!element) {
-
-        return;
-
-    }
-
-
-    element.textContent =
-        value ?? "";
-
+  element.textContent = value ?? "";
 }
-
-
 
 /* =========================================
    CAST
 ========================================= */
 
 function renderCast(cast = []) {
+  const grid = document.getElementById("movieCastGrid");
 
-    const grid =
-        document.getElementById(
-            "movieCastGrid"
-        );
+  if (!grid) {
+    return;
+  }
 
+  grid.innerHTML = "";
 
-    if (!grid) {
-
-        return;
-
-    }
-
-
-    grid.innerHTML = "";
-
-
-    if (!cast.length) {
-
-        grid.innerHTML = `
+  if (!cast.length) {
+    grid.innerHTML = `
             <p>No cast information available.</p>
         `;
 
-        return;
+    return;
+  }
 
-    }
+  cast.forEach((person) => {
+    const card = document.createElement("div");
 
+    card.className = "movie-cast-card";
 
-    cast.forEach(
-        (person) => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "movie-cast-card";
-
-
-            card.innerHTML = `
+    card.innerHTML = `
 
                 <img
                     class="movie-cast-image"
@@ -552,65 +361,37 @@ function renderCast(cast = []) {
 
             `;
 
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
+    grid.appendChild(card);
+  });
 }
-
-
 
 /* =========================================
    CREW
 ========================================= */
 
 function renderCrew(crew = []) {
+  const grid = document.getElementById("movieCrewGrid");
 
-    const grid =
-        document.getElementById(
-            "movieCrewGrid"
-        );
+  if (!grid) {
+    return;
+  }
 
+  grid.innerHTML = "";
 
-    if (!grid) {
-
-        return;
-
-    }
-
-
-    grid.innerHTML = "";
-
-
-    if (!crew.length) {
-
-        grid.innerHTML = `
+  if (!crew.length) {
+    grid.innerHTML = `
             <p>No crew information available.</p>
         `;
 
-        return;
+    return;
+  }
 
-    }
+  crew.forEach((person) => {
+    const card = document.createElement("div");
 
+    card.className = "movie-crew-card";
 
-    crew.forEach(
-        (person) => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "movie-crew-card";
-
-
-            card.innerHTML = `
+    card.innerHTML = `
 
                 <div class="movie-crew-name">
                     ${person.name}
@@ -622,140 +403,72 @@ function renderCrew(crew = []) {
 
             `;
 
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
+    grid.appendChild(card);
+  });
 }
-
-
 
 /* =========================================
    BOOK BUTTONS
 ========================================= */
 
 function setupBookButtons(movie) {
+  const buttons = [
+    document.getElementById("bookTicketButton"),
 
-    const buttons = [
+    document.getElementById("bottomBookButton"),
+  ];
 
-        document.getElementById(
-            "bookTicketButton"
-        ),
+  buttons.forEach((button) => {
+    if (!button) {
+      return;
+    }
 
-        document.getElementById(
-            "bottomBookButton"
-        )
+    button.addEventListener("click", () => {
+      /*
+       * NEXT MODULE:
+       *
+       * theatres.html?id=movie.id
+       */
 
-    ];
+      console.log("Book movie:", movie.id);
 
-
-    buttons.forEach(
-        (button) => {
-
-            if (!button) {
-
-                return;
-
-            }
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    /*
-                     * NEXT MODULE:
-                     *
-                     * theatres.html?id=movie.id
-                     */
-
-                    console.log(
-                        "Book movie:",
-                        movie.id
-                    );
-
-
-                    button.addEventListener(
-                "click",
-                () => {
-
-                  window.location.href =
-                 `theatre-showtime.html?id=${encodeURIComponent(movie.id)}`;
-
-                }
-            );
-
-                }
-            );
-
-        }
-    );
-
+      button.addEventListener("click", () => {
+        window.location.href = `theatre-showtime.html?id=${encodeURIComponent(movie.id)}`;
+      });
+    });
+  });
 }
-
-
 
 /* =========================================
    TRAILER BUTTON
 ========================================= */
 
 function setupTrailerButton() {
+  const button = document.getElementById("watchTrailerButton");
 
-    const button =
-        document.getElementById(
-            "watchTrailerButton"
-        );
+  if (!button) {
+    return;
+  }
 
+  button.addEventListener("click", () => {
+    const section = document.getElementById("trailerSection");
 
-    if (!button) {
-
-        return;
-
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
     }
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            const section =
-                document.getElementById(
-                    "trailerSection"
-                );
-
-
-            if (section) {
-
-                section.scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-    );
-
+  });
 }
-
-
 
 /* =========================================
    MOVIE NOT FOUND
 ========================================= */
 
 function showMovieNotFound() {
+  const container = document.getElementById("movieDetailsContainer");
 
-    const container =
-        document.getElementById(
-            "movieDetailsContainer"
-        );
-
-
-    container.innerHTML = `
+  container.innerHTML = `
 
         <div class="movie-details-loading">
 
@@ -778,17 +491,10 @@ function showMovieNotFound() {
 
     `;
 
-
-    document
-        .getElementById("goBackButton")
-        ?.addEventListener(
-            "click",
-            () => history.back()
-        );
-
+  document
+    .getElementById("goBackButton")
+    ?.addEventListener("click", () => history.back());
 }
-
-
 
 /* =========================================
    START
