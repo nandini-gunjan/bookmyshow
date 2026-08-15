@@ -39,6 +39,9 @@ async function getNowPlayingMovies(language = "en-US", region = "IN") {
       throw new Error(`TMDB request failed with status ${response.status}`);
     }
 
+
+
+    console.log("hello");
     const data = await response.json();
 
     return data.results || [];
