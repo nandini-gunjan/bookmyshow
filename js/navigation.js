@@ -57,7 +57,7 @@ async function loadPage(page) {
       // Other sections have their
       // own HTML files.
 
-      pageFile = `section-pages/${page}.html`;
+      pageFile = `components/${page}.html`;
     }
 
     // =======================================
@@ -98,7 +98,7 @@ async function loadPage(page) {
         <h2>Something went wrong</h2>
 
         <p>
-          Unable to load this section.
+          Unable to load this section.<br>
           Please try again.
         </p>
 

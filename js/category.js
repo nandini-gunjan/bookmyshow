@@ -2,215 +2,263 @@
 // CATEGORY PAGE
 // =========================================
 
-
 // =========================================
 // CATEGORY CONFIGURATION
 // =========================================
 
-const categoryConfig = {
+const categoryData = {
+  // =======================================
+  // MOVIES
+  // =======================================
 
   movies: {
+    title: "Recommended Movies",
 
-    title: "Movies in Mumbai",
+    subtitle: "Explore the latest and most popular movies",
 
-    description:
-      "Book tickets for the latest movies playing near you.",
+    heroTitle: "Discover Movies",
 
-    heading: "Recommended Movies",
+    heroDescription: "Book tickets for the latest movies playing near you.",
 
-    carousel: [
+    languages: ["All", "Hindi", "English", "Marathi", "Tamil", "Telugu"],
+
+    items: [
       {
-        title: "Latest Movies",
-        description:
-          "Discover the latest movies and book your tickets.",
-        image:
-          "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba"
+        title: "Saiyaara",
+        language: "Hindi",
+        rating: "8.2",
+        genre: "Romance, Drama",
+        image: "https://image.tmdb.org/t/p/w500/saiyaara.jpg",
       },
 
       {
-        title: "Blockbuster Movies",
-        description:
-          "Experience the biggest movies on the big screen.",
-        image:
-          "https://images.unsplash.com/photo-1485846234645-a62644f84728"
-      }
-    ]
+        title: "Mission Impossible",
+        language: "English",
+        rating: "8.1",
+        genre: "Action, Thriller",
+        image: "https://image.tmdb.org/t/p/w500/mission.jpg",
+      },
 
+      {
+        title: "Thudarum",
+        language: "Malayalam",
+        rating: "8.0",
+        genre: "Drama, Thriller",
+        image: "https://image.tmdb.org/t/p/w500/thudarum.jpg",
+      },
+
+      {
+        title: "Housefull 5",
+        language: "Hindi",
+        rating: "7.4",
+        genre: "Comedy",
+        image: "https://image.tmdb.org/t/p/w500/housefull.jpg",
+      },
+
+      {
+        title: "Marathi Movie",
+        language: "Marathi",
+        rating: "8.0",
+        genre: "Drama",
+        image: "https://image.tmdb.org/t/p/w500/marathi.jpg",
+      },
+    ],
   },
 
+  // =======================================
+  // STREAM
+  // =======================================
 
   stream: {
-
     title: "Stream",
 
-    description:
-      "Watch movies, shows and entertainment from anywhere.",
+    subtitle: "Watch movies, shows and exclusive content online",
 
-    heading: "Popular on Stream",
+    heroTitle: "Entertainment at Your Fingertips",
 
-    carousel: [
+    heroDescription: "Stream movies and shows from the comfort of your home.",
+
+    languages: ["All", "Hindi", "English", "Tamil", "Telugu"],
+
+    items: [
       {
-        title: "Watch Anywhere",
-        description:
-          "Explore movies and shows available to stream.",
-        image:
-          "https://images.unsplash.com/photo-1586899028174-e7098604235b"
+        title: "The Last of Us",
+        language: "English",
+        rating: "8.7",
+        genre: "Drama, Thriller",
+        image: "https://image.tmdb.org/t/p/w500/stream1.jpg",
       },
 
       {
-        title: "Trending Now",
-        description:
-          "Discover what's trending right now.",
-        image:
-          "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4"
-      }
-    ]
+        title: "Special Ops",
+        language: "Hindi",
+        rating: "8.2",
+        genre: "Action, Thriller",
+        image: "https://image.tmdb.org/t/p/w500/stream2.jpg",
+      },
 
+      {
+        title: "The Family Man",
+        language: "Hindi",
+        rating: "8.4",
+        genre: "Drama, Action",
+        image: "https://image.tmdb.org/t/p/w500/stream3.jpg",
+      },
+    ],
   },
 
+  // =======================================
+  // EVENTS
+  // =======================================
 
   events: {
+    title: "Events",
 
-    title: "Events in Mumbai",
+    subtitle: "Discover exciting events happening near you",
 
-    description:
-      "Find the best events happening around you.",
+    heroTitle: "Experience Something New",
 
-    heading: "Popular Events",
+    heroDescription: "Find concerts, festivals, workshops and more.",
 
-    carousel: [
+    languages: ["All", "Hindi", "English", "Marathi"],
+
+    items: [
       {
-        title: "Live Events",
-        description:
-          "Discover concerts, shows and live experiences.",
-        image:
-          "https://images.unsplash.com/photo-1501386761578-eac5c94b800a"
+        title: "Live Music Concert",
+        language: "English",
+        rating: "4.7",
+        genre: "Music",
+        image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a",
       },
 
       {
-        title: "Upcoming Events",
-        description:
-          "Don't miss the events happening near you.",
-        image:
-          "https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
-      }
-    ]
+        title: "Comedy Night",
+        language: "Hindi",
+        rating: "4.6",
+        genre: "Comedy",
+        image: "https://images.unsplash.com/photo-1527224857830-43a7acc85260",
+      },
 
+      {
+        title: "Music Festival",
+        language: "English",
+        rating: "4.8",
+        genre: "Festival",
+        image: "https://images.unsplash.com/photo-1506157786151-b8491531f063",
+      },
+    ],
   },
 
+  // =======================================
+  // PLAYS
+  // =======================================
 
   plays: {
+    title: "Plays",
 
-    title: "Plays in Mumbai",
+    subtitle: "Experience theatre and live performances",
 
-    description:
-      "Discover theatre performances and live plays.",
+    heroTitle: "Theatre Comes Alive",
 
-    heading: "Popular Plays",
+    heroDescription: "Discover amazing plays and live performances.",
 
-    carousel: [
+    languages: ["All", "Hindi", "English", "Marathi"],
+
+    items: [
       {
-        title: "Live Theatre",
-        description:
-          "Experience stories brought to life on stage.",
-        image:
-          "https://images.unsplash.com/photo-1503095396549-807759245b35"
-      }
-    ]
+        title: "And Then There Were None",
+        language: "English",
+        rating: "4.8",
+        genre: "Drama",
+        image: "https://images.unsplash.com/photo-1503095396549-807759245b35",
+      },
 
+      {
+        title: "Marathi Natak",
+        language: "Marathi",
+        rating: "4.7",
+        genre: "Drama",
+        image: "https://images.unsplash.com/photo-1514306191717-452ec28c7814",
+      },
+    ],
   },
 
+  // =======================================
+  // SPORTS
+  // =======================================
 
   sports: {
+    title: "Sports",
 
-    title: "Sports in Mumbai",
+    subtitle: "Book tickets for live sporting events",
 
-    description:
-      "Book tickets for exciting sporting events.",
+    heroTitle: "Feel the Game",
 
-    heading: "Popular Sports",
+    heroDescription: "Experience the excitement of live sports.",
 
-    carousel: [
+    languages: ["All", "Cricket", "Football", "Tennis"],
+
+    items: [
       {
-        title: "Live Sports",
-        description:
-          "Experience your favourite sports live.",
-        image:
-          "https://images.unsplash.com/photo-1461896836934-ffe607ba8211"
-      }
-    ]
+        title: "Cricket Match",
+        language: "Cricket",
+        rating: "4.9",
+        genre: "Cricket",
+        image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da",
+      },
 
+      {
+        title: "Football Championship",
+        language: "Football",
+        rating: "4.8",
+        genre: "Football",
+        image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      },
+
+      {
+        title: "Tennis Championship",
+        language: "Tennis",
+        rating: "4.7",
+        genre: "Tennis",
+        image: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8",
+      },
+    ],
   },
 
+  // =======================================
+  // ACTIVITIES
+  // =======================================
 
   activities: {
+    title: "Activities",
 
-    title: "Activities in Mumbai",
+    subtitle: "Fun experiences and activities for everyone",
 
-    description:
-      "Discover exciting activities and experiences.",
+    heroTitle: "Discover Amazing Experiences",
 
-    heading: "Popular Activities",
+    heroDescription: "Find exciting activities and experiences around you.",
 
-    carousel: [
+    languages: ["All", "Family", "Adventure", "Kids"],
+
+    items: [
       {
-        title: "Things To Do",
-        description:
-          "Find exciting activities and experiences around you.",
-        image:
-          "https://images.unsplash.com/photo-1530789253388-582c481c54b0"
-      }
-    ]
+        title: "Adventure Park",
+        language: "Adventure",
+        rating: "4.8",
+        genre: "Adventure",
+        image: "https://images.unsplash.com/photo-1530789253388-582c481c54b0",
+      },
 
-  }
-
+      {
+        title: "Kids Activity Zone",
+        language: "Kids",
+        rating: "4.6",
+        genre: "Kids",
+        image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368",
+      },
+    ],
+  },
 };
-
-
-// =========================================
-// TEMPORARY CARD DATA
-// =========================================
-
-const sampleCards = [
-
-  {
-    title: "Sample Movie One",
-    image:
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
-    language: "Hindi",
-    genre: "Action",
-    rating: "8.2"
-  },
-
-  {
-    title: "Sample Movie Two",
-    image:
-      "https://images.unsplash.com/photo-1485846234645-a62644f84728",
-    language: "English",
-    genre: "Drama",
-    rating: "7.9"
-  },
-
-  {
-    title: "Sample Movie Three",
-    image:
-      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
-    language: "Hindi",
-    genre: "Comedy",
-    rating: "8.5"
-  },
-
-  {
-    title: "Sample Movie Four",
-    image:
-      "https://images.unsplash.com/photo-1514306191717-452ec28c7814",
-    language: "English",
-    genre: "Thriller",
-    rating: "7.8"
-  }
-
-];
-
 
 // =========================================
 // CURRENT CATEGORY
@@ -218,505 +266,329 @@ const sampleCards = [
 
 let currentCategory = "movies";
 
+let currentItems = [];
 
 // =========================================
 // INITIALIZE CATEGORY PAGE
 // =========================================
 
-function initializeCategoryPage(category) {
+function initializeCategoryPage(category = "movies") {
+  console.log("Initializing category:", category);
 
   currentCategory = category;
 
+  const data = categoryData[category];
 
-  const config =
-    categoryConfig[category];
-
-
-  if (!config) {
-
-    console.error(
-      `Category configuration not found: ${category}`
-    );
+  if (!data) {
+    console.error(`Category "${category}" does not exist.`);
 
     return;
-
   }
 
+  currentItems = data.items;
 
-  // =======================================
+  // ---------------------------------------
   // UPDATE TEXT
-  // =======================================
+  // ---------------------------------------
 
-  updateCategoryText(config);
+  updateCategoryText(data);
 
+  // ---------------------------------------
+  // UPDATE LANGUAGES
+  // ---------------------------------------
 
-  // =======================================
-  // CREATE CAROUSEL
-  // =======================================
+  updateLanguageFilters(data.languages);
 
-  initializeCarousel(config.carousel);
+  // ---------------------------------------
+  // RENDER ITEMS
+  // ---------------------------------------
 
+  renderCategoryItems(currentItems);
 
-  // =======================================
-  // CREATE FILTERS
-  // =======================================
+  // ---------------------------------------
+  // INITIALIZE FILTERS
+  // ---------------------------------------
 
-  initializeFilters();
+  initializeLanguageFilters();
 
+  // ---------------------------------------
+  // INITIALIZE CAROUSEL
+  // ---------------------------------------
 
-  // =======================================
-  // CREATE CARDS
-  // =======================================
-
-  renderCards(sampleCards);
-
+  initializeCarousel();
 }
-
 
 // =========================================
 // UPDATE CATEGORY TEXT
 // =========================================
 
-function updateCategoryText(config) {
+function updateCategoryText(data) {
+  const title = document.getElementById("categoryTitle");
 
-  const title =
-    document.getElementById("categoryTitle");
+  const subtitle = document.getElementById("categorySubtitle");
 
-  const description =
-    document.getElementById(
-      "categoryDescription"
-    );
+  const heroTitle = document.getElementById("categoryHeroTitle");
 
-  const heading =
-    document.getElementById("contentHeading");
-
+  const heroDescription = document.getElementById("categoryHeroDescription");
 
   if (title) {
-
-    title.textContent =
-      config.title;
-
+    title.textContent = data.title;
   }
 
-
-  if (description) {
-
-    description.textContent =
-      config.description;
-
+  if (subtitle) {
+    subtitle.textContent = data.subtitle;
   }
 
-
-  if (heading) {
-
-    heading.textContent =
-      config.heading;
-
+  if (heroTitle) {
+    heroTitle.textContent = data.heroTitle;
   }
 
+  if (heroDescription) {
+    heroDescription.textContent = data.heroDescription;
+  }
 }
 
-
 // =========================================
-// CAROUSEL
+// UPDATE LANGUAGE FILTERS
 // =========================================
 
-function initializeCarousel(slides) {
+function updateLanguageFilters(languages) {
+  const container = document.querySelector(".language-filters");
 
-  const carousel =
-    document.getElementById(
-      "categoryCarousel"
-    );
-
-  const dots =
-    document.getElementById(
-      "carouselDots"
-    );
-
-  const previous =
-    document.getElementById(
-      "carouselPrev"
-    );
-
-  const next =
-    document.getElementById(
-      "carouselNext"
-    );
-
-
-  if (!carousel) {
+  if (!container) {
     return;
   }
 
+  container.innerHTML = "";
 
-  carousel.innerHTML = "";
+  languages.forEach((language, index) => {
+    const button = document.createElement("button");
 
-  dots.innerHTML = "";
-
-
-  // =======================================
-  // CREATE SLIDES
-  // =======================================
-
-  slides.forEach((slide, index) => {
-
-    const slideElement =
-      document.createElement("div");
-
-
-    slideElement.className =
-      "carousel-slide";
-
+    button.className = "language-btn";
 
     if (index === 0) {
-
-      slideElement.classList.add(
-        "active"
-      );
-
+      button.classList.add("active");
     }
 
+    button.dataset.language = language.toLowerCase();
 
-    slideElement.innerHTML = `
+    button.textContent = language;
 
-      <img
-        src="${slide.image}"
-        alt="${slide.title}"
-      >
+    container.appendChild(button);
+  });
+}
 
-      <div class="carousel-info">
+// =========================================
+// RENDER CATEGORY ITEMS
+// =========================================
 
-        <h2>
-          ${slide.title}
-        </h2>
+function renderCategoryItems(items) {
+  const grid = document.getElementById("categoryGrid");
 
-        <p>
-          ${slide.description}
+  const noResults = document.getElementById("noResults");
+
+  if (!grid) {
+    return;
+  }
+
+  grid.innerHTML = "";
+
+  // ---------------------------------------
+  // NO RESULTS
+  // ---------------------------------------
+
+  if (!items || items.length === 0) {
+    grid.style.display = "none";
+
+    if (noResults) {
+      noResults.style.display = "block";
+    }
+
+    return;
+  }
+
+  grid.style.display = "grid";
+
+  if (noResults) {
+    noResults.style.display = "none";
+  }
+
+  // ---------------------------------------
+  // CREATE CARDS
+  // ---------------------------------------
+
+  items.forEach((item) => {
+    const card = document.createElement("article");
+
+    card.className = "content-card";
+
+    card.innerHTML = `
+
+      <div class="card-image">
+
+        <img
+          src="${item.image}"
+          alt="${item.title}"
+          loading="lazy"
+        />
+
+        <div class="card-rating">
+          ⭐ ${item.rating}
+        </div>
+
+      </div>
+
+
+      <div class="card-details">
+
+        <h3 class="card-title">
+          ${item.title}
+        </h3>
+
+        <p class="card-meta">
+          ${item.genre}
         </p>
 
       </div>
 
     `;
 
-
-    carousel.appendChild(
-      slideElement
-    );
-
-
-    // =====================================
-    // DOT
-    // =====================================
-
-    const dot =
-      document.createElement("button");
-
-
-    dot.className =
-      "carousel-dot";
-
-
-    if (index === 0) {
-
-      dot.classList.add("active");
-
-    }
-
-
-    dot.addEventListener(
-      "click",
-      () => {
-
-        showCarouselSlide(index);
-
-      }
-    );
-
-
-    dots.appendChild(dot);
-
+    grid.appendChild(card);
   });
+}
 
+// =========================================
+// LANGUAGE FILTER
+// =========================================
+
+function initializeLanguageFilters() {
+  const buttons = document.querySelectorAll(".language-btn");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // ---------------------------------
+      // REMOVE ACTIVE
+      // ---------------------------------
+
+      buttons.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      // ---------------------------------
+      // ADD ACTIVE
+      // ---------------------------------
+
+      button.classList.add("active");
+
+      // ---------------------------------
+      // GET LANGUAGE
+      // ---------------------------------
+
+      const language = button.dataset.language;
+
+      // ---------------------------------
+      // ALL
+      // ---------------------------------
+
+      if (language === "all") {
+        renderCategoryItems(currentItems);
+
+        return;
+      }
+
+      // ---------------------------------
+      // FILTER
+      // ---------------------------------
+
+      const filteredItems = currentItems.filter((item) => {
+        return item.language.toLowerCase() === language;
+      });
+
+      renderCategoryItems(filteredItems);
+    });
+  });
+}
+
+// =========================================
+// CAROUSEL
+// =========================================
+
+function initializeCarousel() {
+  const slides = document.querySelectorAll(".hero-slide");
+
+  const indicators = document.querySelectorAll(".carousel-indicator");
+
+  const previous = document.querySelector(".carousel-prev");
+
+  const next = document.querySelector(".carousel-next");
+
+  if (slides.length === 0 || indicators.length === 0) {
+    return;
+  }
 
   let currentSlide = 0;
 
-
-  // =======================================
+  // ---------------------------------------
   // SHOW SLIDE
-  // =======================================
+  // ---------------------------------------
 
-  function showCarouselSlide(index) {
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
 
-    const allSlides =
-      carousel.querySelectorAll(
-        ".carousel-slide"
-      );
-
-    const allDots =
-      dots.querySelectorAll(
-        ".carousel-dot"
-      );
-
-
-    if (!allSlides.length) {
-      return;
-    }
-
-
-    currentSlide =
-      (index + allSlides.length) %
-      allSlides.length;
-
-
-    allSlides.forEach(
-      (slide, slideIndex) => {
-
-        slide.classList.toggle(
-          "active",
-          slideIndex === currentSlide
-        );
-
-      }
-    );
-
-
-    allDots.forEach(
-      (dot, dotIndex) => {
-
-        dot.classList.toggle(
-          "active",
-          dotIndex === currentSlide
-        );
-
-      }
-    );
-
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle("active", i === index);
+    });
   }
 
-
-  // =======================================
-  // PREVIOUS
-  // =======================================
-
-  previous.addEventListener(
-    "click",
-    () => {
-
-      showCarouselSlide(
-        currentSlide - 1
-      );
-
-    }
-  );
-
-
-  // =======================================
+  // ---------------------------------------
   // NEXT
-  // =======================================
+  // ---------------------------------------
 
-  next.addEventListener(
-    "click",
-    () => {
+  if (next) {
+    next.addEventListener("click", () => {
+      currentSlide++;
 
-      showCarouselSlide(
-        currentSlide + 1
-      );
+      if (currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
 
-    }
-  );
-
-}
-
-
-// =========================================
-// FILTERS
-// =========================================
-
-function initializeFilters() {
-
-  const languages = [
-    "Hindi",
-    "English",
-    "Marathi",
-    "Tamil",
-    "Telugu"
-  ];
-
-
-  const genres = [
-    "Action",
-    "Comedy",
-    "Drama",
-    "Thriller",
-    "Romance"
-  ];
-
-
-  const languageFilter =
-    document.getElementById(
-      "languageFilter"
-    );
-
-
-  const genreFilter =
-    document.getElementById(
-      "genreFilter"
-    );
-
-
-  // =======================================
-  // LANGUAGE OPTIONS
-  // =======================================
-
-  languageFilter.innerHTML = `
-    <option value="all">
-      All Languages
-    </option>
-  `;
-
-
-  languages.forEach((language) => {
-
-    languageFilter.innerHTML += `
-      <option value="${language}">
-        ${language}
-      </option>
-    `;
-
-  });
-
-
-  // =======================================
-  // GENRE OPTIONS
-  // =======================================
-
-  genreFilter.innerHTML = `
-    <option value="all">
-      All Genres
-    </option>
-  `;
-
-
-  genres.forEach((genre) => {
-
-    genreFilter.innerHTML += `
-      <option value="${genre}">
-        ${genre}
-      </option>
-    `;
-
-  });
-
-}
-
-
-// =========================================
-// RENDER CARDS
-// =========================================
-
-function renderCards(cards) {
-
-  const grid =
-    document.getElementById(
-      "categoryGrid"
-    );
-
-
-  const noResults =
-    document.getElementById(
-      "noResults"
-    );
-
-
-  if (!grid) {
-    return;
+      showSlide(currentSlide);
+    });
   }
 
+  // ---------------------------------------
+  // PREVIOUS
+  // ---------------------------------------
 
-  grid.innerHTML = "";
+  if (previous) {
+    previous.addEventListener("click", () => {
+      currentSlide--;
 
+      if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+      }
 
-  if (!cards.length) {
-
-    noResults.hidden = false;
-
-    return;
-
+      showSlide(currentSlide);
+    });
   }
 
+  // ---------------------------------------
+  // INDICATORS
+  // ---------------------------------------
 
-  noResults.hidden = true;
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener("click", () => {
+      currentSlide = index;
 
-
-  cards.forEach((card) => {
-
-    const cardElement =
-      document.createElement("article");
-
-
-    cardElement.className =
-      "category-card";
-
-
-    cardElement.innerHTML = `
-
-      <div class="card-image">
-
-        <img
-          src="${card.image}"
-          alt="${card.title}"
-          loading="lazy"
-        >
-
-      </div>
-
-
-      <div class="card-info">
-
-        <h3 class="card-title">
-          ${card.title}
-        </h3>
-
-
-        <div class="card-meta">
-
-          <span>
-            ${card.language}
-          </span>
-
-          <span>•</span>
-
-          <span>
-            ${card.genre}
-          </span>
-
-        </div>
-
-
-        <div class="card-rating">
-
-          ★ ${card.rating}
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    grid.appendChild(
-      cardElement
-    );
-
+      showSlide(currentSlide);
+    });
   });
-
 }
-
 
 // =========================================
 // EXPORT
 // =========================================
 
-export {
-  initializeCategoryPage
-};
+export { initializeCategoryPage };
