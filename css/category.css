@@ -1,129 +1,116 @@
-/* =========================================
+/* =========================================================
    CATEGORY PAGE
-========================================= */
+========================================================= */
 
 .category-page {
   width: 100%;
-  min-height: 100vh;
   background: #f5f5f5;
+  min-height: 100vh;
 }
 
-/* =========================================
-   CAROUSEL
-========================================= */
+/* =========================================================
+   HERO CAROUSEL
+========================================================= */
 
-.category-carousel {
+.category-hero {
   position: relative;
   width: 100%;
   height: 420px;
   overflow: hidden;
-  background: #222;
+  background: #111;
 }
 
-.carousel-track {
-  width: 100%;
-  height: 100%;
+.hero-slide {
   position: relative;
-}
-
-/* =========================================
-   CAROUSEL SLIDE
-========================================= */
-
-.carousel-slide {
-  position: absolute;
-  inset: 0;
-
   width: 100%;
   height: 100%;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transition:
-    opacity 0.5s ease,
-    visibility 0.5s ease;
 }
 
-.carousel-slide.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.carousel-slide img {
+.hero-slide img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
+  display: block;
 }
 
-/* =========================================
-   CAROUSEL OVERLAY
-========================================= */
+/* Dark overlay */
 
-.carousel-slide::after {
-  content: "";
-
+.hero-overlay {
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.15));
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
 }
 
-/* =========================================
-   CAROUSEL CONTENT
-========================================= */
+/* Hero content */
 
-.carousel-info {
+.hero-content {
   position: absolute;
 
-  left: 7%;
-  bottom: 55px;
+  left: 8%;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  max-width: 520px;
+
+  color: #fff;
 
   z-index: 2;
-
-  color: white;
-
-  max-width: 550px;
 }
 
-.carousel-info h2 {
-  margin: 0 0 10px;
+.hero-label {
+  display: inline-block;
 
-  font-size: 36px;
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 12px;
+
+  color: #ff2f6d;
+}
+
+.hero-content h1 {
+  margin: 0 0 15px;
+
+  font-size: 44px;
+  line-height: 1.15;
+
   font-weight: 700;
 }
 
-.carousel-info p {
-  margin: 0;
+.hero-content p {
+  margin: 0 0 25px;
+
+  max-width: 450px;
 
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
+
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* =========================================
-   CAROUSEL BUTTONS
-========================================= */
+/* Hero button */
 
-.carousel-btn {
-  position: absolute;
-
-  top: 50%;
-  transform: translateY(-50%);
-
-  z-index: 5;
-
-  width: 42px;
-  height: 42px;
-
+.hero-btn {
   border: none;
-  border-radius: 50%;
 
-  background: rgba(0, 0, 0, 0.55);
+  padding: 12px 25px;
 
-  color: white;
+  border-radius: 5px;
 
-  font-size: 22px;
+  background: #f84464;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 600;
 
   cursor: pointer;
 
@@ -132,190 +119,293 @@
     transform 0.2s ease;
 }
 
-.carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-
-  transform: translateY(-50%) scale(1.05);
+.hero-btn:hover {
+  background: #e73556;
+  transform: translateY(-2px);
 }
 
-.carousel-prev {
-  left: 20px;
-}
+/* =========================================================
+   CAROUSEL BUTTONS
+========================================================= */
 
-.carousel-next {
-  right: 20px;
-}
-
-/* =========================================
-   CAROUSEL DOTS
-========================================= */
-
-.carousel-dots {
+.carousel-btn {
   position: absolute;
 
-  bottom: 18px;
-  left: 50%;
+  top: 50%;
 
-  transform: translateX(-50%);
+  transform: translateY(-50%);
+
+  width: 42px;
+  height: 70px;
+
+  border: none;
+
+  background: rgba(0, 0, 0, 0.35);
+
+  color: #fff;
+
+  font-size: 25px;
+
+  cursor: pointer;
 
   z-index: 5;
 
-  display: flex;
-  gap: 7px;
+  transition: background 0.2s ease;
 }
 
-.carousel-dot {
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.carousel-prev {
+  left: 0;
+}
+
+.carousel-next {
+  right: 0;
+}
+
+/* =========================================================
+   CAROUSEL INDICATORS
+========================================================= */
+
+.carousel-indicators {
+  position: absolute;
+
+  left: 50%;
+  bottom: 20px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  gap: 7px;
+
+  z-index: 5;
+}
+
+.carousel-indicator {
   width: 8px;
   height: 8px;
 
   padding: 0;
 
   border: none;
+
   border-radius: 50%;
 
   background: rgba(255, 255, 255, 0.5);
 
   cursor: pointer;
+
+  transition:
+    width 0.2s ease,
+    background 0.2s ease;
 }
 
-.carousel-dot.active {
-  width: 22px;
+.carousel-indicator.active {
+  width: 24px;
 
   border-radius: 10px;
 
-  background: white;
+  background: #f84464;
 }
 
-/* =========================================
+/* =========================================================
    CATEGORY CONTENT
-========================================= */
+========================================================= */
 
 .category-content {
-  padding: 45px 0 70px;
-}
-
-.category-container {
   width: min(1200px, 92%);
 
   margin: 0 auto;
+
+  padding: 40px 0 70px;
 }
 
-/* =========================================
-   CATEGORY HEADER
-========================================= */
+/* =========================================================
+   CATEGORY HEADING
+========================================================= */
 
-.category-header {
-  margin-bottom: 30px;
+.category-heading {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
 }
 
-.category-header h1 {
-  margin: 0;
+.category-heading h2 {
+  margin: 0 0 6px;
 
   color: #222;
 
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 700;
 }
 
-.category-header p {
-  margin: 8px 0 0;
+.category-heading p {
+  margin: 0;
 
   color: #777;
 
-  font-size: 15px;
+  font-size: 14px;
 }
 
-/* =========================================
-   FILTERS
-========================================= */
+.view-all {
+  flex-shrink: 0;
 
-.category-filters {
-  display: flex;
-  align-items: end;
-  flex-wrap: wrap;
+  color: #f84464;
 
-  gap: 18px;
+  text-decoration: none;
 
-  margin-bottom: 35px;
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-
-  gap: 7px;
-}
-
-.filter-group label {
-  color: #555;
-
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
-.filter-group select {
-  min-width: 170px;
+.view-all:hover {
+  text-decoration: underline;
+}
 
-  padding: 11px 35px 11px 13px;
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.category-filters {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 28px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.category-filters::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   FILTER BUTTON
+========================================================= */
+
+.filter-btn {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+
+  padding: 9px 18px;
 
   border: 1px solid #ddd;
-  border-radius: 5px;
 
-  background: white;
+  border-radius: 20px;
 
-  color: #333;
+  background: #fff;
+
+  color: #444;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: #f84464;
+
+  color: #f84464;
+}
+
+.filter-icon {
+  font-size: 13px;
+}
+
+/* =========================================================
+   LANGUAGE FILTERS
+========================================================= */
+
+.language-filters {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+.language-btn {
+  flex-shrink: 0;
+
+  padding: 9px 17px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 20px;
+
+  background: #fff;
+
+  color: #555;
 
   font-size: 14px;
 
   cursor: pointer;
 
-  outline: none;
+  transition: all 0.2s ease;
 }
 
-.filter-group select:focus {
-  border-color: #e50914;
+.language-btn:hover {
+  border-color: #f84464;
+
+  color: #f84464;
 }
 
-/* =========================================
-   CONTENT HEADING
-========================================= */
+.language-btn.active {
+  border-color: #f84464;
 
-.content-heading {
-  margin-bottom: 20px;
+  background: #f84464;
+
+  color: #fff;
 }
 
-.content-heading h2 {
-  margin: 0;
+/* =========================================================
+   CONTENT GRID
+========================================================= */
 
-  color: #222;
-
-  font-size: 22px;
-}
-
-/* =========================================
-   CATEGORY GRID
-========================================= */
-
-.category-grid {
+.content-grid {
   display: grid;
 
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 
-  gap: 25px;
+  gap: 22px;
 }
 
-/* =========================================
-   CARD
-========================================= */
+/* =========================================================
+   MOVIE / EVENT CARD
+========================================================= */
 
-.category-card {
+.content-card {
+  min-width: 0;
+
   overflow: hidden;
-
-  background: white;
 
   border-radius: 8px;
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #fff;
 
   cursor: pointer;
 
@@ -324,17 +414,17 @@
     box-shadow 0.25s ease;
 }
 
-.category-card:hover {
+.content-card:hover {
   transform: translateY(-5px);
 
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* =========================================
-   CARD IMAGE
-========================================= */
+/* Card image */
 
 .card-image {
+  position: relative;
+
   width: 100%;
 
   aspect-ratio: 2 / 3;
@@ -355,20 +445,42 @@
   transition: transform 0.35s ease;
 }
 
-.category-card:hover .card-image img {
+.content-card:hover .card-image img {
   transform: scale(1.04);
 }
 
-/* =========================================
-   CARD INFORMATION
-========================================= */
+/* Rating */
 
-.card-info {
-  padding: 13px;
+.card-rating {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 9px 10px;
+
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+
+  color: #fff;
+
+  font-size: 12px;
+}
+
+.card-rating span {
+  color: #fff;
+}
+
+/* Card details */
+
+.card-details {
+  padding: 12px 10px 14px;
 }
 
 .card-title {
-  margin: 0 0 7px;
+  margin: 0 0 6px;
+
+  overflow: hidden;
 
   color: #222;
 
@@ -376,36 +488,26 @@
   font-weight: 600;
 
   white-space: nowrap;
-  overflow: hidden;
+
   text-overflow: ellipsis;
 }
 
 .card-meta {
-  display: flex;
-  flex-wrap: wrap;
-
-  gap: 5px;
+  margin: 0;
 
   color: #777;
 
   font-size: 13px;
+
+  line-height: 1.4;
 }
 
-.card-rating {
-  margin-top: 10px;
-
-  color: #333;
-
-  font-size: 13px;
-  font-weight: 600;
-}
-
-/* =========================================
+/* =========================================================
    NO RESULTS
-========================================= */
+========================================================= */
 
 .no-results {
-  padding: 60px 20px;
+  padding: 70px 20px;
 
   text-align: center;
 }
@@ -414,68 +516,205 @@
   margin: 0 0 8px;
 
   color: #333;
+
+  font-size: 20px;
 }
 
 .no-results p {
   margin: 0;
 
   color: #777;
+
+  font-size: 14px;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* =========================================================
+   LOADING
+========================================================= */
 
-@media (max-width: 1000px) {
-  .category-grid {
+.category-loading {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 300px;
+
+  color: #777;
+
+  font-size: 15px;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .content-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+  }
+
+  .hero-content {
+    left: 6%;
+  }
+
+  .hero-content h1 {
+    font-size: 38px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — SMALL TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+  .category-hero {
+    height: 360px;
+  }
+
+  .hero-content {
+    left: 7%;
+
+    max-width: 450px;
+  }
+
+  .hero-content h1 {
+    font-size: 34px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .content-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
   }
 }
 
-@media (max-width: 700px) {
-  .category-carousel {
-    height: 320px;
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .category-hero {
+    height: 300px;
   }
 
-  .carousel-info {
-    left: 5%;
-    right: 5%;
-    bottom: 45px;
+  .hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.82),
+      rgba(0, 0, 0, 0.35)
+    );
   }
 
-  .carousel-info h2 {
-    font-size: 26px;
+  .hero-content {
+    left: 6%;
+
+    right: 6%;
+
+    max-width: none;
   }
 
-  .category-grid {
+  .hero-label {
+    font-size: 11px;
+
+    margin-bottom: 8px;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+  }
+
+  .hero-content p {
+    max-width: 330px;
+
+    margin-bottom: 17px;
+
+    font-size: 13px;
+  }
+
+  .hero-btn {
+    padding: 10px 18px;
+
+    font-size: 13px;
+  }
+
+  .carousel-btn {
+    width: 32px;
+    height: 55px;
+
+    font-size: 19px;
+  }
+
+  .category-content {
+    width: 92%;
+
+    padding-top: 28px;
+  }
+
+  .category-heading h2 {
+    font-size: 21px;
+  }
+
+  .category-heading p {
+    font-size: 12px;
+  }
+
+  .view-all {
+    font-size: 12px;
+  }
+
+  .category-filters {
+    margin-bottom: 22px;
+  }
+
+  .filter-btn,
+  .language-btn {
+    padding: 8px 14px;
+
+    font-size: 12px;
+  }
+
+  .content-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 15px;
   }
 
-  .category-filters {
-    align-items: stretch;
-
-    flex-direction: column;
+  .card-details {
+    padding: 9px;
   }
 
-  .filter-group select {
-    width: 100%;
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-meta {
+    font-size: 11px;
   }
 }
 
-@media (max-width: 450px) {
-  .category-grid {
-    grid-template-columns: 1fr 1fr;
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
 
+@media (max-width: 380px) {
+  .content-grid {
     gap: 10px;
   }
 
-  .category-content {
-    padding-top: 30px;
+  .card-title {
+    font-size: 13px;
   }
 
-  .category-header h1 {
-    font-size: 23px;
+  .card-meta {
+    font-size: 10px;
   }
 }
