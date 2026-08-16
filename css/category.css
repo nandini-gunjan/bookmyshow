@@ -8,32 +8,62 @@
   min-height: 100vh;
 }
 
-/* =========================================================
-   HERO CAROUSEL
-========================================================= */
+/* =========================================
+   CATEGORY HERO CAROUSEL
+========================================= */
 
 .category-hero {
   position: relative;
   width: 100%;
-  height: 420px;
+  height: 430px;
   overflow: hidden;
   background: #111;
 }
 
-.hero-slide {
-  position: relative;
+/* =========================================
+   SLIDES
+========================================= */
+
+.hero-slides {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
-.hero-slide img {
+.hero-slide {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================================
+   BACKGROUND IMAGE
+========================================= */
+
+.hero-slide > img {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+  object-position: center;
+
   display: block;
 }
 
-/* Dark overlay */
+/* =========================================
+   DARK OVERLAY
+========================================= */
 
 .hero-overlay {
   position: absolute;
@@ -41,13 +71,16 @@
 
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.62) 35%,
+    rgba(0, 0, 0, 0.25) 70%,
     rgba(0, 0, 0, 0.15) 100%
   );
 }
 
-/* Hero content */
+/* =========================================
+   HERO CONTENT
+========================================= */
 
 .hero-content {
   position: absolute;
@@ -57,56 +90,87 @@
 
   transform: translateY(-50%);
 
-  max-width: 520px;
+  width: min(520px, 45%);
 
   color: #fff;
 
   z-index: 2;
 }
 
+/* =========================================
+   LABEL
+========================================= */
+
 .hero-label {
   display: inline-block;
+
+  margin-bottom: 12px;
+
+  color: #e63950;
 
   font-size: 13px;
   font-weight: 700;
 
-  letter-spacing: 2px;
-
-  margin-bottom: 12px;
-
-  color: #ff2f6d;
+  letter-spacing: 1.5px;
 }
+
+/* =========================================
+   TITLE
+========================================= */
 
 .hero-content h1 {
-  margin: 0 0 15px;
+  margin: 0 0 14px;
 
-  font-size: 44px;
-  line-height: 1.15;
+  font-size: clamp(34px, 4vw, 54px);
+
+  line-height: 1.05;
 
   font-weight: 700;
+
+  color: #fff;
 }
+
+/* =========================================
+   DESCRIPTION
+========================================= */
 
 .hero-content p {
-  margin: 0 0 25px;
+  margin: 0 0 22px;
 
-  max-width: 450px;
+  max-width: 500px;
 
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 15px;
 
-  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.65;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  display: -webkit-box;
+
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
 }
 
-/* Hero button */
+/* =========================================
+   EXPLORE NOW BUTTON
+========================================= */
 
 .hero-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 24px;
+
   border: none;
-
-  padding: 12px 25px;
-
   border-radius: 5px;
 
-  background: #f84464;
+  background: #e63950;
+
   color: #fff;
 
   font-size: 14px;
@@ -120,13 +184,14 @@
 }
 
 .hero-btn:hover {
-  background: #e73556;
+  background: #d92f46;
+
   transform: translateY(-2px);
 }
 
-/* =========================================================
-   CAROUSEL BUTTONS
-========================================================= */
+/* =========================================
+   CAROUSEL ARROWS
+========================================= */
 
 .carousel-btn {
   position: absolute;
@@ -135,8 +200,10 @@
 
   transform: translateY(-50%);
 
+  z-index: 5;
+
   width: 42px;
-  height: 70px;
+  height: 64px;
 
   border: none;
 
@@ -148,45 +215,59 @@
 
   cursor: pointer;
 
-  z-index: 5;
+  display: flex;
 
-  transition: background 0.2s ease;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    width 0.2s ease;
 }
 
 .carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
+
+  width: 48px;
 }
 
 .carousel-prev {
   left: 0;
+
+  border-radius: 0 5px 5px 0;
 }
 
 .carousel-next {
   right: 0;
+
+  border-radius: 5px 0 0 5px;
 }
 
-/* =========================================================
-   CAROUSEL INDICATORS
-========================================================= */
+/* =========================================
+   INDICATORS
+========================================= */
 
 .carousel-indicators {
   position: absolute;
 
+  bottom: 18px;
+
   left: 50%;
-  bottom: 20px;
 
   transform: translateX(-50%);
 
+  z-index: 5;
+
   display: flex;
 
-  gap: 7px;
+  align-items: center;
 
-  z-index: 5;
+  gap: 6px;
 }
 
 .carousel-indicator {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 
   padding: 0;
 
@@ -194,21 +275,21 @@
 
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.55);
 
   cursor: pointer;
 
   transition:
-    width 0.2s ease,
-    background 0.2s ease;
+    width 0.25s ease,
+    background 0.25s ease;
 }
 
 .carousel-indicator.active {
-  width: 24px;
+  width: 22px;
 
   border-radius: 10px;
 
-  background: #f84464;
+  background: #e63950;
 }
 
 /* =========================================================

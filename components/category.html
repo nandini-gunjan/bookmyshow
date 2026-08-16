@@ -1,26 +1,15 @@
 <section class="category-page">
+
   <!-- =========================================
        HERO CAROUSEL
   ========================================== -->
 
   <section class="category-hero">
-    <div class="hero-slide active">
-      <img src="#" alt="Featured" />
 
-      <div class="hero-overlay"></div>
+    <!-- Slides will be created dynamically -->
 
-      <div class="hero-content">
-        <span class="hero-label">BOOKITBRO</span>
+    <div class="hero-slides" id="heroSlides"></div>
 
-        <h1 id="categoryHeroTitle">Discover Movies</h1>
-
-        <p id="categoryHeroDescription">
-          Find the latest movies, events and entertainment near you.
-        </p>
-
-        <button class="hero-btn">Explore Now</button>
-      </div>
-    </div>
 
     <!-- Carousel Controls -->
 
@@ -32,78 +21,123 @@
       &#10095;
     </button>
 
+
     <!-- Carousel Indicators -->
 
-    <div class="carousel-indicators">
-      <button class="carousel-indicator active"></button>
-      <button class="carousel-indicator"></button>
-      <button class="carousel-indicator"></button>
-    </div>
+    <div class="carousel-indicators" id="carouselIndicators"></div>
+
   </section>
+
 
   <!-- =========================================
        CATEGORY CONTENT
   ========================================== -->
 
   <section class="category-content">
+
     <!-- Heading -->
 
     <div class="category-heading">
-      <div>
-        <h2 id="categoryTitle">Recommended Movies</h2>
 
-        <p id="categorySubtitle">Explore the latest and most popular movies</p>
+      <div>
+
+        <h2 id="categoryTitle">
+          Recommended Movies
+        </h2>
+
+        <p id="categorySubtitle">
+          Explore the latest and most popular movies
+        </p>
+
       </div>
 
-      <a href="#" class="view-all"> View All </a>
+      <a href="#" class="view-all">
+        View All
+      </a>
+
     </div>
+
 
     <!-- =========================================
          FILTER BAR
     ========================================== -->
 
     <div class="category-filters">
+
       <!-- Filter Button -->
 
       <button class="filter-btn" id="filterButton">
-        <span class="filter-icon"> ☰ </span>
 
-        <span> Filters </span>
+        <span class="filter-icon">
+          ☰
+        </span>
+
+        <span>
+          Filters
+        </span>
+
       </button>
+
 
       <!-- Language Filters -->
 
       <div class="language-filters">
-        <button class="language-btn active" data-language="all">All</button>
 
-        <button class="language-btn" data-language="hindi">Hindi</button>
+        <button class="language-btn active" data-language="all">
+          All
+        </button>
 
-        <button class="language-btn" data-language="english">English</button>
+        <button class="language-btn" data-language="hindi">
+          Hindi
+        </button>
 
-        <button class="language-btn" data-language="marathi">Marathi</button>
+        <button class="language-btn" data-language="english">
+          English
+        </button>
 
-        <button class="language-btn" data-language="tamil">Tamil</button>
+        <button class="language-btn" data-language="marathi">
+          Marathi
+        </button>
 
-        <button class="language-btn" data-language="telugu">Telugu</button>
+        <button class="language-btn" data-language="tamil">
+          Tamil
+        </button>
+
+        <button class="language-btn" data-language="telugu">
+          Telugu
+        </button>
+
       </div>
+
     </div>
+
 
     <!-- =========================================
          MOVIE / EVENT CARDS
     ========================================== -->
 
     <div class="content-grid" id="categoryGrid">
-      <!-- Cards will be inserted by category.js -->
+      <!-- Cards inserted by category.js -->
+
     </div>
+
 
     <!-- =========================================
          NO RESULTS
     ========================================== -->
 
     <div class="no-results" id="noResults" style="display: none">
-      <h3>No results found</h3>
 
-      <p>Try selecting another language or category.</p>
+      <h3>
+        No results found
+      </h3>
+
+      <p>
+        Try selecting another language or category.
+      </p>
+
     </div>
+
   </section>
+
 </section>

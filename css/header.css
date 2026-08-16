@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-.scroll-container::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none; /* Hides scrollbar for Chrome, Safari, and Opera */
 }
 
@@ -2186,5 +2186,211 @@
 
   .movie-info h3 {
     font-size: 14px;
+  }
+}
+
+/* =========================================
+   SEARCH CONTAINER
+========================================= */
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+}
+
+/* =========================================
+   SEARCH RESULTS DROPDOWN
+========================================= */
+
+.search-results {
+  margin: 0 8px 0 6px;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+
+  z-index: 9999;
+
+  display: none;
+
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+/* Show dropdown */
+
+.search-results.show {
+  display: block;
+}
+
+/* =========================================
+   SEARCH RESULT ITEM
+========================================= */
+
+.search-result-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 12px 16px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Hover */
+
+.search-result-item:hover {
+  background: #f5f5f5;
+}
+
+/* =========================================
+   POSTER
+========================================= */
+
+.search-result-item img {
+  width: 48px;
+  height: 68px;
+
+  object-fit: cover;
+
+  border-radius: 5px;
+
+  flex-shrink: 0;
+
+  background: #eeeeee;
+}
+
+/* =========================================
+   RESULT INFORMATION
+========================================= */
+
+.search-result-info {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.search-result-info h4 {
+  margin: 0 0 6px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  color: #222;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.search-result-info p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #777;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.search-loading {
+  padding: 22px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #777;
+}
+
+/* =========================================
+   NO RESULTS
+========================================= */
+
+.search-no-results {
+  padding: 24px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #777;
+}
+
+/* =========================================
+   SEARCH SCROLLBAR
+========================================= */
+
+.search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background: #cccccc;
+
+  border-radius: 10px;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .search-container {
+    max-width: none;
+  }
+
+  .search-results {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    max-height: 400px;
+  }
+
+  .search-result-item {
+    padding: 10px 12px;
+
+    gap: 12px;
+  }
+
+  .search-result-item img {
+    width: 42px;
+    height: 60px;
+  }
+
+  .search-result-info h4 {
+    font-size: 14px;
+  }
+
+  .search-result-info p {
+    font-size: 12px;
   }
 }

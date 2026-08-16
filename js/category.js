@@ -372,81 +372,209 @@ function initializeLanguageFilters() {
 }
 
 // =========================================
-// CAROUSEL
+// HERO CAROUSEL
 // =========================================
 
 function initializeCarousel() {
-  const slides = document.querySelectorAll(".hero-slide");
+  const slidesContainer = document.getElementById("heroSlides");
 
-  const indicators = document.querySelectorAll(".carousel-indicator");
+  const indicatorsContainer = document.getElementById("carouselIndicators");
 
   const previous = document.querySelector(".carousel-prev");
 
   const next = document.querySelector(".carousel-next");
 
-  if (slides.length === 0 || indicators.length === 0) {
+  // -----------------------------------------
+  // CHECK ELEMENTS
+  // -----------------------------------------
+
+  if (!slidesContainer || !indicatorsContainer) {
+    console.error("Carousel elements not found.");
+
     return;
   }
 
+  // -----------------------------------------
+  // CLEAR OLD CAROUSEL
+  // -----------------------------------------
+
+  slidesContainer.innerHTML = "";
+
+  indicatorsContainer.innerHTML = "";
+
+  // -----------------------------------------
+  // GET MOVIES FOR CAROUSEL
+  // -----------------------------------------
+
+  let carouselItems = currentItems.slice(0, 5);
+
+  // -----------------------------------------
+  // IF NO MOVIES
+  // -----------------------------------------
+
+  if (carouselItems.length === 0) {
+    return;
+  }
+
+  // -----------------------------------------
+  // CURRENT SLIDE
+  // -----------------------------------------
+
   let currentSlide = 0;
 
-  // ---------------------------------------
+  // -----------------------------------------
+  // CREATE SLIDES
+  // -----------------------------------------
+
+  carouselItems.forEach((movie, index) => {
+    const slide = document.createElement("div");
+
+    slide.className = "hero-slide";
+
+    if (index === 0) {
+      slide.classList.add("active");
+    }
+
+    slide.innerHTML = `
+      <img
+        src="${movie.backdrop || movie.image}"
+        alt="${movie.title}"
+      />
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <span class="hero-label">
+          BOOKITBRO
+        </span>
+
+        <h1>
+          ${movie.title}
+        </h1>
+
+        <p>
+          ${movie.overview || "Discover this movie on BookItBro."}
+        </p>
+
+        <button
+          class="hero-btn"
+          data-movie-id="${movie.id}"
+        >
+          Explore Now
+        </button>
+
+      </div>
+    `;
+
+    slidesContainer.appendChild(slide);
+
+    // ---------------------------------------
+    // CREATE INDICATOR
+    // ---------------------------------------
+
+    const indicator = document.createElement("button");
+
+    indicator.className = "carousel-indicator";
+
+    indicator.setAttribute("aria-label", `Go to slide ${index + 1}`);
+
+    if (index === 0) {
+      indicator.classList.add("active");
+    }
+
+    indicator.dataset.slide = index;
+
+    indicatorsContainer.appendChild(indicator);
+  });
+
+  // -----------------------------------------
+  // GET CREATED ELEMENTS
+  // -----------------------------------------
+
+  const slides = slidesContainer.querySelectorAll(".hero-slide");
+
+  const indicators = indicatorsContainer.querySelectorAll(
+    ".carousel-indicator",
+  );
+
+  // -----------------------------------------
   // SHOW SLIDE
-  // ---------------------------------------
+  // -----------------------------------------
 
   function showSlide(index) {
+    if (index < 0) {
+      index = slides.length - 1;
+    }
+
+    if (index >= slides.length) {
+      index = 0;
+    }
+
+    currentSlide = index;
+
     slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
+      slide.classList.toggle("active", i === currentSlide);
     });
 
     indicators.forEach((indicator, i) => {
-      indicator.classList.toggle("active", i === index);
+      indicator.classList.toggle("active", i === currentSlide);
     });
   }
 
-  // ---------------------------------------
-  // NEXT
-  // ---------------------------------------
+  // -----------------------------------------
+  // NEXT BUTTON
+  // -----------------------------------------
 
   if (next) {
-    next.addEventListener("click", () => {
-      currentSlide++;
-
-      if (currentSlide >= slides.length) {
-        currentSlide = 0;
-      }
-
-      showSlide(currentSlide);
-    });
+    next.onclick = () => {
+      showSlide(currentSlide + 1);
+    };
   }
 
-  // ---------------------------------------
-  // PREVIOUS
-  // ---------------------------------------
+  // -----------------------------------------
+  // PREVIOUS BUTTON
+  // -----------------------------------------
 
   if (previous) {
-    previous.addEventListener("click", () => {
-      currentSlide--;
-
-      if (currentSlide < 0) {
-        currentSlide = slides.length - 1;
-      }
-
-      showSlide(currentSlide);
-    });
+    previous.onclick = () => {
+      showSlide(currentSlide - 1);
+    };
   }
 
-  // ---------------------------------------
+  // -----------------------------------------
   // INDICATORS
-  // ---------------------------------------
+  // -----------------------------------------
 
   indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      currentSlide = index;
+    indicator.onclick = () => {
+      showSlide(index);
+    };
+  });
 
-      showSlide(currentSlide);
+  // -----------------------------------------
+  // EXPLORE NOW
+  // -----------------------------------------
+
+  const exploreButtons = slidesContainer.querySelectorAll(".hero-btn");
+
+  exploreButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const movieId = button.dataset.movieId;
+
+      if (!movieId) {
+        return;
+      }
+
+      window.location.href = `movie-details.html?id=${movieId}`;
     });
   });
+
+  // -----------------------------------------
+  // INITIAL SLIDE
+  // -----------------------------------------
+
+  showSlide(0);
 }
 
 // =========================================

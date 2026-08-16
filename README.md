@@ -12,6 +12,8 @@ It is a clone of BookMyShow website with some additional features and improvemen
 - Firestore
 
 4. TMDb API - For movies poster & information
+5. Ticketmaster Discovery API - For events & plays information
+6. Sports API - For sports information
 
 # Plan: First we will work on this
 

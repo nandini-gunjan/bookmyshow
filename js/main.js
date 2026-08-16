@@ -8,6 +8,7 @@ import {
 } from "./auth.js";
 
 import { initializePageNavigation } from "./navigation.js";
+import { initializeSearch } from "./search.js";
 
 // =========================================
 // LOAD NAVBAR
@@ -38,6 +39,7 @@ async function loadNavbar() {
     initializeForgotPasswordModal();
     initializeAuthState();
     initializeAccountDropdown();
+    initializeSearch();
   } catch (error) {
     console.error("Navbar Error:", error);
   }

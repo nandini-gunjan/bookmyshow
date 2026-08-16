@@ -2,7 +2,8 @@
 // TMDB CONFIGURATION
 // =========================================
 
-const TMDB_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YjA1MWYzMmI5YmZhMDhlY2E0NTllOWFiMTIyY2E4MSIsIm5iZiI6MTc4Njc5MDUwOC4yOTIsInN1YiI6IjZhODA0MjZjZGMwNjE3NWExMWIzMmYzOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSKn50ikKCJI5Ooqiu5ysCKJX8vX6tJBooRdYeYyEA4";
+const TMDB_READ_ACCESS_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YjA1MWYzMmI5YmZhMDhlY2E0NTllOWFiMTIyY2E4MSIsIm5iZiI6MTc4Njc5MDUwOC4yOTIsInN1YiI6IjZhODA0MjZjZGMwNjE3NWExMWIzMmYzOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSKn50ikKCJI5Ooqiu5ysCKJX8vX6tJBooRdYeYyEA4";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -25,7 +26,7 @@ async function getNowPlayingMovies(language = "en-US", region = "IN") {
 
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${TMDB_READ_ACCESS_TOKEN}`,
       },
     });
 
@@ -88,6 +89,56 @@ async function getMovies() {
 }
 
 // =========================================
+// SEARCH MOVIES
+// =========================================
+
+async function searchMovies(query, language = "en-US", region = "IN") {
+  try {
+    if (!query || !query.trim()) {
+      return [];
+    }
+
+    const url =
+      `${TMDB_BASE_URL}/search/movie` +
+      `?query=${encodeURIComponent(query.trim())}` +
+      `&language=${language}` +
+      `&region=${region}` +
+      `&page=1` +
+      `&include_adult=false`;
+
+    const response = await fetch(url, {
+      method: "GET",
+
+      headers: {
+        accept: "application/json",
+
+        Authorization: `Bearer ${TMDB_READ_ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+
+      console.error("TMDB Search Error:", errorData);
+
+      throw new Error(
+        `TMDB search failed: ${response.status} ${response.statusText}`,
+      );
+    }
+
+    const data = await response.json();
+
+    console.log("TMDB Search Results:", data.results);
+
+    return (data.results || []).map(formatMovie);
+  } catch (error) {
+    console.error("TMDB Search Error:", error);
+
+    return [];
+  }
+}
+
+// =========================================
 // GET MOVIE DETAILS
 // =========================================
 
@@ -103,7 +154,7 @@ async function getMovieDetails(movieId) {
 
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${TMDB_READ_ACCESS_TOKEN}`,
       },
     });
 
@@ -317,6 +368,7 @@ function formatMovieDetails(movie) {
 export {
   getNowPlayingMovies,
   getMovies,
+  searchMovies,
   formatMovie,
   getMovieDetails,
   formatMovieDetails,
