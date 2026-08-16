@@ -395,13 +395,9 @@ function initializeAuthState() {
     if (user) {
       // User is logged in
       updateNavbarAfterLogin(user);
-
-      console.log("User is logged in:", user);
     } else {
       // User is logged out
       resetNavbarAfterLogout();
-
-      console.log("No user is logged in.");
     }
   });
 }
