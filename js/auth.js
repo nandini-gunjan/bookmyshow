@@ -92,8 +92,6 @@ async function signInWithGoogle() {
       },
     );
 
-    console.log("Google user signed in and stored:", user);
-
     return {
       success: true,
       user: user,

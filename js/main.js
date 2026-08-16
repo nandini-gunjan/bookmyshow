@@ -349,8 +349,6 @@ function initializeSigninModal() {
     googleSigninButton.textContent = "Continue with Google";
 
     if (result.success) {
-      console.log("Google sign in successful:", result.user);
-
       closeSigninModal();
 
       updateNavbarAfterLogin(result.user);
