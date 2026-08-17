@@ -5,28 +5,39 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Theatres & Showtimes | BookItBro</title>
+    <title>Showtimes | BookItBro</title>
 
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-    <!-- Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet"
+    >
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Keep your existing header CSS if this is the correct path -->
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-
-    <!-- Existing navbar CSS -->
-
-    <link rel="stylesheet" href="css/header.css">
-
-
-    <!-- New CSS -->
-
-    <link rel="stylesheet" href="css/theatre-showtime.css">
+    <link
+        rel="stylesheet"
+        href="css/theatre-showtime.css"
+    >
 
 </head>
 
@@ -34,40 +45,30 @@
 <body>
 
 
-    <!-- =====================================
-         NAVBAR
-    ====================================== -->
+    <!-- Existing navbar -->
 
     <div id="navbar"></div>
 
 
-
-    <!-- =====================================
-         PAGE
-    ====================================== -->
+    <!-- Theatre page -->
 
     <main id="theatrePage">
 
-        <div class="theatre-loading">
+        <div class="page-loading">
 
-            <div class="loading-spinner"></div>
+            <div class="loader"></div>
 
-            <p>
-                Loading theatres...
-            </p>
+            <p>Loading showtimes...</p>
 
         </div>
 
     </main>
 
 
-
-    <!-- =====================================
-         JAVASCRIPT
-    ====================================== -->
-
-    <script type="module" src="js/theatre-showtime.js"></script>
-
+    <script
+        type="module"
+        src="js/theatre-showtime.js"
+    ></script>
 
 </body>
 
