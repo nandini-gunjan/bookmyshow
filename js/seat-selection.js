@@ -3,7 +3,6 @@
    SEAT SELECTION
 ========================================= */
 
-
 /* =========================================
    STATE
 ========================================= */
@@ -14,574 +13,331 @@ let selectedSeats = [];
 
 let ticketPrice = 0;
 
-
 /* =========================================
    SEAT CONFIGURATION
 ========================================= */
 
 const rows = [
-    {
-        name: "A",
-        seats: 8
-    },
-    {
-        name: "B",
-        seats: 8
-    },
-    {
-        name: "C",
-        seats: 10
-    },
-    {
-        name: "D",
-        seats: 10
-    },
-    {
-        name: "E",
-        seats: 10
-    },
-    {
-        name: "F",
-        seats: 10
-    },
-    {
-        name: "G",
-        seats: 10
-    },
-    {
-        name: "H",
-        seats: 10
-    },
-    {
-        name: "I",
-        seats: 10
-    },
-    {
-        name: "J",
-        seats: 10
-    }
+  {
+    name: "A",
+    seats: 8,
+  },
+  {
+    name: "B",
+    seats: 8,
+  },
+  {
+    name: "C",
+    seats: 10,
+  },
+  {
+    name: "D",
+    seats: 10,
+  },
+  {
+    name: "E",
+    seats: 10,
+  },
+  {
+    name: "F",
+    seats: 10,
+  },
+  {
+    name: "G",
+    seats: 10,
+  },
+  {
+    name: "H",
+    seats: 10,
+  },
+  {
+    name: "I",
+    seats: 10,
+  },
+  {
+    name: "J",
+    seats: 10,
+  },
 ];
-
 
 /* =========================================
    LOAD BOOKING DATA
 ========================================= */
 
 function loadBookingData() {
+  const storedData = sessionStorage.getItem("bookItBroBooking");
 
-    const storedData =
-        sessionStorage.getItem(
-            "bookItBroBooking"
-        );
+  if (!storedData) {
+    showError();
 
+    return false;
+  }
 
-    if (!storedData) {
+  try {
+    bookingData = JSON.parse(storedData);
 
-        showError();
+    ticketPrice = Number(bookingData.ticketPrice) || 0;
 
-        return false;
-    }
+    return true;
+  } catch (error) {
+    console.error("Booking data error:", error);
 
+    showError();
 
-    try {
-
-        bookingData =
-            JSON.parse(
-                storedData
-            );
-
-
-        ticketPrice =
-            Number(
-                bookingData.ticketPrice
-            ) || 0;
-
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "Booking data error:",
-            error
-        );
-
-
-        showError();
-
-        return false;
-    }
+    return false;
+  }
 }
-
 
 /* =========================================
    DISPLAY MOVIE / SHOW INFO
 ========================================= */
 
 function displayBookingInformation() {
+  const movieTitle = document.getElementById("movieTitle");
 
-    const movieTitle =
-        document.getElementById(
-            "movieTitle"
-        );
+  const showInformation = document.getElementById("showInformation");
 
+  if (!bookingData) {
+    return;
+  }
 
-    const showInformation =
-        document.getElementById(
-            "showInformation"
-        );
+  movieTitle.textContent = bookingData.movieTitle;
 
+  const date = formatDate(bookingData.date);
 
-    if (!bookingData) {
-        return;
-    }
-
-
-    movieTitle.textContent =
-        bookingData.movieTitle;
-
-
-    const date =
-        formatDate(
-            bookingData.date
-        );
-
-
-    showInformation.textContent =
-        `${bookingData.theatreName} • ${date} • ${bookingData.showTime}`;
-
+  showInformation.textContent = `${bookingData.theatreName} • ${date} • ${bookingData.showTime}`;
 }
-
 
 /* =========================================
    GENERATE SEATS
 ========================================= */
 
 function generateSeats() {
+  const container = document.getElementById("seatLayout");
 
-    const container =
-        document.getElementById(
-            "seatLayout"
-        );
+  container.innerHTML = "";
 
+  rows.forEach((row, rowIndex) => {
+    const rowElement = document.createElement("div");
 
-    container.innerHTML = "";
+    rowElement.className = "seat-row";
 
+    const label = document.createElement("span");
 
-    rows.forEach(
-        (row, rowIndex) => {
+    label.className = "row-label";
 
-            const rowElement =
-                document.createElement(
-                    "div"
-                );
+    label.textContent = row.name;
 
+    rowElement.appendChild(label);
 
-            rowElement.className =
-                "seat-row";
+    const seatsContainer = document.createElement("div");
 
+    seatsContainer.className = "seats";
 
-            const label =
-                document.createElement(
-                    "span"
-                );
-
-
-            label.className =
-                "row-label";
-
-
-            label.textContent =
-                row.name;
-
-
-            rowElement.appendChild(
-                label
-            );
-
-
-            const seatsContainer =
-                document.createElement(
-                    "div"
-                );
-
-
-            seatsContainer.className =
-                "seats";
-
-
-            for (
-                let seatNumber = 1;
-                seatNumber <= row.seats;
-                seatNumber++
-            ) {
-
-                /*
+    for (let seatNumber = 1; seatNumber <= row.seats; seatNumber++) {
+      /*
                     Create some realistic
                     unavailable seats.
                 */
 
-                const occupied =
-                    isOccupied(
-                        rowIndex,
-                        seatNumber
-                    );
+      const occupied = isOccupied(rowIndex, seatNumber);
 
+      const seat = document.createElement("button");
 
-                const seat =
-                    document.createElement(
-                        "button"
-                    );
+      seat.type = "button";
 
+      seat.className = "seat";
 
-                seat.type =
-                    "button";
+      seat.textContent = seatNumber;
 
+      seat.dataset.seat = `${row.name}${seatNumber}`;
 
-                seat.className =
-                    "seat";
+      if (occupied) {
+        seat.classList.add("occupied");
 
+        seat.disabled = true;
+      }
 
-                seat.textContent =
-                    seatNumber;
+      seat.addEventListener("click", () => {
+        toggleSeat(seat);
+      });
 
+      seatsContainer.appendChild(seat);
+    }
 
-                seat.dataset.seat =
-                    `${row.name}${seatNumber}`;
+    rowElement.appendChild(seatsContainer);
 
-
-                if (occupied) {
-
-                    seat.classList.add(
-                        "occupied"
-                    );
-
-                    seat.disabled =
-                        true;
-
-                }
-
-
-                seat.addEventListener(
-                    "click",
-                    () => {
-
-                        toggleSeat(
-                            seat
-                        );
-
-                    }
-                );
-
-
-                seatsContainer.appendChild(
-                    seat
-                );
-
-            }
-
-
-            rowElement.appendChild(
-                seatsContainer
-            );
-
-
-            container.appendChild(
-                rowElement
-            );
-
-        }
-    );
-
+    container.appendChild(rowElement);
+  });
 }
-
 
 /* =========================================
    OCCUPIED SEATS
 ========================================= */
 
-function isOccupied(
-    rowIndex,
-    seatNumber
-) {
-
-    /*
+function isOccupied(rowIndex, seatNumber) {
+  /*
         Temporary demo availability.
 
         Later this will come from
         your real backend/API.
     */
 
-    const occupiedSeats = {
+  const occupiedSeats = {
+    0: [3, 4],
 
-        0: [3, 4],
+    1: [6],
 
-        1: [6],
+    2: [2, 8],
 
-        2: [2, 8],
+    3: [4, 5],
 
-        3: [4, 5],
+    4: [7],
 
-        4: [7],
+    5: [1, 9],
 
-        5: [1, 9],
+    6: [3, 4],
 
-        6: [3, 4],
+    7: [6],
 
-        7: [6],
+    8: [2, 10],
 
-        8: [2, 10],
+    9: [5, 6],
+  };
 
-        9: [5, 6]
-
-    };
-
-
-    return (
-        occupiedSeats[rowIndex] &&
-        occupiedSeats[rowIndex]
-            .includes(seatNumber)
-    );
+  return (
+    occupiedSeats[rowIndex] && occupiedSeats[rowIndex].includes(seatNumber)
+  );
 }
-
 
 /* =========================================
    SELECT / DESELECT SEAT
 ========================================= */
 
-function toggleSeat(
-    seat
-) {
+function toggleSeat(seat) {
+  const seatId = seat.dataset.seat;
 
-    const seatId =
-        seat.dataset.seat;
+  const index = selectedSeats.indexOf(seatId);
 
-
-    const index =
-        selectedSeats.indexOf(
-            seatId
-        );
-
-
-    if (index === -1) {
-
-        /*
+  if (index === -1) {
+    /*
             Limit seats to 10.
         */
 
-        if (
-            selectedSeats.length >= 10
-        ) {
+    if (selectedSeats.length >= 10) {
+      alert("You can select maximum 10 seats.");
 
-            alert(
-                "You can select maximum 10 seats."
-            );
-
-            return;
-        }
-
-
-        selectedSeats.push(
-            seatId
-        );
-
-
-        seat.classList.add(
-            "selected"
-        );
-
-    } else {
-
-        selectedSeats.splice(
-            index,
-            1
-        );
-
-
-        seat.classList.remove(
-            "selected"
-        );
-
+      return;
     }
 
+    selectedSeats.push(seatId);
 
-    updateSummary();
+    seat.classList.add("selected");
+  } else {
+    selectedSeats.splice(index, 1);
+
+    seat.classList.remove("selected");
+  }
+
+  updateSummary();
 }
-
 
 /* =========================================
    UPDATE SUMMARY
 ========================================= */
 
 function updateSummary() {
+  const selectedSeatsElement = document.getElementById("selectedSeats");
 
-    const selectedSeatsElement =
-        document.getElementById(
-            "selectedSeats"
-        );
+  const ticketCountElement = document.getElementById("ticketCount");
 
+  const totalPriceElement = document.getElementById("totalPrice");
 
-    const ticketCountElement =
-        document.getElementById(
-            "ticketCount"
-        );
+  const continueButton = document.getElementById("continueButton");
 
+  if (selectedSeats.length === 0) {
+    selectedSeatsElement.textContent = "None";
+  } else {
+    selectedSeatsElement.textContent = selectedSeats.join(", ");
+  }
 
-    const totalPriceElement =
-        document.getElementById(
-            "totalPrice"
-        );
+  ticketCountElement.textContent = selectedSeats.length;
 
+  const total = selectedSeats.length * ticketPrice;
 
-    const continueButton =
-        document.getElementById(
-            "continueButton"
-        );
+  totalPriceElement.textContent = `₹${total}`;
 
-
-    if (
-        selectedSeats.length === 0
-    ) {
-
-        selectedSeatsElement.textContent =
-            "None";
-
-    } else {
-
-        selectedSeatsElement.textContent =
-            selectedSeats.join(", ");
-
-    }
-
-
-    ticketCountElement.textContent =
-        selectedSeats.length;
-
-
-    const total =
-        selectedSeats.length *
-        ticketPrice;
-
-
-    totalPriceElement.textContent =
-        `₹${total}`;
-
-
-    continueButton.disabled =
-        selectedSeats.length === 0;
-
+  continueButton.disabled = selectedSeats.length === 0;
 }
-
 
 /* =========================================
    CONTINUE
 ========================================= */
 
 function continueToSummary() {
+  if (selectedSeats.length === 0) {
+    return;
+  }
 
-    if (
-        selectedSeats.length === 0
-    ) {
+  const finalBooking = {
+    ...bookingData,
 
-        return;
-    }
+    seats: selectedSeats,
 
+    numberOfTickets: selectedSeats.length,
 
-    const finalBooking = {
+    totalAmount: selectedSeats.length * ticketPrice,
+  };
 
-        ...bookingData,
-
-        seats:
-            selectedSeats,
-
-        numberOfTickets:
-            selectedSeats.length,
-
-        totalAmount:
-            selectedSeats.length *
-            ticketPrice
-
-    };
-
-
-    /*
+  /*
         Save complete booking.
     */
 
-    sessionStorage.setItem(
-        "bookItBroFinalBooking",
-        JSON.stringify(
-            finalBooking
-        )
-    );
+  sessionStorage.setItem("bookItBroFinalBooking", JSON.stringify(finalBooking));
 
+  console.log("Final booking:", finalBooking);
 
-    console.log(
-        "Final booking:",
-        finalBooking
-    );
-
-
-    /*
+  /*
         Next page we'll create:
 
         booking-summary.html
     */
 
-    window.location.href =
-        "booking-summary.html";
+  window.location.href = "booking-summary.html";
 }
-
 
 /* =========================================
    BACK
 ========================================= */
 
 function goBack() {
-
-    window.history.back();
-
+  window.history.back();
 }
-
 
 /* =========================================
    FORMAT DATE
 ========================================= */
 
-function formatDate(
-    dateString
-) {
+function formatDate(dateString) {
+  if (!dateString) {
+    return "";
+  }
 
-    if (!dateString) {
-        return "";
-    }
+  const date = new Date(dateString);
 
-
-    const date =
-        new Date(
-            dateString
-        );
-
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        }
-    );
-
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
-
 
 /* =========================================
    ERROR
 ========================================= */
 
 function showError() {
-
-    document.body.innerHTML = `
+  document.body.innerHTML = `
 
         <div style="
             min-height:100vh;
@@ -628,49 +384,28 @@ function showError() {
     `;
 }
 
-
 /* =========================================
    INITIALIZE
 ========================================= */
 
 function initialize() {
+  const valid = loadBookingData();
 
-    const valid =
-        loadBookingData();
+  if (!valid) {
+    return;
+  }
 
+  displayBookingInformation();
 
-    if (!valid) {
-        return;
-    }
+  generateSeats();
 
+  updateSummary();
 
-    displayBookingInformation();
+  document
+    .getElementById("continueButton")
+    .addEventListener("click", continueToSummary);
 
-    generateSeats();
-
-    updateSummary();
-
-
-    document
-        .getElementById(
-            "continueButton"
-        )
-        .addEventListener(
-            "click",
-            continueToSummary
-        );
-
-
-    document
-        .getElementById(
-            "backButton"
-        )
-        .addEventListener(
-            "click",
-            goBack
-        );
-
+  document.getElementById("backButton").addEventListener("click", goBack);
 }
-
 
 initialize();

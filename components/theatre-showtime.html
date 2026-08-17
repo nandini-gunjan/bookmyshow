@@ -1,216 +1,106 @@
 <section class="theatre-page">
-
-
-    <!-- =====================================
+  <!-- =====================================
          MOVIE HEADER
     ====================================== -->
 
-    <section class="movie-show-header">
+  <section class="movie-show-header">
+    <div class="show-container">
+      <img
+        id="showMoviePoster"
+        class="show-movie-poster"
+        src=""
+        alt="Movie Poster"
+      />
 
-        <div class="show-container">
+      <div class="show-movie-details">
+        <h1 id="showMovieTitle">Loading movie...</h1>
 
-            <img
-                id="showMoviePoster"
-                class="show-movie-poster"
-                src=""
-                alt="Movie Poster"
-            >
+        <div class="movie-meta">
+          <span id="showMovieLanguage"> - </span>
 
+          <span>•</span>
 
-            <div class="show-movie-details">
+          <span id="showMovieGenre"> - </span>
 
-                <h1 id="showMovieTitle">
-                    Loading movie...
-                </h1>
+          <span>•</span>
 
-
-                <div class="movie-meta">
-
-                    <span id="showMovieLanguage">
-                        -
-                    </span>
-
-                    <span>•</span>
-
-                    <span id="showMovieGenre">
-                        -
-                    </span>
-
-                    <span>•</span>
-
-                    <span id="showMovieDuration">
-                        -
-                    </span>
-
-                </div>
-
-
-                <p id="showMovieDescription">
-                    Loading movie information...
-                </p>
-
-            </div>
-
+          <span id="showMovieDuration"> - </span>
         </div>
 
-    </section>
+        <p id="showMovieDescription">Loading movie information...</p>
+      </div>
+    </div>
+  </section>
 
-
-
-    <!-- =====================================
+  <!-- =====================================
          DATE SELECTOR
     ====================================== -->
 
-    <section class="date-section">
+  <section class="date-section">
+    <div class="show-container">
+      <h2>Select Date</h2>
 
-        <div class="show-container">
+      <div id="dateList" class="date-list"></div>
+    </div>
+  </section>
 
-            <h2>
-                Select Date
-            </h2>
-
-
-            <div
-                id="dateList"
-                class="date-list"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
+  <!-- =====================================
          FILTERS
     ====================================== -->
 
-    <section class="filter-section">
+  <section class="filter-section">
+    <div class="show-container">
+      <div class="filter-row">
+        <div class="filter-left">
+          <span> Filter by: </span>
 
-        <div class="show-container">
+          <button class="filter-button active" data-filter="all">All</button>
 
-            <div class="filter-row">
+          <button class="filter-button" data-filter="premium">Premium</button>
 
-                <div class="filter-left">
-
-                    <span>
-                        Filter by:
-                    </span>
-
-
-                    <button
-                        class="filter-button active"
-                        data-filter="all"
-                    >
-                        All
-                    </button>
-
-
-                    <button
-                        class="filter-button"
-                        data-filter="premium"
-                    >
-                        Premium
-                    </button>
-
-
-                    <button
-                        class="filter-button"
-                        data-filter="standard"
-                    >
-                        Standard
-                    </button>
-
-                </div>
-
-
-                <button
-                    id="sortPriceButton"
-                    class="filter-button"
-                >
-                    Price ↑
-                </button>
-
-            </div>
-
+          <button class="filter-button" data-filter="standard">Standard</button>
         </div>
 
-    </section>
+        <button id="sortPriceButton" class="filter-button">Price ↑</button>
+      </div>
+    </div>
+  </section>
 
-
-
-    <!-- =====================================
+  <!-- =====================================
          THEATRES
     ====================================== -->
 
-    <section class="theatres-section">
+  <section class="theatres-section">
+    <div class="show-container">
+      <div class="theatre-title-row">
+        <h2>Theatres</h2>
 
-        <div class="show-container">
+        <span id="theatreCount"> 0 theatres </span>
+      </div>
 
-            <div class="theatre-title-row">
+      <div id="theatreList" class="theatre-list"></div>
+    </div>
+  </section>
 
-                <h2>
-                    Theatres
-                </h2>
-
-                <span id="theatreCount">
-                    0 theatres
-                </span>
-
-            </div>
-
-
-            <div
-                id="theatreList"
-                class="theatre-list"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
+  <!-- =====================================
          BOOKING BAR
     ====================================== -->
 
-    <div class="booking-bar">
-
-        <div class="booking-bar-inner">
-
-
-            <div>
-
-                <div
-                    id="selectedTheatreName"
-                    class="selected-theatre"
-                >
-                    Select a showtime
-                </div>
-
-
-                <div
-                    id="selectedShowTime"
-                    class="selected-show"
-                >
-                    Choose your theatre and show
-                </div>
-
-            </div>
-
-
-            <button
-                id="continueButton"
-                class="continue-button"
-                disabled
-            >
-                Select Showtime
-            </button>
-
+  <div class="booking-bar">
+    <div class="booking-bar-inner">
+      <div>
+        <div id="selectedTheatreName" class="selected-theatre">
+          Select a showtime
         </div>
 
+        <div id="selectedShowTime" class="selected-show">
+          Choose your theatre and show
+        </div>
+      </div>
+
+      <button id="continueButton" class="continue-button" disabled>
+        Select Showtime
+      </button>
     </div>
-
-
+  </div>
 </section>

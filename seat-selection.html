@@ -1,161 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Select Seats | BookItBro</title>
 
-    <link
-        rel="stylesheet"
-        href="css/seat-selection.css"
-    >
-</head>
+    <link rel="stylesheet" href="css/seat-selection.css" />
+  </head>
 
-<body>
-
+  <body>
     <header class="seat-header">
+      <button id="backButton" class="back-button">←</button>
 
-        <button
-            id="backButton"
-            class="back-button"
-        >
-            ←
-        </button>
+      <div>
+        <h1 id="movieTitle">Select Seats</h1>
 
-        <div>
-            <h1 id="movieTitle">
-                Select Seats
-            </h1>
-
-            <p id="showInformation">
-                Loading show information...
-            </p>
-        </div>
-
+        <p id="showInformation">Loading show information...</p>
+      </div>
     </header>
 
-
     <main class="seat-page">
+      <!-- SCREEN -->
 
-        <!-- SCREEN -->
+      <section class="screen-section">
+        <div class="screen">SCREEN THIS WAY</div>
 
-        <section class="screen-section">
+        <div class="screen-glow"></div>
+      </section>
 
-            <div class="screen">
-                SCREEN THIS WAY
-            </div>
+      <!-- SEAT AREA -->
 
-            <div class="screen-glow"></div>
+      <section class="seat-section">
+        <div class="seat-container">
+          <div id="seatLayout"></div>
+        </div>
 
-        </section>
+        <!-- LEGEND -->
 
+        <div class="seat-legend">
+          <div class="legend-item">
+            <span class="seat-demo available"></span>
+            Available
+          </div>
 
-        <!-- SEAT AREA -->
+          <div class="legend-item">
+            <span class="seat-demo selected"></span>
+            Selected
+          </div>
 
-        <section class="seat-section">
+          <div class="legend-item">
+            <span class="seat-demo occupied"></span>
+            Sold
+          </div>
+        </div>
+      </section>
 
-            <div class="seat-container">
+      <!-- BOOKING SUMMARY -->
 
-                <div id="seatLayout"></div>
+      <section class="booking-summary">
+        <div class="summary-content">
+          <div class="summary-info">
+            <span class="summary-label"> Selected Seats </span>
 
-            </div>
+            <strong id="selectedSeats"> None </strong>
+          </div>
 
+          <div class="summary-info">
+            <span class="summary-label"> Tickets </span>
 
-            <!-- LEGEND -->
+            <strong id="ticketCount"> 0 </strong>
+          </div>
 
-            <div class="seat-legend">
+          <div class="summary-info">
+            <span class="summary-label"> Total </span>
 
-                <div class="legend-item">
-                    <span class="seat-demo available"></span>
-                    Available
-                </div>
+            <strong id="totalPrice"> ₹0 </strong>
+          </div>
 
-                <div class="legend-item">
-                    <span class="seat-demo selected"></span>
-                    Selected
-                </div>
-
-                <div class="legend-item">
-                    <span class="seat-demo occupied"></span>
-                    Sold
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- BOOKING SUMMARY -->
-
-        <section class="booking-summary">
-
-            <div class="summary-content">
-
-                <div class="summary-info">
-
-                    <span class="summary-label">
-                        Selected Seats
-                    </span>
-
-                    <strong id="selectedSeats">
-                        None
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-info">
-
-                    <span class="summary-label">
-                        Tickets
-                    </span>
-
-                    <strong id="ticketCount">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-info">
-
-                    <span class="summary-label">
-                        Total
-                    </span>
-
-                    <strong id="totalPrice">
-                        ₹0
-                    </strong>
-
-                </div>
-
-
-                <button
-                    id="continueButton"
-                    class="continue-button"
-                    disabled
-                >
-                    Continue
-                </button>
-
-            </div>
-
-        </section>
-
+          <button id="continueButton" class="continue-button" disabled>
+            Continue
+          </button>
+        </div>
+      </section>
     </main>
 
-
-    <script
-        type="module"
-        src="js/seat-selection.js"
-    ></script>
-
-</body>
-
+    <script type="module" src="js/seat-selection.js"></script>
+  </body>
 </html>
