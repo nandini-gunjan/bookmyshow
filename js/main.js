@@ -29,7 +29,13 @@ async function loadNavbar() {
 
     const navbarHTML = await response.text();
 
-    document.getElementById("navbar").innerHTML = navbarHTML;
+    const navbar = document.getElementById("navbar");
+
+    if (!navbar) {
+      return;
+    }
+
+    navbar.innerHTML = navbarHTML;
 
     // Initialize navbar features
 

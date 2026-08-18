@@ -4,770 +4,933 @@
 ========================================= */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --primary: #e51937;
-    --primary-dark: #c91530;
-    --background: #f4f5f7;
-    --card: #ffffff;
-    --text: #202124;
-    --muted: #777;
-    --border: #e2e2e2;
-    --success: #1ca672;
-    --success-light: #eaf8f2;
-    --shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  --primary: #e51937;
+  --primary-dark: #c91530;
+  --background: #f4f5f7;
+  --card: #ffffff;
+  --text: #202124;
+  --muted: #777;
+  --border: #e2e2e2;
+  --success: #1ca672;
+  --success-light: #eaf8f2;
+  --shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
 }
 
 body {
-    min-height: 100vh;
-    background: var(--background);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 
 /* =========================================
    HEADER
 ========================================= */
 
 .confirmation-header {
-    height: 70px;
-    background: #ffffff;
-    border-bottom: 1px solid var(--border);
+  height: 70px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    padding: 0 5%;
+  padding: 0 5%;
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
 
-    font-size: 21px;
-    font-weight: 800;
+  font-size: 21px;
+  font-weight: 800;
 }
 
 .brand-icon {
-    font-size: 25px;
+  font-size: 25px;
 }
-
 
 /* =========================================
    MAIN
 ========================================= */
 
 .confirmation-page {
-    width: min(760px, 100%);
+  width: min(760px, 100%);
 
-    margin: 0 auto;
+  margin: 0 auto;
 
-    padding: 45px 20px 70px;
+  padding: 45px 20px 70px;
 }
-
 
 /* =========================================
    SUCCESS
 ========================================= */
 
 .success-section {
-    text-align: center;
+  text-align: center;
 
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .success-circle {
-    width: 72px;
-    height: 72px;
+  width: 72px;
+  height: 72px;
 
-    margin: 0 auto 18px;
+  margin: 0 auto 18px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: var(--success-light);
+  background: var(--success-light);
 
-    color: var(--success);
+  color: var(--success);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    font-size: 40px;
-    font-weight: 700;
+  font-size: 40px;
+  font-weight: 700;
 
-    animation: successPop 0.5s ease;
+  animation: successPop 0.5s ease;
 }
 
 .success-section h1 {
-    font-size: 30px;
+  font-size: 30px;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .success-section p {
-    color: var(--muted);
+  color: var(--muted);
 
-    font-size: 14px;
+  font-size: 14px;
 }
-
 
 /* =========================================
    TICKET
 ========================================= */
 
 .ticket {
-    background: var(--card);
+  background: var(--card);
 
-    border-radius: 15px;
+  border-radius: 15px;
 
-    box-shadow: var(--shadow);
+  box-shadow: var(--shadow);
 
-    overflow: hidden;
+  overflow: hidden;
 }
-
 
 /* =========================================
    TICKET HEADER
 ========================================= */
 
 .ticket-header {
-    padding: 24px 28px;
+  padding: 24px 28px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    gap: 20px;
+  gap: 20px;
 
-    border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .ticket-label {
-    display: block;
+  display: block;
 
-    color: var(--primary);
+  color: var(--primary);
 
-    font-size: 10px;
-    font-weight: 800;
+  font-size: 10px;
+  font-weight: 800;
 
-    letter-spacing: 1.5px;
+  letter-spacing: 1.5px;
 
-    margin-bottom: 7px;
+  margin-bottom: 7px;
 }
 
 .ticket-header h2 {
-    font-size: 21px;
+  font-size: 21px;
 
-    line-height: 1.3;
+  line-height: 1.3;
 }
 
 .booking-status {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 
-    padding: 7px 11px;
+  padding: 7px 11px;
 
-    border-radius: 20px;
+  border-radius: 20px;
 
-    background: var(--success-light);
+  background: var(--success-light);
 
-    color: var(--success);
+  color: var(--success);
 
-    font-size: 12px;
-    font-weight: 700;
+  font-size: 12px;
+  font-weight: 700;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .status-dot {
-    width: 7px;
-    height: 7px;
+  width: 7px;
+  height: 7px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: var(--success);
+  background: var(--success);
 }
-
 
 /* =========================================
    MOVIE SECTION
 ========================================= */
 
 .movie-section {
-    padding: 25px 28px;
+  padding: 25px 28px;
 
-    display: flex;
+  display: flex;
 
-    gap: 18px;
+  gap: 18px;
 }
 
 .poster-wrapper {
-    width: 90px;
-    height: 125px;
+  width: 90px;
+  height: 125px;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    background: #eeeeee;
+  background: #eeeeee;
 }
 
 .poster-wrapper img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    object-fit: cover;
+  object-fit: cover;
 
-    display: block;
+  display: block;
 }
 
 .movie-information {
-    padding-top: 4px;
+  padding-top: 4px;
 }
 
 .movie-information h3 {
-    font-size: 20px;
+  font-size: 20px;
 
-    margin-bottom: 7px;
+  margin-bottom: 7px;
 }
 
 .movie-information p {
-    color: var(--muted);
+  color: var(--muted);
 
-    font-size: 13px;
+  font-size: 13px;
 
-    margin-bottom: 13px;
+  margin-bottom: 13px;
 }
 
 .movie-rating {
-    display: inline-flex;
+  display: inline-flex;
 
-    align-items: center;
+  align-items: center;
 
-    gap: 5px;
+  gap: 5px;
 
-    padding: 6px 10px;
+  padding: 6px 10px;
 
-    border-radius: 6px;
+  border-radius: 6px;
 
-    background: #fff8e5;
+  background: #fff8e5;
 
-    color: #a26a00;
+  color: #a26a00;
 
-    font-size: 12px;
-    font-weight: 700;
+  font-size: 12px;
+  font-weight: 700;
 }
-
 
 /* =========================================
    SHOW DETAILS
 ========================================= */
 
 .show-details {
-    padding: 5px 28px 28px;
+  padding: 5px 28px 28px;
 
-    display: grid;
+  display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 
-    gap: 22px;
+  gap: 22px;
 }
 
 .ticket-detail {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    gap: 6px;
+  gap: 6px;
 }
 
 .ticket-detail span {
-    color: #929292;
+  color: #929292;
 
-    font-size: 10px;
+  font-size: 10px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
 }
 
 .ticket-detail strong {
-    font-size: 14px;
+  font-size: 14px;
 
-    line-height: 1.4;
+  line-height: 1.4;
 }
 
 .seats-detail {
-    grid-column: 1 / -1;
+  grid-column: 1 / -1;
 }
-
 
 /* =========================================
    TICKET DIVIDER
 ========================================= */
 
 .ticket-divider {
-    position: relative;
+  position: relative;
 
-    height: 1px;
+  height: 1px;
 
-    margin: 0 28px;
+  margin: 0 28px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 }
 
 .divider-line {
-    width: 100%;
+  width: 100%;
 
-    border-top: 1px dashed #cccccc;
+  border-top: 1px dashed #cccccc;
 }
 
 .notch {
-    position: absolute;
+  position: absolute;
 
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 
-    background: var(--background);
+  background: var(--background);
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    top: 50%;
+  top: 50%;
 
-    transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .notch.left {
-    left: -41px;
+  left: -41px;
 }
 
 .notch.right {
-    right: -41px;
+  right: -41px;
 }
-
 
 /* =========================================
    TICKET BOTTOM
 ========================================= */
 
 .ticket-bottom {
-    padding: 28px;
+  padding: 28px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    justify-content: space-between;
+  justify-content: space-between;
 
-    gap: 25px;
+  gap: 25px;
 }
 
 .booking-information {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    gap: 17px;
+  gap: 17px;
 }
 
 .booking-information > div {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    gap: 5px;
+  gap: 5px;
 }
 
 .booking-information span {
-    color: #929292;
+  color: #929292;
 
-    font-size: 9px;
+  font-size: 9px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    letter-spacing: 0.8px;
+  letter-spacing: 0.8px;
 }
 
 .booking-information strong {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .amount-information strong {
-    color: var(--primary);
+  color: var(--primary);
 
-    font-size: 18px;
+  font-size: 18px;
 }
 
-
 /* =========================================
-   QR CODE
+   FAKE QR CODE
 ========================================= */
 
 .qr-section {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .qr-code {
-    width: 125px;
-    height: 125px;
+  position: relative;
 
-    background-color: #ffffff;
+  width: 125px;
+  height: 125px;
 
-    background-image:
-        linear-gradient(90deg, #111 50%, transparent 50%),
-        linear-gradient(#111 50%, transparent 50%),
-        linear-gradient(90deg, transparent 50%, #111 50%),
-        linear-gradient(transparent 50%, #111 50%);
+  padding: 4px;
 
-    background-size:
-        14px 14px,
-        14px 14px,
-        17px 17px,
-        17px 17px;
+  border: 1px solid #d5d5d5;
 
-    border: 7px solid #ffffff;
-
-    box-shadow:
-        0 0 0 1px #dddddd;
+  overflow: hidden;
 }
-
-.qr-section > span {
-    color: #999;
-
-    font-size: 9px;
-
-    text-align: center;
-}
-
 
 /* =========================================
    ACTIONS
 ========================================= */
 
 .confirmation-actions {
-    margin-top: 25px;
+  margin-top: 25px;
 
-    display: grid;
+  display: grid;
 
-    grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
-    gap: 13px;
+  gap: 13px;
 }
 
 .confirmation-actions button {
-    height: 50px;
+  height: 50px;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    font-size: 14px;
+  font-size: 14px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .secondary-button {
-    background: #ffffff;
+  background: #ffffff;
 
-    border: 1px solid #d6d6d6;
+  border: 1px solid #d6d6d6;
 
-    color: #333;
+  color: #333;
 }
 
 .secondary-button:hover {
-    background: #f8f8f8;
+  background: #f8f8f8;
 
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .primary-button {
-    background: var(--primary);
+  background: var(--primary);
 
-    border: 1px solid var(--primary);
+  border: 1px solid var(--primary);
 
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .primary-button:hover {
-    background: var(--primary-dark);
+  background: var(--primary-dark);
 
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 
-    box-shadow:
-        0 8px 18px rgba(229, 25, 55, 0.2);
+  box-shadow: 0 8px 18px rgba(229, 25, 55, 0.2);
 }
-
 
 /* =========================================
    IMPORTANT INFORMATION
 ========================================= */
 
 .important-info {
-    margin-top: 25px;
+  margin-top: 25px;
 
-    background: #ffffff;
+  background: #ffffff;
 
-    border: 1px solid var(--border);
+  border: 1px solid var(--border);
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    padding: 22px;
+  padding: 22px;
 }
 
 .important-info h3 {
-    font-size: 15px;
+  font-size: 15px;
 
-    margin-bottom: 17px;
+  margin-bottom: 17px;
 }
 
 .info-item {
-    display: flex;
+  display: flex;
 
-    align-items: flex-start;
+  align-items: flex-start;
 
-    gap: 10px;
+  gap: 10px;
 
-    margin-bottom: 13px;
+  margin-bottom: 13px;
 }
 
 .info-item:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .info-item span {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .info-item p {
-    color: var(--muted);
+  color: var(--muted);
 
-    font-size: 12px;
+  font-size: 12px;
 
-    line-height: 1.5;
+  line-height: 1.5;
 }
-
 
 /* =========================================
    ANIMATION
 ========================================= */
 
 @keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
 
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
+  70% {
+    transform: scale(1.08);
+  }
 
-    70% {
-        transform: scale(1.08);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-
 
 /* =========================================
    PRINT
 ========================================= */
 
 @media print {
+  body {
+    background: #ffffff;
+  }
 
-    body {
-        background: #ffffff;
-    }
+  .confirmation-header,
+  .success-section,
+  .confirmation-actions,
+  .important-info {
+    display: none !important;
+  }
 
-    .confirmation-header,
-    .success-section,
-    .confirmation-actions,
-    .important-info {
-        display: none !important;
-    }
+  .confirmation-page {
+    width: 100%;
 
-    .confirmation-page {
-        width: 100%;
+    padding: 0;
+  }
 
-        padding: 0;
-    }
+  .ticket {
+    box-shadow: none;
 
-    .ticket {
-        box-shadow: none;
-
-        border: 1px solid #cccccc;
-    }
-
+    border: 1px solid #cccccc;
+  }
 }
-
 
 /* =========================================
    TABLET
 ========================================= */
 
 @media (max-width: 600px) {
+  .confirmation-page {
+    padding: 30px 12px 50px;
+  }
 
-    .confirmation-page {
-        padding: 30px 12px 50px;
-    }
+  .success-section h1 {
+    font-size: 25px;
+  }
 
-    .success-section h1 {
-        font-size: 25px;
-    }
+  .success-circle {
+    width: 64px;
+    height: 64px;
 
-    .success-circle {
-        width: 64px;
-        height: 64px;
+    font-size: 34px;
+  }
 
-        font-size: 34px;
-    }
+  .ticket-header {
+    padding: 20px;
+  }
 
-    .ticket-header {
-        padding: 20px;
-    }
+  .ticket-header h2 {
+    font-size: 18px;
+  }
 
-    .ticket-header h2 {
-        font-size: 18px;
-    }
+  .movie-section {
+    padding: 22px 20px;
+  }
 
-    .movie-section {
-        padding: 22px 20px;
-    }
+  .poster-wrapper {
+    width: 75px;
+    height: 105px;
+  }
 
-    .poster-wrapper {
-        width: 75px;
-        height: 105px;
-    }
+  .movie-information h3 {
+    font-size: 17px;
+  }
 
-    .movie-information h3 {
-        font-size: 17px;
-    }
+  .show-details {
+    padding: 5px 20px 24px;
+  }
 
-    .show-details {
-        padding: 5px 20px 24px;
-    }
+  .ticket-divider {
+    margin: 0 20px;
+  }
 
-    .ticket-divider {
-        margin: 0 20px;
-    }
+  .notch.left {
+    left: -33px;
+  }
 
-    .notch.left {
-        left: -33px;
-    }
+  .notch.right {
+    right: -33px;
+  }
 
-    .notch.right {
-        right: -33px;
-    }
+  .ticket-bottom {
+    padding: 24px 20px;
+  }
 
-    .ticket-bottom {
-        padding: 24px 20px;
-    }
-
-    .qr-code {
-        width: 105px;
-        height: 105px;
-    }
-
+  .qr-code {
+    width: 105px;
+    height: 105px;
+  }
 }
-
 
 /* =========================================
    SMALL MOBILE
 ========================================= */
 
 @media (max-width: 430px) {
+  .confirmation-header {
+    padding: 0 15px;
+  }
 
-    .confirmation-header {
-        padding: 0 15px;
-    }
+  .brand {
+    font-size: 18px;
+  }
 
-    .brand {
-        font-size: 18px;
-    }
+  .ticket-header {
+    align-items: flex-start;
 
-    .ticket-header {
-        align-items: flex-start;
+    flex-direction: column;
+  }
 
-        flex-direction: column;
-    }
+  .movie-section {
+    gap: 12px;
+  }
 
-    .movie-section {
-        gap: 12px;
-    }
+  .movie-information h3 {
+    font-size: 16px;
+  }
 
-    .movie-information h3 {
-        font-size: 16px;
-    }
+  .show-details {
+    grid-template-columns: 1fr;
 
-    .show-details {
-        grid-template-columns: 1fr;
+    gap: 16px;
+  }
 
-        gap: 16px;
-    }
+  .seats-detail {
+    grid-column: auto;
+  }
 
-    .seats-detail {
-        grid-column: auto;
-    }
+  .ticket-bottom {
+    flex-direction: column;
 
-    .ticket-bottom {
-        flex-direction: column;
+    align-items: flex-start;
+  }
 
-        align-items: flex-start;
-    }
+  .qr-section {
+    width: 100%;
+  }
 
-    .qr-section {
-        width: 100%;
-    }
-
-    .confirmation-actions {
-        grid-template-columns: 1fr;
-    }
-
+  .confirmation-actions {
+    grid-template-columns: 1fr;
+  }
 }
-
 
 /* =========================================
    VERY SMALL DEVICES
 ========================================= */
 
 @media (max-width: 340px) {
+  .confirmation-page {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
 
-    .confirmation-page {
-        padding-left: 7px;
-        padding-right: 7px;
-    }
+  .ticket-header,
+  .movie-section,
+  .show-details,
+  .ticket-bottom {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-    .ticket-header,
-    .movie-section,
-    .show-details,
-    .ticket-bottom {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+  .ticket-divider {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
 
-    .ticket-divider {
-        margin-left: 15px;
-        margin-right: 15px;
-    }
+/* =========================================
+   BOOKITBRO
+   CONFIRMATION PAGE - DARK MODE
+========================================= */
 
+/* =========================================
+   PAGE
+========================================= */
+
+body.dark-mode {
+  background: #121212;
+  color: #f5f5f5;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+body.dark-mode .confirmation-header {
+  background: #1a1a1a;
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .brand {
+  color: #f5f5f5;
+}
+
+/* =========================================
+   SUCCESS SECTION
+========================================= */
+
+body.dark-mode .success-section h1 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .success-section p {
+  color: #999999;
+}
+
+/* =========================================
+   SUCCESS CIRCLE
+========================================= */
+
+body.dark-mode .success-circle {
+  background: #16372c;
+  color: #35c48b;
+}
+
+/* =========================================
+   TICKET
+========================================= */
+
+body.dark-mode .ticket {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   TICKET HEADER
+========================================= */
+
+body.dark-mode .ticket-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .ticket-header h2 {
+  color: #f5f5f5;
+}
+
+/* =========================================
+   BOOKING STATUS
+========================================= */
+
+body.dark-mode .booking-status {
+  background: #16372c;
+  color: #35c48b;
+}
+
+/* =========================================
+   MOVIE SECTION
+========================================= */
+
+body.dark-mode .movie-information h3 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .movie-information p {
+  color: #999999;
+}
+
+body.dark-mode .poster-wrapper {
+  background: #292929;
+}
+
+/* =========================================
+   MOVIE RATING
+========================================= */
+
+body.dark-mode .movie-rating {
+  background: #3a321d;
+  color: #e5b94f;
+}
+
+/* =========================================
+   SHOW DETAILS
+========================================= */
+
+body.dark-mode .ticket-detail span {
+  color: #888888;
+}
+
+body.dark-mode .ticket-detail strong {
+  color: #f5f5f5;
+}
+
+/* =========================================
+   TICKET DIVIDER
+========================================= */
+
+body.dark-mode .divider-line {
+  border-top-color: #444444;
+}
+
+/* =========================================
+   NOTCH
+========================================= */
+
+body.dark-mode .notch {
+  background: #121212;
+}
+
+/* =========================================
+   TICKET BOTTOM
+========================================= */
+
+body.dark-mode .booking-information span {
+  color: #888888;
+}
+
+body.dark-mode .booking-information strong {
+  color: #f5f5f5;
+}
+
+body.dark-mode .amount-information strong {
+  color: #ff4962;
+}
+
+/* =========================================
+   SECONDARY BUTTON
+========================================= */
+
+body.dark-mode .secondary-button {
+  background: #242424;
+  border-color: #444444;
+  color: #f5f5f5;
+}
+
+body.dark-mode .secondary-button:hover {
+  background: #2d2d2d;
+}
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+body.dark-mode .primary-button {
+  background: #e51937;
+  border-color: #e51937;
+  color: #ffffff;
+}
+
+body.dark-mode .primary-button:hover {
+  background: #c91530;
+}
+
+/* =========================================
+   IMPORTANT INFORMATION
+========================================= */
+
+body.dark-mode .important-info {
+  background: #1e1e1e;
+  border-color: #333333;
+}
+
+body.dark-mode .important-info h3 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .info-item p {
+  color: #999999;
+}
+
+/* =========================================
+   PRINT
+========================================= */
+
+@media print {
+  body.dark-mode {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  body.dark-mode .ticket {
+    background: #ffffff;
+    color: #000000;
+
+    box-shadow: none;
+    border: 1px solid #cccccc;
+  }
 }

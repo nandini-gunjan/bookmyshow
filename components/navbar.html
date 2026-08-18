@@ -10,12 +10,8 @@
       <div class="search-box">
         <span class="search-icon">⌕</span>
 
-        <input
-          type="text"
-          id="globalSearchInput"
-          placeholder="Search for Movies, Events, Plays, Sports and Activities"
-          autocomplete="off"
-        />
+        <input type="text" id="globalSearchInput" placeholder="Search for Movies, Events, Plays, Sports and Activities"
+          autocomplete="off" />
 
         <div id="searchResults" class="search-results"></div>
       </div>
@@ -25,11 +21,7 @@
         <!-- Location -->
         <button class="location-btn">
           <span>Mumbai</span>
-          <img
-            src="assets/svgs/arrow-down-sign-to-navigate.png"
-            alt="dropdown"
-            class="arrow"
-          />
+          <img src="assets/svgs/arrow-down-sign-to-navigate.png" alt="dropdown" class="arrow" />
         </button>
 
         <!-- Sign In -->
@@ -54,10 +46,6 @@
 
             <button class="account-menu-item">My Bookings</button>
 
-            <button class="account-menu-item">Favorites</button>
-
-            <button class="account-menu-item">Settings</button>
-
             <div class="account-divider"></div>
 
             <button class="account-logout">Sign out</button>
@@ -65,10 +53,8 @@
         </div>
 
         <!-- Menu -->
-        <button class="menu-btn" aria-label="Open menu">
-          <span></span>
-          <span></span>
-          <span></span>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <span id="themeIcon">☀️</span>
         </button>
       </div>
     </div>
@@ -84,10 +70,6 @@
 
         <a href="#stream" data-page="stream"> Stream </a>
 
-        <a href="#events" data-page="events"> Events </a>
-
-        <a href="#plays" data-page="plays"> Plays </a>
-
         <a href="#sports" data-page="sports"> Sports </a>
 
         <a href="#activities" data-page="activities"> Activities </a>
@@ -99,11 +81,7 @@
           List Your Show
         </a>
 
-        <a href="#corporates" data-page="corporates"> Corporates </a>
-
-        <a href="#offers" data-page="offers"> Offers </a>
-
-        <a href="#gift-cards" data-page="gift-cards"> Gift Cards </a>
+        <a href="#offers" data-page="offers"> My Bookings </a>
       </nav>
     </div>
   </div>
@@ -116,11 +94,7 @@
       <div class="location-modal-header">
         <h2>Select Location</h2>
 
-        <button
-          class="location-modal-close"
-          id="closeLocationModal"
-          aria-label="Close location modal"
-        >
+        <button class="location-modal-close" id="closeLocationModal" aria-label="Close location modal">
           &times;
         </button>
       </div>
@@ -129,11 +103,7 @@
       <div class="location-search">
         <span class="location-search-icon">⌕</span>
 
-        <input
-          type="text"
-          id="locationSearch"
-          placeholder="Search for your city"
-        />
+        <input type="text" id="locationSearch" placeholder="Search for your city" />
       </div>
 
       <!-- Popular Cities -->
@@ -216,11 +186,7 @@
       <div class="signin-modal-header">
         <h2>Sign in</h2>
 
-        <button
-          class="signin-modal-close"
-          id="closeSigninModal"
-          aria-label="Close sign in modal"
-        >
+        <button class="signin-modal-close" id="closeSigninModal" aria-label="Close sign in modal">
           &times;
         </button>
       </div>
@@ -259,11 +225,7 @@
           <label for="signinPassword"> Password </label>
 
           <div class="password-input">
-            <input
-              type="password"
-              id="signinPassword"
-              placeholder="Enter your password"
-            />
+            <input type="password" id="signinPassword" placeholder="Enter your password" />
 
             <button type="button" class="password-toggle" id="passwordToggle">
               Show
@@ -300,11 +262,7 @@
       <div class="signup-modal-header">
         <h2>Create account</h2>
 
-        <button
-          class="signup-modal-close"
-          id="closeSignupModal"
-          aria-label="Close create account modal"
-        >
+        <button class="signup-modal-close" id="closeSignupModal" aria-label="Close create account modal">
           &times;
         </button>
       </div>
@@ -323,12 +281,7 @@
         <div class="signup-input-group">
           <label for="signupName"> Full name </label>
 
-          <input
-            type="text"
-            id="signupName"
-            placeholder="Enter your full name"
-            autocomplete="name"
-          />
+          <input type="text" id="signupName" placeholder="Enter your full name" autocomplete="name" />
         </div>
 
         <!-- Email -->
@@ -336,12 +289,7 @@
         <div class="signup-input-group">
           <label for="signupEmail"> Email </label>
 
-          <input
-            type="email"
-            id="signupEmail"
-            placeholder="Enter your email"
-            autocomplete="email"
-          />
+          <input type="email" id="signupEmail" placeholder="Enter your email" autocomplete="email" />
         </div>
 
         <!-- Password -->
@@ -350,18 +298,9 @@
           <label for="signupPassword"> Password </label>
 
           <div class="signup-password-input">
-            <input
-              type="password"
-              id="signupPassword"
-              placeholder="Create a password"
-              autocomplete="new-password"
-            />
+            <input type="password" id="signupPassword" placeholder="Create a password" autocomplete="new-password" />
 
-            <button
-              type="button"
-              class="signup-password-toggle"
-              id="signupPasswordToggle"
-            >
+            <button type="button" class="signup-password-toggle" id="signupPasswordToggle">
               Show
             </button>
           </div>
@@ -373,18 +312,10 @@
           <label for="signupConfirmPassword"> Confirm password </label>
 
           <div class="signup-password-input">
-            <input
-              type="password"
-              id="signupConfirmPassword"
-              placeholder="Confirm your password"
-              autocomplete="new-password"
-            />
+            <input type="password" id="signupConfirmPassword" placeholder="Confirm your password"
+              autocomplete="new-password" />
 
-            <button
-              type="button"
-              class="signup-password-toggle"
-              id="signupConfirmPasswordToggle"
-            >
+            <button type="button" class="signup-password-toggle" id="signupConfirmPasswordToggle">
               Show
             </button>
           </div>
@@ -416,12 +347,8 @@
       <div class="forgot-modal-header">
         <h2>Forgot password?</h2>
 
-        <button
-          type="button"
-          class="forgot-modal-close"
-          id="closeForgotPasswordModal"
-          aria-label="Close forgot password modal"
-        >
+        <button type="button" class="forgot-modal-close" id="closeForgotPasswordModal"
+          aria-label="Close forgot password modal">
           &times;
         </button>
       </div>
@@ -443,12 +370,7 @@
         <div class="forgot-input-group">
           <label for="forgotPasswordEmail"> Email </label>
 
-          <input
-            type="email"
-            id="forgotPasswordEmail"
-            placeholder="Enter your email"
-            autocomplete="email"
-          />
+          <input type="email" id="forgotPasswordEmail" placeholder="Enter your email" autocomplete="email" />
         </div>
 
         <!-- Send Button -->

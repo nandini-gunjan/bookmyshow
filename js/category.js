@@ -3,6 +3,7 @@
 // =========================================
 
 import { getMovies } from "./tmdb.js";
+import { getSports } from "./sports.js";
 
 // =========================================
 // CATEGORY DATA
@@ -127,11 +128,13 @@ async function initializeCategoryPage(category = "movies") {
     const movies = await getMovies();
 
     currentItems = movies;
-  } else {
-    // =====================================
-    // OTHER CATEGORIES
-    // =====================================
+  } else if (category === "sports") {
+    showCategoryLoading();
 
+    const sports = await getSports();
+
+    currentItems = sports;
+  } else {
     currentItems = data.items || [];
   }
 
@@ -302,18 +305,22 @@ function renderCategoryItems(items) {
   `;
 
     // =========================================
-    // OPEN MOVIE DETAILS
+    // CARD CLICK
     // =========================================
 
-    card.addEventListener("click", () => {
-      if (!item.id) {
-        console.error("Movie ID is missing:", item);
+    if (currentCategory === "sports") {
+      card.style.cursor = "pointer";
 
-        return;
-      }
+      card.addEventListener("click", () => {
+        window.location.href = `sports-details.html?id=${item.id}`;
+      });
+    } else if (currentCategory === "movies") {
+      card.style.cursor = "pointer";
 
-      window.location.href = `movie-details.html?id=${encodeURIComponent(item.id)}`;
-    });
+      card.addEventListener("click", () => {
+        window.location.href = `movie-details.html?id=${item.id}`;
+      });
+    }
 
     grid.appendChild(card);
   });

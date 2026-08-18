@@ -3,6 +3,7 @@
 ===================================================== */
 
 import { getMovieDetails, formatMovieDetails } from "./tmdb.js";
+import { auth } from "./firebase.js";
 
 /* =========================================
    DEMO DATA
@@ -414,17 +415,11 @@ function setupBookButtons(movie) {
     }
 
     button.addEventListener("click", () => {
-      /*
-       * NEXT MODULE:
-       *
-       * theatres.html?id=movie.id
-       */
-
-      console.log("Book movie:", movie.id);
-
-      button.addEventListener("click", () => {
-        window.location.href = `theatre-showtime.html?id=${encodeURIComponent(movie.id)}`;
-      });
+      if (!auth.currentUser) {
+        alert("Please sign in first to book tickets.");
+        return;
+      }
+      window.location.href = `theatre-showtime.html?id=${encodeURIComponent(movie.id)}`;
     });
   });
 }

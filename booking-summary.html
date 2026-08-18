@@ -1,347 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8" />
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Booking Summary | BookItBro</title>
+  <title>Booking Summary | BookItBro</title>
 
-    <link
-        rel="stylesheet"
-        href="css/booking-summary.css"
-    >
+  <link rel="stylesheet" href="css/booking-summary.css" />
+  <link rel="stylesheet" href="css/dark-mode.css">
 </head>
 
 <body>
-
-    <!-- =========================================
+  <!-- =========================================
          HEADER
     ========================================== -->
 
-    <header class="summary-header">
+  <header class="summary-header">
+    <button id="backButton" class="back-button" aria-label="Go back">
+      ←
+    </button>
 
-        <button
-            id="backButton"
-            class="back-button"
-            aria-label="Go back"
-        >
-            ←
-        </button>
+    <div>
+      <h1>Booking Summary</h1>
+      <p>Review your booking before payment</p>
+    </div>
+  </header>
 
-        <div>
-            <h1>Booking Summary</h1>
-            <p>Review your booking before payment</p>
-        </div>
-
-    </header>
-
-
-    <!-- =========================================
+  <!-- =========================================
          MAIN
     ========================================== -->
 
-    <main class="summary-page">
-
-        <div class="summary-container">
-
-
-            <!-- =================================
+  <main class="summary-page">
+    <div class="summary-container">
+      <!-- =================================
                  MOVIE CARD
             ================================== -->
 
-            <section class="movie-card">
+      <section class="movie-card">
+        <img id="moviePoster" src="" alt="Movie Poster" />
 
-                <img
-                    id="moviePoster"
-                    src=""
-                    alt="Movie Poster"
-                >
+        <div class="movie-info">
+          <h2 id="movieTitle">Loading...</h2>
 
-                <div class="movie-info">
+          <div id="movieMeta" class="movie-meta">
+            Loading movie details...
+          </div>
+        </div>
+      </section>
 
-                    <h2 id="movieTitle">
-                        Loading...
-                    </h2>
-
-                    <div
-                        id="movieMeta"
-                        class="movie-meta"
-                    >
-                        Loading movie details...
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================
+      <!-- =================================
                  SHOW DETAILS
             ================================== -->
 
-            <section class="summary-card">
+      <section class="summary-card">
+        <div class="section-title">
+          <h3>Show Details</h3>
+        </div>
 
-                <div class="section-title">
-                    <h3>Show Details</h3>
-                </div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label"> Theatre </span>
 
+            <strong id="theatreName"> — </strong>
+          </div>
 
-                <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label"> Date </span>
 
-                    <div class="detail-item">
+            <strong id="showDate"> — </strong>
+          </div>
 
-                        <span class="detail-label">
-                            Theatre
-                        </span>
+          <div class="detail-item">
+            <span class="detail-label"> Showtime </span>
 
-                        <strong id="theatreName">
-                            —
-                        </strong>
+            <strong id="showTime"> — </strong>
+          </div>
 
-                    </div>
+          <div class="detail-item">
+            <span class="detail-label"> Screen </span>
 
+            <strong id="screenName"> Screen 1 </strong>
+          </div>
+        </div>
+      </section>
 
-                    <div class="detail-item">
-
-                        <span class="detail-label">
-                            Date
-                        </span>
-
-                        <strong id="showDate">
-                            —
-                        </strong>
-
-                    </div>
-
-
-                    <div class="detail-item">
-
-                        <span class="detail-label">
-                            Showtime
-                        </span>
-
-                        <strong id="showTime">
-                            —
-                        </strong>
-
-                    </div>
-
-
-                    <div class="detail-item">
-
-                        <span class="detail-label">
-                            Screen
-                        </span>
-
-                        <strong id="screenName">
-                            Screen 1
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================
+      <!-- =================================
                  SEAT DETAILS
             ================================== -->
 
-            <section class="summary-card">
+      <section class="summary-card">
+        <div class="section-title">
+          <h3>Seat Details</h3>
 
-                <div class="section-title">
+          <button id="changeSeatsButton" class="change-button">Change</button>
+        </div>
 
-                    <h3>Seat Details</h3>
+        <div class="seat-information">
+          <div class="seat-icon">💺</div>
 
-                    <button
-                        id="changeSeatsButton"
-                        class="change-button"
-                    >
-                        Change
-                    </button>
+          <div>
+            <span class="detail-label"> Selected Seats </span>
 
-                </div>
+            <strong id="selectedSeats"> — </strong>
+          </div>
+        </div>
+      </section>
 
-
-                <div class="seat-information">
-
-                    <div class="seat-icon">
-                        💺
-                    </div>
-
-                    <div>
-
-                        <span class="detail-label">
-                            Selected Seats
-                        </span>
-
-                        <strong id="selectedSeats">
-                            —
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================
+      <!-- =================================
                  PRICE DETAILS
             ================================== -->
 
-            <section class="summary-card">
+      <section class="summary-card">
+        <div class="section-title">
+          <h3>Price Details</h3>
+        </div>
 
-                <div class="section-title">
+        <div class="summary-row">
+          <span> Ticket Price </span>
 
-                    <h3>Price Details</h3>
+          <span id="ticketPrice"> ₹0 </span>
+        </div>
 
-                </div>
+        <div class="summary-row">
+          <span> Number of Tickets </span>
 
+          <span id="ticketCount"> 0 </span>
+        </div>
 
-                <div class="price-row">
+        <div class="summary-row">
+          <span> Convenience Fee </span>
 
-                    <span>
-                        Ticket Price
-                    </span>
+          <span id="convenienceFee"> ₹0 </span>
+        </div>
 
-                    <span id="ticketPrice">
-                        ₹0
-                    </span>
+        <div class="summary-row">
+          <span> GST </span>
 
-                </div>
+          <span id="gst"> ₹0 </span>
+        </div>
 
+        <div class="summary-divider"></div>
 
-                <div class="price-row">
+        <div class="summary-row total">
+          <strong> Total Amount </strong>
 
-                    <span>
-                        Number of Tickets
-                    </span>
+          <strong id="totalAmount"> ₹0 </strong>
+        </div>
+      </section>
 
-                    <span id="ticketCount">
-                        0
-                    </span>
-
-                </div>
-
-
-                <div class="price-row">
-
-                    <span>
-                        Convenience Fee
-                    </span>
-
-                    <span id="convenienceFee">
-                        ₹0
-                    </span>
-
-                </div>
-
-
-                <div class="price-row">
-
-                    <span>
-                        GST
-                    </span>
-
-                    <span id="gst">
-                        ₹0
-                    </span>
-
-                </div>
-
-
-                <div class="price-divider"></div>
-
-
-                <div class="price-row total-row">
-
-                    <strong>
-                        Total Amount
-                    </strong>
-
-                    <strong id="totalAmount">
-                        ₹0
-                    </strong>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================
+      <!-- =================================
                  TERMS
             ================================== -->
 
-            <div class="terms">
+      <div class="terms">
+        <label>
+          <input type="checkbox" id="termsCheckbox" />
 
-                <label>
+          <span> I agree to the booking terms and cancellation policy. </span>
+        </label>
+      </div>
+    </div>
+  </main>
 
-                    <input
-                        type="checkbox"
-                        id="termsCheckbox"
-                    >
-
-                    <span>
-                        I agree to the booking terms and
-                        cancellation policy.
-                    </span>
-
-                </label>
-
-            </div>
-
-
-        </div>
-
-    </main>
-
-
-    <!-- =========================================
+  <!-- =========================================
          BOTTOM PAYMENT BAR
     ========================================== -->
 
-    <footer class="payment-bar">
+  <footer class="payment-bar">
+    <div class="payment-content">
+      <div>
+        <span class="pay-label"> Amount Payable </span>
 
-        <div class="payment-content">
+        <strong id="bottomTotal"> ₹0 </strong>
+      </div>
 
-            <div>
+      <button id="proceedPaymentButton" class="payment-button" disabled>
+        Proceed to Payment
+      </button>
+    </div>
+  </footer>
 
-                <span class="pay-label">
-                    Amount Payable
-                </span>
-
-                <strong id="bottomTotal">
-                    ₹0
-                </strong>
-
-            </div>
-
-
-            <button
-                id="proceedPaymentButton"
-                class="payment-button"
-                disabled
-            >
-                Proceed to Payment
-            </button>
-
-        </div>
-
-    </footer>
-
-
-    <script
-        type="module"
-        src="js/booking-summary.js"
-    ></script>
-
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/booking-summary.js"></script>
 </body>
 
 </html>

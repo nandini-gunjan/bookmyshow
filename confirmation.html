@@ -1,433 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8" />
 
-    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <title>Booking Confirmed | BookItBro</title>
 
-    <title>Booking Confirmed | BookItBro</title>
-
-    <link
-        rel="stylesheet"
-        href="css/confirmation.css"
-    >
-
+  <link rel="stylesheet" href="css/confirmation.css" />
+  <link rel="stylesheet" href="css/dark-mode.css">
 </head>
 
-
 <body>
-
-
-    <!-- =========================================
+  <!-- =========================================
          HEADER
     ========================================== -->
 
-    <header class="confirmation-header">
+  <header class="confirmation-header">
+    <div class="brand">
+      <span class="brand-icon">🎬</span>
 
-        <div class="brand">
-            <span class="brand-icon">🎬</span>
+      <span> BookItBro </span>
+    </div>
+  </header>
 
-            <span>
-                BookItBro
-            </span>
-        </div>
-
-    </header>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          MAIN
     ========================================== -->
 
-    <main class="confirmation-page">
-
-
-        <!-- =====================================
+  <main class="confirmation-page">
+    <!-- =====================================
              SUCCESS MESSAGE
         ====================================== -->
 
-        <section class="success-section">
+    <section class="success-section">
+      <div class="success-circle">✓</div>
 
-            <div class="success-circle">
-                ✓
-            </div>
+      <h1>Booking Confirmed!</h1>
 
-            <h1>
-                Booking Confirmed!
-            </h1>
+      <p>Your movie tickets have been booked successfully.</p>
+    </section>
 
-            <p>
-                Your movie tickets have been booked successfully.
-            </p>
-
-        </section>
-
-
-
-        <!-- =====================================
+    <!-- =====================================
              TICKET
         ====================================== -->
 
-        <section
-            id="ticket"
-            class="ticket"
-        >
-
-
-            <!-- =================================
+    <section id="ticket" class="ticket">
+      <!-- =================================
                  TICKET HEADER
             ================================== -->
 
-            <div class="ticket-header">
+      <div class="ticket-header">
+        <div>
+          <span class="ticket-label"> MOVIE TICKET </span>
 
-                <div>
+          <h2 id="movieTitle">Loading...</h2>
+        </div>
 
-                    <span class="ticket-label">
-                        MOVIE TICKET
-                    </span>
+        <div class="booking-status">
+          <span class="status-dot"></span>
 
-                    <h2 id="movieTitle">
-                        Loading...
-                    </h2>
+          Confirmed
+        </div>
+      </div>
 
-                </div>
-
-
-                <div class="booking-status">
-
-                    <span class="status-dot"></span>
-
-                    Confirmed
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================
+      <!-- =================================
                  MOVIE INFORMATION
             ================================== -->
 
-            <div class="movie-section">
+      <div class="movie-section">
+        <div class="poster-wrapper">
+          <img id="moviePoster" src="" alt="Movie Poster" />
+        </div>
 
-                <div class="poster-wrapper">
+        <div class="movie-information">
+          <h3 id="movieTitleSmall">Loading...</h3>
 
-                    <img
-                        id="moviePoster"
-                        src=""
-                        alt="Movie Poster"
-                    >
+          <p id="movieMeta">—</p>
 
-                </div>
+          <div class="movie-rating">
+            <span> ⭐ </span>
 
+            <span id="movieRating"> — </span>
+          </div>
+        </div>
+      </div>
 
-                <div class="movie-information">
-
-                    <h3 id="movieTitleSmall">
-                        Loading...
-                    </h3>
-
-                    <p id="movieMeta">
-                        —
-                    </p>
-
-
-                    <div class="movie-rating">
-
-                        <span>
-                            ⭐
-                        </span>
-
-                        <span id="movieRating">
-                            —
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================
+      <!-- =================================
                  SHOW INFORMATION
             ================================== -->
 
-            <div class="show-details">
+      <div class="show-details">
+        <div class="ticket-detail">
+          <span> THEATRE </span>
 
+          <strong id="theatreName"> — </strong>
+        </div>
 
-                <div class="ticket-detail">
+        <div class="ticket-detail">
+          <span> SCREEN </span>
 
-                    <span>
-                        THEATRE
-                    </span>
+          <strong id="screenName"> — </strong>
+        </div>
 
-                    <strong id="theatreName">
-                        —
-                    </strong>
+        <div class="ticket-detail">
+          <span> DATE </span>
 
-                </div>
+          <strong id="showDate"> — </strong>
+        </div>
 
+        <div class="ticket-detail">
+          <span> SHOWTIME </span>
 
-                <div class="ticket-detail">
+          <strong id="showTime"> — </strong>
+        </div>
 
-                    <span>
-                        SCREEN
-                    </span>
+        <div class="ticket-detail seats-detail">
+          <span> SEATS </span>
 
-                    <strong id="screenName">
-                        —
-                    </strong>
+          <strong id="selectedSeats"> — </strong>
+        </div>
 
-                </div>
+        <div class="ticket-detail">
+          <span> TICKETS </span>
 
+          <strong id="ticketCount"> 0 </strong>
+        </div>
+      </div>
 
-                <div class="ticket-detail">
-
-                    <span>
-                        DATE
-                    </span>
-
-                    <strong id="showDate">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div class="ticket-detail">
-
-                    <span>
-                        SHOWTIME
-                    </span>
-
-                    <strong id="showTime">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div class="ticket-detail seats-detail">
-
-                    <span>
-                        SEATS
-                    </span>
-
-                    <strong id="selectedSeats">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div class="ticket-detail">
-
-                    <span>
-                        TICKETS
-                    </span>
-
-                    <strong id="ticketCount">
-                        0
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================
+      <!-- =================================
                  DIVIDER
             ================================== -->
 
-            <div class="ticket-divider">
+      <div class="ticket-divider">
+        <span class="notch left"></span>
 
-                <span class="notch left"></span>
+        <span class="divider-line"></span>
 
-                <span class="divider-line"></span>
+        <span class="notch right"></span>
+      </div>
 
-                <span class="notch right"></span>
-
-            </div>
-
-
-
-            <!-- =================================
+      <!-- =================================
                  BOOKING ID + QR
             ================================== -->
 
-            <div class="ticket-bottom">
+      <div class="ticket-bottom">
+        <div class="booking-information">
+          <div class="booking-id">
+            <span> BOOKING ID </span>
 
+            <strong id="bookingId"> — </strong>
+          </div>
 
-                <div class="booking-information">
+          <div class="payment-information">
+            <span> PAYMENT </span>
 
-                    <div class="booking-id">
+            <strong id="paymentMethod"> — </strong>
+          </div>
 
-                        <span>
-                            BOOKING ID
-                        </span>
+          <div class="amount-information">
+            <span> TOTAL PAID </span>
 
-                        <strong id="bookingId">
-                            —
-                        </strong>
+            <strong id="totalAmount"> ₹0.00 </strong>
+          </div>
+        </div>
 
-                    </div>
+        <!-- QR -->
 
+        <div class="qr-section">
+          <img src="assets/img/qr-sample.png" alt="QR Code" class="qr-code"/>
 
-                    <div class="payment-information">
+          <span>Scan to view ticket</span>
+        </div>
+      </div>
+    </section>
 
-                        <span>
-                            PAYMENT
-                        </span>
-
-                        <strong id="paymentMethod">
-                            —
-                        </strong>
-
-                    </div>
-
-
-                    <div class="amount-information">
-
-                        <span>
-                            TOTAL PAID
-                        </span>
-
-                        <strong id="totalAmount">
-                            ₹0.00
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <!-- QR -->
-
-                <div class="qr-section">
-
-                    <div
-                        id="qrCode"
-                        class="qr-code"
-                    >
-                    </div>
-
-                    <span>
-                        Scan to view ticket
-                    </span>
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =====================================
+    <!-- =====================================
              ACTIONS
         ====================================== -->
 
-        <section class="confirmation-actions">
+    <section class="confirmation-actions">
+      <button id="downloadTicketButton" class="secondary-button" type="button">
+        ↓ Download Ticket
+      </button>
 
-            <button
-                id="downloadTicketButton"
-                class="secondary-button"
-                type="button"
-            >
-                ↓ Download Ticket
-            </button>
+      <button id="homeButton" class="primary-button" type="button">
+        Back to Home
+      </button>
+    </section>
 
-
-            <button
-                id="homeButton"
-                class="primary-button"
-                type="button"
-            >
-                Back to Home
-            </button>
-
-        </section>
-
-
-
-        <!-- =====================================
+    <!-- =====================================
              IMPORTANT INFORMATION
         ====================================== -->
 
-        <section class="important-info">
+    <section class="important-info">
+      <h3>Important Information</h3>
 
-            <h3>
-                Important Information
-            </h3>
+      <div class="info-item">
+        <span> 📱 </span>
 
+        <p>
+          Please carry a valid ID proof and show this ticket at the theatre.
+        </p>
+      </div>
 
-            <div class="info-item">
+      <div class="info-item">
+        <span> ⏰ </span>
 
-                <span>
-                    📱
-                </span>
+        <p>Please arrive at least 15 minutes before the show starts.</p>
+      </div>
 
-                <p>
-                    Please carry a valid ID proof and
-                    show this ticket at the theatre.
-                </p>
+      <div class="info-item">
+        <span> 🎟️ </span>
 
-            </div>
+        <p>Your booking is confirmed and your seats are reserved.</p>
+      </div>
+    </section>
+  </main>
 
-
-            <div class="info-item">
-
-                <span>
-                    ⏰
-                </span>
-
-                <p>
-                    Please arrive at least 15 minutes
-                    before the show starts.
-                </p>
-
-            </div>
-
-
-            <div class="info-item">
-
-                <span>
-                    🎟️
-                </span>
-
-                <p>
-                    Your booking is confirmed and your
-                    seats are reserved.
-                </p>
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          SCRIPT
     ========================================== -->
 
-    <script
-        src="js/confirmation.js"
-    ></script>
-
+  <script type="module" src="js/main.js"></script>
+  <script src="js/confirmation.js"></script>
 </body>
 
 </html>

@@ -25,8 +25,6 @@ async function loadPage(page) {
   const pageContent = document.getElementById("page-content");
 
   if (!pageContent) {
-    console.error("Page content container not found.");
-
     return;
   }
 
@@ -235,14 +233,61 @@ function initializeHashNavigation() {
 // =========================================
 // INITIALIZE PAGE NAVIGATION
 // =========================================
-
 function initializePageNavigation() {
   initializeNavigation();
 
   initializeHashNavigation();
 
+  initializeThemeToggle();
+
   // Load the initial page
   loadPageFromHash();
+}
+
+function initializeThemeToggle() {
+  // =======================================
+  // LOAD SAVED THEME
+  // =======================================
+
+  const savedTheme = localStorage.getItem("bookItBroTheme");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+
+  // =======================================
+  // HANDLE TOGGLE CLICK
+  // =======================================
+
+  document.addEventListener("click", (event) => {
+    const themeToggle = event.target.closest("#themeToggle");
+
+    if (!themeToggle) {
+      return;
+    }
+
+    document.body.classList.toggle("dark-mode");
+
+    const isDark = document.body.classList.contains("dark-mode");
+
+    localStorage.setItem("bookItBroTheme", isDark ? "dark" : "light");
+
+    const themeIcon = document.getElementById("themeIcon");
+
+    if (themeIcon) {
+      themeIcon.textContent = isDark ? "🌙" : "☀️";
+    }
+  });
+
+  // =======================================
+  // UPDATE ICON
+  // =======================================
+
+  const themeIcon = document.getElementById("themeIcon");
+
+  if (themeIcon) {
+    themeIcon.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+  }
 }
 
 // =========================================

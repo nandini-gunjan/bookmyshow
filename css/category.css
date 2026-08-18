@@ -799,3 +799,456 @@
     font-size: 10px;
   }
 }
+
+/* =========================================================
+   GLOBAL DARK MODE - CATEGORY PAGE
+========================================================= */
+
+body.dark-mode .category-page {
+  background: #121212;
+  color: #f5f5f5;
+}
+
+/* Category content */
+
+body.dark-mode .category-content {
+  background: transparent;
+}
+
+/* Headings */
+
+body.dark-mode .category-heading h2,
+body.dark-mode .category-heading p,
+body.dark-mode .category-title,
+body.dark-mode .category-description {
+  color: #f5f5f5;
+}
+
+body.dark-mode .category-heading p {
+  color: #aaaaaa;
+}
+
+/* Filters */
+
+body.dark-mode .filter-btn,
+body.dark-mode .language-btn {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+  color: #dddddd;
+}
+
+body.dark-mode .filter-btn:hover,
+body.dark-mode .language-btn:hover {
+  border-color: #f84464;
+  color: #f84464;
+}
+
+body.dark-mode .language-btn.active {
+  background: #f84464;
+  border-color: #f84464;
+  color: #ffffff;
+}
+
+/* Cards */
+
+body.dark-mode .content-card {
+  background: #1e1e1e;
+  color: #f5f5f5;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .content-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
+}
+
+/* Card image background */
+
+body.dark-mode .card-image {
+  background: #222222;
+}
+
+/* Card details */
+
+body.dark-mode .card-details {
+  background: #1e1e1e;
+}
+
+body.dark-mode .card-title {
+  color: #f5f5f5;
+}
+
+body.dark-mode .card-meta {
+  color: #aaaaaa;
+}
+
+/* View all */
+
+body.dark-mode .view-all {
+  color: #f84464;
+}
+
+/* No results */
+
+body.dark-mode .no-results h3 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .no-results p {
+  color: #aaaaaa;
+}
+
+/* Loading */
+
+body.dark-mode .category-loading {
+  color: #aaaaaa;
+}
+
+/* Hero */
+
+body.dark-mode .category-hero {
+  background: #080808;
+}
+
+/* Scrollbars */
+
+body.dark-mode .category-filters::-webkit-scrollbar-thumb {
+  background: #444444;
+}
+
+/* =========================================================
+   GLOBAL DARK MODE - HEADER
+========================================================= */
+
+/* Main navbar */
+
+body.dark-mode .navbar,
+body.dark-mode .navbar-top,
+body.dark-mode .navbar-bottom {
+  background: #181818;
+}
+
+body.dark-mode .navbar-top {
+  border-bottom-color: #303030;
+}
+
+/* Logo */
+
+body.dark-mode .logo {
+  color: #f5f5f5;
+}
+
+/* Search */
+
+body.dark-mode .search-box {
+  background: #242424;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .search-box:focus-within {
+  background: #292929;
+  border-color: #555555;
+}
+
+body.dark-mode .search-box input {
+  color: #f5f5f5;
+}
+
+body.dark-mode .search-box input::placeholder {
+  color: #888888;
+}
+
+body.dark-mode .search-icon {
+  color: #aaaaaa;
+}
+
+/* Location */
+
+body.dark-mode .location-btn {
+  color: #dddddd;
+}
+
+/* Menu */
+
+body.dark-mode .menu-btn span {
+  background: #dddddd;
+}
+
+/* Main navigation */
+
+body.dark-mode .main-nav a {
+  color: #bbbbbb;
+}
+
+body.dark-mode .main-nav a:hover,
+body.dark-mode .main-nav a.active {
+  color: #f84464;
+}
+
+/* Secondary navigation */
+
+body.dark-mode .secondary-nav a {
+  color: #bbbbbb;
+}
+
+body.dark-mode .secondary-nav a:hover {
+  color: #f84464;
+}
+
+/* Search results */
+
+body.dark-mode .search-results {
+  background: #1e1e1e;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .search-result-item:hover {
+  background: #292929;
+}
+
+body.dark-mode .search-result-item img {
+  background: #2a2a2a;
+}
+
+body.dark-mode .search-result-info h4 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .search-result-info p {
+  color: #aaaaaa;
+}
+
+body.dark-mode .search-loading,
+body.dark-mode .search-no-results {
+  color: #aaaaaa;
+}
+
+/* =========================================================
+   LOCATION MODAL
+========================================================= */
+
+body.dark-mode .location-modal {
+  background: #1e1e1e;
+}
+
+body.dark-mode .location-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .location-modal-header h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .location-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .location-search {
+  background: #242424;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .location-search input {
+  background: transparent;
+  color: #f5f5f5;
+}
+
+body.dark-mode .location-search input::placeholder {
+  color: #888888;
+}
+
+body.dark-mode .location-search-icon {
+  color: #aaaaaa;
+}
+
+body.dark-mode .popular-location-section h3,
+body.dark-mode .all-cities h3 {
+  color: #999999;
+}
+
+body.dark-mode .city-option {
+  background: #242424;
+  border-color: #3a3a3a;
+  color: #dddddd;
+}
+
+body.dark-mode .city-option:hover {
+  background: #2b1c20;
+  border-color: #f84464;
+  color: #f84464;
+}
+
+body.dark-mode .city-list .city-option {
+  background: transparent;
+}
+
+body.dark-mode .city-list .city-option:hover {
+  background: #2b1c20;
+}
+
+/* =========================================================
+   SIGN IN MODAL
+========================================================= */
+
+body.dark-mode .signin-modal {
+  background: #1e1e1e;
+}
+
+body.dark-mode .signin-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .signin-modal-header h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .signin-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .signin-welcome {
+  color: #aaaaaa;
+}
+
+body.dark-mode .google-signin-btn {
+  background: #242424;
+  border-color: #3a3a3a;
+  color: #f5f5f5;
+}
+
+body.dark-mode .google-signin-btn:hover {
+  background: #2d2d2d;
+  border-color: #555555;
+}
+
+body.dark-mode .signin-divider span {
+  background: #333333;
+}
+
+body.dark-mode .signin-divider p {
+  color: #888888;
+}
+
+body.dark-mode .signin-input-group label {
+  color: #dddddd;
+}
+
+body.dark-mode .signin-input-group input {
+  background: #242424;
+  border-color: #3a3a3a;
+  color: #f5f5f5;
+}
+
+body.dark-mode .signin-input-group input::placeholder {
+  color: #888888;
+}
+
+/* =========================================================
+   SIGN UP MODAL
+========================================================= */
+
+body.dark-mode .signup-modal {
+  background: #1e1e1e;
+}
+
+body.dark-mode .signup-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .signup-modal-header h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .signup-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .signup-welcome {
+  color: #aaaaaa;
+}
+
+body.dark-mode .signup-input-group label {
+  color: #dddddd;
+}
+
+body.dark-mode .signup-input-group input {
+  background: #242424;
+  border-color: #3a3a3a;
+  color: #f5f5f5;
+}
+
+body.dark-mode .signup-input-group input::placeholder {
+  color: #888888;
+}
+
+/* =========================================================
+   FORGOT PASSWORD MODAL
+========================================================= */
+
+body.dark-mode .forgot-modal {
+  background: #1e1e1e;
+}
+
+body.dark-mode .forgot-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .forgot-modal-header h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .forgot-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .forgot-description {
+  color: #aaaaaa;
+}
+
+body.dark-mode .forgot-input-group label {
+  color: #dddddd;
+}
+
+body.dark-mode .forgot-input-group input {
+  background: #242424;
+  border-color: #3a3a3a;
+  color: #f5f5f5;
+}
+
+body.dark-mode .forgot-input-group input::placeholder {
+  color: #888888;
+}
+
+/* =========================================================
+   ACCOUNT DROPDOWN
+========================================================= */
+
+body.dark-mode .account-dropdown {
+  background: #1e1e1e;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .account-name {
+  color: #f5f5f5;
+}
+
+body.dark-mode .account-email {
+  color: #999999;
+}
+
+body.dark-mode .account-divider {
+  background: #333333;
+}
+
+body.dark-mode .account-menu-item {
+  color: #dddddd;
+}
+
+body.dark-mode .account-menu-item:hover {
+  background: #292929;
+}
+
+body.dark-mode .account-logout:hover {
+  background: #2b1c20;
+}
