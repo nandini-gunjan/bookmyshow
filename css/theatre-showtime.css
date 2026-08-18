@@ -5,843 +5,876 @@
 
 .theatre-page,
 .theatre-page * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 
 .theatre-page {
+  min-height: 100vh;
 
-    min-height: 100vh;
+  background: #f5f5f5;
 
-    background: #f5f5f5;
+  color: #222;
 
-    color: #222;
+  font-family: "Roboto", sans-serif;
 
-    font-family: "Roboto", sans-serif;
-
-    padding-bottom: 100px;
-
+  padding-bottom: 100px;
 }
-
 
 .show-container {
+  width: min(1150px, 100%);
 
-    width: min(1150px, 100%);
+  margin: auto;
 
-    margin: auto;
-
-    padding: 0 20px;
-
+  padding: 0 20px;
 }
-
-
 
 /* =====================================================
    MOVIE HEADER
 ===================================================== */
 
 .movie-show-header {
+  background: #fff;
 
-    background: #fff;
-
-    border-bottom: 1px solid #e5e5e5;
-
+  border-bottom: 1px solid #e5e5e5;
 }
-
 
 .movie-show-header .show-container {
+  display: flex;
 
-    display: flex;
+  align-items: center;
 
-    align-items: center;
+  gap: 20px;
 
-    gap: 20px;
+  padding-top: 25px;
 
-    padding-top: 25px;
-
-    padding-bottom: 25px;
-
+  padding-bottom: 25px;
 }
-
 
 .show-movie-poster {
+  width: 75px;
 
-    width: 75px;
+  height: 105px;
 
-    height: 105px;
+  object-fit: cover;
 
-    object-fit: cover;
+  border-radius: 6px;
 
-    border-radius: 6px;
-
-    background: #ddd;
-
+  background: #ddd;
 }
-
 
 .show-movie-details h1 {
+  margin: 0 0 8px;
 
-    margin: 0 0 8px;
+  font-size: 25px;
 
-    font-size: 25px;
-
-    font-weight: 600;
-
+  font-weight: 600;
 }
-
 
 .movie-meta {
+  display: flex;
 
-    display: flex;
+  gap: 8px;
 
-    gap: 8px;
+  flex-wrap: wrap;
 
-    flex-wrap: wrap;
+  color: #777;
 
-    color: #777;
+  font-size: 13px;
 
-    font-size: 13px;
-
-    margin-bottom: 8px;
-
+  margin-bottom: 8px;
 }
-
 
 .show-movie-details p {
+  margin: 0;
 
-    margin: 0;
+  color: #888;
 
-    color: #888;
+  font-size: 13px;
 
-    font-size: 13px;
-
-    line-height: 1.5;
-
+  line-height: 1.5;
 }
-
-
 
 /* =====================================================
    DATE
 ===================================================== */
 
 .date-section {
+  background: white;
 
-    background: white;
+  border-bottom: 1px solid #e5e5e5;
 
-    border-bottom: 1px solid #e5e5e5;
-
-    padding: 20px 0;
-
+  padding: 20px 0;
 }
-
 
 .date-section h2,
 .theatre-title-row h2 {
+  margin: 0;
 
-    margin: 0;
+  font-size: 19px;
 
-    font-size: 19px;
-
-    font-weight: 600;
-
+  font-weight: 600;
 }
-
 
 .date-section h2 {
-
-    margin-bottom: 15px;
-
+  margin-bottom: 15px;
 }
-
 
 .date-list {
+  display: flex;
 
-    display: flex;
+  gap: 10px;
 
-    gap: 10px;
-
-    overflow-x: auto;
-
+  overflow-x: auto;
 }
-
 
 .date-card {
+  min-width: 72px;
 
-    min-width: 72px;
+  padding: 10px;
 
-    padding: 10px;
+  border: 1px solid #ddd;
 
-    border: 1px solid #ddd;
+  border-radius: 7px;
 
-    border-radius: 7px;
+  background: #fff;
 
-    background: #fff;
+  cursor: pointer;
 
-    cursor: pointer;
-
-    text-align: center;
-
+  text-align: center;
 }
-
 
 .date-card:hover {
-
-    border-color: #e51937;
-
+  border-color: #e51937;
 }
-
 
 .date-card.active {
+  background: #e51937;
 
-    background: #e51937;
+  color: #fff;
 
-    color: #fff;
-
-    border-color: #e51937;
-
+  border-color: #e51937;
 }
-
 
 .date-day {
+  display: block;
 
-    display: block;
+  font-size: 11px;
 
-    font-size: 11px;
-
-    text-transform: uppercase;
-
+  text-transform: uppercase;
 }
-
 
 .date-number {
+  display: block;
 
-    display: block;
+  margin: 4px 0;
 
-    margin: 4px 0;
+  font-size: 19px;
 
-    font-size: 19px;
-
-    font-weight: 700;
-
+  font-weight: 700;
 }
-
 
 .date-month {
+  display: block;
 
-    display: block;
-
-    font-size: 11px;
-
+  font-size: 11px;
 }
-
-
 
 /* =====================================================
    FILTER
 ===================================================== */
 
 .filter-section {
-
-    padding: 15px 0;
-
+  padding: 15px 0;
 }
-
 
 .filter-row {
+  display: flex;
 
-    display: flex;
+  justify-content: space-between;
 
-    justify-content: space-between;
+  align-items: center;
 
-    align-items: center;
-
-    gap: 15px;
-
+  gap: 15px;
 }
-
 
 .filter-left {
+  display: flex;
 
-    display: flex;
+  align-items: center;
 
-    align-items: center;
+  gap: 8px;
 
-    gap: 8px;
-
-    flex-wrap: wrap;
-
+  flex-wrap: wrap;
 }
-
 
 .filter-left > span {
+  color: #777;
 
-    color: #777;
-
-    font-size: 13px;
-
+  font-size: 13px;
 }
-
 
 .filter-button {
+  padding: 8px 14px;
 
-    padding: 8px 14px;
+  border: 1px solid #ddd;
 
-    border: 1px solid #ddd;
+  border-radius: 20px;
 
-    border-radius: 20px;
+  background: #fff;
 
-    background: #fff;
+  color: #555;
 
-    color: #555;
+  cursor: pointer;
 
-    cursor: pointer;
-
-    font-size: 12px;
-
+  font-size: 12px;
 }
-
 
 .filter-button:hover {
+  border-color: #e51937;
 
-    border-color: #e51937;
-
-    color: #e51937;
-
+  color: #e51937;
 }
-
 
 .filter-button.active {
+  background: #e51937;
 
-    background: #e51937;
+  color: #fff;
 
-    color: #fff;
-
-    border-color: #e51937;
-
+  border-color: #e51937;
 }
-
-
 
 /* =====================================================
    THEATRES
 ===================================================== */
 
 .theatres-section {
-
-    padding: 10px 0 30px;
-
+  padding: 10px 0 30px;
 }
-
 
 .theatre-title-row {
+  display: flex;
 
-    display: flex;
+  justify-content: space-between;
 
-    justify-content: space-between;
+  align-items: center;
 
-    align-items: center;
-
-    margin-bottom: 15px;
-
+  margin-bottom: 15px;
 }
-
 
 #theatreCount {
+  color: #888;
 
-    color: #888;
-
-    font-size: 13px;
-
+  font-size: 13px;
 }
-
 
 .theatre-list {
+  display: flex;
 
-    display: flex;
+  flex-direction: column;
 
-    flex-direction: column;
-
-    gap: 12px;
-
+  gap: 12px;
 }
-
-
 
 /* =====================================================
    THEATRE CARD
 ===================================================== */
 
 .theatre-card {
+  background: #fff;
 
-    background: #fff;
+  border: 1px solid #e4e4e4;
 
-    border: 1px solid #e4e4e4;
+  border-radius: 8px;
 
-    border-radius: 8px;
-
-    padding: 20px;
-
+  padding: 20px;
 }
-
 
 .theatre-card:hover {
-
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
-
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
 }
-
 
 .theatre-type {
+  display: inline-block;
 
-    display: inline-block;
+  padding: 4px 7px;
 
-    padding: 4px 7px;
+  margin-bottom: 7px;
 
-    margin-bottom: 7px;
+  border-radius: 3px;
 
-    border-radius: 3px;
+  font-size: 10px;
 
-    font-size: 10px;
-
-    font-weight: 600;
-
+  font-weight: 600;
 }
-
 
 .theatre-type.premium {
+  background: #fff0d5;
 
-    background: #fff0d5;
-
-    color: #956000;
-
+  color: #956000;
 }
-
 
 .theatre-type.standard {
+  background: #eaf6ec;
 
-    background: #eaf6ec;
-
-    color: #367640;
-
+  color: #367640;
 }
-
 
 .theatre-name {
+  margin: 0 0 6px;
 
-    margin: 0 0 6px;
-
-    font-size: 17px;
-
+  font-size: 17px;
 }
-
 
 .theatre-location {
+  margin-bottom: 10px;
 
-    margin-bottom: 10px;
+  color: #888;
 
-    color: #888;
-
-    font-size: 12px;
-
+  font-size: 12px;
 }
-
 
 .theatre-features {
+  display: flex;
 
-    display: flex;
+  gap: 6px;
 
-    gap: 6px;
-
-    flex-wrap: wrap;
-
+  flex-wrap: wrap;
 }
-
 
 .theatre-feature {
+  padding: 4px 7px;
 
-    padding: 4px 7px;
+  background: #f1f1f1;
 
-    background: #f1f1f1;
+  color: #777;
 
-    color: #777;
+  border-radius: 3px;
 
-    border-radius: 3px;
-
-    font-size: 10px;
-
+  font-size: 10px;
 }
-
-
 
 /* =====================================================
    SHOWTIMES
 ===================================================== */
 
 .showtime-area {
+  margin-top: 18px;
 
-    margin-top: 18px;
+  padding-top: 18px;
 
-    padding-top: 18px;
-
-    border-top: 1px solid #eee;
-
+  border-top: 1px solid #eee;
 }
-
 
 .showtime-heading {
+  margin-bottom: 12px;
 
-    margin-bottom: 12px;
+  color: #666;
 
-    color: #666;
-
-    font-size: 12px;
-
+  font-size: 12px;
 }
-
 
 .showtime-list {
+  display: flex;
 
-    display: flex;
+  flex-wrap: wrap;
 
-    flex-wrap: wrap;
-
-    gap: 10px;
-
+  gap: 10px;
 }
-
 
 .showtime-button {
+  min-width: 95px;
 
-    min-width: 95px;
+  padding: 9px 12px;
 
-    padding: 9px 12px;
+  border: 1px solid #bbb;
 
-    border: 1px solid #bbb;
+  border-radius: 5px;
 
-    border-radius: 5px;
+  background: #fff;
 
-    background: #fff;
+  cursor: pointer;
 
-    cursor: pointer;
+  color: #333;
 
-    color: #333;
-
-    font-size: 12px;
-
+  font-size: 12px;
 }
-
 
 .showtime-button:hover {
+  border-color: #e51937;
 
-    border-color: #e51937;
-
-    color: #e51937;
-
+  color: #e51937;
 }
-
 
 .showtime-button.selected {
+  background: #e51937;
 
-    background: #e51937;
+  border-color: #e51937;
 
-    border-color: #e51937;
-
-    color: #fff;
-
+  color: #fff;
 }
-
 
 .showtime-price {
+  display: block;
 
-    display: block;
+  margin-top: 4px;
 
-    margin-top: 4px;
+  color: #777;
 
-    color: #777;
-
-    font-size: 10px;
-
+  font-size: 10px;
 }
-
 
 .showtime-button.selected .showtime-price {
-
-    color: #ffe0e5;
-
+  color: #ffe0e5;
 }
-
 
 .showtime-available {
+  display: block;
 
-    display: block;
+  margin-top: 3px;
 
-    margin-top: 3px;
+  color: #399247;
 
-    color: #399247;
-
-    font-size: 9px;
-
+  font-size: 9px;
 }
-
 
 .showtime-button.selected .showtime-available {
-
-    color: #ffe5e9;
-
+  color: #ffe5e9;
 }
-
-
 
 /* =====================================================
    BOOKING BAR
 ===================================================== */
 
 .booking-bar {
+  position: fixed;
 
-    position: fixed;
+  z-index: 100;
 
-    z-index: 100;
+  left: 0;
 
-    left: 0;
+  right: 0;
 
-    right: 0;
+  bottom: 0;
 
-    bottom: 0;
+  background: #fff;
 
-    background: #fff;
+  border-top: 1px solid #ddd;
 
-    border-top: 1px solid #ddd;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
 
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, .08);
-
-    padding: 12px 20px;
-
+  padding: 12px 20px;
 }
-
 
 .booking-bar-inner {
+  width: min(1150px, 100%);
 
-    width: min(1150px, 100%);
+  margin: auto;
 
-    margin: auto;
+  display: flex;
 
-    display: flex;
+  justify-content: space-between;
 
-    justify-content: space-between;
+  align-items: center;
 
-    align-items: center;
-
-    gap: 20px;
-
+  gap: 20px;
 }
-
 
 .selected-theatre {
+  font-size: 14px;
 
-    font-size: 14px;
-
-    font-weight: 600;
-
+  font-weight: 600;
 }
-
 
 .selected-show {
+  margin-top: 4px;
 
-    margin-top: 4px;
+  color: #888;
 
-    color: #888;
-
-    font-size: 12px;
-
+  font-size: 12px;
 }
-
 
 .continue-button {
+  min-width: 180px;
 
-    min-width: 180px;
+  padding: 13px 20px;
 
-    padding: 13px 20px;
+  border: 0;
 
-    border: 0;
+  border-radius: 6px;
 
-    border-radius: 6px;
+  background: #e51937;
 
-    background: #e51937;
+  color: #fff;
 
-    color: #fff;
+  font-weight: 600;
 
-    font-weight: 600;
-
-    cursor: pointer;
-
+  cursor: pointer;
 }
-
 
 .continue-button:disabled {
+  background: #ddd;
 
-    background: #ddd;
+  color: #999;
 
-    color: #999;
-
-    cursor: not-allowed;
-
+  cursor: not-allowed;
 }
-
-
 
 /* =====================================================
    LOADING
 ===================================================== */
 
 .page-loading {
+  min-height: 600px;
 
-    min-height: 600px;
+  display: flex;
 
-    display: flex;
+  flex-direction: column;
 
-    flex-direction: column;
+  justify-content: center;
 
-    justify-content: center;
+  align-items: center;
 
-    align-items: center;
+  background: #f5f5f5;
 
-    background: #f5f5f5;
-
-    color: #888;
-
+  color: #888;
 }
-
 
 .loader {
+  width: 40px;
 
-    width: 40px;
+  height: 40px;
 
-    height: 40px;
+  margin-bottom: 12px;
 
-    margin-bottom: 12px;
+  border: 4px solid #ddd;
 
-    border: 4px solid #ddd;
+  border-top-color: #e51937;
 
-    border-top-color: #e51937;
+  border-radius: 50%;
 
-    border-radius: 50%;
-
-    animation: spin .8s linear infinite;
-
+  animation: spin 0.8s linear infinite;
 }
-
 
 @keyframes spin {
-
-    to {
-
-        transform: rotate(360deg);
-
-    }
-
+  to {
+    transform: rotate(360deg);
+  }
 }
-
-
 
 /* =====================================================
    EMPTY
 ===================================================== */
 
 .no-theatres {
+  padding: 50px 20px;
 
-    padding: 50px 20px;
+  background: #fff;
 
-    background: #fff;
+  border-radius: 8px;
 
-    border-radius: 8px;
+  text-align: center;
 
-    text-align: center;
-
-    color: #888;
-
+  color: #888;
 }
-
 
 .no-theatres h3 {
+  margin: 0 0 7px;
 
-    margin: 0 0 7px;
-
-    color: #444;
-
+  color: #444;
 }
-
-
 
 /* =====================================================
    MOBILE
 ===================================================== */
 
 @media (max-width: 700px) {
+  .movie-show-header .show-container {
+    align-items: flex-start;
+  }
 
-    .movie-show-header .show-container {
+  .show-movie-poster {
+    width: 65px;
 
-        align-items: flex-start;
+    height: 90px;
+  }
 
-    }
+  .show-movie-details h1 {
+    font-size: 20px;
+  }
 
+  .booking-bar-inner {
+    flex-direction: column;
 
-    .show-movie-poster {
+    align-items: stretch;
+  }
 
-        width: 65px;
-
-        height: 90px;
-
-    }
-
-
-    .show-movie-details h1 {
-
-        font-size: 20px;
-
-    }
-
-
-    .booking-bar-inner {
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-    }
-
-
-    .continue-button {
-
-        width: 100%;
-
-    }
-
+  .continue-button {
+    width: 100%;
+  }
 }
 
-
 @media (max-width: 500px) {
+  .show-container {
+    padding-left: 14px;
 
-    .show-container {
+    padding-right: 14px;
+  }
 
-        padding-left: 14px;
+  .theatre-card {
+    padding: 16px;
+  }
 
-        padding-right: 14px;
+  .showtime-button {
+    min-width: 82px;
+  }
+}
 
-    }
+/* =====================================================
+   BOOKITBRO
+   THEATRE / SHOWTIME - DARK MODE
+===================================================== */
 
+/* =========================================
+   MAIN PAGE
+========================================= */
 
-    .theatre-card {
+body.dark-mode .theatre-page {
+  background: #121212;
+  color: #f5f5f5;
+}
 
-        padding: 16px;
+/* =========================================
+   MOVIE HEADER
+========================================= */
 
-    }
+body.dark-mode .movie-show-header {
+  background: #1a1a1a;
+  border-bottom-color: #333;
+}
 
+body.dark-mode .show-movie-poster {
+  background: #292929;
+}
 
-    .showtime-button {
+body.dark-mode .show-movie-details h1 {
+  color: #f5f5f5;
+}
 
-        min-width: 82px;
+body.dark-mode .movie-meta {
+  color: #aaa;
+}
 
-    }
+body.dark-mode .show-movie-details p {
+  color: #999;
+}
 
+/* =========================================
+   DATE SECTION
+========================================= */
+
+body.dark-mode .date-section {
+  background: #181818;
+  border-bottom-color: #333;
+}
+
+body.dark-mode .date-section h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .date-card {
+  background: #222;
+  border-color: #444;
+  color: #f5f5f5;
+}
+
+body.dark-mode .date-card:hover {
+  border-color: #e51937;
+}
+
+body.dark-mode .date-card.active {
+  background: #e51937;
+  border-color: #e51937;
+  color: #fff;
+}
+
+/* =========================================
+   FILTER
+========================================= */
+
+body.dark-mode .filter-left > span {
+  color: #999;
+}
+
+body.dark-mode .filter-button {
+  background: #222;
+  border-color: #444;
+  color: #aaa;
+}
+
+body.dark-mode .filter-button:hover {
+  border-color: #e51937;
+  color: #ff4962;
+}
+
+body.dark-mode .filter-button.active {
+  background: #e51937;
+  border-color: #e51937;
+  color: #fff;
+}
+
+/* =========================================
+   THEATRES
+========================================= */
+
+body.dark-mode .theatre-title-row h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode #theatreCount {
+  color: #888;
+}
+
+body.dark-mode .theatre-card {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .theatre-card:hover {
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .theatre-name {
+  color: #f5f5f5;
+}
+
+body.dark-mode .theatre-location {
+  color: #999;
+}
+
+/* =========================================
+   THEATRE TYPES
+========================================= */
+
+body.dark-mode .theatre-type.premium {
+  background: #3a2d18;
+  color: #e5b75b;
+}
+
+body.dark-mode .theatre-type.standard {
+  background: #193326;
+  color: #62c98a;
+}
+
+/* =========================================
+   THEATRE FEATURES
+========================================= */
+
+body.dark-mode .theatre-feature {
+  background: #292929;
+  color: #999;
+}
+
+/* =========================================
+   SHOWTIMES
+========================================= */
+
+body.dark-mode .showtime-area {
+  border-top-color: #333;
+}
+
+body.dark-mode .showtime-heading {
+  color: #999;
+}
+
+body.dark-mode .showtime-button {
+  background: #222;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+body.dark-mode .showtime-button:hover {
+  border-color: #e51937;
+  color: #ff4962;
+}
+
+body.dark-mode .showtime-button.selected {
+  background: #e51937;
+  border-color: #e51937;
+  color: #fff;
+}
+
+body.dark-mode .showtime-price {
+  color: #999;
+}
+
+body.dark-mode .showtime-button.selected .showtime-price {
+  color: #ffe0e5;
+}
+
+body.dark-mode .showtime-available {
+  color: #55b878;
+}
+
+body.dark-mode .showtime-button.selected .showtime-available {
+  color: #ffe5e9;
+}
+
+/* =========================================
+   BOOKING BAR
+========================================= */
+
+body.dark-mode .booking-bar {
+  background: #1a1a1a;
+  border-top-color: #333;
+
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .selected-theatre {
+  color: #f5f5f5;
+}
+
+body.dark-mode .selected-show {
+  color: #999;
+}
+
+body.dark-mode .continue-button {
+  background: #e51937;
+  color: #fff;
+}
+
+body.dark-mode .continue-button:hover {
+  background: #c91530;
+}
+
+body.dark-mode .continue-button:disabled {
+  background: #333;
+  color: #777;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+body.dark-mode .page-loading {
+  background: #121212;
+  color: #888;
+}
+
+body.dark-mode .loader {
+  border-color: #333;
+  border-top-color: #e51937;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+body.dark-mode .no-theatres {
+  background: #1e1e1e;
+  color: #888;
+}
+
+body.dark-mode .no-theatres h3 {
+  color: #f5f5f5;
 }

@@ -3,7 +3,6 @@
    PAYMENT PAGE
 ========================================= */
 
-
 /* =========================================
    STATE
 ========================================= */
@@ -12,1017 +11,675 @@ let paymentData = null;
 
 let selectedMethod = "upi";
 
-
 /* =========================================
    LOAD PAYMENT DATA
 ========================================= */
 
 function loadPaymentData() {
+  const storedData = sessionStorage.getItem("bookItBroPayment");
 
-    const storedData =
-        sessionStorage.getItem(
-            "bookItBroPayment"
-        );
+  if (!storedData) {
+    showPaymentError();
 
+    return false;
+  }
 
-    if (!storedData) {
+  try {
+    paymentData = JSON.parse(storedData);
 
-        showPaymentError();
+    console.log("Payment Data:", paymentData);
 
-        return false;
-    }
+    return true;
+  } catch (error) {
+    console.error("Unable to read payment data:", error);
 
+    showPaymentError();
 
-    try {
-
-        paymentData =
-            JSON.parse(
-                storedData
-            );
-
-
-        console.log(
-            "Payment Data:",
-            paymentData
-        );
-
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "Unable to read payment data:",
-            error
-        );
-
-
-        showPaymentError();
-
-        return false;
-    }
+    return false;
+  }
 }
 
-
-/* =========================================
-   DISPLAY BOOKING
-========================================= */
+// =========================================
+// DISPLAY BOOKING
+// =========================================
 
 function displayBooking() {
+  /*
+      Check booking type.
 
-    const movieTitle =
-        document.getElementById(
-            "movieTitle"
-        );
+      Sports bookings contain:
+      bookingType: "sports"
 
-    const moviePoster =
-        document.getElementById(
-            "moviePoster"
-        );
+      Movie bookings either contain:
+      bookingType: "movie"
+      or have no bookingType.
+  */
 
-    const movieMeta =
-        document.getElementById(
-            "movieMeta"
-        );
-
-
-    movieTitle.textContent =
-        paymentData.movieTitle ||
-        "Movie";
-
-
-    movieMeta.textContent =
-        `${paymentData.language || "Movie"} • ${paymentData.certificate || "UA"}`;
-
-
-    /*
-        Movie poster
-    */
-
-    const poster =
-        paymentData.moviePoster ||
-        paymentData.poster ||
-        "";
-
-
-    if (poster) {
-
-        moviePoster.src = poster;
-
-        moviePoster.onerror = () => {
-
-            moviePoster.style.display =
-                "none";
-
-        };
-
-    } else {
-
-        moviePoster.style.display =
-            "none";
-    }
-
-
-    /*
-        Theatre
-    */
-
-    document.getElementById(
-        "theatreName"
-    ).textContent =
-        paymentData.theatreName ||
-        "Theatre";
-
-
-    /*
-        Screen
-    */
-
-    document.getElementById(
-        "screenName"
-    ).textContent =
-        paymentData.screen ||
-        "Screen 1";
-
-
-    /*
-        Date
-    */
-
-    document.getElementById(
-        "showDate"
-    ).textContent =
-        formatDate(
-            paymentData.date
-        );
-
-
-    /*
-        Showtime
-    */
-
-    document.getElementById(
-        "showTime"
-    ).textContent =
-        paymentData.showTime ||
-        "—";
-
-
-    /*
-        Seats
-    */
-
-    const seats =
-        Array.isArray(
-            paymentData.seats
-        )
-            ? paymentData.seats
-            : [];
-
-
-    document.getElementById(
-        "selectedSeats"
-    ).textContent =
-        seats.length
-            ? seats.join(", ")
-            : "No seats selected";
+  if (paymentData.bookingType === "sports") {
+    displaySportsBooking();
+  } else {
+    displayMovieBooking();
+  }
 }
 
+// =========================================
+// DISPLAY MOVIE BOOKING
+// =========================================
+
+function displayMovieBooking() {
+  const movieSection = document.getElementById("movieBookingDetails");
+
+  const sportsSection = document.getElementById("sportsBookingDetails");
+
+  /*
+      Show movie section.
+  */
+
+  movieSection.style.display = "block";
+
+  sportsSection.style.display = "none";
+
+  /*
+      Heading.
+  */
+
+  document.getElementById("bookingHeading").textContent = "Your Booking";
+
+  document.getElementById("bookingSubheading").textContent =
+    "Review your movie booking details";
+
+  /*
+      Movie title.
+  */
+
+  document.getElementById("movieTitle").textContent =
+    paymentData.movieTitle || "Movie";
+
+  /*
+      Movie metadata.
+  */
+
+  document.getElementById("movieMeta").textContent =
+    `${paymentData.language || "Movie"} • ${paymentData.certificate || "UA"}`;
+
+  /*
+      Poster.
+  */
+
+  const poster = paymentData.moviePoster || paymentData.poster || "";
+
+  const posterElement = document.getElementById("moviePoster");
+
+  if (poster) {
+    posterElement.src = poster;
+
+    posterElement.onerror = () => {
+      posterElement.style.display = "none";
+    };
+  } else {
+    posterElement.style.display = "none";
+  }
+
+  /*
+      Theatre.
+  */
+
+  document.getElementById("theatreName").textContent =
+    paymentData.theatreName || "Theatre";
+
+  /*
+      Screen.
+  */
+
+  document.getElementById("screenName").textContent =
+    paymentData.screen || "Screen 1";
+
+  /*
+      Date.
+  */
+
+  document.getElementById("showDate").textContent = formatDate(
+    paymentData.date,
+  );
+
+  /*
+      Showtime.
+  */
+
+  document.getElementById("showTime").textContent = paymentData.showTime || "—";
+
+  /*
+      Seats.
+  */
+
+  const seats = Array.isArray(paymentData.seats) ? paymentData.seats : [];
+
+  document.getElementById("selectedSeats").textContent = seats.length
+    ? seats.join(", ")
+    : "No seats selected";
+}
+
+// =========================================
+// DISPLAY SPORTS BOOKING
+// =========================================
+
+function displaySportsBooking() {
+  const movieSection = document.getElementById("movieBookingDetails");
+
+  const sportsSection = document.getElementById("sportsBookingDetails");
+
+  /*
+      Hide movie section.
+  */
+
+  movieSection.style.display = "none";
+
+  /*
+      Show sports section.
+  */
+
+  sportsSection.style.display = "block";
+
+  /*
+      Heading.
+  */
+
+  document.getElementById("bookingHeading").textContent = "Your Sports Booking";
+
+  document.getElementById("bookingSubheading").textContent =
+    "Review your sports event details";
+
+  /*
+      Event name.
+  */
+
+  document.getElementById("sportsEventName").textContent =
+    paymentData.eventName || "Sports Event";
+
+  /*
+      League.
+  */
+
+  document.getElementById("sportsLeague").textContent =
+    paymentData.league || "Sports Event";
+
+  /*
+      Sport.
+  */
+
+  document.getElementById("sportsSport").textContent =
+    paymentData.sport || "Sports";
+
+  /*
+      Venue.
+  */
+
+  document.getElementById("sportsVenue").textContent =
+    paymentData.venue || "Venue";
+
+  /*
+      Date.
+  */
+
+  document.getElementById("sportsDate").textContent = formatDate(
+    paymentData.date,
+  );
+
+  /*
+      Time.
+  */
+
+  document.getElementById("sportsTime").textContent =
+    paymentData.showTime || "—";
+
+  /*
+      Teams.
+  */
+
+  const homeTeam = paymentData.homeTeam || "Home Team";
+
+  const awayTeam = paymentData.awayTeam || "Away Team";
+
+  document.getElementById("sportsTeams").textContent =
+    `${homeTeam} VS ${awayTeam}`;
+
+  /*
+      Sports poster.
+  */
+
+  const poster = paymentData.poster || "";
+
+  const posterElement = document.getElementById("sportsPoster");
+
+  if (poster) {
+    posterElement.src = poster;
+
+    posterElement.onerror = () => {
+      posterElement.style.display = "none";
+    };
+  } else {
+    posterElement.style.display = "none";
+  }
+}
 
 /* =========================================
    DISPLAY PRICE
 ========================================= */
 
 function displayPrice() {
+  const ticketCount = Number(paymentData.ticketCount) || 0;
 
-    const ticketCount =
-        Number(
-            paymentData.ticketCount
-        ) || 0;
+  const baseAmount = Number(paymentData.baseAmount) || 0;
 
+  const convenienceFee = Number(paymentData.convenienceFee) || 0;
 
-    const baseAmount =
-        Number(
-            paymentData.baseAmount
-        ) || 0;
+  const gst = Number(paymentData.gst) || 0;
 
+  const totalAmount = Number(paymentData.totalAmount) || 0;
 
-    const convenienceFee =
-        Number(
-            paymentData.convenienceFee
-        ) || 0;
-
-
-    const gst =
-        Number(
-            paymentData.gst
-        ) || 0;
-
-
-    const totalAmount =
-        Number(
-            paymentData.totalAmount
-        ) || 0;
-
-
-    /*
+  /*
         Ticket amount
     */
 
-    document.getElementById(
-        "ticketPrice"
-    ).textContent =
-        formatCurrency(
-            baseAmount
-        );
+  document.getElementById("ticketPrice").textContent =
+    formatCurrency(baseAmount);
 
-
-    /*
+  /*
         Ticket count
     */
 
-    document.getElementById(
-        "ticketCount"
-    ).textContent =
-        ticketCount;
+  document.getElementById("ticketCount").textContent = ticketCount;
 
-
-    /*
+  /*
         Convenience fee
     */
 
-    document.getElementById(
-        "convenienceFee"
-    ).textContent =
-        formatCurrency(
-            convenienceFee
-        );
+  document.getElementById("convenienceFee").textContent =
+    formatCurrency(convenienceFee);
 
-
-    /*
+  /*
         GST
     */
 
-    document.getElementById(
-        "gst"
-    ).textContent =
-        formatCurrency(
-            gst
-        );
+  document.getElementById("gst").textContent = formatCurrency(gst);
 
-
-    /*
+  /*
         Total
     */
 
-    document.getElementById(
-        "totalAmount"
-    ).textContent =
-        formatCurrency(
-            totalAmount
-        );
+  document.getElementById("totalAmount").textContent =
+    formatCurrency(totalAmount);
 
-
-    /*
+  /*
         Pay button amount
     */
 
-    document.getElementById(
-        "payAmount"
-    ).textContent =
-        formatCurrency(
-            totalAmount
-        );
+  document.getElementById("payAmount").textContent =
+    formatCurrency(totalAmount);
 }
-
 
 /* =========================================
    PAYMENT METHOD TABS
 ========================================= */
 
 function setupPaymentMethods() {
+  const buttons = document.querySelectorAll(".method-button");
 
-    const buttons =
-        document.querySelectorAll(
-            ".method-button"
-        );
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const method = button.dataset.method;
 
-
-    buttons.forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const method =
-                        button.dataset.method;
-
-
-                    selectPaymentMethod(
-                        method
-                    );
-
-                }
-            );
-
-        }
-    );
+      selectPaymentMethod(method);
+    });
+  });
 }
-
 
 /* =========================================
    SELECT PAYMENT METHOD
 ========================================= */
 
-function selectPaymentMethod(
-    method
-) {
+function selectPaymentMethod(method) {
+  selectedMethod = method;
 
-    selectedMethod =
-        method;
-
-
-    /*
+  /*
         Update buttons
     */
 
-    document
-        .querySelectorAll(
-            ".method-button"
-        )
-        .forEach(
-            (button) => {
+  document.querySelectorAll(".method-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.method === method);
+  });
 
-                button.classList.toggle(
-                    "active",
-                    button.dataset.method === method
-                );
-
-            }
-        );
-
-
-    /*
+  /*
         Hide all forms
     */
 
-    document
-        .querySelectorAll(
-            ".payment-form"
-        )
-        .forEach(
-            (form) => {
+  document.querySelectorAll(".payment-form").forEach((form) => {
+    form.classList.remove("active");
+  });
 
-                form.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    /*
+  /*
         Show selected form
     */
 
-    const selectedForm =
-        document.getElementById(
-            `${method}Form`
-        );
+  const selectedForm = document.getElementById(`${method}Form`);
 
-
-    if (selectedForm) {
-
-        selectedForm.classList.add(
-            "active"
-        );
-
-    }
+  if (selectedForm) {
+    selectedForm.classList.add("active");
+  }
 }
-
 
 /* =========================================
    PAYMENT VALIDATION
 ========================================= */
 
 function validatePayment() {
-
-    /*
+  /*
         UPI
     */
 
-    if (
-        selectedMethod ===
-        "upi"
-    ) {
+  if (selectedMethod === "upi") {
+    const upi = document.getElementById("upiId").value.trim();
 
-        const upi =
-            document.getElementById(
-                "upiId"
-            ).value.trim();
+    if (!upi) {
+      alert("Please enter your UPI ID.");
 
+      document.getElementById("upiId").focus();
 
-        if (!upi) {
+      return false;
+    }
 
-            alert(
-                "Please enter your UPI ID."
-            );
-
-            document
-                .getElementById(
-                    "upiId"
-                )
-                .focus();
-
-            return false;
-        }
-
-
-        /*
+    /*
             Basic UPI format.
         */
 
-        const upiPattern =
-            /^[\w.-]+@[\w.-]+$/;
+    const upiPattern = /^[\w.-]+@[\w.-]+$/;
 
+    if (!upiPattern.test(upi)) {
+      alert("Please enter a valid UPI ID.");
 
-        if (
-            !upiPattern.test(
-                upi
-            )
-        ) {
+      document.getElementById("upiId").focus();
 
-            alert(
-                "Please enter a valid UPI ID."
-            );
-
-            document
-                .getElementById(
-                    "upiId"
-                )
-                .focus();
-
-            return false;
-        }
+      return false;
     }
+  }
 
-
-    /*
+  /*
         CARD
     */
 
-    if (
-        selectedMethod ===
-        "card"
-    ) {
+  if (selectedMethod === "card") {
+    const cardNumber = document
+      .getElementById("cardNumber")
+      .value.replace(/\s/g, "");
 
-        const cardNumber =
-            document.getElementById(
-                "cardNumber"
-            ).value.replace(
-                /\s/g,
-                ""
-            );
+    const cardName = document.getElementById("cardName").value.trim();
 
+    const expiry = document.getElementById("expiry").value.trim();
 
-        const cardName =
-            document.getElementById(
-                "cardName"
-            ).value.trim();
+    const cvv = document.getElementById("cvv").value.trim();
 
+    if (!/^\d{16}$/.test(cardNumber)) {
+      alert("Please enter a valid 16-digit card number.");
 
-        const expiry =
-            document.getElementById(
-                "expiry"
-            ).value.trim();
+      document.getElementById("cardNumber").focus();
 
-
-        const cvv =
-            document.getElementById(
-                "cvv"
-            ).value.trim();
-
-
-        if (
-            !/^\d{16}$/.test(
-                cardNumber
-            )
-        ) {
-
-            alert(
-                "Please enter a valid 16-digit card number."
-            );
-
-            document
-                .getElementById(
-                    "cardNumber"
-                )
-                .focus();
-
-            return false;
-        }
-
-
-        if (!cardName) {
-
-            alert(
-                "Please enter the cardholder name."
-            );
-
-            document
-                .getElementById(
-                    "cardName"
-                )
-                .focus();
-
-            return false;
-        }
-
-
-        if (
-            !/^\d{2}\/\d{2}$/.test(
-                expiry
-            )
-        ) {
-
-            alert(
-                "Please enter expiry in MM/YY format."
-            );
-
-            document
-                .getElementById(
-                    "expiry"
-                )
-                .focus();
-
-            return false;
-        }
-
-
-        if (
-            !/^\d{3}$/.test(
-                cvv
-            )
-        ) {
-
-            alert(
-                "Please enter a valid 3-digit CVV."
-            );
-
-            document
-                .getElementById(
-                    "cvv"
-                )
-                .focus();
-
-            return false;
-        }
+      return false;
     }
 
+    if (!cardName) {
+      alert("Please enter the cardholder name.");
 
-    /*
+      document.getElementById("cardName").focus();
+
+      return false;
+    }
+
+    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+      alert("Please enter expiry in MM/YY format.");
+
+      document.getElementById("expiry").focus();
+
+      return false;
+    }
+
+    if (!/^\d{3}$/.test(cvv)) {
+      alert("Please enter a valid 3-digit CVV.");
+
+      document.getElementById("cvv").focus();
+
+      return false;
+    }
+  }
+
+  /*
         NET BANKING
     */
 
-    if (
-        selectedMethod ===
-        "netbanking"
-    ) {
+  if (selectedMethod === "netbanking") {
+    const bank = document.getElementById("bank").value;
 
-        const bank =
-            document.getElementById(
-                "bank"
-            ).value;
+    if (!bank) {
+      alert("Please select your bank.");
 
+      document.getElementById("bank").focus();
 
-        if (!bank) {
-
-            alert(
-                "Please select your bank."
-            );
-
-            document
-                .getElementById(
-                    "bank"
-                )
-                .focus();
-
-            return false;
-        }
+      return false;
     }
+  }
 
-
-    /*
+  /*
         WALLET
     */
 
-    if (
-        selectedMethod ===
-        "wallet"
-    ) {
+  if (selectedMethod === "wallet") {
+    const wallet = document.getElementById("wallet").value;
 
-        const wallet =
-            document.getElementById(
-                "wallet"
-            ).value;
+    if (!wallet) {
+      alert("Please select a wallet.");
 
+      document.getElementById("wallet").focus();
 
-        if (!wallet) {
-
-            alert(
-                "Please select a wallet."
-            );
-
-            document
-                .getElementById(
-                    "wallet"
-                )
-                .focus();
-
-            return false;
-        }
+      return false;
     }
+  }
 
-
-    return true;
+  return true;
 }
-
 
 /* =========================================
    FORMAT CURRENCY
 ========================================= */
 
-function formatCurrency(
-    amount
-) {
-
-    return `₹${Number(amount).toFixed(2)}`;
+function formatCurrency(amount) {
+  return `₹${Number(amount).toFixed(2)}`;
 }
-
 
 /* =========================================
    FORMAT DATE
 ========================================= */
 
-function formatDate(
-    dateString
-) {
+function formatDate(dateString) {
+  if (!dateString) {
+    return "—";
+  }
 
-    if (!dateString) {
+  const date = new Date(dateString);
 
-        return "—";
-    }
+  if (Number.isNaN(date.getTime())) {
+    return dateString;
+  }
 
-
-    const date =
-        new Date(
-            dateString
-        );
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return dateString;
-    }
-
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        }
-    );
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
-
 
 /* =========================================
    PROCESS PAYMENT
 ========================================= */
 
 function processPayment() {
-
-    /*
+  /*
         Validate payment first.
     */
 
-    if (
-        !validatePayment()
-    ) {
+  if (!validatePayment()) {
+    return;
+  }
 
-        return;
-    }
+  const processingModal = document.getElementById("processingModal");
 
+  processingModal.classList.remove("hidden");
 
-    const processingModal =
-        document.getElementById(
-            "processingModal"
-        );
-
-
-    processingModal.classList.remove(
-        "hidden"
-    );
-
-
-    /*
+  /*
         Demo payment processing.
 
         We are NOT charging a real
         card / UPI account.
     */
 
-    setTimeout(
-        () => {
+  setTimeout(() => {
+    processingModal.classList.add("hidden");
 
-            processingModal.classList.add(
-                "hidden"
-            );
-
-
-            completePayment();
-
-        },
-        1800
-    );
+    completePayment();
+  }, 1800);
 }
-
 
 /* =========================================
    COMPLETE PAYMENT
 ========================================= */
 
 function completePayment() {
-
-    /*
+  /*
         Generate booking ID.
     */
 
-    const bookingId =
-        generateBookingId();
+  const bookingId = generateBookingId();
 
-
-    /*
+  /*
         Create confirmation data.
     */
 
-    const confirmationData = {
+  const confirmationData = {
+    ...paymentData,
 
-        ...paymentData,
+    bookingId,
 
-        bookingId,
+    paymentStatus: "SUCCESS",
 
-        paymentStatus:
-            "SUCCESS",
+    paymentMethod: selectedMethod,
 
-        paymentMethod:
-            selectedMethod,
+    paymentDate: new Date().toISOString(),
+  };
 
-        paymentDate:
-            new Date().toISOString()
-
-    };
-
-
-    /*
+  /*
         Save confirmation data.
     */
 
-    sessionStorage.setItem(
-        "bookItBroConfirmation",
-        JSON.stringify(
-            confirmationData
-        )
-    );
+  sessionStorage.setItem(
+    "bookItBroConfirmation",
+    JSON.stringify(confirmationData),
+  );
 
+  console.log("Confirmation Data:", confirmationData);
 
-    console.log(
-        "Confirmation Data:",
-        confirmationData
-    );
-
-
-    /*
+  /*
         Show success modal.
     */
 
-    const successModal =
-        document.getElementById(
-            "successModal"
-        );
+  const successModal = document.getElementById("successModal");
 
+  successModal.classList.remove("hidden");
 
-    successModal.classList.remove(
-        "hidden"
-    );
-
-
-    /*
+  /*
         Move to confirmation page.
     */
 
-    setTimeout(
-        () => {
-
-            window.location.href =
-                "confirmation.html";
-
-        },
-        1200
-    );
+  setTimeout(() => {
+    window.location.href = "confirmation.html";
+  }, 1200);
 }
-
 
 /* =========================================
    GENERATE BOOKING ID
 ========================================= */
 
 function generateBookingId() {
+  const timestamp = Date.now().toString().slice(-8);
 
-    const timestamp =
-        Date.now()
-            .toString()
-            .slice(-8);
+  const random = Math.floor(100 + Math.random() * 900);
 
-
-    const random =
-        Math.floor(
-            100 +
-            Math.random() * 900
-        );
-
-
-    return `BIB${timestamp}${random}`;
+  return `BIB${timestamp}${random}`;
 }
-
 
 /* =========================================
    CARD NUMBER FORMAT
 ========================================= */
 
 function setupCardNumberFormatting() {
+  const input = document.getElementById("cardNumber");
 
-    const input =
-        document.getElementById(
-            "cardNumber"
-        );
+  input.addEventListener("input", () => {
+    let value = input.value.replace(/\D/g, "");
 
+    value = value.substring(0, 16);
 
-    input.addEventListener(
-        "input",
-        () => {
+    const groups = value.match(/.{1,4}/g);
 
-            let value =
-                input.value.replace(
-                    /\D/g,
-                    ""
-                );
-
-
-            value =
-                value.substring(
-                    0,
-                    16
-                );
-
-
-            const groups =
-                value.match(
-                    /.{1,4}/g
-                );
-
-
-            input.value =
-                groups
-                    ? groups.join(" ")
-                    : "";
-
-        }
-    );
+    input.value = groups ? groups.join(" ") : "";
+  });
 }
-
 
 /* =========================================
    EXPIRY FORMAT
 ========================================= */
 
 function setupExpiryFormatting() {
+  const input = document.getElementById("expiry");
 
-    const input =
-        document.getElementById(
-            "expiry"
-        );
+  input.addEventListener("input", () => {
+    let value = input.value.replace(/\D/g, "");
 
+    value = value.substring(0, 4);
 
-    input.addEventListener(
-        "input",
-        () => {
+    if (value.length >= 3) {
+      value = value.substring(0, 2) + "/" + value.substring(2);
+    }
 
-            let value =
-                input.value.replace(
-                    /\D/g,
-                    ""
-                );
-
-
-            value =
-                value.substring(
-                    0,
-                    4
-                );
-
-
-            if (
-                value.length >= 3
-            ) {
-
-                value =
-                    value.substring(
-                        0,
-                        2
-                    ) +
-                    "/" +
-                    value.substring(
-                        2
-                    );
-
-            }
-
-
-            input.value =
-                value;
-
-        }
-    );
+    input.value = value;
+  });
 }
-
 
 /* =========================================
    CVV
 ========================================= */
 
 function setupCVV() {
+  const input = document.getElementById("cvv");
 
-    const input =
-        document.getElementById(
-            "cvv"
-        );
-
-
-    input.addEventListener(
-        "input",
-        () => {
-
-            input.value =
-                input.value
-                    .replace(
-                        /\D/g,
-                        ""
-                    )
-                    .substring(
-                        0,
-                        3
-                    );
-
-        }
-    );
+  input.addEventListener("input", () => {
+    input.value = input.value.replace(/\D/g, "").substring(0, 3);
+  });
 }
-
 
 /* =========================================
    BACK BUTTON
 ========================================= */
 
 function setupBackButton() {
-
-    document
-        .getElementById(
-            "backButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                window.history.back();
-
-            }
-        );
+  document.getElementById("backButton").addEventListener("click", () => {
+    window.history.back();
+  });
 }
-
 
 /* =========================================
    PAYMENT ERROR
 ========================================= */
 
 function showPaymentError() {
-
-    document.body.innerHTML = `
+  document.body.innerHTML = `
 
         <div style="
             min-height:100vh;
@@ -1084,81 +741,63 @@ function showPaymentError() {
     `;
 }
 
-
 /* =========================================
    INITIALIZE
 ========================================= */
 
 function initialize() {
-
-    /*
+  /*
         Load payment data.
     */
 
-    const loaded =
-        loadPaymentData();
+  const loaded = loadPaymentData();
 
+  if (!loaded) {
+    return;
+  }
 
-    if (!loaded) {
-
-        return;
-    }
-
-
-    /*
+  /*
         Display booking.
     */
 
-    displayBooking();
+  displayBooking();
 
-
-    /*
+  /*
         Display price.
     */
 
-    displayPrice();
+  displayPrice();
 
-
-    /*
+  /*
         Setup payment methods.
     */
 
-    setupPaymentMethods();
+  setupPaymentMethods();
 
-
-    /*
+  /*
         Setup input formatting.
     */
 
-    setupCardNumberFormatting();
+  setupCardNumberFormatting();
 
-    setupExpiryFormatting();
+  setupExpiryFormatting();
 
-    setupCVV();
+  setupCVV();
 
-
-    /*
+  /*
         Back button.
     */
 
-    setupBackButton();
+  setupBackButton();
 
-
-    /*
+  /*
         Pay button.
     */
 
-    document
-        .getElementById(
-            "payButton"
-        )
-        .addEventListener(
-            "click",
-            processPayment
-        );
-
+  document
+    .getElementById("payButton")
+    .addEventListener("click", processPayment);
 }
-
 
 /* =========================================
    START

@@ -18,7 +18,6 @@ function loadConfirmationData() {
 
   if (!storedData) {
     showConfirmationError();
-
     return false;
   }
 
@@ -26,6 +25,10 @@ function loadConfirmationData() {
     confirmationData = JSON.parse(storedData);
 
     console.log("Confirmation Data:", confirmationData);
+
+    if (!confirmationData || typeof confirmationData !== "object") {
+      throw new Error("Invalid confirmation data");
+    }
 
     return true;
   } catch (error) {
@@ -38,51 +41,120 @@ function loadConfirmationData() {
 }
 
 /* =========================================
-   DISPLAY MOVIE
+   DISPLAY BOOKING
 ========================================= */
 
-function displayMovie() {
+function displayBooking() {
+  if (confirmationData.bookingType === "sports") {
+    return displaySportsConfirmation();
+  }
+
+  return displayMovieConfirmation();
+}
+
+/* =========================================
+   DISPLAY MOVIE CONFIRMATION
+========================================= */
+
+function displayMovieConfirmation() {
+  /*
+      Success message
+  */
+
+  const successTitle = document.querySelector(".success-section h1");
+  const successMessage = document.querySelector(".success-section p");
+
+  if (successTitle) {
+    successTitle.textContent = "Booking Confirmed!";
+  }
+
+  if (successMessage) {
+    successMessage.textContent =
+      "Your movie tickets have been booked successfully.";
+  }
+
+  /*
+      Ticket label
+  */
+
+  const ticketLabel = document.querySelector(".ticket-label");
+
+  if (ticketLabel) {
+    ticketLabel.textContent = "MOVIE TICKET";
+  }
+
+  /*
+      Movie title
+  */
+
   const title = confirmationData.movieTitle || "Movie";
 
-  document.getElementById("movieTitle").textContent = title;
+  const movieTitle = document.getElementById("movieTitle");
+  const movieTitleSmall = document.getElementById("movieTitleSmall");
 
-  document.getElementById("movieTitleSmall").textContent = title;
+  if (movieTitle) {
+    movieTitle.textContent = title;
+  }
 
-  /*
-        Movie metadata
-    */
-
-  const language = confirmationData.language || "Movie";
-
-  const certificate = confirmationData.certificate || "UA";
-
-  document.getElementById("movieMeta").textContent =
-    `${language} • ${certificate}`;
+  if (movieTitleSmall) {
+    movieTitleSmall.textContent = title;
+  }
 
   /*
-        Rating
-    */
+      Movie metadata
+  */
 
-  document.getElementById("movieRating").textContent =
-    confirmationData.rating || "N/A";
+  const movieMeta = document.getElementById("movieMeta");
+
+  if (movieMeta) {
+    movieMeta.textContent = `${confirmationData.language || "Movie"} • ${
+      confirmationData.certificate || "UA"
+    }`;
+  }
 
   /*
-        Poster
-    */
+      Rating
+  */
 
-  const poster = confirmationData.moviePoster || confirmationData.poster || "";
+  const movieRating = document.getElementById("movieRating");
+
+  if (movieRating) {
+    movieRating.textContent = confirmationData.rating || "N/A";
+  }
+
+  /*
+      Poster
+  */
 
   const posterElement = document.getElementById("moviePoster");
 
-  if (poster) {
-    posterElement.src = poster;
+  if (posterElement) {
+    const poster = confirmationData.moviePoster || "";
 
-    posterElement.onerror = () => {
+    if (poster) {
+      posterElement.style.display = "block";
+      posterElement.src = poster;
+
+      posterElement.onerror = () => {
+        posterElement.style.display = "none";
+      };
+    } else {
       posterElement.style.display = "none";
-    };
-  } else {
-    posterElement.style.display = "none";
+    }
   }
+
+  /*
+      Show information
+  */
+
+  displayShowDetails();
+
+  /*
+      IMPORTANT:
+      This was missing in your original code.
+  */
+
+  return true;
 }
 
 /* =========================================
@@ -90,38 +162,230 @@ function displayMovie() {
 ========================================= */
 
 function displayShowDetails() {
-  document.getElementById("theatreName").textContent =
-    confirmationData.theatreName || "Theatre";
-
-  document.getElementById("screenName").textContent =
-    confirmationData.screen || "Screen 1";
-
-  document.getElementById("showDate").textContent = formatDate(
-    confirmationData.date,
-  );
-
-  document.getElementById("showTime").textContent =
-    confirmationData.showTime || "—";
+  const theatreName = document.getElementById("theatreName");
+  const screenName = document.getElementById("screenName");
+  const showDate = document.getElementById("showDate");
+  const showTime = document.getElementById("showTime");
+  const selectedSeats = document.getElementById("selectedSeats");
+  const ticketCountElement = document.getElementById("ticketCount");
 
   /*
-        Seats
-    */
+      Theatre
+  */
+
+  if (theatreName) {
+    theatreName.textContent = confirmationData.theatreName || "Theatre";
+  }
+
+  /*
+      Screen
+  */
+
+  if (screenName) {
+    screenName.textContent = confirmationData.screen || "Screen 1";
+  }
+
+  /*
+      Date
+  */
+
+  if (showDate) {
+    showDate.textContent = formatDate(confirmationData.date);
+  }
+
+  /*
+      Showtime
+  */
+
+  if (showTime) {
+    showTime.textContent = confirmationData.showTime || "—";
+  }
+
+  /*
+      Seats
+  */
 
   const seats = Array.isArray(confirmationData.seats)
     ? confirmationData.seats
     : [];
 
-  document.getElementById("selectedSeats").textContent = seats.length
-    ? seats.join(", ")
-    : "—";
+  if (selectedSeats) {
+    selectedSeats.textContent = seats.length ? seats.join(", ") : "—";
+  }
 
   /*
-        Ticket count
-    */
+      Ticket count
+  */
 
   const ticketCount = Number(confirmationData.ticketCount) || seats.length || 0;
 
-  document.getElementById("ticketCount").textContent = ticketCount;
+  if (ticketCountElement) {
+    ticketCountElement.textContent = ticketCount;
+  }
+}
+
+/* =========================================
+   SPORTS CONFIRMATION
+========================================= */
+
+function displaySportsConfirmation() {
+  const sports = confirmationData;
+
+  /*
+      Success message
+  */
+
+  const successTitle = document.querySelector(".success-section h1");
+  const successMessage = document.querySelector(".success-section p");
+
+  if (successTitle) {
+    successTitle.textContent = "Sports Booking Confirmed!";
+  }
+
+  if (successMessage) {
+    successMessage.textContent =
+      "Your sports event tickets have been booked successfully.";
+  }
+
+  /*
+      Ticket label
+  */
+
+  const ticketLabel = document.querySelector(".ticket-label");
+
+  if (ticketLabel) {
+    ticketLabel.textContent = "SPORTS TICKET";
+  }
+
+  /*
+      Event name
+  */
+
+  const eventName = sports.eventName || "Sports Event";
+
+  const movieTitle = document.getElementById("movieTitle");
+
+  const movieTitleSmall = document.getElementById("movieTitleSmall");
+
+  if (movieTitle) {
+    movieTitle.textContent = eventName;
+  }
+
+  if (movieTitleSmall) {
+    movieTitleSmall.textContent = eventName;
+  }
+
+  /*
+      Sport + League
+  */
+
+  const sport = sports.sport || "Sports";
+  const league = sports.league || "Sports Event";
+
+  const movieMeta = document.getElementById("movieMeta");
+
+  if (movieMeta) {
+    movieMeta.textContent = `${sport} • ${league}`;
+  }
+
+  /*
+      Rating area
+  */
+
+  const movieRating = document.getElementById("movieRating");
+
+  if (movieRating) {
+    movieRating.textContent = "LIVE EVENT";
+  }
+
+  /*
+      Poster
+  */
+
+  const poster = sports.poster || sports.moviePoster || "";
+
+  const posterElement = document.getElementById("moviePoster");
+
+  if (posterElement) {
+    if (poster) {
+      posterElement.style.display = "block";
+      posterElement.src = poster;
+
+      posterElement.onerror = () => {
+        posterElement.style.display = "none";
+      };
+    } else {
+      posterElement.style.display = "none";
+    }
+  }
+
+  /*
+      Venue
+  */
+
+  const theatreName = document.getElementById("theatreName");
+
+  if (theatreName) {
+    theatreName.textContent = sports.venue || "Venue";
+  }
+
+  /*
+      Teams
+  */
+
+  const homeTeam = sports.homeTeam || "Home Team";
+
+  const awayTeam = sports.awayTeam || "Away Team";
+
+  const screenName = document.getElementById("screenName");
+
+  if (screenName) {
+    screenName.textContent = `${homeTeam} VS ${awayTeam}`;
+  }
+
+  /*
+      Date
+  */
+
+  const showDate = document.getElementById("showDate");
+
+  if (showDate) {
+    showDate.textContent = formatDate(sports.date);
+  }
+
+  /*
+      Time
+  */
+
+  const showTime = document.getElementById("showTime");
+
+  if (showTime) {
+    showTime.textContent = sports.showTime || "—";
+  }
+
+  /*
+      Sports events don't use cinema seats.
+  */
+
+  const selectedSeats = document.getElementById("selectedSeats");
+
+  if (selectedSeats) {
+    selectedSeats.textContent = "General Admission";
+  }
+
+  /*
+      Ticket count
+  */
+
+  const ticketCountElement = document.getElementById("ticketCount");
+
+  const ticketCount = Number(sports.ticketCount) || 0;
+
+  if (ticketCountElement) {
+    ticketCountElement.textContent = ticketCount;
+  }
+
+  return true;
 }
 
 /* =========================================
@@ -130,28 +394,69 @@ function displayShowDetails() {
 
 function displayPayment() {
   /*
-        Booking ID
-    */
+      BOOKING ID
+  */
 
-  document.getElementById("bookingId").textContent =
-    confirmationData.bookingId || "BIB000000000";
+  const bookingId = confirmationData.bookingId || generateBookingId();
 
-  /*
-        Payment method
-    */
+  console.log("Booking ID:", bookingId);
 
-  const method = confirmationData.paymentMethod || "upi";
+  const bookingIdElement = document.getElementById("bookingId");
 
-  document.getElementById("paymentMethod").textContent =
-    formatPaymentMethod(method);
+  if (bookingIdElement) {
+    bookingIdElement.textContent = bookingId;
+  }
 
   /*
-        Total amount
-    */
+      PAYMENT METHOD
+  */
 
-  const total = Number(confirmationData.totalAmount) || 0;
+  const paymentMethod = confirmationData.paymentMethod || "upi";
 
-  document.getElementById("totalAmount").textContent = formatCurrency(total);
+  const paymentMethodElement = document.getElementById("paymentMethod");
+
+  if (paymentMethodElement) {
+    paymentMethodElement.textContent = formatPaymentMethod(paymentMethod);
+  }
+
+  /*
+      TOTAL PAID
+  */
+
+  let total = Number(confirmationData.totalAmount);
+
+  /*
+      Demo fallback if total is missing
+  */
+
+  if (!Number.isFinite(total) || total <= 0) {
+    const ticketCount =
+      Number(confirmationData.ticketCount) ||
+      (Array.isArray(confirmationData.seats)
+        ? confirmationData.seats.length
+        : 1);
+
+    const ticketPrice = 250;
+    const convenienceFee = 30;
+
+    total = ticketCount * ticketPrice + convenienceFee;
+  }
+
+  const totalElement = document.getElementById("totalAmount");
+
+  if (totalElement) {
+    totalElement.textContent = formatCurrency(total);
+  }
+}
+
+/* =========================================
+   GENERATE BOOKING ID
+========================================= */
+
+function generateBookingId() {
+  const randomNumber = Math.floor(10000000 + Math.random() * 90000000);
+
+  return `BIB${randomNumber}`;
 }
 
 /* =========================================
@@ -161,15 +466,18 @@ function displayPayment() {
 function formatPaymentMethod(method) {
   const methods = {
     upi: "UPI",
-
     card: "Credit / Debit Card",
-
     netbanking: "Net Banking",
-
     wallet: "Wallet",
   };
 
-  return methods[method] || "Online Payment";
+  /*
+      Handle different capitalization
+  */
+
+  const normalizedMethod = String(method).trim().toLowerCase();
+
+  return methods[normalizedMethod] || "Online Payment";
 }
 
 /* =========================================
@@ -177,7 +485,13 @@ function formatPaymentMethod(method) {
 ========================================= */
 
 function formatCurrency(amount) {
-  return `₹${Number(amount).toFixed(2)}`;
+  const numericAmount = Number(amount);
+
+  if (!Number.isFinite(numericAmount)) {
+    return "₹0.00";
+  }
+
+  return `₹${numericAmount.toFixed(2)}`;
 }
 
 /* =========================================
@@ -187,6 +501,26 @@ function formatCurrency(amount) {
 function formatDate(dateString) {
   if (!dateString) {
     return "—";
+  }
+
+  /*
+      Handle YYYY-MM-DD without
+      timezone shifting.
+  */
+
+  if (
+    typeof dateString === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(dateString)
+  ) {
+    const [year, month, day] = dateString.split("-");
+
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+
+    return date.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
   }
 
   const date = new Date(dateString);
@@ -203,133 +537,14 @@ function formatDate(dateString) {
 }
 
 /* =========================================
-   GENERATE QR STYLE
-========================================= */
-
-function generateQRCode() {
-  const qr = document.getElementById("qrCode");
-
-  if (!qr) {
-    return;
-  }
-
-  /*
-        Generate deterministic visual pattern
-        from booking ID.
-
-        This is a visual ticket QR-style code,
-        not a real payment QR.
-    */
-
-  const bookingId = confirmationData.bookingId || "BOOKITBRO";
-
-  qr.innerHTML = "";
-
-  const canvas = document.createElement("canvas");
-
-  const size = 21;
-
-  const scale = 5;
-
-  canvas.width = size * scale;
-
-  canvas.height = size * scale;
-
-  const context = canvas.getContext("2d");
-
-  context.fillStyle = "#ffffff";
-
-  context.fillRect(0, 0, canvas.width, canvas.height);
-
-  context.fillStyle = "#111111";
-
-  /*
-        Create seed from booking ID.
-    */
-
-  let seed = 0;
-
-  for (let i = 0; i < bookingId.length; i++) {
-    seed = (seed * 31 + bookingId.charCodeAt(i)) >>> 0;
-  }
-
-  function random() {
-    seed = (seed * 1664525 + 1013904223) >>> 0;
-
-    return seed / 4294967296;
-  }
-
-  /*
-        Draw finder patterns.
-    */
-
-  function drawFinder(startX, startY) {
-    for (let y = 0; y < 7; y++) {
-      for (let x = 0; x < 7; x++) {
-        const outer = x === 0 || x === 6 || y === 0 || y === 6;
-
-        const inner = x >= 2 && x <= 4 && y >= 2 && y <= 4;
-
-        if (outer || inner) {
-          context.fillRect(
-            (startX + x) * scale,
-
-            (startY + y) * scale,
-
-            scale,
-            scale,
-          );
-        }
-      }
-    }
-  }
-
-  drawFinder(0, 0);
-
-  drawFinder(14, 0);
-
-  drawFinder(0, 14);
-
-  /*
-        Random data modules.
-    */
-
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
-      const insideFinder =
-        (x < 8 && y < 8) || (x >= 13 && y < 8) || (x < 8 && y >= 13);
-
-      if (insideFinder) {
-        continue;
-      }
-
-      /*
-                Keep quiet zone around
-                finder patterns.
-            */
-
-      if (random() > 0.56) {
-        context.fillRect(x * scale, y * scale, scale, scale);
-      }
-    }
-  }
-
-  qr.appendChild(canvas);
-}
-
-/* =========================================
    DOWNLOAD TICKET
 ========================================= */
 
 function downloadTicket() {
   /*
-        The page already contains a
-        print-friendly CSS section.
-
-        Open browser print dialog so
-        the user can save the ticket
-        as PDF.
-    */
+      Browser print dialog can be used
+      to save the ticket as PDF.
+  */
 
   window.print();
 }
@@ -339,11 +554,6 @@ function downloadTicket() {
 ========================================= */
 
 function goHome() {
-  /*
-        Change this path if your project's
-        home page has a different filename.
-    */
-
   window.location.href = "index.html";
 }
 
@@ -352,11 +562,17 @@ function goHome() {
 ========================================= */
 
 function setupActions() {
-  document
-    .getElementById("downloadTicketButton")
-    .addEventListener("click", downloadTicket);
+  const downloadButton = document.getElementById("downloadTicketButton");
 
-  document.getElementById("homeButton").addEventListener("click", goHome);
+  const homeButton = document.getElementById("homeButton");
+
+  if (downloadButton) {
+    downloadButton.addEventListener("click", downloadTicket);
+  }
+
+  if (homeButton) {
+    homeButton.addEventListener("click", goHome);
+  }
 }
 
 /* =========================================
@@ -365,65 +581,64 @@ function setupActions() {
 
 function showConfirmationError() {
   document.body.innerHTML = `
+    <div style="
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:#f4f5f7;
+      font-family:Arial,sans-serif;
+      text-align:center;
+    ">
+
+      <div style="
+        max-width:430px;
+      ">
 
         <div style="
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-            background:#f4f5f7;
-            font-family:Arial,sans-serif;
-            text-align:center;
+          font-size:52px;
+          margin-bottom:15px;
         ">
-
-            <div style="
-                max-width:430px;
-            ">
-
-                <div style="
-                    font-size:52px;
-                    margin-bottom:15px;
-                ">
-                    🎟️
-                </div>
-
-                <h2 style="
-                    margin-bottom:10px;
-                ">
-                    Booking Not Found
-                </h2>
-
-                <p style="
-                    color:#777;
-                    line-height:1.6;
-                    margin-bottom:22px;
-                ">
-                    We couldn't find your booking
-                    confirmation. Please complete
-                    your booking again.
-                </p>
-
-                <button
-                    onclick="window.location.href='index.html'"
-                    style="
-                        border:none;
-                        padding:12px 25px;
-                        border-radius:7px;
-                        background:#e51937;
-                        color:white;
-                        font-weight:600;
-                        cursor:pointer;
-                    "
-                >
-                    Back to Home
-                </button>
-
-            </div>
-
+          🎟️
         </div>
 
-    `;
+        <h2 style="
+          margin-bottom:10px;
+        ">
+          Booking Not Found
+        </h2>
+
+        <p style="
+          color:#777;
+          line-height:1.6;
+          margin-bottom:22px;
+        ">
+          We couldn't find your booking
+          confirmation. Please complete
+          your booking again.
+        </p>
+
+        <button
+          type="button"
+          onclick="window.location.href='index.html'"
+          style="
+            border:none;
+            padding:12px 25px;
+            border-radius:7px;
+            background:#e51937;
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+          "
+        >
+          Back to Home
+        </button>
+
+      </div>
+
+    </div>
+  `;
 }
 
 /* =========================================
@@ -431,35 +646,27 @@ function showConfirmationError() {
 ========================================= */
 
 function initialize() {
-  /*
-        Load confirmation.
-    */
-
   const loaded = loadConfirmationData();
 
   if (!loaded) {
     return;
   }
 
+  const displayed = displayBooking();
+
+  if (!displayed) {
+    console.error("Unable to display booking confirmation.");
+
+    return;
+  }
+
   /*
-        Display information.
-    */
-
-  displayMovie();
-
-  displayShowDetails();
+      These were not running for movie
+      bookings because displayMovieConfirmation()
+      was missing return true.
+  */
 
   displayPayment();
-
-  /*
-        Generate ticket QR.
-    */
-
-  generateQRCode();
-
-  /*
-        Setup buttons.
-    */
 
   setupActions();
 }

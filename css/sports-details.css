@@ -432,3 +432,302 @@
     padding: 20px;
   }
 }
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode .sports-details-page {
+  background: #121212;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+body.dark-mode .sports-details-hero {
+  background: #0b0b0b;
+}
+
+/* =========================================
+   MAIN CONTENT CARD
+========================================= */
+
+body.dark-mode .sports-details-main {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-details-main > h2 {
+  color: #f5f5f5;
+}
+
+/* =========================================
+   INFORMATION ITEMS
+========================================= */
+
+body.dark-mode .sports-info-item {
+  background: #292929;
+}
+
+body.dark-mode .sports-info-item span {
+  color: #aaaaaa;
+}
+
+body.dark-mode .sports-info-item strong {
+  color: #f5f5f5;
+}
+
+/* =========================================
+   TEAMS
+========================================= */
+
+body.dark-mode .sports-teams h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .team {
+  background: #242424;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .team h3 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .team span {
+  color: #aaaaaa;
+}
+
+body.dark-mode .team-vs {
+  color: #e91e63;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+body.dark-mode .sports-status {
+  background: #292929;
+}
+
+body.dark-mode .sports-status span {
+  color: #aaaaaa;
+}
+
+body.dark-mode .sports-status strong {
+  color: #e91e63;
+}
+
+/* =========================================
+   BOOKING CARD
+========================================= */
+
+body.dark-mode .sports-booking-card {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-booking-card h3 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-booking-card p {
+  color: #aaaaaa;
+}
+
+/* =========================================
+   ERROR PAGE
+========================================= */
+
+body.dark-mode .sports-details-error {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-details-error h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-details-error p {
+  color: #aaaaaa;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+body.dark-mode .sports-details-loading {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-loading-spinner {
+  border-color: #333333;
+  border-top-color: #e91e63;
+}
+
+/* =========================================================
+   SPORTS DETAILS — DARK MODE
+========================================================= */
+
+body.dark-mode .sports-details-page {
+  background: #121212;
+  color: #f5f5f5;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+body.dark-mode .sports-details-loading {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-loading-spinner {
+  border-color: #333333;
+  border-top-color: #f84464;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+body.dark-mode .sports-details-hero {
+  background: #0d0d0d;
+}
+
+/* Hero text */
+
+body.dark-mode .sports-details-hero h1 {
+  color: #ffffff;
+}
+
+body.dark-mode .sports-details-hero p {
+  color: #cccccc;
+}
+
+body.dark-mode .sports-details-label {
+  background: #f84464;
+  color: #ffffff;
+}
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+body.dark-mode .sports-details-main {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .sports-details-main > h2,
+body.dark-mode .sports-teams h2 {
+  color: #ffffff;
+}
+
+/* =========================================
+   MATCH INFORMATION
+========================================= */
+
+body.dark-mode .sports-info-item {
+  background: #282828;
+}
+
+body.dark-mode .sports-info-item span {
+  color: #aaaaaa;
+}
+
+body.dark-mode .sports-info-item strong {
+  color: #f5f5f5;
+}
+
+/* =========================================
+   TEAMS
+========================================= */
+
+body.dark-mode .team {
+  background: #242424;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .team h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .team span {
+  color: #aaaaaa;
+}
+
+body.dark-mode .team-vs {
+  color: #f84464;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+body.dark-mode .sports-status {
+  background: #282828;
+}
+
+body.dark-mode .sports-status span {
+  color: #aaaaaa;
+}
+
+body.dark-mode .sports-status strong {
+  color: #f84464;
+}
+
+/* =========================================
+   BOOKING CARD
+========================================= */
+
+body.dark-mode .sports-booking-card {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .sports-booking-card h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .sports-booking-card p {
+  color: #aaaaaa;
+}
+
+body.dark-mode .sports-book-btn {
+  background: #f84464;
+  color: #ffffff;
+}
+
+body.dark-mode .sports-book-btn:hover {
+  background: #e63b59;
+}
+
+/* =========================================
+   ERROR
+========================================= */
+
+body.dark-mode .sports-details-error {
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-details-error h2,
+body.dark-mode .sports-details-error h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .sports-details-error p {
+  color: #aaaaaa;
+}
+
+body.dark-mode .back-btn {
+  background: #f84464;
+}
+
+body.dark-mode .back-btn:hover {
+  background: #e63b59;
+}

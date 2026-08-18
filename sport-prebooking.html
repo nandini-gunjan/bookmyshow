@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sports Booking | BookItBro</title>
+
+  <link rel="stylesheet" href="css/header.css" />
+
+  <link rel="stylesheet" href="css/sport-prebooking.css" />
+  <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+
+<body>
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+
+  <main class="sport-prebooking-page">
+    <div class="sport-prebooking-container">
+      <!-- =====================================
+           HEADER
+      ====================================== -->
+
+      <section class="prebooking-header">
+        <button id="backButton" class="back-button" type="button">
+          ← Back
+        </button>
+
+        <div>
+          <h1>Pre-Book Your Tickets</h1>
+
+          <p>Select the number of tickets for this sports event.</p>
+        </div>
+      </section>
+
+      <!-- =====================================
+           EVENT CARD
+      ====================================== -->
+
+      <section class="sports-event-card">
+        <div class="event-image-wrapper">
+          <img id="eventPoster" src="" alt="Sports Event" />
+        </div>
+      
+        <div class="event-information">
+          <span id="eventSport" class="event-sport">
+            Sports
+          </span>
+      
+          <h2 id="eventName">Loading...</h2>
+      
+          <p id="eventLeague">—</p>
+      
+          <div class="event-meta">
+            <div class="event-meta-item">
+              <span>Date</span>
+              <strong id="eventDate">—</strong>
+            </div>
+      
+            <div class="event-meta-item">
+              <span>Time</span>
+              <strong id="eventTime">—</strong>
+            </div>
+      
+            <div class="event-meta-item">
+              <span>Venue</span>
+              <strong id="eventVenue">—</strong>
+            </div>
+      
+            <div class="event-meta-item">
+              <span>Location</span>
+              <strong id="eventLocation">—</strong>
+            </div>
+          </div>
+      
+          <div class="teams">
+            <strong id="homeTeam">—</strong>
+      
+            <span>VS</span>
+      
+            <strong id="awayTeam">—</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================
+           TICKET SELECTION
+      ====================================== -->
+
+      <section class="booking-card">
+        <h2>Select Tickets</h2>
+      
+        <p class="booking-description">
+          Choose how many tickets you want to book.
+        </p>
+      
+        <div class="ticket-counter">
+          <button id="decreaseButton" type="button" class="counter-button">
+            −
+          </button>
+      
+          <div class="ticket-number">
+            <strong id="ticketCount">1</strong>
+      
+            <span>Ticket</span>
+          </div>
+      
+          <button id="increaseButton" type="button" class="counter-button">
+            +
+          </button>
+        </div>
+      
+        <div class="price-summary">
+          <div class="summary-row">
+            <span>Ticket Price</span>
+            <strong id="ticketPrice">₹500.00</strong>
+          </div>
+      
+          <div class="summary-row">
+            <span>Number of Tickets</span>
+            <strong id="ticketQuantity">1</strong>
+          </div>
+      
+          <div class="summary-divider"></div>
+      
+          <div class="summary-row total">
+            <span>Total</span>
+            <strong id="totalAmount">₹500.00</strong>
+          </div>
+        </div>
+      
+        <button id="continueButton" class="continue-button" type="button">
+          Continue to Payment
+        </button>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/sport-prebooking.js"></script>
+</body>
+
+</html>

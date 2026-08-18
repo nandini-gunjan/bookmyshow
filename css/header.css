@@ -8,6 +8,35 @@ body::-webkit-scrollbar {
 }
 
 /* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode {
+  background: #121212;
+  color: #f5f5f5;
+}
+
+body.dark-mode .sports-event-card,
+body.dark-mode .booking-card,
+body.dark-mode .ticket,
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.dark-mode .event-information > p,
+body.dark-mode .booking-description,
+body.dark-mode .summary-row {
+  color: #aaaaaa;
+}
+
+body.dark-mode .summary-row strong,
+body.dark-mode .event-meta-item strong,
+body.dark-mode .ticket-number strong {
+  color: #f5f5f5;
+}
+
+/* =========================================
    GLOBAL NAVBAR
 ========================================= */
 
@@ -17,7 +46,6 @@ body::-webkit-scrollbar {
   position: relative;
   z-index: 1000;
 }
-
 /* =========================================
    CONTAINER
 ========================================= */
@@ -2326,6 +2354,46 @@ body::-webkit-scrollbar {
 }
 
 /* =========================================
+   DAY / NIGHT MODE TOGGLE
+========================================= */
+
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: #222222;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+/* Night mode */
+
+body.dark-mode .theme-toggle {
+  background: #222222;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+/* =========================================
    NO RESULTS
 ========================================= */
 
@@ -2393,4 +2461,748 @@ body::-webkit-scrollbar {
   .search-result-info p {
     font-size: 12px;
   }
+}
+
+/* =========================================
+   NAVBAR DARK MODE
+========================================= */
+
+body.dark-mode .navbar,
+body.dark-mode .navbar-top,
+body.dark-mode .navbar-bottom {
+  background: #181818;
+}
+
+body.dark-mode .navbar-top {
+  border-bottom-color: #2d2d2d;
+}
+
+/* Logo */
+
+body.dark-mode .logo {
+  color: #f5f5f5;
+}
+
+/* Search */
+
+body.dark-mode .search-box {
+  background: #242424;
+  border-color: #383838;
+}
+
+body.dark-mode .search-box:focus-within {
+  background: #292929;
+  border-color: #555555;
+}
+
+body.dark-mode .search-icon {
+  color: #aaaaaa;
+}
+
+body.dark-mode .search-box input {
+  color: #f5f5f5;
+}
+
+body.dark-mode .search-box input::placeholder {
+  color: #999999;
+}
+
+/* Location */
+
+body.dark-mode .location-btn {
+  color: #dddddd;
+}
+
+/* Main navigation */
+
+body.dark-mode .main-nav a {
+  color: #cccccc;
+}
+
+body.dark-mode .main-nav a:hover,
+body.dark-mode .main-nav a.active {
+  color: #e51937;
+}
+
+/* Secondary navigation */
+
+body.dark-mode .secondary-nav a {
+  color: #cccccc;
+}
+
+body.dark-mode .secondary-nav a:hover {
+  color: #e51937;
+}
+
+/* Menu */
+
+body.dark-mode .menu-btn span {
+  background: #dddddd;
+}
+
+/* Search results */
+
+body.dark-mode .search-results {
+  background: #1e1e1e;
+}
+
+body.dark-mode .search-result-item:hover {
+  background: #292929;
+}
+
+body.dark-mode .search-result-info h4 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .search-result-info p {
+  color: #aaaaaa;
+}
+
+body.dark-mode .search-loading,
+body.dark-mode .search-no-results {
+  color: #aaaaaa;
+}
+
+/* Account dropdown */
+
+body.dark-mode .account-dropdown {
+  background: #1e1e1e;
+}
+
+body.dark-mode .account-name {
+  color: #f5f5f5;
+}
+
+body.dark-mode .account-email {
+  color: #aaaaaa;
+}
+
+body.dark-mode .account-divider {
+  background: #333333;
+}
+
+body.dark-mode .account-menu-item {
+  color: #dddddd;
+}
+
+body.dark-mode .account-menu-item:hover {
+  background: #292929;
+}
+
+body.dark-mode .account-logout:hover {
+  background: #35191e;
+}
+
+/* =========================================================
+   GLOBAL DARK MODE
+========================================================= */
+
+/* =========================================
+   BODY
+========================================= */
+
+body.dark-mode {
+  background: #121212;
+  color: #f5f5f5;
+}
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+body.dark-mode .navbar {
+  background: #181818;
+}
+
+body.dark-mode .navbar-top {
+  background: #181818;
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .navbar-bottom {
+  background: #181818;
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+body.dark-mode .logo {
+  color: #ffffff;
+}
+
+/* Keep red logo box */
+
+body.dark-mode .logo span {
+  background: #e51937;
+  color: #ffffff;
+}
+
+/* =========================================
+   SEARCH
+========================================= */
+
+body.dark-mode .search-box {
+  background: #242424;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .search-box:focus-within {
+  background: #292929;
+  border-color: #555555;
+
+  box-shadow: 0 0 0 2px rgba(248, 68, 100, 0.12);
+}
+
+body.dark-mode .search-icon {
+  color: #aaaaaa;
+}
+
+body.dark-mode .search-box input {
+  color: #f5f5f5;
+}
+
+body.dark-mode .search-box input::placeholder {
+  color: #888888;
+}
+
+/* =========================================
+   LOCATION BUTTON
+========================================= */
+
+body.dark-mode .location-btn {
+  color: #dddddd;
+}
+
+body.dark-mode .location-btn:hover {
+  color: #ffffff;
+}
+
+/* =========================================
+   MAIN NAVIGATION
+========================================= */
+
+body.dark-mode .main-nav a {
+  color: #cccccc;
+}
+
+body.dark-mode .main-nav a:hover {
+  color: #f84464;
+}
+
+body.dark-mode .main-nav a.active {
+  color: #f84464;
+}
+
+body.dark-mode .main-nav a.active::after {
+  background: #f84464;
+}
+
+/* =========================================
+   SECONDARY NAVIGATION
+========================================= */
+
+body.dark-mode .secondary-nav a {
+  color: #bbbbbb;
+}
+
+body.dark-mode .secondary-nav a:hover {
+  color: #f84464;
+}
+
+/* =========================================
+   MENU BUTTON
+========================================= */
+
+body.dark-mode .menu-btn span {
+  background: #dddddd;
+}
+
+/* =========================================
+   SIGN IN BUTTON
+========================================= */
+
+body.dark-mode .sign-in-btn {
+  background: #f84464;
+  color: #ffffff;
+}
+
+body.dark-mode .sign-in-btn:hover {
+  background: #e63b59;
+}
+
+/* =========================================
+   THEME TOGGLE
+========================================= */
+
+body.dark-mode .theme-toggle {
+  background: #242424;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+/* =========================================================
+   SEARCH RESULTS
+========================================================= */
+
+body.dark-mode .search-results {
+  background: #1e1e1e;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .search-result-item:hover {
+  background: #292929;
+}
+
+body.dark-mode .search-result-item img {
+  background: #333333;
+}
+
+body.dark-mode .search-result-info h4 {
+  color: #ffffff;
+}
+
+body.dark-mode .search-result-info p {
+  color: #aaaaaa;
+}
+
+body.dark-mode .search-loading,
+body.dark-mode .search-no-results {
+  color: #aaaaaa;
+}
+
+body.dark-mode .search-results::-webkit-scrollbar-thumb {
+  background: #555555;
+}
+
+/* =========================================================
+   LOCATION MODAL
+========================================================= */
+
+body.dark-mode .location-modal {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.55);
+}
+
+body.dark-mode .location-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .location-modal-header h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .location-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .location-modal-close:hover {
+  color: #f84464;
+}
+
+/* Location search */
+
+body.dark-mode .location-search {
+  background: #252525;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .location-search:focus-within {
+  border-color: #f84464;
+}
+
+body.dark-mode .location-search-icon {
+  color: #aaaaaa;
+}
+
+body.dark-mode .location-search input {
+  color: #ffffff;
+  background: transparent;
+}
+
+body.dark-mode .location-search input::placeholder {
+  color: #888888;
+}
+
+/* Location headings */
+
+body.dark-mode .popular-location-section h3,
+body.dark-mode .all-cities h3 {
+  color: #999999;
+}
+
+/* City buttons */
+
+body.dark-mode .city-option {
+  background: #252525;
+  border-color: #3a3a3a;
+  color: #dddddd;
+}
+
+body.dark-mode .city-option:hover {
+  background: #302025;
+  border-color: #f84464;
+  color: #f84464;
+}
+
+body.dark-mode .city-list .city-option {
+  background: transparent;
+  border-color: transparent;
+  color: #cccccc;
+}
+
+body.dark-mode .city-list .city-option:hover {
+  background: #302025;
+  color: #f84464;
+}
+
+/* Location scrollbar */
+
+body.dark-mode .location-modal::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+body.dark-mode .location-modal::-webkit-scrollbar-thumb {
+  background: #555555;
+}
+
+/* =========================================================
+   SIGN IN MODAL
+========================================================= */
+
+body.dark-mode .signin-modal {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.55);
+}
+
+body.dark-mode .signin-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .signin-modal-header h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .signin-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .signin-modal-close:hover {
+  color: #f84464;
+}
+
+body.dark-mode .signin-welcome {
+  color: #aaaaaa;
+}
+
+/* Google button */
+
+body.dark-mode .google-signin-btn {
+  background: #252525;
+  border-color: #444444;
+  color: #eeeeee;
+}
+
+body.dark-mode .google-signin-btn:hover {
+  background: #303030;
+  border-color: #555555;
+}
+
+/* Divider */
+
+body.dark-mode .signin-divider span {
+  background: #333333;
+}
+
+body.dark-mode .signin-divider p {
+  color: #888888;
+}
+
+/* Input */
+
+body.dark-mode .signin-input-group label {
+  color: #dddddd;
+}
+
+body.dark-mode .signin-input-group input {
+  background: #252525;
+  border-color: #444444;
+  color: #ffffff;
+}
+
+body.dark-mode .signin-input-group input:focus {
+  border-color: #f84464;
+
+  box-shadow: 0 0 0 2px rgba(248, 68, 100, 0.12);
+}
+
+body.dark-mode .signin-input-group input::placeholder {
+  color: #888888;
+}
+
+/* Password */
+
+body.dark-mode .password-toggle {
+  color: #f84464;
+}
+
+/* Forgot password */
+
+body.dark-mode .forgot-password {
+  color: #f84464;
+}
+
+/* Submit */
+
+body.dark-mode .signin-submit-btn {
+  background: #f84464;
+}
+
+body.dark-mode .signin-submit-btn:hover {
+  background: #e63b59;
+}
+
+/* Signup link */
+
+body.dark-mode .signup-text {
+  color: #aaaaaa;
+}
+
+body.dark-mode .signup-link {
+  color: #f84464;
+}
+
+/* =========================================================
+   SIGN IN ERROR
+========================================================= */
+
+body.dark-mode .signin-error {
+  background: #351c20;
+  border-color: #5c2b32;
+  color: #ff8799;
+}
+
+/* =========================================================
+   SIGN UP MODAL
+========================================================= */
+
+body.dark-mode .signup-modal {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.55);
+}
+
+body.dark-mode .signup-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .signup-modal-header h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .signup-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .signup-modal-close:hover {
+  color: #f84464;
+}
+
+body.dark-mode .signup-welcome {
+  color: #aaaaaa;
+}
+
+/* Signup error */
+
+body.dark-mode .signup-error {
+  background: #351c20;
+  border-color: #5c2b32;
+  color: #ff8799;
+}
+
+/* Signup labels */
+
+body.dark-mode .signup-input-group label {
+  color: #dddddd;
+}
+
+/* Signup inputs */
+
+body.dark-mode .signup-input-group input {
+  background: #252525;
+  border-color: #444444;
+  color: #ffffff;
+}
+
+body.dark-mode .signup-input-group input:focus {
+  border-color: #f84464;
+
+  box-shadow: 0 0 0 2px rgba(248, 68, 100, 0.12);
+}
+
+body.dark-mode .signup-input-group input::placeholder {
+  color: #888888;
+}
+
+/* Password toggle */
+
+body.dark-mode .signup-password-toggle {
+  color: #f84464;
+}
+
+/* Signup button */
+
+body.dark-mode .signup-submit-btn {
+  background: #f84464;
+}
+
+body.dark-mode .signup-submit-btn:hover {
+  background: #e63b59;
+}
+
+/* Already account */
+
+body.dark-mode .already-account-text {
+  color: #aaaaaa;
+}
+
+body.dark-mode .back-to-signin-btn {
+  color: #f84464;
+}
+
+/* =========================================================
+   FORGOT PASSWORD MODAL
+========================================================= */
+
+body.dark-mode .forgot-modal {
+  background: #1e1e1e;
+  color: #f5f5f5;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.55);
+}
+
+body.dark-mode .forgot-modal-header {
+  border-bottom-color: #333333;
+}
+
+body.dark-mode .forgot-modal-header h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .forgot-modal-close {
+  color: #aaaaaa;
+}
+
+body.dark-mode .forgot-modal-close:hover {
+  color: #f84464;
+}
+
+body.dark-mode .forgot-description {
+  color: #aaaaaa;
+}
+
+/* Forgot input */
+
+body.dark-mode .forgot-input-group label {
+  color: #dddddd;
+}
+
+body.dark-mode .forgot-input-group input {
+  background: #252525;
+  border-color: #444444;
+  color: #ffffff;
+}
+
+body.dark-mode .forgot-input-group input:focus {
+  border-color: #f84464;
+
+  box-shadow: 0 0 0 2px rgba(248, 68, 100, 0.12);
+}
+
+body.dark-mode .forgot-input-group input::placeholder {
+  color: #888888;
+}
+
+/* Forgot button */
+
+body.dark-mode .forgot-submit-btn {
+  background: #f84464;
+}
+
+body.dark-mode .forgot-submit-btn:hover {
+  background: #e63b59;
+}
+
+/* Back button */
+
+body.dark-mode .back-to-signin-from-forgot {
+  color: #f84464;
+}
+
+/* Forgot messages */
+
+body.dark-mode .forgot-message.error {
+  background: #351c20;
+  border-color: #5c2b32;
+  color: #ff8799;
+}
+
+body.dark-mode .forgot-message.success {
+  background: #183024;
+  border-color: #2c5c40;
+  color: #7ee2a5;
+}
+
+/* =========================================================
+   ACCOUNT DROPDOWN
+========================================================= */
+
+body.dark-mode .account-dropdown {
+  background: #1e1e1e;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+body.dark-mode .account-name {
+  color: #ffffff;
+}
+
+body.dark-mode .account-email {
+  color: #999999;
+}
+
+body.dark-mode .account-divider {
+  background: #333333;
+}
+
+body.dark-mode .account-menu-item {
+  color: #dddddd;
+}
+
+body.dark-mode .account-menu-item:hover {
+  background: #2a2a2a;
+}
+
+body.dark-mode .account-logout {
+  color: #ff6b7f;
+}
+
+body.dark-mode .account-logout:hover {
+  background: #351c20;
+}
+
+/* User avatar */
+
+body.dark-mode .user-initial,
+body.dark-mode .account-avatar {
+  background: #f84464;
+  color: #ffffff;
 }

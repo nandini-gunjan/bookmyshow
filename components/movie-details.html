@@ -1,344 +1,198 @@
 <section class="movie-details-page">
-
-
-    <!-- =========================================
+  <!-- =========================================
          MOVIE HERO
     ========================================== -->
 
-    <section class="movie-details-hero">
+  <section class="movie-details-hero">
+    <!-- Background -->
+    <div class="movie-details-backdrop" id="movieBackdrop"></div>
 
-        <!-- Background -->
-        <div
-            class="movie-details-backdrop"
-            id="movieBackdrop"
-        ></div>
+    <!-- Dark overlay -->
+    <div class="movie-details-overlay"></div>
 
-
-        <!-- Dark overlay -->
-        <div class="movie-details-overlay"></div>
-
-
-        <!-- Main content -->
-        <div class="movie-details-hero-content">
-
-
-            <!-- =====================================
+    <!-- Main content -->
+    <div class="movie-details-hero-content">
+      <!-- =====================================
                  POSTER
             ====================================== -->
 
-            <div class="movie-poster-wrapper">
+      <div class="movie-poster-wrapper">
+        <img
+          id="moviePoster"
+          class="movie-details-poster"
+          src=""
+          alt="Movie Poster"
+        />
+      </div>
 
-                <img
-                    id="moviePoster"
-                    class="movie-details-poster"
-                    src=""
-                    alt="Movie Poster"
-                >
-
-            </div>
-
-
-
-            <!-- =====================================
+      <!-- =====================================
                  MOVIE INFORMATION
             ====================================== -->
 
-            <div class="movie-main-info">
+      <div class="movie-main-info">
+        <h1 id="movieTitle">Movie Title</h1>
 
+        <!-- RATING -->
 
-                <h1 id="movieTitle">
-                    Movie Title
-                </h1>
+        <div class="movie-rating-box">
+          <span class="movie-star"> ★ </span>
 
+          <strong id="movieRating"> 0 </strong>
 
+          <span class="movie-rating-max"> / 10 </span>
 
-                <!-- RATING -->
-
-                <div class="movie-rating-box">
-
-                    <span class="movie-star">
-                        ★
-                    </span>
-
-                    <strong id="movieRating">
-                        0
-                    </strong>
-
-                    <span class="movie-rating-max">
-                        / 10
-                    </span>
-
-                    <span class="movie-votes">
-                        (
-                        <span id="movieVotes">
-                            0
-                        </span>
-                        Votes
-                        )
-                    </span>
-
-                </div>
-
-
-
-                <!-- META -->
-
-                <div class="movie-meta">
-
-                    <span
-                        class="movie-certificate"
-                        id="movieCertificate"
-                    >
-                        UA
-                    </span>
-
-                    <span class="meta-dot">
-                        •
-                    </span>
-
-                    <span id="movieDuration">
-                        2h 30m
-                    </span>
-
-                    <span class="meta-dot">
-                        •
-                    </span>
-
-                    <span id="movieLanguage">
-                        Hindi
-                    </span>
-
-                    <span class="meta-dot">
-                        •
-                    </span>
-
-                    <span id="movieGenre">
-                        Action
-                    </span>
-
-                </div>
-
-
-
-                <!-- DESCRIPTION -->
-
-                <p
-                    class="movie-short-description"
-                    id="movieDescription"
-                >
-                    Movie description will appear here.
-                </p>
-
-
-
-                <!-- ACTIONS -->
-
-                <div class="movie-action-buttons">
-
-                    <button
-                        type="button"
-                        class="movie-book-button"
-                        id="bookTicketButton"
-                    >
-                        Book Tickets
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="movie-trailer-button"
-                        id="watchTrailerButton"
-                    >
-                        ▶ Watch Trailer
-                    </button>
-
-                </div>
-
-            </div>
-
+          <span class="movie-votes">
+            (
+            <span id="movieVotes"> 0 </span>
+            Votes )
+          </span>
         </div>
 
-    </section>
+        <!-- META -->
 
+        <div class="movie-meta">
+          <span class="movie-certificate" id="movieCertificate"> UA </span>
 
+          <span class="meta-dot"> • </span>
 
-    <!-- =========================================
+          <span id="movieDuration"> 2h 30m </span>
+
+          <span class="meta-dot"> • </span>
+
+          <span id="movieLanguage"> Hindi </span>
+
+          <span class="meta-dot"> • </span>
+
+          <span id="movieGenre"> Action </span>
+        </div>
+
+        <!-- DESCRIPTION -->
+
+        <p class="movie-short-description" id="movieDescription">
+          Movie description will appear here.
+        </p>
+
+        <!-- ACTIONS -->
+
+        <div class="movie-action-buttons">
+          <button type="button" class="movie-book-button" id="bookTicketButton">
+            Book Tickets
+          </button>
+
+          <button
+            type="button"
+            class="movie-trailer-button"
+            id="watchTrailerButton"
+          >
+            ▶ Watch Trailer
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================
          ABOUT MOVIE
     ========================================== -->
 
-    <section class="movie-content-section">
+  <section class="movie-content-section">
+    <div class="movie-content-container">
+      <h2>About the movie</h2>
 
-        <div class="movie-content-container">
+      <p id="movieAbout">Movie information will appear here.</p>
+    </div>
+  </section>
 
-            <h2>
-                About the movie
-            </h2>
-
-            <p id="movieAbout">
-                Movie information will appear here.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          CAST
     ========================================== -->
 
-    <section class="movie-content-section">
+  <section class="movie-content-section">
+    <div class="movie-content-container">
+      <h2>Cast</h2>
 
-        <div class="movie-content-container">
+      <div class="movie-cast-grid" id="movieCastGrid"></div>
+    </div>
+  </section>
 
-            <h2>
-                Cast
-            </h2>
-
-
-            <div
-                class="movie-cast-grid"
-                id="movieCastGrid"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          CREW
     ========================================== -->
 
-    <section class="movie-content-section">
+  <section class="movie-content-section">
+    <div class="movie-content-container">
+      <h2>Crew</h2>
 
-        <div class="movie-content-container">
+      <div class="movie-crew-grid" id="movieCrewGrid"></div>
+    </div>
+  </section>
 
-            <h2>
-                Crew
-            </h2>
-
-
-            <div
-                class="movie-crew-grid"
-                id="movieCrewGrid"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          TRAILER
     ========================================== -->
 
-    <section
-        class="movie-content-section"
-        id="trailerSection"
-    >
+  <section class="movie-content-section" id="trailerSection">
+    <div class="movie-content-container">
+      <h2>Trailer</h2>
 
-        <div class="movie-content-container">
+      <div class="movie-trailer-wrapper">
+        <iframe
+          id="movieTrailer"
+          src=""
+          title="Movie Trailer"
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+          "
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
 
-            <h2>
-                Trailer
-            </h2>
-
-
-            <div class="movie-trailer-wrapper">
-
-                <iframe
-                    id="movieTrailer"
-                    src=""
-                    title="Movie Trailer"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                ></iframe>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          REVIEWS
     ========================================== -->
 
-    <section class="movie-content-section">
+  <section class="movie-content-section">
+    <div class="movie-content-container">
+      <div class="reviews-heading">
+        <h2>Reviews</h2>
 
-        <div class="movie-content-container">
+        <button
+          type="button"
+          id="writeReviewButton"
+          class="write-review-button"
+        >
+          Write a Review
+        </button>
+      </div>
 
-            <div class="reviews-heading">
+      <div id="movieReviews" class="movie-reviews">
+        <div class="no-reviews">No reviews yet.</div>
+      </div>
+    </div>
+  </section>
 
-                <h2>
-                    Reviews
-                </h2>
-
-                <button
-                    type="button"
-                    id="writeReviewButton"
-                    class="write-review-button"
-                >
-                    Write a Review
-                </button>
-
-            </div>
-
-
-            <div
-                id="movieReviews"
-                class="movie-reviews"
-            >
-
-                <div class="no-reviews">
-                    No reviews yet.
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
+  <!-- =========================================
          BOOKING CTA
     ========================================== -->
 
-    <section class="movie-booking-cta">
+  <section class="movie-booking-cta">
+    <div class="movie-booking-cta-inner">
+      <div>
+        <h2>Ready to watch?</h2>
 
-        <div class="movie-booking-cta-inner">
+        <p>Book your tickets and enjoy the movie.</p>
+      </div>
 
-            <div>
-
-                <h2>
-                    Ready to watch?
-                </h2>
-
-                <p>
-                    Book your tickets and enjoy the movie.
-                </p>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="movie-book-button"
-                id="bottomBookButton"
-            >
-                Book Tickets
-            </button>
-
-        </div>
-
-    </section>
-
+      <button type="button" class="movie-book-button" id="bottomBookButton">
+        Book Tickets
+      </button>
+    </div>
+  </section>
 </section>

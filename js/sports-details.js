@@ -3,6 +3,7 @@
 // =========================================
 
 const SPORTS_API_BASE = "https://www.thesportsdb.com/api/v1/json/123";
+import { auth } from "./firebase.js";
 
 // =========================================
 // GET EVENT ID
@@ -57,6 +58,10 @@ function renderSportsDetails(event) {
     return;
   }
 
+  // =======================================
+  // EVENT NOT FOUND
+  // =======================================
+
   if (!event) {
     container.innerHTML = `
 
@@ -85,15 +90,11 @@ function renderSportsDetails(event) {
     return;
   }
 
-  // ---------------------------------------
-  // IMAGE
-  // ---------------------------------------
+  // =======================================
+  // EVENT DATA
+  // =======================================
 
   const backdrop = event.strThumb || event.strPoster || "";
-
-  // ---------------------------------------
-  // EVENT INFORMATION
-  // ---------------------------------------
 
   const title = event.strEvent || "Sports Event";
 
@@ -117,9 +118,9 @@ function renderSportsDetails(event) {
 
   const status = event.strStatus || "Upcoming";
 
-  // ---------------------------------------
+  // =======================================
   // RENDER
-  // ---------------------------------------
+  // =======================================
 
   container.innerHTML = `
 
@@ -175,6 +176,11 @@ function renderSportsDetails(event) {
           <h2>
             ${title}
           </h2>
+
+
+          <!-- =================================
+               MATCH INFORMATION
+          ================================== -->
 
           <div class="sports-match-info">
 
@@ -354,36 +360,77 @@ function renderSportsDetails(event) {
     </section>
 
   `;
+
+  // =======================================
+  // IMPORTANT
+  // Button is created dynamically above,
+  // so initialize it AFTER rendering.
+  // =======================================
+
+  initializeBookingButton(event);
 }
 
 // =========================================
-// PRE-BOOK
+// BOOKING BUTTON
 // =========================================
 
-function preBook(event) {
-  if (!event) {
-    console.error("Sports event data is missing.");
+function initializeBookingButton(event) {
+  const button = document.getElementById("preBookButton");
 
+  if (!button) {
     return;
   }
 
-  /*
-      Store the complete sports event
-      returned by TheSportsDB.
+  button.addEventListener("click", () => {
+    // =======================================
+    // CHECK LOGIN
+    // =======================================
 
-      The next page can use this data
-      without making the API request again.
-  */
+    if (!auth.currentUser) {
+      alert("Please sign in first to book tickets.");
+      return;
+    }
 
-  sessionStorage.setItem("bookItBroSportBooking", JSON.stringify(event));
+    // =======================================
+    // USER IS LOGGED IN
+    // =======================================
 
-  console.log("Sports pre-booking data:", event);
+    const sportBooking = {
+      bookingType: "sports",
+      eventId: event.idEvent || "",
+      eventName: event.strEvent || "Sports Event",
+      sport: event.strSport || "Sports",
+      league: event.strLeague || "N/A",
+      date: event.dateEvent || "",
+      time: event.strTime || "",
+      venue: event.strVenue || "N/A",
+      city: event.strCity || "N/A",
+      country: event.strCountry || "N/A",
+      homeTeam: event.strHomeTeam || "N/A",
+      awayTeam: event.strAwayTeam || "N/A",
+      poster: event.strThumb || event.strPoster || "",
+      ticketPrice: 500,
 
-  /*
-      Move to sports pre-booking page.
-  */
+      // Store logged-in user's information
+      userId: auth.currentUser.uid,
+      userEmail: auth.currentUser.email || "",
+    };
 
-  window.location.href = "sport-prebooking.html";
+    // =======================================
+    // SAVE BOOKING
+    // =======================================
+
+    sessionStorage.setItem(
+      "bookItBroSportBooking",
+      JSON.stringify(sportBooking),
+    );
+
+    // =======================================
+    // GO TO PRE-BOOKING PAGE
+    // =======================================
+
+    window.location.href = "sport-prebooking.html";
+  });
 }
 
 // =========================================
@@ -402,20 +449,6 @@ async function initializeSportsDetails() {
   const event = await getSportsEventDetails(eventId);
 
   renderSportsDetails(event);
-
-  /*
-      IMPORTANT:
-      The button is created dynamically
-      inside renderSportsDetails().
-  */
-
-  const preBookButton = document.getElementById("preBookButton");
-
-  if (preBookButton) {
-    preBookButton.addEventListener("click", () => {
-      preBook(event);
-    });
-  }
 }
 
 // =========================================
