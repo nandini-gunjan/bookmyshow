@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pre-Order Food | BookItBro</title>
+
+    <link
+        rel="stylesheet"
+        href="css/pre-order-food.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="food-header">
+
+        <div class="header-container">
+
+            <button
+                id="backButton"
+                class="back-button"
+                aria-label="Go back"
+            >
+                ←
+            </button>
+
+            <div class="header-title">
+
+                <span class="food-tag">
+                    🍔 FOOD & BEVERAGES
+                </span>
+
+                <h1>
+                    Pre-order your favourites
+                </h1>
+
+                <p>
+                    Skip the queue. Your food will be ready for you.
+                </p>
+
+            </div>
+
+            <div class="reward-mini-card">
+
+                <span class="reward-icon">
+                    ⭐
+                </span>
+
+                <div>
+
+                    <span>
+                        Rewards
+                    </span>
+
+                    <strong id="headerPoints">
+                        0 Points
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MOVIE BOOKING INFO
+    ========================================== -->
+
+    <section class="booking-food-info">
+
+        <div class="page-container">
+
+            <div class="movie-food-card">
+
+                <img
+                    id="moviePoster"
+                    src=""
+                    alt="Movie Poster"
+                >
+
+                <div>
+
+                    <span class="small-label">
+                        YOUR SHOW
+                    </span>
+
+                    <h2 id="movieTitle">
+                        Loading...
+                    </h2>
+
+                    <p id="showDetails">
+                        Loading show details...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="food-page">
+
+        <div class="page-container food-layout">
+
+
+            <!-- =================================
+                 LEFT CONTENT
+            ================================== -->
+
+            <section class="food-content">
+
+
+                <!-- HERO -->
+
+                <div class="food-hero">
+
+                    <div>
+
+                        <span class="hero-badge">
+                            ✨ MAKE YOUR MOVIE BETTER
+                        </span>
+
+                        <h2>
+                            Movie without snacks?
+                            <br>
+                            <span>
+                                Impossible.
+                            </span>
+                        </h2>
+
+                        <p>
+                            Pre-order now and enjoy your movie without
+                            standing in the food counter queue.
+                        </p>
+
+                    </div>
+
+
+                    <div class="hero-food-icons">
+
+                        <span>🍿</span>
+                        <span>🥤</span>
+                        <span>🍕</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     CATEGORIES
+                ================================== -->
+
+                <div class="food-section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            EXPLORE MENU
+                        </span>
+
+                        <h2>
+                            What are you craving?
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="foodCategories"
+                    class="food-categories"
+                >
+
+                    <button
+                        class="category-button active"
+                        data-category="all"
+                    >
+                        🍽️
+                        <span>All</span>
+                    </button>
+
+
+                    <button
+                        class="category-button"
+                        data-category="popcorn"
+                    >
+                        🍿
+                        <span>Popcorn</span>
+                    </button>
+
+
+                    <button
+                        class="category-button"
+                        data-category="snacks"
+                    >
+                        🍔
+                        <span>Snacks</span>
+                    </button>
+
+
+                    <button
+                        class="category-button"
+                        data-category="combos"
+                    >
+                        🎉
+                        <span>Combos</span>
+                    </button>
+
+
+                    <button
+                        class="category-button"
+                        data-category="drinks"
+                    >
+                        🥤
+                        <span>Drinks</span>
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     FOOD GRID
+                ================================== -->
+
+                <div
+                    id="foodGrid"
+                    class="food-grid"
+                >
+
+                    <!-- Food cards will be generated
+                         by JavaScript -->
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================
+                 ORDER SIDEBAR
+            ================================== -->
+
+            <aside class="order-sidebar">
+
+
+                <div class="order-card">
+
+
+                    <div class="order-card-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                YOUR ORDER
+                            </span>
+
+                            <h2>
+                                Food Cart
+                            </h2>
+
+                        </div>
+
+
+                        <span
+                            id="cartCount"
+                            class="cart-count"
+                        >
+                            0 items
+                        </span>
+
+                    </div>
+
+
+                    <!-- EMPTY CART -->
+
+                    <div
+                        id="emptyCart"
+                        class="empty-cart"
+                    >
+
+                        <div class="empty-cart-icon">
+                            🍿
+                        </div>
+
+                        <h3>
+                            Your cart is empty
+                        </h3>
+
+                        <p>
+                            Add your favourite snacks
+                            for the movie.
+                        </p>
+
+                    </div>
+
+
+                    <!-- CART ITEMS -->
+
+                    <div
+                        id="cartItems"
+                        class="cart-items"
+                    >
+                    </div>
+
+
+                    <!-- PRICE -->
+
+                    <div class="order-price-section">
+
+                        <div class="price-line">
+
+                            <span>
+                                Food Total
+                            </span>
+
+                            <strong id="foodSubtotal">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="price-line reward-line">
+
+                            <span>
+                                ⭐ Points you'll earn
+                            </span>
+
+                            <strong id="pointsPreview">
+                                +0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="price-divider"></div>
+
+
+                        <div class="price-line total-line">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong id="foodTotal">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONTINUE -->
+
+                    <button
+                        id="continueFoodButton"
+                        class="continue-food-button"
+                        disabled
+                    >
+
+                        Continue
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <p class="secure-message">
+
+                        🔒 Secure payment powered by BookItBro
+
+                    </p>
+
+
+                </div>
+
+
+                <!-- REWARDS CARD -->
+
+                <div class="rewards-card">
+
+                    <div class="rewards-card-top">
+
+                        <div class="rewards-big-icon">
+                            ⭐
+                        </div>
+
+                        <div>
+
+                            <span>
+                                BOOKITBRO REWARDS
+                            </span>
+
+                            <h3>
+                                Every order gives you points!
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="reward-progress">
+
+                        <div class="progress-track">
+
+                            <div
+                                id="rewardProgress"
+                                class="progress-fill"
+                            ></div>
+
+                        </div>
+
+                        <div class="progress-text">
+
+                            <span id="currentPoints">
+                                0 / 100 Points
+                            </span>
+
+                            <span>
+                                ₹100 Reward
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        Collect <strong>100 points</strong> and get
+                        <strong>₹100 OFF</strong> on your next order.
+
+                    </p>
+
+                </div>
+
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         MOBILE CART BAR
+    ========================================== -->
+
+    <div class="mobile-cart-bar">
+
+        <div>
+
+            <span>
+                Your Order
+            </span>
+
+            <strong id="mobileFoodTotal">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <button
+            id="mobileContinueButton"
+            disabled
+        >
+            Continue →
+        </button>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="js/pre-order-food.js"
+    ></script>
+
+</body>
+</html>
