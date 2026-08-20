@@ -161,66 +161,92 @@ function displayMovieConfirmation() {
    DISPLAY SHOW DETAILS
 ========================================= */
 
+/* =========================================
+   DISPLAY SHOW DETAILS
+========================================= */
+
+/* =========================================
+   DISPLAY SHOW DETAILS
+========================================= */
+
 function displayShowDetails() {
   const theatreName = document.getElementById("theatreName");
   const screenName = document.getElementById("screenName");
   const showDate = document.getElementById("showDate");
   const showTime = document.getElementById("showTime");
-  const selectedSeats = document.getElementById("selectedSeats");
+
+  const confirmedSeatsElement = document.getElementById("confirmedSeats");
+
+  const frozenSeatsElement = document.getElementById("frozenSeats");
+
   const ticketCountElement = document.getElementById("ticketCount");
 
-  /*
-      Theatre
-  */
+  /* =========================================
+     THEATRE
+  ========================================= */
 
   if (theatreName) {
     theatreName.textContent = confirmationData.theatreName || "Theatre";
   }
 
-  /*
-      Screen
-  */
+  /* =========================================
+     SCREEN
+  ========================================= */
 
   if (screenName) {
     screenName.textContent = confirmationData.screen || "Screen 1";
   }
 
-  /*
-      Date
-  */
+  /* =========================================
+     DATE
+  ========================================= */
 
   if (showDate) {
     showDate.textContent = formatDate(confirmationData.date);
   }
 
-  /*
-      Showtime
-  */
+  /* =========================================
+     SHOWTIME
+  ========================================= */
 
   if (showTime) {
     showTime.textContent = confirmationData.showTime || "—";
   }
 
-  /*
-      Seats
-  */
+  /* =========================================
+     CONFIRMED SEATS
+  ========================================= */
 
-  const seats = Array.isArray(confirmationData.seats)
-    ? confirmationData.seats
+  const confirmedSeats = Array.isArray(confirmationData.confirmedSeats)
+    ? confirmationData.confirmedSeats
     : [];
 
-  if (selectedSeats) {
-    selectedSeats.textContent = seats.length ? seats.join(", ") : "—";
+  if (confirmedSeatsElement) {
+    confirmedSeatsElement.textContent =
+      confirmedSeats.length > 0 ? confirmedSeats.join(", ") : "None";
   }
 
-  /*
-      Ticket count
-  */
+  /* =========================================
+     FROZEN SEATS
+  ========================================= */
 
-  const ticketCount = Number(confirmationData.ticketCount) || seats.length || 0;
+  const frozenSeats = Array.isArray(confirmationData.frozenSeats)
+    ? confirmationData.frozenSeats
+    : [];
+
+  if (frozenSeatsElement) {
+    frozenSeatsElement.textContent =
+      frozenSeats.length > 0 ? frozenSeats.join(", ") : "None";
+  }
+
+  /* =========================================
+     TOTAL TICKETS
+  ========================================= */
+
+  const totalTickets = confirmedSeats.length + frozenSeats.length;
 
   if (ticketCountElement) {
-    ticketCountElement.textContent = ticketCount;
+    ticketCountElement.textContent = totalTickets;
   }
 }
 

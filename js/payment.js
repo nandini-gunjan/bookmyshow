@@ -2,6 +2,13 @@
    BOOKITBRO
    PAYMENT PAGE
 ========================================= */
+import { auth, db } from "./firebase.js";
+
+import {
+  doc,
+  setDoc,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 /* =========================================
    STATE
@@ -540,66 +547,118 @@ function processPayment() {
         card / UPI account.
     */
 
-  setTimeout(() => {
+  setTimeout(async () => {
     processingModal.classList.add("hidden");
 
-    completePayment();
+    await completePayment();
   }, 1800);
+}
+
+/* =========================================
+   SAVE BOOKING TO FIREBASE
+========================================= */
+
+async function saveBookingToFirebase(confirmationData) {
+  const user = auth.currentUser;
+
+  /*
+      User must be signed in.
+  */
+
+  if (!user) {
+    throw new Error("User is not signed in.");
+  }
+
+  /*
+      Create booking document.
+
+      Path:
+
+      users
+        └── USER UID
+              └── bookings
+                    └── BOOKING ID
+  */
+
+  const bookingRef = doc(
+    db,
+    "users",
+    user.uid,
+    "bookings",
+    confirmationData.bookingId,
+  );
+
+  /*
+      Save complete booking data.
+  */
+
+  await setDoc(bookingRef, {
+    ...confirmationData,
+
+    userId: user.uid,
+
+    userEmail: user.email || "",
+
+    bookingStatus: "CONFIRMED",
+
+    paymentStatus: "SUCCESS",
+
+    createdAt: serverTimestamp(),
+
+    updatedAt: serverTimestamp(),
+  });
+
+  console.log("Booking saved successfully:", confirmationData.bookingId);
 }
 
 /* =========================================
    COMPLETE PAYMENT
 ========================================= */
 
-function completePayment() {
-  /*
-        Generate booking ID.
-    */
+async function completePayment() {
+  try {
+    const bookingId = generateBookingId();
 
-  const bookingId = generateBookingId();
+    const confirmationData = {
+      ...paymentData,
+      bookingId,
+      bookingStatus: "CONFIRMED",
+      paymentStatus: "SUCCESS",
+      paymentMethod: selectedMethod,
+      paymentDate: new Date().toISOString(),
+    };
 
-  /*
-        Create confirmation data.
-    */
+    console.log("Firebase user:", auth.currentUser);
+    console.log("Firebase UID:", auth.currentUser?.uid);
+    console.log("Payment data:", paymentData);
+    console.log("Confirmation data:", confirmationData);
 
-  const confirmationData = {
-    ...paymentData,
+    await saveBookingToFirebase(confirmationData);
 
-    bookingId,
+    console.log("Booking saved successfully!");
 
-    paymentStatus: "SUCCESS",
+    sessionStorage.setItem(
+      "bookItBroConfirmation",
+      JSON.stringify(confirmationData),
+    );
 
-    paymentMethod: selectedMethod,
+    const successModal = document.getElementById("successModal");
+    successModal.classList.remove("hidden");
 
-    paymentDate: new Date().toISOString(),
-  };
+    setTimeout(() => {
+      window.location.href = "confirmation.html";
+    }, 1200);
+  } catch (error) {
+    console.error("========== FIRESTORE ERROR ==========");
+    console.error("Error object:", error);
+    console.error("Error code:", error.code);
+    console.error("Error message:", error.message);
+    console.error("====================================");
 
-  /*
-        Save confirmation data.
-    */
-
-  sessionStorage.setItem(
-    "bookItBroConfirmation",
-    JSON.stringify(confirmationData),
-  );
-
-  console.log("Confirmation Data:", confirmationData);
-
-  /*
-        Show success modal.
-    */
-
-  const successModal = document.getElementById("successModal");
-
-  successModal.classList.remove("hidden");
-
-  /*
-        Move to confirmation page.
-    */
-
-  setTimeout(() => {
-    window.location.href = "confirmation.html";
-  }, 1200);
+    alert(
+      `Booking could not be saved.\n\nCode: ${error.code}\nMessage: ${error.message}`,
+    );
+  }
 }
 
 /* =========================================

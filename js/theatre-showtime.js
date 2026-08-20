@@ -724,7 +724,9 @@ function setupFilters() {
     priceButton.addEventListener("click", sortByPrice);
   }
 
-  const continueButton = document.getElementById("continueButton");
+  const bookNowButton = document.getElementById("bookNowButton");
+
+  const freezeButton = document.getElementById("freezeButton");
 
   if (continueButton) {
     continueButton.addEventListener("click", continueToSeats);

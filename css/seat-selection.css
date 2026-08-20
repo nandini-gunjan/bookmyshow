@@ -1,17 +1,62 @@
+/* =========================================
+   RESET
+========================================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* =========================================
+   LIGHT THEME VARIABLES
+========================================= */
+
+:root {
+  --page-bg: #f5f5f5;
+  --text-color: #222;
+
+  --header-bg: #ffffff;
+  --header-border: #dddddd;
+
+  --button-bg: #f3f3f3;
+  --button-hover: #e7e7e7;
+
+  --secondary-text: #777;
+  --label-color: #888;
+
+  --seat-bg: #ffffff;
+  --seat-text: #555;
+  --seat-border: #65a76f;
+  --seat-hover-bg: #e7f7ea;
+
+  --card-bg: #ffffff;
+  --card-border: #e2e2e2;
+
+  --selected-color: #e51937;
+
+  --confirm-color: #4caf50;
+
+  --freeze-color: #2196f3;
+  --freeze-hover: #1976d2;
+
+  --occupied-color: #aaaaaa;
+
+  --summary-bg: #ffffff;
+}
+
+/* =========================================
+   BODY
+========================================= */
+
 body {
   min-height: 100vh;
 
   font-family: Arial, sans-serif;
 
-  background: #f5f5f5;
+  background: var(--page-bg);
 
-  color: #222;
+  color: var(--text-color);
 }
 
 /* =========================================
@@ -29,9 +74,9 @@ body {
 
   padding: 0 30px;
 
-  background: #fff;
+  background: var(--header-bg);
 
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--header-border);
 }
 
 .back-button {
@@ -43,7 +88,9 @@ body {
 
   border-radius: 50%;
 
-  background: #f3f3f3;
+  background: var(--button-bg);
+
+  color: var(--text-color);
 
   font-size: 24px;
 
@@ -51,7 +98,7 @@ body {
 }
 
 .back-button:hover {
-  background: #e7e7e7;
+  background: var(--button-hover);
 }
 
 .seat-header h1 {
@@ -63,7 +110,7 @@ body {
 .seat-header p {
   margin-top: 4px;
 
-  color: #777;
+  color: var(--secondary-text);
 
   font-size: 12px;
 }
@@ -73,7 +120,7 @@ body {
 ========================================= */
 
 .seat-page {
-  padding-bottom: 130px;
+  padding-bottom: 150px;
 }
 
 /* =========================================
@@ -157,7 +204,7 @@ body {
 
   margin-right: 10px;
 
-  color: #777;
+  color: var(--secondary-text);
 
   font-size: 12px;
 
@@ -172,6 +219,10 @@ body {
   gap: 7px;
 }
 
+/* =========================================
+   SEAT
+========================================= */
+
 .seat {
   position: relative;
 
@@ -179,43 +230,75 @@ body {
 
   height: 24px;
 
-  border: 1px solid #65a76f;
+  border: 1px solid var(--seat-border);
 
   border-radius: 5px 5px 3px 3px;
 
-  background: #fff;
+  background: var(--seat-bg);
 
-  color: #555;
+  color: var(--seat-text);
 
   cursor: pointer;
 
   font-size: 9px;
 
-  transition: 0.15s;
+  transition:
+    transform 0.15s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
-.seat:hover:not(.occupied) {
+.seat:hover:not(.occupied):not(.frozen) {
   transform: translateY(-2px);
 
-  background: #e7f7ea;
+  background: var(--seat-hover-bg);
 }
+
+/* =========================================
+   SELECTED SEAT
+========================================= */
 
 .seat.selected {
-  border-color: #e51937;
+  border-color: var(--selected-color);
 
-  background: #e51937;
+  background: var(--selected-color);
 
-  color: white;
+  color: #ffffff;
 }
 
+/* =========================================
+   OCCUPIED / SOLD SEAT
+========================================= */
+
 .seat.occupied {
-  border-color: #aaa;
+  border-color: var(--occupied-color);
 
-  background: #aaa;
+  background: var(--occupied-color);
 
-  color: white;
+  color: #ffffff;
 
   cursor: not-allowed;
+}
+
+/* =========================================
+   FROZEN SEAT - ALWAYS BLUE
+========================================= */
+
+.seat.frozen {
+  border-color: var(--freeze-color);
+
+  background: var(--freeze-color);
+
+  color: #ffffff;
+
+  cursor: not-allowed;
+}
+
+.seat.frozen:hover {
+  transform: none;
+
+  background: var(--freeze-color);
 }
 
 /* =========================================
@@ -247,7 +330,7 @@ body {
 
   gap: 8px;
 
-  color: #666;
+  color: var(--secondary-text);
 
   font-size: 12px;
 }
@@ -261,21 +344,183 @@ body {
 
   border-radius: 4px;
 
-  border: 1px solid #65a76f;
+  border: 1px solid var(--seat-border);
 
-  background: #fff;
+  background: var(--seat-bg);
 }
+
+/* SELECTED */
 
 .seat-demo.selected {
-  background: #e51937;
+  background: var(--selected-color);
 
-  border-color: #e51937;
+  border-color: var(--selected-color);
 }
 
-.seat-demo.occupied {
-  background: #aaa;
+/* FROZEN */
 
-  border-color: #aaa;
+.seat-demo.frozen {
+  background: var(--freeze-color);
+
+  border-color: var(--freeze-color);
+}
+
+/* OCCUPIED */
+
+.seat-demo.occupied {
+  background: var(--occupied-color);
+
+  border-color: var(--occupied-color);
+}
+
+/* =========================================
+   SEAT TYPE SECTION
+========================================= */
+
+.seat-type-section {
+  width: min(900px, 92%);
+
+  margin: 30px auto;
+
+  padding: 25px;
+
+  background: var(--card-bg);
+
+  border: 1px solid var(--card-border);
+
+  border-radius: 12px;
+}
+
+.seat-type-section h2 {
+  margin-bottom: 8px;
+
+  font-size: 20px;
+}
+
+.seat-type-description {
+  margin-bottom: 20px;
+
+  color: var(--secondary-text);
+
+  line-height: 1.5;
+}
+
+.empty-seat-message {
+  padding: 15px;
+
+  text-align: center;
+
+  color: var(--secondary-text);
+}
+
+/* =========================================
+   SEAT TYPE ITEM
+========================================= */
+
+.seat-type-item {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 15px;
+
+  margin-bottom: 10px;
+
+  border: 1px solid var(--card-border);
+
+  border-radius: 10px;
+
+  background: var(--page-bg);
+}
+
+.seat-type-item strong {
+  font-size: 15px;
+}
+
+/* =========================================
+   SEAT TYPE BUTTONS
+========================================= */
+
+.seat-type-buttons {
+  display: flex;
+
+  gap: 10px;
+}
+
+.seat-type-button {
+  min-width: 90px;
+
+  padding: 9px 15px;
+
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: var(--text-color);
+
+  border: 1px solid var(--card-border);
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* =========================================
+   CONFIRM BUTTON
+========================================= */
+
+.confirm-type {
+  border-color: var(--confirm-color);
+
+  color: var(--confirm-color);
+}
+
+.confirm-type:hover {
+  background: var(--confirm-color);
+
+  color: #ffffff;
+}
+
+.confirm-type.active {
+  background: var(--confirm-color);
+
+  border-color: var(--confirm-color);
+
+  color: #ffffff;
+}
+
+/* =========================================
+   FREEZE BUTTON
+   CHANGES WITH THEME
+========================================= */
+
+.freeze-type {
+  border-color: var(--freeze-color);
+
+  color: var(--freeze-color);
+}
+
+.freeze-type:hover {
+  background: var(--freeze-color);
+
+  color: #ffffff;
+}
+
+.freeze-type.active {
+  background: var(--freeze-color);
+
+  border-color: var(--freeze-color);
+
+  color: #ffffff;
 }
 
 /* =========================================
@@ -295,9 +540,9 @@ body {
 
   padding: 15px 25px;
 
-  background: #fff;
+  background: var(--summary-bg);
 
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--header-border);
 
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.08);
 }
@@ -325,7 +570,7 @@ body {
 }
 
 .summary-label {
-  color: #888;
+  color: var(--label-color);
 
   font-size: 11px;
 }
@@ -333,6 +578,10 @@ body {
 .summary-info strong {
   font-size: 14px;
 }
+
+/* =========================================
+   CONTINUE BUTTON
+========================================= */
 
 .continue-button {
   min-width: 180px;
@@ -343,9 +592,9 @@ body {
 
   border-radius: 5px;
 
-  background: #e51937;
+  background: var(--selected-color);
 
-  color: white;
+  color: #ffffff;
 
   font-size: 14px;
 
@@ -355,11 +604,95 @@ body {
 }
 
 .continue-button:disabled {
-  background: #ddd;
+  background: #dddddd;
 
-  color: #999;
+  color: #999999;
 
   cursor: not-allowed;
+}
+
+/* =========================================
+   DARK THEME VARIABLES
+========================================= */
+
+body.dark-mode {
+  --page-bg: #121212;
+  --text-color: #f1f1f1;
+
+  --header-bg: #1b1b1b;
+  --header-border: #303030;
+
+  --button-bg: #292929;
+  --button-hover: #363636;
+
+  --secondary-text: #999999;
+  --label-color: #999999;
+
+  --seat-bg: #1e1e1e;
+  --seat-text: #dddddd;
+  --seat-border: #5f9f68;
+  --seat-hover-bg: #19301e;
+
+  --card-bg: #1b1b1b;
+  --card-border: #333333;
+
+  --summary-bg: #1b1b1b;
+
+  --selected-color: #e51937;
+
+  --confirm-color: #66bb6a;
+
+  --freeze-color: #42a5f5;
+  --freeze-hover: #64b5f6;
+
+  --occupied-color: #555555;
+}
+
+/* =========================================
+   DARK MODE SCREEN
+========================================= */
+
+body.dark-mode .screen {
+  background: linear-gradient(to bottom, #555555, #292929);
+
+  color: #aaaaaa;
+}
+
+body.dark-mode .screen-glow {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================
+   DARK MODE DISABLED BUTTON
+========================================= */
+
+body.dark-mode .continue-button:disabled {
+  background: #3a3a3a;
+
+  color: #777777;
+}
+
+/* =========================================
+   THEME TRANSITIONS
+========================================= */
+
+body,
+.seat-header,
+.back-button,
+.seat,
+.booking-summary,
+.screen,
+.seat-type-section,
+.seat-type-item,
+.seat-type-button,
+.legend-item,
+.row-label,
+.summary-info strong,
+.summary-label {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 /* =========================================
@@ -397,146 +730,41 @@ body {
 }
 
 /* =========================================
-   DARK MODE
+   MOBILE SEAT TYPE SECTION
 ========================================= */
 
-body.dark-mode {
-  background: #121212;
-  color: #f1f1f1;
+@media (max-width: 600px) {
+  .seat-type-section {
+    padding: 18px;
+  }
+
+  .seat-type-item {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .seat-type-buttons {
+    width: 100%;
+  }
+
+  .seat-type-button {
+    flex: 1;
+
+    min-width: 0;
+  }
 }
 
-/* =========================================
-   HEADER
-========================================= */
+/* CONFIRMED SEAT */
 
-body.dark-mode .seat-header {
-  background: #1b1b1b;
-  border-bottom-color: #2d2d2d;
+.seat.selected {
+  background-color: #e51937;
+  color: white;
 }
 
-body.dark-mode .back-button {
-  background: #292929;
-  color: #f1f1f1;
-}
+/* FROZEN SEAT */
 
-body.dark-mode .back-button:hover {
-  background: #363636;
-}
-
-body.dark-mode .seat-header h1 {
-  color: #f5f5f5;
-}
-
-body.dark-mode .seat-header p {
-  color: #999;
-}
-
-/* =========================================
-   SCREEN
-========================================= */
-
-body.dark-mode .screen {
-  background: linear-gradient(to bottom, #555, #292929);
-  color: #aaa;
-}
-
-body.dark-mode .screen-glow {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* =========================================
-   SEATS
-========================================= */
-
-body.dark-mode .row-label {
-  color: #999;
-}
-
-body.dark-mode .seat {
-  background: #1e1e1e;
-  border-color: #5f9f68;
-  color: #ddd;
-}
-
-body.dark-mode .seat:hover:not(.occupied) {
-  background: #19301e;
-  border-color: #70b87b;
-}
-
-body.dark-mode .seat.selected {
-  background: #e51937;
-  border-color: #e51937;
-  color: #fff;
-}
-
-body.dark-mode .seat.occupied {
-  background: #555;
-  border-color: #555;
-  color: #aaa;
-}
-
-/* =========================================
-   LEGEND
-========================================= */
-
-body.dark-mode .legend-item {
-  color: #aaa;
-}
-
-body.dark-mode .seat-demo {
-  background: #1e1e1e;
-  border-color: #5f9f68;
-}
-
-body.dark-mode .seat-demo.selected {
-  background: #e51937;
-  border-color: #e51937;
-}
-
-body.dark-mode .seat-demo.occupied {
-  background: #555;
-  border-color: #555;
-}
-
-/* =========================================
-   BOOKING SUMMARY
-========================================= */
-
-body.dark-mode .booking-summary {
-  background: #1b1b1b;
-  border-top-color: #303030;
-  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.35);
-}
-
-body.dark-mode .summary-label {
-  color: #999;
-}
-
-body.dark-mode .summary-info strong {
-  color: #f1f1f1;
-}
-
-/* =========================================
-   DISABLED BUTTON
-========================================= */
-
-body.dark-mode .continue-button:disabled {
-  background: #3a3a3a;
-  color: #777;
-}
-
-/* =========================================
-   SMOOTH THEME TRANSITION
-========================================= */
-
-body,
-.seat-header,
-.back-button,
-.seat,
-.booking-summary,
-.screen {
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease;
+.seat.frozen {
+  background-color: #2196f3;
+  color: white;
 }

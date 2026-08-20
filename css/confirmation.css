@@ -934,3 +934,51 @@ body.dark-mode .info-item p {
     border: 1px solid #cccccc;
   }
 }
+
+/* =========================================
+   TICKET BOOKITBRO LOGO
+========================================= */
+
+.ticket-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 18px auto 22px;
+
+  font-size: 28px;
+  font-weight: 700;
+  color: #222222;
+
+  letter-spacing: -1px;
+  white-space: nowrap;
+
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.ticket-logo-it {
+  background: #e51937;
+
+  padding: 3px 6px;
+
+  display: inline-block;
+
+  transform: rotate(8deg);
+
+  border: 3px dotted white;
+
+  color: white;
+
+  margin: 0 1px;
+}
+
+body.dark-mode .ticket-logo {
+  color: #ffffff;
+}
+
+body.dark-mode .ticket-logo-it {
+  background: #e51937;
+  color: #ffffff;
+}

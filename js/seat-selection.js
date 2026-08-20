@@ -89,7 +89,7 @@ function loadBookingData() {
 }
 
 /* =========================================
-   DISPLAY MOVIE / SHOW INFO
+   DISPLAY MOVIE / SHOW INFORMATION
 ========================================= */
 
 function displayBookingInformation() {
@@ -122,6 +122,8 @@ function generateSeats() {
 
     rowElement.className = "seat-row";
 
+    /* ROW LABEL */
+
     const label = document.createElement("span");
 
     label.className = "row-label";
@@ -130,19 +132,18 @@ function generateSeats() {
 
     rowElement.appendChild(label);
 
+    /* SEATS CONTAINER */
+
     const seatsContainer = document.createElement("div");
 
     seatsContainer.className = "seats";
 
+    /* CREATE SEATS */
+
     for (let seatNumber = 1; seatNumber <= row.seats; seatNumber++) {
-      /*
-                    Create some realistic
-                    unavailable seats.
-                */
-
-      const occupied = isOccupied(rowIndex, seatNumber);
-
       const seat = document.createElement("button");
+
+      const seatId = `${row.name}${seatNumber}`;
 
       seat.type = "button";
 
@@ -150,13 +151,17 @@ function generateSeats() {
 
       seat.textContent = seatNumber;
 
-      seat.dataset.seat = `${row.name}${seatNumber}`;
+      seat.dataset.seat = seatId;
 
-      if (occupied) {
+      /* SOLD SEATS */
+
+      if (isOccupied(rowIndex, seatNumber)) {
         seat.classList.add("occupied");
 
         seat.disabled = true;
       }
+
+      /* CLICK */
 
       seat.addEventListener("click", () => {
         toggleSeat(seat);
@@ -177,11 +182,11 @@ function generateSeats() {
 
 function isOccupied(rowIndex, seatNumber) {
   /*
-        Temporary demo availability.
+      Temporary demo data.
 
-        Later this will come from
-        your real backend/API.
-    */
+      Later replace this with
+      Firebase / Firestore data.
+  */
 
   const occupiedSeats = {
     0: [3, 4],
@@ -211,101 +216,191 @@ function isOccupied(rowIndex, seatNumber) {
 }
 
 /* =========================================
-   CHECK BOOKING EXPIRY
-========================================= */
-
-function checkBookingExpiry() {
-  const storedBooking =
-    sessionStorage.getItem("bookItBroFinalBooking");
-
-  if (!storedBooking) {
-    return null;
-  }
-
-  let booking;
-
-  try {
-    booking = JSON.parse(storedBooking);
-  } catch (error) {
-    console.error("Invalid booking data");
-    return null;
-  }
-
-  /*
-      Already confirmed
-  */
-  if (booking.bookingStatus === "CONFIRMED") {
-    return booking;
-  }
-
-  /*
-      Already cancelled
-  */
-  if (booking.bookingStatus === "CANCELLED") {
-    return booking;
-  }
-
-  /*
-      Only frozen bookings expire
-  */
-  if (
-    booking.bookingStatus === "FROZEN" &&
-    Date.now() >= booking.confirmationDeadline
-  ) {
-    booking.bookingStatus = "CANCELLED";
-
-    booking.paymentStatus = "ADVANCE_FORFEITED";
-
-    booking.cancelledAt = Date.now();
-
-    /*
-        Remove frozen seats
-    */
-    booking.seats = [];
-
-    sessionStorage.setItem(
-      "bookItBroFinalBooking",
-      JSON.stringify(booking)
-    );
-
-    console.log(
-      "Booking automatically cancelled:",
-      booking
-    );
-
-    return booking;
-  }
-
-  return booking;
-}
-/* =========================================
    SELECT / DESELECT SEAT
 ========================================= */
 
 function toggleSeat(seat) {
   const seatId = seat.dataset.seat;
 
-  const index = selectedSeats.indexOf(seatId);
+  /*
+      Find seat in selected seats
+  */
 
-  if (index === -1) {
+  const existingSeatIndex = selectedSeats.findIndex(
+    (selectedSeat) => selectedSeat.seatId === seatId,
+  );
+
+  /* =========================================
+     SELECT SEAT
+  ========================================= */
+
+  if (existingSeatIndex === -1) {
     /*
-            Limit seats to 10.
-        */
+        Maximum 10 seats
+    */
 
     if (selectedSeats.length >= 10) {
-      alert("You can select maximum 10 seats.");
+      alert("You can select a maximum of 10 seats.");
 
       return;
     }
 
-    selectedSeats.push(seatId);
+    /*
+        Default booking type:
+        CONFIRMED
+    */
+
+    selectedSeats.push({
+      seatId: seatId,
+
+      bookingType: "CONFIRMED",
+    });
 
     seat.classList.add("selected");
   } else {
-    selectedSeats.splice(index, 1);
+    /* =========================================
+     DESELECT SEAT
+  ========================================= */
+    selectedSeats.splice(existingSeatIndex, 1);
 
     seat.classList.remove("selected");
+    seat.classList.remove("frozen");
   }
+
+  renderSeatTypeSelection();
+
+  updateSummary();
+}
+
+/* =========================================
+   RENDER SEAT TYPE SELECTION
+========================================= */
+
+function renderSeatTypeSelection() {
+  const container = document.getElementById("selectedSeatTypes");
+
+  container.innerHTML = "";
+
+  /* NO SEATS */
+
+  if (selectedSeats.length === 0) {
+    container.innerHTML = `
+      <p class="empty-seat-message">
+        Select seats to choose their booking type.
+      </p>
+    `;
+
+    return;
+  }
+
+  /* CREATE OPTIONS */
+
+  selectedSeats.forEach((selectedSeat) => {
+    const seatItem = document.createElement("div");
+
+    seatItem.className = "seat-type-item";
+
+    /* SEAT NAME */
+
+    const seatName = document.createElement("strong");
+
+    seatName.textContent = selectedSeat.seatId;
+
+    /* TYPE CONTAINER */
+
+    const typeButtons = document.createElement("div");
+
+    typeButtons.className = "seat-type-buttons";
+
+    /* CONFIRM BUTTON */
+
+    const confirmButton = document.createElement("button");
+
+    confirmButton.type = "button";
+
+    confirmButton.textContent = "Confirm";
+
+    confirmButton.className = "seat-type-button confirm-type";
+
+    /* FREEZE BUTTON */
+
+    const freezeButton = document.createElement("button");
+
+    freezeButton.type = "button";
+
+    freezeButton.textContent = "Freeze";
+
+    freezeButton.className = "seat-type-button freeze-type";
+
+    /* ACTIVE TYPE */
+
+    if (selectedSeat.bookingType === "CONFIRMED") {
+      confirmButton.classList.add("active");
+    } else {
+      freezeButton.classList.add("active");
+    }
+
+    /* CONFIRM CLICK */
+
+    confirmButton.addEventListener("click", () => {
+      changeSeatBookingType(selectedSeat.seatId, "CONFIRMED");
+    });
+
+    /* FREEZE CLICK */
+
+    freezeButton.addEventListener("click", () => {
+      changeSeatBookingType(selectedSeat.seatId, "FROZEN");
+    });
+
+    typeButtons.appendChild(confirmButton);
+
+    typeButtons.appendChild(freezeButton);
+
+    seatItem.appendChild(seatName);
+
+    seatItem.appendChild(typeButtons);
+
+    container.appendChild(seatItem);
+  });
+}
+
+/* =========================================
+   CHANGE BOOKING TYPE
+========================================= */
+
+function changeSeatBookingType(seatId, bookingType) {
+  const selectedSeat = selectedSeats.find((seat) => seat.seatId === seatId);
+
+  if (!selectedSeat) {
+    return;
+  }
+
+  selectedSeat.bookingType = bookingType;
+
+  const seatElement = document.querySelector(`.seat[data-seat="${seatId}"]`);
+
+  if (seatElement) {
+    /* REMOVE OLD STATES */
+
+    seatElement.classList.remove("selected");
+    seatElement.classList.remove("frozen");
+
+    /* ADD NEW STATE */
+
+    if (bookingType === "CONFIRMED") {
+      seatElement.classList.add("selected");
+    }
+
+    if (bookingType === "FROZEN") {
+      seatElement.classList.add("frozen");
+    }
+  }
+
+  /* RE-RENDER TYPE BUTTONS */
+
+  renderSeatTypeSelection();
+
+  /* UPDATE PRICE SUMMARY */
 
   updateSummary();
 }
@@ -315,173 +410,108 @@ function toggleSeat(seat) {
 ========================================= */
 
 function updateSummary() {
-  const selectedSeatsElement =
-    document.getElementById("selectedSeats");
+  const selectedSeatsElement = document.getElementById("selectedSeats");
 
-  const ticketCountElement =
-    document.getElementById("ticketCount");
+  const confirmedSeatsCountElement = document.getElementById(
+    "confirmedSeatsCount",
+  );
 
-  const totalPriceElement =
-    document.getElementById("totalPrice");
+  const frozenSeatsCountElement = document.getElementById("frozenSeatsCount");
 
-  const advancePriceElement =
-    document.getElementById("advancePrice");
+  const ticketCountElement = document.getElementById("ticketCount");
 
-  const continueButton =
-    document.getElementById("continueButton");
+  const confirmedAmountElement = document.getElementById("confirmedAmount");
+
+  const freezeAmountElement = document.getElementById("freezeAmount");
+
+  const payNowAmountElement = document.getElementById("payNowAmount");
+
+  const remainingAmountElement = document.getElementById("remainingAmount");
+
+  const continueButton = document.getElementById("continueButton");
+
+  /* =========================================
+     SELECTED SEATS
+  ========================================= */
 
   if (selectedSeats.length === 0) {
     selectedSeatsElement.textContent = "None";
   } else {
-    selectedSeatsElement.textContent =
-      selectedSeats.join(", ");
+    selectedSeatsElement.textContent = selectedSeats
+      .map((seat) => seat.seatId)
+      .join(", ");
   }
 
-  ticketCountElement.textContent =
-    selectedSeats.length;
-
-  const total =
-    selectedSeats.length * ticketPrice;
-
-  const advance =
-    total * 0.5;
-
-  totalPriceElement.textContent =
-    `₹${total}`;
-
-  advancePriceElement.textContent =
-    `₹${advance}`;
-
-  continueButton.disabled =
-    selectedSeats.length === 0;
-}
-  
   /* =========================================
-   CONTINUE TO BOOKING SUMMARY
-========================================= */
+     CONFIRMED / FROZEN SEATS
+  ========================================= */
 
-function continueToSummary() {
-  if (selectedSeats.length === 0) {
-    return;
-  }
-
-  const totalAmount = selectedSeats.length * ticketPrice;
-
-  // 50% advance required to freeze seats
-  const advanceAmount = totalAmount * 0.5;
-
-  /*
-      Calculate movie/show date and time
-  */
-  const showDateTime = getShowDateTime();
-
-  if (!showDateTime) {
-    alert("Unable to determine movie show time.");
-    return;
-  }
-
-  /*
-      Confirmation deadline:
-      2 hours before movie starts
-  */
-  const confirmationDeadline =
-    showDateTime.getTime() - 2 * 60 * 60 * 1000;
-
-  /*
-      If movie is already within 2 hours,
-      seats cannot be frozen.
-  */
-  if (Date.now() >= confirmationDeadline) {
-    alert(
-      "Seat freezing is no longer available because the movie starts within 2 hours."
-    );
-
-    return;
-  }
-
-  const finalBooking = {
-    ...bookingData,
-
-    seats: [...selectedSeats],
-
-    numberOfTickets: selectedSeats.length,
-
-    totalAmount: totalAmount,
-
-    /*
-        50% payment for freezing seats
-    */
-    advanceAmount: advanceAmount,
-
-    remainingAmount: totalAmount - advanceAmount,
-
-    /*
-        Booking status
-    */
-    bookingStatus: "FROZEN",
-
-    /*
-        Time when seats were frozen
-    */
-    frozenAt: Date.now(),
-
-    /*
-        Deadline to confirm ticket
-    */
-    confirmationDeadline: confirmationDeadline,
-
-    /*
-        Movie/show start time
-    */
-    showDateTime: showDateTime.getTime(),
-
-    /*
-        Generate booking ID
-    */
-    bookingId: generateBookingId(),
-
-    /*
-        Payment information
-    */
-    paymentStatus: "ADVANCE_PAID",
-
-    paymentMethod: "UPI",
-  };
-
-  sessionStorage.setItem(
-    "bookItBroFinalBooking",
-    JSON.stringify(finalBooking)
+  const confirmedSeats = selectedSeats.filter(
+    (seat) => seat.bookingType === "CONFIRMED",
   );
 
-  console.log("Frozen booking:", finalBooking);
+  const frozenSeats = selectedSeats.filter(
+    (seat) => seat.bookingType === "FROZEN",
+  );
 
-  window.location.href = "booking-summary.html";
-}
+  /* =========================================
+     COUNTS
+  ========================================= */
 
-/* =========================================
-   BACK
-========================================= */
+  confirmedSeatsCountElement.textContent = confirmedSeats.length;
 
-function goBack() {
-  window.history.back();
-}
+  frozenSeatsCountElement.textContent = frozenSeats.length;
 
-/* =========================================
-   FORMAT DATE
-========================================= */
+  ticketCountElement.textContent = selectedSeats.length;
 
-function formatDate(dateString) {
-  if (!dateString) {
-    return "";
-  }
+  /* =========================================
+     CALCULATIONS
+  ========================================= */
 
-  const date = new Date(dateString);
+  /*
+      Confirmed seats:
+      Pay 100%
+  */
 
-  return date.toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  const confirmedAmount = confirmedSeats.length * ticketPrice;
+
+  /*
+      Frozen seats:
+      Pay 50% now
+  */
+
+  const freezeAmount = frozenSeats.length * ticketPrice * 0.5;
+
+  /*
+      Total payment now
+  */
+
+  const payNowAmount = confirmedAmount + freezeAmount;
+
+  /*
+      Remaining payment
+      for frozen seats
+  */
+
+  const remainingAmount = frozenSeats.length * ticketPrice * 0.5;
+
+  /* =========================================
+     DISPLAY AMOUNTS
+  ========================================= */
+
+  confirmedAmountElement.textContent = `₹${confirmedAmount}`;
+
+  freezeAmountElement.textContent = `₹${freezeAmount}`;
+
+  payNowAmountElement.textContent = `₹${payNowAmount}`;
+
+  remainingAmountElement.textContent = `₹${remainingAmount}`;
+
+  /* =========================================
+     BUTTON
+  ========================================= */
+
+  continueButton.disabled = selectedSeats.length === 0;
 }
 
 /* =========================================
@@ -500,39 +530,221 @@ function getShowDateTime() {
   }
 
   /*
-      Extract time such as:
+      Match time:
+
       7:30 PM
       10:00 AM
       6:45 PM
   */
 
-  const timeMatch = bookingData.showTime.match(
-    /(\d{1,2}):(\d{2})\s*(AM|PM)/i
-  );
+  const timeMatch = bookingData.showTime.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
 
   if (!timeMatch) {
     console.error("Invalid show time:", bookingData.showTime);
+
     return null;
   }
 
   let hours = Number(timeMatch[1]);
+
   const minutes = Number(timeMatch[2]);
+
   const period = timeMatch[3].toUpperCase();
+
+  /* PM */
 
   if (period === "PM" && hours !== 12) {
     hours += 12;
   }
+
+  /* 12 AM */
 
   if (period === "AM" && hours === 12) {
     hours = 0;
   }
 
   date.setHours(hours);
+
   date.setMinutes(minutes);
+
   date.setSeconds(0);
+
   date.setMilliseconds(0);
 
   return date;
+}
+
+/* =========================================
+   CONTINUE TO PAYMENT
+========================================= */
+
+function continueToPayment() {
+  if (selectedSeats.length === 0) {
+    return;
+  }
+
+  /* =========================================
+     GET SEATS BY TYPE
+  ========================================= */
+
+  const confirmedSeats = selectedSeats
+    .filter((seat) => seat.bookingType === "CONFIRMED")
+    .map((seat) => seat.seatId);
+
+  const frozenSeats = selectedSeats
+    .filter((seat) => seat.bookingType === "FROZEN")
+    .map((seat) => seat.seatId);
+
+  /* =========================================
+     CALCULATE AMOUNTS
+  ========================================= */
+
+  const confirmedAmount = confirmedSeats.length * ticketPrice;
+
+  /*
+      Frozen seats:
+      50% payment now
+  */
+
+  const frozenAdvanceAmount = frozenSeats.length * ticketPrice * 0.5;
+
+  /*
+      Remaining 50%
+  */
+
+  const frozenRemainingAmount = frozenSeats.length * ticketPrice * 0.5;
+
+  /*
+      Total payment now
+  */
+
+  const payableNow = confirmedAmount + frozenAdvanceAmount;
+
+  /* =========================================
+     DEADLINE
+  ========================================= */
+
+  let confirmationDeadline = null;
+
+  let showDateTime = null;
+
+  /*
+      Only calculate deadline
+      if there are frozen seats
+  */
+
+  if (frozenSeats.length > 0) {
+    showDateTime = getShowDateTime();
+
+    if (!showDateTime) {
+      alert("Unable to determine movie show time.");
+
+      return;
+    }
+
+    /*
+        Deadline:
+        2 hours before movie
+    */
+
+    confirmationDeadline = showDateTime.getTime() - 2 * 60 * 60 * 1000;
+
+    /*
+        Do not allow freezing
+        if deadline has passed
+    */
+
+    if (Date.now() >= confirmationDeadline) {
+      alert(
+        "Seat freezing is no longer available because the movie starts within 2 hours.",
+      );
+
+      return;
+    }
+  }
+
+  /* =========================================
+     CREATE FINAL BOOKING
+  ========================================= */
+
+  const finalBooking = {
+    ...bookingData,
+
+    /* ALL SEATS */
+
+    seats: selectedSeats.map((seat) => seat.seatId),
+
+    numberOfTickets: selectedSeats.length,
+
+    /* CONFIRMED */
+
+    confirmedSeats: confirmedSeats,
+
+    confirmedAmount: confirmedAmount,
+
+    /* FROZEN */
+
+    frozenSeats: frozenSeats,
+
+    frozenAdvanceAmount: frozenAdvanceAmount,
+
+    frozenRemainingAmount: frozenRemainingAmount,
+
+    /*
+        Status for
+        frozen seats
+    */
+
+    frozenStatus: frozenSeats.length > 0 ? "ACTIVE" : "NONE",
+
+    /* =========================================
+       PAYMENT
+    ========================================= */
+
+    totalAmount: selectedSeats.length * ticketPrice,
+
+    payableNow: payableNow,
+
+    paymentStatus: "PENDING",
+
+    /* =========================================
+       FREEZE DEADLINE
+    ========================================= */
+
+    frozenAt: frozenSeats.length > 0 ? Date.now() : null,
+
+    confirmationDeadline: confirmationDeadline,
+
+    showDateTime: showDateTime ? showDateTime.getTime() : null,
+
+    /* =========================================
+       BOOKING STATUS
+    ========================================= */
+
+    bookingStatus: frozenSeats.length > 0 ? "PARTIALLY_FROZEN" : "CONFIRMED",
+
+    /* =========================================
+       BOOKING ID
+    ========================================= */
+
+    bookingId: generateBookingId(),
+
+    paymentMethod: "UPI",
+  };
+
+  /* =========================================
+     SAVE BOOKING
+  ========================================= */
+
+  sessionStorage.setItem("bookItBroFinalBooking", JSON.stringify(finalBooking));
+
+  console.log("Final booking:", finalBooking);
+
+  /* =========================================
+     GO TO PAYMENT / SUMMARY
+  ========================================= */
+
+  window.location.href = "booking-summary.html";
 }
 
 /* =========================================
@@ -544,6 +756,35 @@ function generateBookingId() {
 
   return `BIB${random}`;
 }
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(dateString) {
+  if (!dateString) {
+    return "";
+  }
+
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+
+    month: "short",
+
+    year: "numeric",
+  });
+}
+
+/* =========================================
+   BACK
+========================================= */
+
+function goBack() {
+  window.history.back();
+}
+
 /* =========================================
    ERROR
 ========================================= */
@@ -551,49 +792,55 @@ function generateBookingId() {
 function showError() {
   document.body.innerHTML = `
 
-        <div style="
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            font-family:Arial;
-            background:#f5f5f5;
-            padding:20px;
+    <div style="
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: Arial;
+      background: #f5f5f5;
+      padding: 20px;
+    ">
+
+      <div>
+
+        <h2>
+          Booking information not found
+        </h2>
+
+
+        <p style="
+          color: #777;
+          margin: 10px 0 20px;
         ">
 
-            <div>
+          Please select a movie and showtime again.
 
-                <h2>
-                    Booking information not found
-                </h2>
+        </p>
 
-                <p style="
-                    color:#777;
-                    margin:10px 0 20px;
-                ">
-                    Please select a movie and showtime again.
-                </p>
 
-                <button
-                    onclick="history.back()"
-                    style="
-                        padding:12px 25px;
-                        border:0;
-                        border-radius:5px;
-                        background:#e51937;
-                        color:#fff;
-                        cursor:pointer;
-                    "
-                >
-                    Go Back
-                </button>
+        <button
+          onclick="history.back()"
+          style="
+            padding: 12px 25px;
+            border: 0;
+            border-radius: 5px;
+            background: #e51937;
+            color: #fff;
+            cursor: pointer;
+          "
+        >
 
-            </div>
+          Go Back
 
-        </div>
+        </button>
 
-    `;
+      </div>
+
+    </div>
+
+  `;
 }
 
 /* =========================================
@@ -611,13 +858,23 @@ function initialize() {
 
   generateSeats();
 
+  renderSeatTypeSelection();
+
   updateSummary();
+
+  /* CONTINUE */
 
   document
     .getElementById("continueButton")
-    .addEventListener("click", continueToSummary);
+    .addEventListener("click", continueToPayment);
+
+  /* BACK */
 
   document.getElementById("backButton").addEventListener("click", goBack);
 }
+
+/* =========================================
+   START
+========================================= */
 
 initialize();

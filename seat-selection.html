@@ -2,18 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Select Seats | BookItBro</title>
 
     <link rel="stylesheet" href="css/seat-selection.css" />
-    <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="stylesheet" href="css/dark-mode.css" />
   </head>
 
   <body>
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
     <header class="seat-header">
-      <button id="backButton" class="back-button">←</button>
+      <button id="backButton" class="back-button" type="button">←</button>
 
       <div>
         <h1 id="movieTitle">Select Seats</h1>
@@ -22,8 +25,14 @@
       </div>
     </header>
 
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
     <main class="seat-page">
-      <!-- SCREEN -->
+      <!-- =========================================
+           SCREEN
+      ========================================== -->
 
       <section class="screen-section">
         <div class="screen">SCREEN THIS WAY</div>
@@ -31,14 +40,18 @@
         <div class="screen-glow"></div>
       </section>
 
-      <!-- SEAT AREA -->
+      <!-- =========================================
+           SEAT AREA
+      ========================================== -->
 
       <section class="seat-section">
         <div class="seat-container">
           <div id="seatLayout"></div>
         </div>
 
-        <!-- LEGEND -->
+        <!-- =========================================
+             LEGEND
+        ========================================== -->
 
         <div class="seat-legend">
           <div class="legend-item">
@@ -52,13 +65,39 @@
           </div>
 
           <div class="legend-item">
+            <span class="seat-demo frozen"></span>
+            Frozen
+          </div>
+
+          <div class="legend-item">
             <span class="seat-demo occupied"></span>
             Sold
           </div>
         </div>
       </section>
 
-      <!-- BOOKING SUMMARY -->
+      <!-- =========================================
+           SELECTED SEATS TYPE
+      ========================================== -->
+
+      <section id="seatTypeSection" class="seat-type-section">
+        <h2>Choose Booking Type</h2>
+
+        <p class="seat-type-description">
+          Confirm seats by paying the full amount, or freeze selected seats by
+          paying 50% now.
+        </p>
+
+        <div id="selectedSeatTypes">
+          <p class="empty-seat-message">
+            Select seats to choose their booking type.
+          </p>
+        </div>
+      </section>
+
+      <!-- =========================================
+           BOOKING SUMMARY
+      ========================================== -->
 
       <section class="booking-summary">
         <div class="summary-content">
@@ -69,31 +108,65 @@
           </div>
 
           <div class="summary-info">
-            <span class="summary-label"> Tickets </span>
+            <span class="summary-label"> Confirmed Seats </span>
+
+            <strong id="confirmedSeatsCount"> 0 </strong>
+          </div>
+
+          <div class="summary-info">
+            <span class="summary-label"> Frozen Seats </span>
+
+            <strong id="frozenSeatsCount"> 0 </strong>
+          </div>
+
+          <div class="summary-info">
+            <span class="summary-label"> Total Tickets </span>
 
             <strong id="ticketCount"> 0 </strong>
           </div>
 
           <div class="summary-info">
-            <span class="summary-label"> Total </span>
+            <span class="summary-label"> Confirmed Amount </span>
 
-              <strong id="totalPrice">₹0</strong>
+            <strong id="confirmedAmount"> ₹0 </strong>
           </div>
 
           <div class="summary-info">
-            <span class="summary-label"> Advance (50%) </span>
+            <span class="summary-label"> Freeze Amount (50%) </span>
 
-              <strong id="advancePrice">₹0</strong>
+            <strong id="freezeAmount"> ₹0 </strong>
           </div>
 
-          <button id="continueButton" class="continue-button" disabled>
-            Freeze Seats
+          <div class="summary-info">
+            <span class="summary-label"> Pay Now </span>
+
+            <strong id="payNowAmount"> ₹0 </strong>
+          </div>
+
+          <div class="summary-info">
+            <span class="summary-label"> Remaining for Frozen Seats </span>
+
+            <strong id="remainingAmount"> ₹0 </strong>
+          </div>
+
+          <button
+            id="continueButton"
+            class="continue-button"
+            type="button"
+            disabled
+          >
+            Continue
           </button>
         </div>
       </section>
     </main>
 
+    <!-- =========================================
+         SCRIPTS
+    ========================================== -->
+
     <script type="module" src="js/main.js"></script>
+
     <script type="module" src="js/seat-selection.js"></script>
   </body>
 </html>

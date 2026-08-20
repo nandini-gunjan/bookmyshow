@@ -1,0 +1,108 @@
+<!-- =========================================
+     MY BOOKINGS PAGE
+========================================= -->
+
+<section class="my-bookings-page">
+  <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
+
+  <div class="bookings-page-header">
+    <div>
+      <span class="bookings-label"> BOOKITBRO </span>
+
+      <h1>My Bookings</h1>
+
+      <p>Manage all your movie, sports and frozen seat bookings.</p>
+    </div>
+  </div>
+
+  <!-- =========================================
+         BOOKING FILTERS
+    ========================================== -->
+
+  <div class="booking-tabs">
+    <button class="booking-tab active" data-filter="all">All</button>
+
+    <button class="booking-tab" data-filter="upcoming">Upcoming</button>
+
+    <button class="booking-tab" data-filter="frozen">Frozen</button>
+
+    <button class="booking-tab" data-filter="completed">Completed</button>
+
+    <button class="booking-tab" data-filter="cancelled">Cancelled</button>
+  </div>
+
+  <!-- =========================================
+         LOADING STATE
+    ========================================== -->
+
+  <div id="bookingLoading" class="booking-loading">
+    <div class="loading-spinner"></div>
+
+    <p>Loading your bookings...</p>
+  </div>
+
+  <!-- =========================================
+         BOOKINGS CONTAINER
+    ========================================== -->
+
+  <div id="bookingsContainer" class="bookings-container"></div>
+
+  <!-- =========================================
+         EMPTY STATE
+    ========================================== -->
+
+  <div id="emptyBookings" class="empty-bookings hidden">
+    <div class="empty-icon">🎟️</div>
+
+    <h2>No Bookings Found</h2>
+
+    <p>
+      You haven't made any bookings yet. Explore movies, sports and activities
+      to get started.
+    </p>
+
+    <button class="explore-button" id="exploreBookingsButton">
+      Explore Now
+    </button>
+  </div>
+
+  <!-- =========================================
+         ERROR STATE
+    ========================================== -->
+
+  <div id="bookingError" class="booking-error hidden">
+    <div class="error-icon">⚠️</div>
+
+    <h2>Unable to Load Bookings</h2>
+
+    <p id="bookingErrorMessage">
+      Something went wrong while loading your bookings.
+    </p>
+
+    <button id="retryButton" class="retry-button">Try Again</button>
+  </div>
+</section>
+
+<!-- =========================================
+     BOOKING DETAILS MODAL
+========================================= -->
+
+<div id="bookingDetailsModal" class="booking-modal hidden">
+  <div class="modal-overlay"></div>
+
+  <div class="modal-content">
+    <button
+      id="closeModal"
+      class="close-modal"
+      aria-label="Close booking details"
+    >
+      &times;
+    </button>
+
+    <div id="bookingDetailsContent">
+      <!-- Booking details added by JavaScript -->
+    </div>
+  </div>
+</div>

@@ -1,446 +1,413 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Payment | BookItBro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/payment.css" />
-    <link rel="stylesheet" href="css/dark-mode.css" />
-  </head>
+  <title>Payment | BookItBro</title>
 
-  <body>
-    <!-- =========================================
+  <link rel="stylesheet" href="css/payment.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+</head>
+
+<body>
+  <!-- =========================================
          HEADER
     ========================================== -->
 
-    <header class="payment-header">
-      <button id="backButton" class="back-button" aria-label="Go back">
-        ←
-      </button>
+  <header class="payment-header">
+    <button id="backButton" class="back-button" aria-label="Go back">
+      ←
+    </button>
 
-      <div class="header-content">
-        <h1>Payment</h1>
+    <div class="header-content">
+      <h1>Payment</h1>
 
-        <p>Complete your booking securely</p>
-      </div>
+      <p>Complete your booking securely</p>
+    </div>
 
-      <div class="secure-badge">🔒 Secure</div>
-    </header>
+    <div class="secure-badge">🔒 Secure</div>
+  </header>
 
-    <!-- =========================================
+  <!-- =========================================
          MAIN
     ========================================== -->
 
-    <main class="payment-page">
-      <div class="payment-container">
-        <!-- =================================
+  <main class="payment-page">
+    <div class="payment-container">
+      <!-- =================================
         LEFT SECTION
       ================================== -->
 
-        <div class="payment-left">
-          <!-- =================================
+      <div class="payment-left">
+        <!-- =================================
           BOOKING DETAILS
         ================================== -->
 
-          <section class="payment-card booking-card">
-            <div class="section-heading">
+        <section class="payment-card booking-card">
+          <div class="section-heading">
+            <div>
+              <span class="section-number"> 1 </span>
+
               <div>
-                <span class="section-number"> 1 </span>
+                <h2 id="bookingHeading">Your Booking</h2>
 
-                <div>
-                  <h2 id="bookingHeading">Your Booking</h2>
-
-                  <p id="bookingSubheading">Review your booking details</p>
-                </div>
+                <p id="bookingSubheading">Review your booking details</p>
               </div>
             </div>
+          </div>
 
-            <!-- =====================================
+          <!-- =====================================
                MOVIE BOOKING
           ====================================== -->
 
-            <div id="movieBookingDetails" class="booking-details">
-              <div class="booking-movie">
-                <div class="poster-wrapper">
-                  <img id="moviePoster" src="" alt="Movie Poster" />
-                </div>
-
-                <div class="movie-details">
-                  <h3 id="movieTitle">Loading...</h3>
-
-                  <p id="movieMeta">—</p>
-                </div>
+          <div id="movieBookingDetails" class="booking-details">
+            <div class="booking-movie">
+              <div class="poster-wrapper">
+                <img id="moviePoster" src="" alt="Movie Poster" />
               </div>
 
-              <div class="booking-info-grid">
-                <div class="booking-info">
-                  <span> Theatre </span>
+              <div class="movie-details">
+                <h3 id="movieTitle">Loading...</h3>
 
-                  <strong id="theatreName"> — </strong>
-                </div>
-
-                <div class="booking-info">
-                  <span> Screen </span>
-
-                  <strong id="screenName"> — </strong>
-                </div>
-
-                <div class="booking-info">
-                  <span> Date </span>
-
-                  <strong id="showDate"> — </strong>
-                </div>
-
-                <div class="booking-info">
-                  <span> Showtime </span>
-
-                  <strong id="showTime"> — </strong>
-                </div>
-
-                <div class="booking-info full-width">
-                  <span> Selected Seats </span>
-
-                  <strong id="selectedSeats"> — </strong>
-                </div>
+                <p id="movieMeta">—</p>
               </div>
             </div>
 
-            <!-- =====================================
+            <div class="booking-info-grid">
+              <div class="booking-info">
+                <span> Theatre </span>
+
+                <strong id="theatreName"> — </strong>
+              </div>
+
+              <div class="booking-info">
+                <span> Screen </span>
+
+                <strong id="screenName"> — </strong>
+              </div>
+
+              <div class="booking-info">
+                <span> Date </span>
+
+                <strong id="showDate"> — </strong>
+              </div>
+
+              <div class="booking-info">
+                <span> Showtime </span>
+
+                <strong id="showTime"> — </strong>
+              </div>
+
+              <div class="booking-info full-width">
+                <span> Selected Seats </span>
+
+                <strong id="selectedSeats"> — </strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- =====================================
                SPORTS BOOKING
           ====================================== -->
 
-            <div
-              id="sportsBookingDetails"
-              class="booking-details sports-booking-details"
-              style="display: none"
-            >
-              <div class="booking-movie">
-                <div class="poster-wrapper">
-                  <img id="sportsPoster" src="" alt="Sports Event" />
-                </div>
-
-                <div class="movie-details">
-                  <span class="sports-label"> SPORTS EVENT </span>
-
-                  <h3 id="sportsEventName">Loading...</h3>
-
-                  <p id="sportsLeague">—</p>
-                </div>
+          <div id="sportsBookingDetails" class="booking-details sports-booking-details" style="display: none">
+            <div class="booking-movie">
+              <div class="poster-wrapper">
+                <img id="sportsPoster" src="" alt="Sports Event" />
               </div>
 
-              <div class="booking-info-grid">
-                <div class="booking-info">
-                  <span> Sport </span>
+              <div class="movie-details">
+                <span class="sports-label"> SPORTS EVENT </span>
 
-                  <strong id="sportsSport"> — </strong>
-                </div>
+                <h3 id="sportsEventName">Loading...</h3>
 
-                <div class="booking-info">
-                  <span> Venue </span>
-
-                  <strong id="sportsVenue"> — </strong>
-                </div>
-
-                <div class="booking-info">
-                  <span> Date </span>
-
-                  <strong id="sportsDate"> — </strong>
-                </div>
-
-                <div class="booking-info">
-                  <span> Time </span>
-
-                  <strong id="sportsTime"> — </strong>
-                </div>
-
-                <div class="booking-info full-width">
-                  <span> Teams </span>
-
-                  <strong id="sportsTeams"> — </strong>
-                </div>
+                <p id="sportsLeague">—</p>
               </div>
             </div>
-          </section>
 
-          <!-- =================================
+            <div class="booking-info-grid">
+              <div class="booking-info">
+                <span> Sport </span>
+
+                <strong id="sportsSport"> — </strong>
+              </div>
+
+              <div class="booking-info">
+                <span> Venue </span>
+
+                <strong id="sportsVenue"> — </strong>
+              </div>
+
+              <div class="booking-info">
+                <span> Date </span>
+
+                <strong id="sportsDate"> — </strong>
+              </div>
+
+              <div class="booking-info">
+                <span> Time </span>
+
+                <strong id="sportsTime"> — </strong>
+              </div>
+
+              <div class="booking-info full-width">
+                <span> Teams </span>
+
+                <strong id="sportsTeams"> — </strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================
                      PAYMENT METHODS
                 ================================== -->
 
-          <section class="payment-card">
-            <div class="section-heading">
+        <section class="payment-card">
+          <div class="section-heading">
+            <div>
+              <span class="section-number"> 2 </span>
+
               <div>
-                <span class="section-number"> 2 </span>
+                <h2>Payment Method</h2>
 
-                <div>
-                  <h2>Payment Method</h2>
-
-                  <p>Choose your preferred payment method</p>
-                </div>
+                <p>Choose your preferred payment method</p>
               </div>
             </div>
+          </div>
 
-            <!-- Payment Tabs -->
+          <!-- Payment Tabs -->
 
-            <div class="payment-methods">
-              <button
-                class="method-button active"
-                data-method="upi"
-                type="button"
-              >
-                <span class="method-icon"> 📱 </span>
+          <div class="payment-methods">
+            <button class="method-button active" data-method="upi" type="button">
+              <span class="method-icon"> 📱 </span>
 
-                <span> UPI </span>
-              </button>
+              <span> UPI </span>
+            </button>
 
-              <button class="method-button" data-method="card" type="button">
-                <span class="method-icon"> 💳 </span>
+            <button class="method-button" data-method="card" type="button">
+              <span class="method-icon"> 💳 </span>
 
-                <span> Card </span>
-              </button>
+              <span> Card </span>
+            </button>
 
-              <button
-                class="method-button"
-                data-method="netbanking"
-                type="button"
-              >
-                <span class="method-icon"> 🏦 </span>
+            <button class="method-button" data-method="netbanking" type="button">
+              <span class="method-icon"> 🏦 </span>
 
-                <span> Net Banking </span>
-              </button>
+              <span> Net Banking </span>
+            </button>
 
-              <button class="method-button" data-method="wallet" type="button">
-                <span class="method-icon"> 👛 </span>
+            <button class="method-button" data-method="wallet" type="button">
+              <span class="method-icon"> 👛 </span>
 
-                <span> Wallet </span>
-              </button>
-            </div>
+              <span> Wallet </span>
+            </button>
+          </div>
 
-            <!-- =================================
+          <!-- =================================
                          UPI FORM
                     ================================== -->
 
-            <div id="upiForm" class="payment-form active">
-              <label for="upiId"> UPI ID </label>
+          <div id="upiForm" class="payment-form active">
+            <label for="upiId"> UPI ID </label>
 
-              <input
-                type="text"
-                id="upiId"
-                placeholder="example@upi"
-                autocomplete="off"
-              />
+            <input type="text" id="upiId" placeholder="example@upi" autocomplete="off" />
 
-              <p class="input-hint">Enter your UPI ID to continue</p>
-            </div>
+            <p class="input-hint">Enter your UPI ID to continue</p>
+          </div>
 
-            <!-- =================================
+          <!-- =================================
                          CARD FORM
                     ================================== -->
 
-            <div id="cardForm" class="payment-form">
-              <div class="form-group">
-                <label for="cardNumber"> Card Number </label>
+          <div id="cardForm" class="payment-form">
+            <div class="form-group">
+              <label for="cardNumber"> Card Number </label>
 
-                <input
-                  type="text"
-                  id="cardNumber"
-                  placeholder="1234 5678 9012 3456"
-                  maxlength="19"
-                  inputmode="numeric"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="cardName"> Cardholder Name </label>
-
-                <input type="text" id="cardName" placeholder="Name on card" />
-              </div>
-
-              <div class="card-row">
-                <div class="form-group">
-                  <label for="expiry"> Expiry </label>
-
-                  <input
-                    type="text"
-                    id="expiry"
-                    placeholder="MM/YY"
-                    maxlength="5"
-                    inputmode="numeric"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="cvv"> CVV </label>
-
-                  <input
-                    type="password"
-                    id="cvv"
-                    placeholder="•••"
-                    maxlength="3"
-                    inputmode="numeric"
-                  />
-                </div>
-              </div>
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" />
             </div>
 
-            <!-- =================================
+            <div class="form-group">
+              <label for="cardName"> Cardholder Name </label>
+
+              <input type="text" id="cardName" placeholder="Name on card" />
+            </div>
+
+            <div class="card-row">
+              <div class="form-group">
+                <label for="expiry"> Expiry </label>
+
+                <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" />
+              </div>
+
+              <div class="form-group">
+                <label for="cvv"> CVV </label>
+
+                <input type="password" id="cvv" placeholder="•••" maxlength="3" inputmode="numeric" />
+              </div>
+            </div>
+          </div>
+
+          <!-- =================================
                          NET BANKING FORM
                     ================================== -->
 
-            <div id="netbankingForm" class="payment-form">
-              <label for="bank"> Select your bank </label>
+          <div id="netbankingForm" class="payment-form">
+            <label for="bank"> Select your bank </label>
 
-              <select id="bank">
-                <option value="">Select Bank</option>
+            <select id="bank">
+              <option value="">Select Bank</option>
 
-                <option value="sbi">State Bank of India</option>
+              <option value="sbi">State Bank of India</option>
 
-                <option value="hdfc">HDFC Bank</option>
+              <option value="hdfc">HDFC Bank</option>
 
-                <option value="icici">ICICI Bank</option>
+              <option value="icici">ICICI Bank</option>
 
-                <option value="axis">Axis Bank</option>
+              <option value="axis">Axis Bank</option>
 
-                <option value="kotak">Kotak Mahindra Bank</option>
-              </select>
-            </div>
+              <option value="kotak">Kotak Mahindra Bank</option>
+            </select>
+          </div>
 
-            <!-- =================================
+          <!-- =================================
                          WALLET FORM
                     ================================== -->
 
-            <div id="walletForm" class="payment-form">
-              <label for="wallet"> Select Wallet </label>
+          <div id="walletForm" class="payment-form">
+            <label for="wallet"> Select Wallet </label>
 
-              <select id="wallet">
-                <option value="">Select Wallet</option>
+            <select id="wallet">
+              <option value="">Select Wallet</option>
 
-                <option value="paytm">Paytm</option>
+              <option value="paytm">Paytm</option>
 
-                <option value="phonepe">PhonePe</option>
+              <option value="phonepe">PhonePe</option>
 
-                <option value="amazonpay">Amazon Pay</option>
-              </select>
-            </div>
+              <option value="amazonpay">Amazon Pay</option>
+            </select>
+          </div>
 
-            <!-- Security -->
+          <!-- Security -->
 
-            <div class="security-note">
-              <span> 🔒 </span>
+          <div class="security-note">
+            <span> 🔒 </span>
 
-              <p>
-                Your payment information is protected with secure encryption.
-              </p>
-            </div>
-          </section>
-        </div>
+            <p>
+              Your payment information is protected with secure encryption.
+            </p>
+          </div>
+        </section>
+      </div>
 
-        <!-- =================================
+      <!-- =================================
                  RIGHT SECTION
             ================================== -->
 
-        <aside class="payment-right">
-          <!-- =================================
+      <aside class="payment-right">
+        <!-- =================================
                      PRICE SUMMARY
                 ================================== -->
 
-          <section class="payment-card price-card">
-            <h2>Price Summary</h2>
+        <section class="payment-card price-card">
+          <h2>Price Summary</h2>
 
-            <div class="summary-row">
-              <span> Tickets </span>
+          <div class="summary-row">
+            <span> Tickets </span>
 
-              <span id="ticketPrice"> ₹0.00 </span>
-            </div>
+            <span id="ticketPrice"> ₹0.00 </span>
+          </div>
 
-            <div class="summary-row">
-              <span> Number of Tickets </span>
+          <div class="summary-row">
+            <span> Number of Tickets </span>
 
-              <span id="ticketCount"> 0 </span>
-            </div>
+            <span id="ticketCount"> 0 </span>
+          </div>
 
-            <div class="summary-row">
-              <span> Convenience Fee </span>
+          <div class="summary-row">
+            <span> Convenience Fee </span>
 
-              <span id="convenienceFee"> ₹0.00 </span>
-            </div>
+            <span id="convenienceFee"> ₹0.00 </span>
+          </div>
 
-            <div class="summary-row">
-              <span> GST </span>
+          <div class="summary-row">
+            <span> GST </span>
 
-              <span id="gst"> ₹0.00 </span>
-            </div>
+            <span id="gst"> ₹0.00 </span>
+          </div>
 
-            <div class="summary-divider"></div>
+          <div class="summary-divider"></div>
 
-            <div class="total">
-              <span> Total Amount </span>
+          <div class="total">
+            <span> Total Amount </span>
 
-              <strong id="totalAmount"> ₹0.00 </strong>
-            </div>
-          </section>
+            <strong id="totalAmount"> ₹0.00 </strong>
+          </div>
+        </section>
 
-          <!-- =================================
+        <!-- =================================
                      PAY BUTTON
                 ================================== -->
 
-          <section class="payment-card pay-card">
-            <div class="pay-secure">
-              <span> 🔐 </span>
+        <section class="payment-card pay-card">
+          <div class="pay-secure">
+            <span> 🔐 </span>
 
-              <div>
-                <strong> Safe & Secure Payment </strong>
+            <div>
+              <strong> Safe & Secure Payment </strong>
 
-                <p>Your transaction is protected.</p>
-              </div>
+              <p>Your transaction is protected.</p>
             </div>
+          </div>
 
-            <button id="payButton" class="pay-button" type="button">
-              <span> Pay </span>
+          <button id="payButton" class="pay-button" type="button">
+            <span> Pay </span>
 
-              <strong id="payAmount"> ₹0.00 </strong>
-            </button>
+            <strong id="payAmount"> ₹0.00 </strong>
+          </button>
 
-            <p class="payment-disclaimer">
-              By clicking Pay, you agree to our booking terms and cancellation
-              policy.
-            </p>
-          </section>
-        </aside>
-      </div>
-    </main>
+          <p class="payment-disclaimer">
+            By clicking Pay, you agree to our booking terms and cancellation
+            policy.
+          </p>
+        </section>
+      </aside>
+    </div>
+  </main>
 
-    <!-- =========================================
+  <!-- =========================================
          PAYMENT PROCESSING MODAL
     ========================================== -->
 
-    <div id="processingModal" class="modal hidden">
-      <div class="modal-content">
-        <div class="loader"></div>
+  <div id="processingModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="loader"></div>
 
-        <h2>Processing Payment</h2>
+      <h2>Processing Payment</h2>
 
-        <p>Please wait while we process your payment...</p>
-      </div>
+      <p>Please wait while we process your payment...</p>
     </div>
+  </div>
 
-    <!-- =========================================
+  <!-- =========================================
          PAYMENT SUCCESS MODAL
     ========================================== -->
 
-    <div id="successModal" class="modal hidden">
-      <div class="modal-content success-content">
-        <div class="success-icon">✓</div>
+  <div id="successModal" class="modal hidden">
+    <div class="modal-content success-content">
+      <div class="success-icon">✓</div>
 
-        <h2>Payment Successful</h2>
+      <h2>Payment Successful</h2>
 
-        <p>Your booking has been confirmed.</p>
-      </div>
+      <p>Your booking has been confirmed.</p>
     </div>
+  </div>
 
-    <script type="module" src="js/main.js"></script>
-    <script src="js/payment.js"></script>
-  </body>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/payment.js"></script>
+</body>
+
 </html>

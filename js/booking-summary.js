@@ -7,293 +7,10 @@
    STATE
 ========================================= */
 
-function initialize() {
-  const loaded = loadFinalBooking();
-
-  if (!loaded) {
-    return;
-  }
-
-  displayFrozenBooking();
-
-  checkBookingExpiry();
-
-  startConfirmationCountdown();
-
-  const confirmButton =
-    document.getElementById("confirmTicketButton");
-
-  if (confirmButton) {
-    confirmButton.addEventListener(
-      "click",
-      confirmTicket
-    );
-  }
-}
-
-initialize();
-let finalBooking = null;
-
-function loadFinalBooking() {
-  const storedBooking = sessionStorage.getItem(
-    "bookItBroFinalBooking"
-  );
-
-  if (!storedBooking) {
-    alert("Booking information not found.");
-
-    window.location.href = "seat-selection.html";
-
-    return false;
-  }
-
-  try {
-    finalBooking = JSON.parse(storedBooking);
-
-    return true;
-  } catch (error) {
-    console.error("Booking data error:", error);
-
-    return false;
-  }
-}
-
-function displayFrozenBooking() {
-  if (!finalBooking) {
-    return;
-  }
-
-  document.getElementById("bookingStatus").textContent =
-    finalBooking.bookingStatus || "FROZEN";
-
-  const deadline = new Date(
-    finalBooking.confirmationDeadline
-  );
-
-  document.getElementById("confirmationDeadline").textContent =
-    deadline.toLocaleString("en-IN", {
-      day: "numeric",
-      month: "short",
-      hour: "numeric",
-      minute: "2-digit",
-    });
-
-  document.getElementById("advanceAmount").textContent =
-    `₹${Number(finalBooking.advanceAmount || 0).toFixed(2)}`;
-
-  document.getElementById("remainingAmount").textContent =
-    `₹${Number(finalBooking.remainingAmount || 0).toFixed(2)}`;
-}
-
-function checkBookingExpiry() {
-  if (!finalBooking) {
-    return;
-  }
-
-  /*
-      Don't cancel confirmed bookings
-  */
-
-  if (finalBooking.bookingStatus === "CONFIRMED") {
-    return;
-  }
-
-  /*
-      Don't process already cancelled bookings
-  */
-
-  if (finalBooking.bookingStatus === "CANCELLED") {
-    return;
-  }
-
-  /*
-      Check if 2-hour deadline has passed
-  */
-
-  if (
-    Date.now() >=
-    Number(finalBooking.confirmationDeadline)
-  ) {
-    finalBooking.bookingStatus = "CANCELLED";
-
-    finalBooking.paymentStatus = "ADVANCE_FORFEITED";
-
-    finalBooking.cancelledAt = Date.now();
-
-    /*
-        Save updated booking
-    */
-
-    sessionStorage.setItem(
-      "bookItBroFinalBooking",
-      JSON.stringify(finalBooking)
-    );
-
-    alert(
-      "Your booking has been automatically cancelled because you did not confirm it before the deadline."
-    );
-
-    window.location.href = "index.html";
-  }
-}
-
-function startConfirmationCountdown() {
-  const countdownElement = document.getElementById(
-    "confirmationCountdown"
-  );
-
-  if (!countdownElement || !finalBooking) {
-    return;
-  }
-
-  function updateCountdown() {
-    const remainingTime =
-      Number(finalBooking.confirmationDeadline) -
-      Date.now();
-
-    /*
-        Time expired
-    */
-
-    if (remainingTime <= 0) {
-      countdownElement.textContent = "Booking Expired";
-
-      checkBookingExpiry();
-
-      return;
-    }
-
-    /*
-        Convert milliseconds
-    */
-
-    const totalSeconds =
-      Math.floor(remainingTime / 1000);
-
-    const hours =
-      Math.floor(totalSeconds / 3600);
-
-    const minutes =
-      Math.floor(
-        (totalSeconds % 3600) / 60
-      );
-
-    const seconds =
-      totalSeconds % 60;
-
-    /*
-        Display countdown
-    */
-
-    countdownElement.textContent =
-      `${hours}h ${minutes}m ${seconds}s`;
-  }
-
-  /*
-      Update immediately
-  */
-
-  updateCountdown();
-
-  /*
-      Update every second
-  */
-
-  setInterval(updateCountdown, 1000);
-}
-
 let booking = null;
 
-/*
-    Convenience fee percentage.
-
-    We can change this later.
-*/
-
 const CONVENIENCE_FEE = 30;
-
-/*
-    GST percentage.
-
-    Currently 18%.
-*/
-
 const GST_RATE = 0.18;
-function confirmTicket() {
-  if (!finalBooking) {
-    return;
-  }
-
-  /*
-      Check deadline one final time
-  */
-
-  if (
-    Date.now() >=
-    Number(finalBooking.confirmationDeadline)
-  ) {
-    finalBooking.bookingStatus = "CANCELLED";
-
-    finalBooking.paymentStatus = "ADVANCE_FORFEITED";
-
-    sessionStorage.setItem(
-      "bookItBroFinalBooking",
-      JSON.stringify(finalBooking)
-    );
-
-    alert(
-      "The confirmation deadline has passed. Your booking has been cancelled."
-    );
-
-    window.location.href = "index.html";
-
-    return;
-  }
-
-  /*
-      Confirm booking
-  */
-
-  finalBooking.bookingStatus = "CONFIRMED";
-
-  finalBooking.confirmedAt = Date.now();
-
-  /*
-      For demo purposes, mark as fully paid
-  */
-
-  finalBooking.paymentStatus = "FULLY_PAID";
-
-  finalBooking.remainingAmount = 0;
-
-  finalBooking.paidAmount =
-    finalBooking.totalAmount;
-
-  /*
-      Save confirmed booking
-  */
-
-  sessionStorage.setItem(
-    "bookItBroFinalBooking",
-    JSON.stringify(finalBooking)
-  );
-
-  /*
-      Confirmation page currently reads
-      bookItBroConfirmation, so create that too
-  */
-
-  sessionStorage.setItem(
-    "bookItBroConfirmation",
-    JSON.stringify(finalBooking)
-  );
-
-  /*
-      Go to confirmation page
-  */
-
-  window.location.href = "confirmation.html";
-}
 
 /* =========================================
    LOAD BOOKING
@@ -311,7 +28,9 @@ function loadBooking() {
   try {
     booking = JSON.parse(storedBooking);
 
-    console.log("Booking Summary Data:", booking);
+    if (!booking || typeof booking !== "object") {
+      throw new Error("Invalid booking data");
+    }
 
     return true;
   } catch (error) {
@@ -324,54 +43,93 @@ function loadBooking() {
 }
 
 /* =========================================
+   GET CONFIRMED SEATS
+========================================= */
+
+function getConfirmedSeats() {
+  return Array.isArray(booking.confirmedSeats) ? booking.confirmedSeats : [];
+}
+
+/* =========================================
+   GET FROZEN SEATS
+========================================= */
+
+function getFrozenSeats() {
+  return Array.isArray(booking.frozenSeats) ? booking.frozenSeats : [];
+}
+
+/* =========================================
+   GET ALL ACTIVE SEATS
+========================================= */
+
+function getAllSeats() {
+  return [...getConfirmedSeats(), ...getFrozenSeats()];
+}
+
+/* =========================================
    DISPLAY MOVIE
 ========================================= */
 
 function displayMovie() {
   const poster = document.getElementById("moviePoster");
-
   const title = document.getElementById("movieTitle");
-
   const meta = document.getElementById("movieMeta");
 
-  title.textContent = booking.movieTitle || "Movie";
-
-  /*
-        Your seat page stores movieTitle.
-
-        If poster is also available,
-        use it.
-    */
-
-  if (booking.moviePoster) {
-    poster.src = booking.moviePoster;
-  } else if (booking.poster) {
-    poster.src = booking.poster;
-  } else {
-    poster.style.display = "none";
+  if (title) {
+    title.textContent = booking.movieTitle || "Movie";
   }
 
-  const language = booking.language || "Movie";
+  if (poster) {
+    const posterUrl = booking.moviePoster || booking.poster || "";
 
-  const certificate = booking.certificate || "UA";
+    if (posterUrl) {
+      poster.src = posterUrl;
 
-  meta.textContent = `${language} • ${certificate}`;
+      poster.onerror = () => {
+        poster.style.display = "none";
+      };
+    } else {
+      poster.style.display = "none";
+    }
+  }
+
+  if (meta) {
+    const language = booking.language || "Movie";
+
+    const certificate = booking.certificate || "UA";
+
+    meta.textContent = `${language} • ${certificate}`;
+  }
 }
 
 /* =========================================
-   DISPLAY SHOW
+   DISPLAY SHOW DETAILS
 ========================================= */
 
 function displayShowDetails() {
-  document.getElementById("theatreName").textContent =
-    booking.theatreName || "Theatre";
+  const theatre = document.getElementById("theatreName");
 
-  document.getElementById("showDate").textContent = formatDate(booking.date);
+  const date = document.getElementById("showDate");
 
-  document.getElementById("showTime").textContent = booking.showTime || "—";
+  const time = document.getElementById("showTime");
 
-  document.getElementById("screenName").textContent =
-    booking.screen || "Screen 1";
+  const screen = document.getElementById("screenName");
+
+  if (theatre) {
+    theatre.textContent = booking.theatreName || "Theatre";
+  }
+
+  if (date) {
+    date.textContent = formatDate(booking.date);
+  }
+
+  if (time) {
+    time.textContent = booking.showTime || "—";
+  }
+
+  if (screen) {
+    screen.textContent = booking.screen || "Screen 1";
+  }
 }
 
 /* =========================================
@@ -379,55 +137,313 @@ function displayShowDetails() {
 ========================================= */
 
 function displaySeats() {
-  const seats = Array.isArray(booking.seats) ? booking.seats : [];
+  const confirmedSeats = getConfirmedSeats();
 
-  document.getElementById("selectedSeats").textContent = seats.length
-    ? seats.join(", ")
-    : "No seats selected";
+  const frozenSeats = getFrozenSeats();
+
+  const confirmedElement = document.getElementById("confirmedSeats");
+
+  const frozenElement = document.getElementById("frozenSeats");
+
+  if (confirmedElement) {
+    confirmedElement.textContent =
+      confirmedSeats.length > 0 ? confirmedSeats.join(", ") : "None";
+  }
+
+  if (frozenElement) {
+    frozenElement.textContent =
+      frozenSeats.length > 0 ? frozenSeats.join(", ") : "None";
+  }
 }
 
 /* =========================================
-   CALCULATE PRICE
+   DISPLAY FREEZE INFORMATION
+========================================= */
+
+function displayFreezeInformation() {
+  const frozenSeats = getFrozenSeats();
+
+  const freezeSection = document.getElementById("freezeInfoSection");
+
+  if (!freezeSection) {
+    return;
+  }
+
+  /* NO FROZEN SEATS */
+
+  if (frozenSeats.length === 0) {
+    freezeSection.style.display = "none";
+
+    return;
+  }
+
+  freezeSection.style.display = "block";
+
+  /* STATUS */
+
+  const bookingStatus = document.getElementById("bookingStatus");
+
+  if (bookingStatus) {
+    bookingStatus.textContent = "FROZEN • PAYMENT PENDING";
+  }
+
+  /* DEADLINE */
+
+  const deadlineElement = document.getElementById("confirmationDeadline");
+
+  if (deadlineElement) {
+    if (booking.confirmationDeadline) {
+      const deadline = new Date(Number(booking.confirmationDeadline));
+
+      if (!Number.isNaN(deadline.getTime())) {
+        deadlineElement.textContent = deadline.toLocaleString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+        });
+      } else {
+        deadlineElement.textContent = "—";
+      }
+    } else {
+      deadlineElement.textContent = "—";
+    }
+  }
+
+  /* REMAINING AMOUNT */
+
+  const remainingAmount =
+    getFrozenSeats().length * (Number(booking.ticketPrice) || 0) * 0.5;
+
+  const remainingElement = document.getElementById("remainingAmount");
+
+  if (remainingElement) {
+    remainingElement.textContent = formatCurrency(remainingAmount);
+  }
+}
+
+/* =========================================
+   CHECK FROZEN SEAT EXPIRY
+========================================= */
+
+function checkBookingExpiry() {
+  const frozenSeats = getFrozenSeats();
+
+  if (frozenSeats.length === 0) {
+    return false;
+  }
+
+  if (!booking.confirmationDeadline) {
+    return false;
+  }
+
+  const deadline = Number(booking.confirmationDeadline);
+
+  if (Date.now() < deadline) {
+    return false;
+  }
+
+  /*
+      Save cancelled frozen seats
+  */
+
+  booking.cancelledFrozenSeats = [...frozenSeats];
+
+  /*
+      Remove frozen seats
+  */
+
+  booking.frozenSeats = [];
+
+  /*
+      Keep confirmed seats
+  */
+
+  booking.seats = [...getConfirmedSeats()];
+
+  booking.numberOfTickets = getConfirmedSeats().length;
+
+  /*
+      Update status
+  */
+
+  booking.bookingStatus =
+    getConfirmedSeats().length > 0 ? "PARTIALLY_CANCELLED" : "CANCELLED";
+
+  booking.frozenStatus = "EXPIRED";
+
+  booking.paymentStatus = "FROZEN_ADVANCE_FORFEITED";
+
+  booking.frozenSeatsCancelledAt = Date.now();
+
+  /*
+      No more remaining payment
+  */
+
+  booking.frozenRemainingAmount = 0;
+
+  booking.remainingAmount = 0;
+
+  /*
+      Save
+  */
+
+  sessionStorage.setItem("bookItBroFinalBooking", JSON.stringify(booking));
+
+  alert(
+    "Your frozen seats have been cancelled because the payment deadline has passed. The advance payment is not refundable.",
+  );
+
+  return true;
+}
+
+/* =========================================
+   START COUNTDOWN
+========================================= */
+
+function startConfirmationCountdown() {
+  const frozenSeats = getFrozenSeats();
+
+  const countdownElement = document.getElementById("confirmationCountdown");
+
+  if (
+    frozenSeats.length === 0 ||
+    !countdownElement ||
+    !booking.confirmationDeadline
+  ) {
+    return;
+  }
+
+  function updateCountdown() {
+    const remainingTime = Number(booking.confirmationDeadline) - Date.now();
+
+    /* EXPIRED */
+
+    if (remainingTime <= 0) {
+      countdownElement.textContent = "Booking Expired";
+
+      const expired = checkBookingExpiry();
+
+      if (expired) {
+        window.location.reload();
+      }
+
+      return;
+    }
+
+    /* CALCULATE TIME */
+
+    const totalSeconds = Math.floor(remainingTime / 1000);
+
+    const hours = Math.floor(totalSeconds / 3600);
+
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+    const seconds = totalSeconds % 60;
+
+    countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+
+  setInterval(updateCountdown, 1000);
+}
+
+/* =========================================
+   CALCULATE PAYMENT
 ========================================= */
 
 function calculatePrice() {
-  const seats = Array.isArray(booking.seats) ? booking.seats : [];
+  const confirmedSeats = getConfirmedSeats();
 
-  const ticketCount = seats.length || Number(booking.numberOfTickets) || 0;
+  const frozenSeats = getFrozenSeats();
+
+  const confirmedCount = confirmedSeats.length;
+
+  const frozenCount = frozenSeats.length;
+
+  const ticketCount = confirmedCount + frozenCount;
 
   const ticketPrice = Number(booking.ticketPrice) || 0;
 
-  const baseAmount = ticketCount * ticketPrice;
+  /* CONFIRMED SEATS
+     100% PAYMENT NOW */
+
+  const confirmedAmount = confirmedCount * ticketPrice;
+
+  /* FROZEN SEATS
+     FULL VALUE */
+
+  const frozenFullAmount = frozenCount * ticketPrice;
+
+  /* PAY 50% NOW */
+
+  const frozenAdvanceAmount = frozenFullAmount * 0.5;
+
+  /* PAY 50% LATER */
+
+  const frozenRemainingAmount = frozenFullAmount * 0.5;
+
+  /* TICKET PAYMENT NOW */
+
+  const ticketAmountPayNow = confirmedAmount + frozenAdvanceAmount;
 
   /*
-        Convenience fee.
-    */
+      Convenience fee
+
+      Applied once per booking
+  */
 
   const convenienceFee = ticketCount > 0 ? CONVENIENCE_FEE : 0;
 
   /*
-        GST is calculated on
-        ticket + convenience fee.
-    */
+      GST only on the
+      amount payable now
+  */
 
-  const taxableAmount = baseAmount + convenienceFee;
+  const taxableAmount = ticketAmountPayNow + convenienceFee;
 
   const gst = taxableAmount * GST_RATE;
 
-  const total = baseAmount + convenienceFee + gst;
+  /*
+      FINAL PAYMENT NOW
+  */
+
+  const payableNow = ticketAmountPayNow + convenienceFee + gst;
+
+  /*
+      Full ticket value
+
+      Excluding fees and GST.
+  */
+
+  const fullBookingValue = confirmedAmount + frozenFullAmount;
 
   return {
+    confirmedCount,
+    frozenCount,
     ticketCount,
 
     ticketPrice,
 
-    baseAmount,
+    confirmedAmount,
+
+    frozenFullAmount,
+
+    frozenAdvanceAmount,
+
+    frozenRemainingAmount,
+
+    ticketAmountPayNow,
 
     convenienceFee,
 
     gst,
 
-    total,
+    payableNow,
+
+    fullBookingValue,
   };
 }
 
@@ -438,21 +454,128 @@ function calculatePrice() {
 function displayPrice() {
   const price = calculatePrice();
 
-  document.getElementById("ticketPrice").textContent =
-    `₹${price.baseAmount.toFixed(2)}`;
+  /* TICKET PRICE */
 
-  document.getElementById("ticketCount").textContent = price.ticketCount;
+  const ticketPriceElement = document.getElementById("ticketPrice");
 
-  document.getElementById("convenienceFee").textContent =
-    `₹${price.convenienceFee.toFixed(2)}`;
+  if (ticketPriceElement) {
+    ticketPriceElement.textContent = formatCurrency(price.ticketPrice);
+  }
 
-  document.getElementById("gst").textContent = `₹${price.gst.toFixed(2)}`;
+  /* CONFIRMED COUNT */
 
-  document.getElementById("totalAmount").textContent =
-    `₹${price.total.toFixed(2)}`;
+  const confirmedSeatCount = document.getElementById("confirmedSeatCount");
 
-  document.getElementById("bottomTotal").textContent =
-    `₹${price.total.toFixed(2)}`;
+  if (confirmedSeatCount) {
+    confirmedSeatCount.textContent = `${price.confirmedCount} seat${
+      price.confirmedCount === 1 ? "" : "s"
+    } × full price`;
+  }
+
+  /* FROZEN COUNT */
+
+  const frozenSeatCount = document.getElementById("frozenSeatCount");
+
+  if (frozenSeatCount) {
+    frozenSeatCount.textContent = `${price.frozenCount} seat${
+      price.frozenCount === 1 ? "" : "s"
+    } × 50% advance`;
+  }
+
+  /* CONFIRMED AMOUNT */
+
+  const confirmedAmount = document.getElementById("confirmedAmount");
+
+  if (confirmedAmount) {
+    confirmedAmount.textContent = formatCurrency(price.confirmedAmount);
+  }
+
+  /* FROZEN ADVANCE */
+
+  const frozenAdvance = document.getElementById("frozenAdvanceAmount");
+
+  if (frozenAdvance) {
+    frozenAdvance.textContent = formatCurrency(price.frozenAdvanceAmount);
+  }
+
+  /* TICKET AMOUNT PAY NOW */
+
+  const ticketPayNow = document.getElementById("ticketAmountPayNow");
+
+  if (ticketPayNow) {
+    ticketPayNow.textContent = formatCurrency(price.ticketAmountPayNow);
+  }
+
+  /* CONVENIENCE */
+
+  const convenienceFee = document.getElementById("convenienceFee");
+
+  if (convenienceFee) {
+    convenienceFee.textContent = formatCurrency(price.convenienceFee);
+  }
+
+  /* GST */
+
+  const gst = document.getElementById("gst");
+
+  if (gst) {
+    gst.textContent = formatCurrency(price.gst);
+  }
+
+  /* PAYABLE NOW */
+
+  const totalAmount = document.getElementById("totalAmount");
+
+  if (totalAmount) {
+    totalAmount.textContent = formatCurrency(price.payableNow);
+  }
+
+  const bottomTotal = document.getElementById("bottomTotal");
+
+  if (bottomTotal) {
+    bottomTotal.textContent = formatCurrency(price.payableNow);
+  }
+
+  /*
+      REMAINING PAYMENT
+  */
+
+  const remainingSummary = document.getElementById("remainingPaymentSummary");
+
+  const priceRemainingAmount = document.getElementById("priceRemainingAmount");
+
+  if (price.frozenCount === 0) {
+    if (remainingSummary) {
+      remainingSummary.style.display = "none";
+    }
+  } else {
+    if (remainingSummary) {
+      remainingSummary.style.display = "flex";
+    }
+
+    if (priceRemainingAmount) {
+      priceRemainingAmount.textContent = formatCurrency(
+        price.frozenRemainingAmount,
+      );
+    }
+  }
+
+  /*
+      Hide rows that have
+      no seats of that type
+  */
+
+  const confirmedRow = document.getElementById("confirmedPaymentRow");
+
+  if (confirmedRow) {
+    confirmedRow.style.display = price.confirmedCount > 0 ? "flex" : "none";
+  }
+
+  const frozenRow = document.getElementById("frozenPaymentRow");
+
+  if (frozenRow) {
+    frozenRow.style.display = price.frozenCount > 0 ? "flex" : "none";
+  }
 }
 
 /* =========================================
@@ -464,6 +587,12 @@ function setupTerms() {
 
   const paymentButton = document.getElementById("proceedPaymentButton");
 
+  if (!checkbox || !paymentButton) {
+    return;
+  }
+
+  paymentButton.disabled = !checkbox.checked;
+
   checkbox.addEventListener("change", () => {
     paymentButton.disabled = !checkbox.checked;
   });
@@ -474,36 +603,77 @@ function setupTerms() {
 ========================================= */
 
 function proceedToPayment() {
+  const expired = checkBookingExpiry();
+
+  if (expired) {
+    window.location.reload();
+
+    return;
+  }
+
   const price = calculatePrice();
 
   /*
-        Store final calculated
-        amount for payment page.
-    */
+      PAYMENT DATA
+  */
 
   const paymentData = {
     ...booking,
 
+    /* SEATS */
+
+    seats: getAllSeats(),
+
+    confirmedSeats: getConfirmedSeats(),
+
+    frozenSeats: getFrozenSeats(),
+
+    confirmedSeatCount: price.confirmedCount,
+
+    frozenSeatCount: price.frozenCount,
+
     ticketCount: price.ticketCount,
 
-    baseAmount: price.baseAmount,
+    numberOfTickets: price.ticketCount,
 
-    convenienceFee: price.convenienceFee,
+    /* PRICE */
+
+    ticketPrice: price.ticketPrice,
+
+    confirmedAmount: Number(price.confirmedAmount.toFixed(2)),
+
+    frozenFullAmount: Number(price.frozenFullAmount.toFixed(2)),
+
+    frozenAdvanceAmount: Number(price.frozenAdvanceAmount.toFixed(2)),
+
+    frozenRemainingAmount: Number(price.frozenRemainingAmount.toFixed(2)),
+
+    remainingAmount: Number(price.frozenRemainingAmount.toFixed(2)),
+
+    /* PAYMENT NOW */
+
+    ticketAmountPayNow: Number(price.ticketAmountPayNow.toFixed(2)),
+
+    convenienceFee: Number(price.convenienceFee.toFixed(2)),
 
     gst: Number(price.gst.toFixed(2)),
 
-    totalAmount: Number(price.total.toFixed(2)),
+    payableNow: Number(price.payableNow.toFixed(2)),
+
+    totalAmount: Number(price.payableNow.toFixed(2)),
+
+    /* TOTAL BOOKING VALUE */
+
+    fullBookingValue: Number(price.fullBookingValue.toFixed(2)),
+
+    /* STATUS */
+
+    paymentStatus: "PENDING",
   };
 
   sessionStorage.setItem("bookItBroPayment", JSON.stringify(paymentData));
 
   console.log("Payment Data:", paymentData);
-
-  /*
-        Next page we will create:
-
-        payment.html
-    */
 
   window.location.href = "payment.html";
 }
@@ -525,12 +695,42 @@ function goBack() {
 }
 
 /* =========================================
+   FORMAT CURRENCY
+========================================= */
+
+function formatCurrency(amount) {
+  const value = Number(amount) || 0;
+
+  return `₹${value.toFixed(2)}`;
+}
+
+/* =========================================
    FORMAT DATE
 ========================================= */
 
 function formatDate(dateString) {
   if (!dateString) {
     return "—";
+  }
+
+  /*
+      Prevent timezone shift
+      for YYYY-MM-DD
+  */
+
+  if (
+    typeof dateString === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(dateString)
+  ) {
+    const [year, month, day] = dateString.split("-");
+
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+
+    return date.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
   }
 
   const date = new Date(dateString);
@@ -552,51 +752,49 @@ function formatDate(dateString) {
 
 function showBookingError() {
   document.body.innerHTML = `
+    <div style="
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:#f5f5f5;
+      font-family:Arial,sans-serif;
+      text-align:center;
+    ">
 
-        <div style="
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-            background:#f5f5f5;
-            font-family:Arial,sans-serif;
-            text-align:center;
+      <div>
+
+        <h2>
+          Booking information not found
+        </h2>
+
+        <p style="
+          color:#777;
+          margin:12px 0 20px;
         ">
+          Please select your movie,
+          theatre and seats again.
+        </p>
 
-            <div>
+        <button
+          onclick="history.back()"
+          style="
+            border:none;
+            padding:12px 25px;
+            border-radius:5px;
+            background:#e51937;
+            color:white;
+            cursor:pointer;
+          "
+        >
+          Go Back
+        </button>
 
-                <h2>
-                    Booking information not found
-                </h2>
+      </div>
 
-                <p style="
-                    color:#777;
-                    margin:12px 0 20px;
-                ">
-                    Please select your movie,
-                    theatre and seats again.
-                </p>
-
-                <button
-                    onclick="history.back()"
-                    style="
-                        border:none;
-                        padding:12px 25px;
-                        border-radius:5px;
-                        background:#e51937;
-                        color:white;
-                        cursor:pointer;
-                    "
-                >
-                    Go Back
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
+    </div>
+  `;
 }
 
 /* =========================================
@@ -610,25 +808,55 @@ function initialize() {
     return;
   }
 
+  const expired = checkBookingExpiry();
+
+  if (expired) {
+    window.location.reload();
+
+    return;
+  }
+
   displayMovie();
 
   displayShowDetails();
 
   displaySeats();
 
+  displayFreezeInformation();
+
   displayPrice();
+
+  startConfirmationCountdown();
 
   setupTerms();
 
-  document.getElementById("backButton").addEventListener("click", goBack);
+  /* BACK */
 
-  document
-    .getElementById("changeSeatsButton")
-    .addEventListener("click", changeSeats);
+  const backButton = document.getElementById("backButton");
 
-  document
-    .getElementById("proceedPaymentButton")
-    .addEventListener("click", proceedToPayment);
+  if (backButton) {
+    backButton.addEventListener("click", goBack);
+  }
+
+  /* CHANGE SEATS */
+
+  const changeSeatsButton = document.getElementById("changeSeatsButton");
+
+  if (changeSeatsButton) {
+    changeSeatsButton.addEventListener("click", changeSeats);
+  }
+
+  /* PAYMENT */
+
+  const paymentButton = document.getElementById("proceedPaymentButton");
+
+  if (paymentButton) {
+    paymentButton.addEventListener("click", proceedToPayment);
+  }
 }
+
+/* =========================================
+   START
+========================================= */
 
 initialize();

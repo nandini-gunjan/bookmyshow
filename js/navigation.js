@@ -3,6 +3,7 @@
 // =========================================
 
 import { initializeCategoryPage } from "./category.js";
+import { initializeMyBookingsPage } from "./my-bookings.js";
 
 // =========================================
 // CATEGORY PAGES
@@ -10,9 +11,6 @@ import { initializeCategoryPage } from "./category.js";
 
 const categoryPages = [
   "movies",
-  "stream",
-  "events",
-  "plays",
   "sports",
   "activities",
 ];
@@ -146,18 +144,8 @@ function initializePage(page) {
 
       break;
 
-    case "corporates":
-      console.log("Corporates page initialized");
-
-      break;
-
-    case "offers":
-      console.log("Offers page initialized");
-
-      break;
-
-    case "gift-cards":
-      console.log("Gift Cards page initialized");
+    case "my-bookings":
+      initializeMyBookingsPage();
 
       break;
 

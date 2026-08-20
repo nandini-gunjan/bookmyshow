@@ -9,21 +9,10 @@
   <title>Booking Confirmed | BookItBro</title>
 
   <link rel="stylesheet" href="css/confirmation.css" />
-  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/dark-mode.css" />
 </head>
 
 <body>
-  <!-- =========================================
-         HEADER
-    ========================================== -->
-
-  <header class="confirmation-header">
-    <div class="brand">
-      <span class="brand-icon">🎬</span>
-
-      <span> BookItBro </span>
-    </div>
-  </header>
 
   <!-- =========================================
          MAIN
@@ -48,8 +37,14 @@
 
     <section id="ticket" class="ticket">
       <!-- =================================
-                 TICKET HEADER
-            ================================== -->
+        TICKET HEADER
+      =================================== -->
+
+      <div class="ticket-logo">
+        <span class="ticket-logo-book">Book</span>
+        <span class="ticket-logo-it">It</span>
+        <span class="ticket-logo-bro">Bro</span>
+      </div>
 
       <div class="ticket-header">
         <div>
@@ -94,37 +89,36 @@
       <div class="show-details">
         <div class="ticket-detail">
           <span> THEATRE </span>
-
           <strong id="theatreName"> — </strong>
         </div>
 
         <div class="ticket-detail">
           <span> SCREEN </span>
-
           <strong id="screenName"> — </strong>
         </div>
 
         <div class="ticket-detail">
           <span> DATE </span>
-
           <strong id="showDate"> — </strong>
         </div>
 
         <div class="ticket-detail">
           <span> SHOWTIME </span>
-
           <strong id="showTime"> — </strong>
         </div>
 
         <div class="ticket-detail seats-detail">
-          <span> SEATS </span>
+          <span> CONFIRMED SEATS </span>
+          <strong id="confirmedSeats"> — </strong>
+        </div>
 
-          <strong id="selectedSeats"> — </strong>
+        <div class="ticket-detail seats-detail frozen-seats-detail">
+          <span> FROZEN SEATS </span>
+          <strong id="frozenSeats"> — </strong>
         </div>
 
         <div class="ticket-detail">
-          <span> TICKETS </span>
-
+          <span> TOTAL TICKETS </span>
           <strong id="ticketCount"> 0 </strong>
         </div>
       </div>
@@ -169,7 +163,7 @@
         <!-- QR -->
 
         <div class="qr-section">
-          <img src="assets/img/qr-sample.png" alt="QR Code" class="qr-code"/>
+          <img src="assets/img/qr-sample.png" alt="QR Code" class="qr-code" />
 
           <span>Scan to view ticket</span>
         </div>

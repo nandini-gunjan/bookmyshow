@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en">
 
 <head>
@@ -9,7 +10,6 @@
   <title>Booking Summary | BookItBro</title>
 
   <link rel="stylesheet" href="css/booking-summary.css" />
-  <link rel="stylesheet" href="css/dark-mode.css">
 </head>
 
 <body>
@@ -24,6 +24,7 @@
 
     <div>
       <h1>Booking Summary</h1>
+
       <p>Review your booking before payment</p>
     </div>
   </header>
@@ -34,9 +35,9 @@
 
   <main class="summary-page">
     <div class="summary-container">
-      <!-- =================================
-                 MOVIE CARD
-            ================================== -->
+      <!-- =====================================
+             MOVIE CARD
+        ====================================== -->
 
       <section class="movie-card">
         <img id="moviePoster" src="" alt="Movie Poster" />
@@ -50,9 +51,9 @@
         </div>
       </section>
 
-      <!-- =================================
-                 SHOW DETAILS
-            ================================== -->
+      <!-- =====================================
+             SHOW DETAILS
+        ====================================== -->
 
       <section class="summary-card">
         <div class="section-title">
@@ -60,11 +61,15 @@
         </div>
 
         <div class="details-grid">
+          <!-- THEATRE -->
+
           <div class="detail-item">
             <span class="detail-label"> Theatre </span>
 
             <strong id="theatreName"> — </strong>
           </div>
+
+          <!-- DATE -->
 
           <div class="detail-item">
             <span class="detail-label"> Date </span>
@@ -72,11 +77,15 @@
             <strong id="showDate"> — </strong>
           </div>
 
+          <!-- SHOWTIME -->
+
           <div class="detail-item">
             <span class="detail-label"> Showtime </span>
 
             <strong id="showTime"> — </strong>
           </div>
+
+          <!-- SCREEN -->
 
           <div class="detail-item">
             <span class="detail-label"> Screen </span>
@@ -86,88 +95,206 @@
         </div>
       </section>
 
-      <!-- =================================
-                 SEAT DETAILS
-            ================================== -->
+      <!-- =====================================
+             SEAT DETAILS
+        ====================================== -->
 
       <section class="summary-card">
         <div class="section-title">
           <h3>Seat Details</h3>
 
-          <button id="changeSeatsButton" class="change-button">Change</button>
+          <button id="changeSeatsButton" class="change-button" type="button">
+            Change
+          </button>
         </div>
+
+        <!-- CONFIRMED SEATS -->
 
         <div class="seat-information">
           <div class="seat-icon">💺</div>
 
           <div>
-            <span class="detail-label"> Selected Seats </span>
+            <span class="detail-label"> Confirmed Seats </span>
 
-            <strong id="selectedSeats"> — </strong>
+            <strong id="confirmedSeats"> — </strong>
+          </div>
+        </div>
+
+        <!-- FROZEN SEATS -->
+
+        <div class="seat-information">
+          <div class="seat-icon freeze-icon">❄️</div>
+
+          <div>
+            <span class="detail-label"> Frozen Seats </span>
+
+            <strong id="frozenSeats"> — </strong>
           </div>
         </div>
       </section>
 
-      <div class="freeze-status">
-       <span>Booking Status</span>
-         <strong id="bookingStatus">SEATS FROZEN</strong>
-      </div>
+      <!-- =====================================
+             FROZEN SEAT INFORMATION
 
-      <div class="freeze-deadline">
-        <span>Confirm Before</span>
-          <strong id="confirmationDeadline">--</strong>
-      </div>
+             Hidden automatically if there are
+             no frozen seats.
+        ====================================== -->
 
-      <div class="remaining-payment">
-        <span>Remaining Amount</span>
-          <strong id="remainingAmount">₹0</strong>
-      </div>
+      <section id="freezeInfoSection" class="summary-card freeze-info-card">
+        <div class="section-title freeze-title">
+          <div>
+            <h3>Frozen Seat Information</h3>
+            <p>Your seats are temporarily reserved.</p>
+          </div>
 
-      <!-- =================================
-                 PRICE DETAILS
-            ================================== -->
+          <span class="freeze-badge">FROZEN</span>
+        </div>
 
-      <section class="summary-card">
+        <div class="freeze-info-grid">
+
+          <div class="freeze-info-card">
+            <span class="freeze-info-label">
+              Booking Status
+            </span>
+
+            <strong id="bookingStatus">
+              —
+            </strong>
+          </div>
+
+          <div class="freeze-info-card">
+            <span class="freeze-info-label">
+              Pay Remaining Before
+            </span>
+
+            <strong id="confirmationDeadline">
+              —
+            </strong>
+          </div>
+
+          <div class="freeze-info-card">
+            <span class="freeze-info-label">
+              Time Remaining
+            </span>
+
+            <strong id="confirmationCountdown">
+              —
+            </strong>
+          </div>
+
+          <div class="freeze-info-card amount-item">
+            <span class="freeze-info-label">
+              Remaining Payment
+            </span>
+
+            <strong id="remainingAmount">
+              ₹0.00
+            </strong>
+          </div>
+
+        </div>
+
+        <div class="freeze-warning">
+          ⚠️ Frozen seats will be cancelled if the remaining payment is not completed before the deadline. The advance
+          payment
+          will not be refunded.
+        </div>
+      </section>
+
+      <!-- =====================================
+             PRICE DETAILS
+        ====================================== -->
+
+      <section class="summary-card price-card">
+
         <div class="section-title">
-          <h3>Price Details</h3>
+          <div>
+            <h3>Payment Details</h3>
+            <p>Review your current payment amount.</p>
+          </div>
         </div>
 
-        <div class="summary-row">
-          <span> Ticket Price </span>
+        <!-- TICKET PRICE -->
 
-          <span id="ticketPrice"> ₹0 </span>
+        <div class="summary-row">
+          <span>Ticket Price</span>
+          <strong id="ticketPrice">₹0.00</strong>
         </div>
 
-        <div class="summary-row">
-          <span> Number of Tickets </span>
+        <!-- CONFIRMED SEATS -->
 
-          <span id="ticketCount"> 0 </span>
+        <div id="confirmedPaymentRow" class="summary-row payment-type-row">
+          <span>
+            Confirmed Seats
+            <small id="confirmedSeatCount">0 seats × full price</small>
+          </span>
+
+          <strong id="confirmedAmount">₹0.00</strong>
         </div>
 
-        <div class="summary-row">
-          <span> Convenience Fee </span>
+        <!-- FROZEN SEATS -->
 
-          <span id="convenienceFee"> ₹0 </span>
-        </div>
+        <div id="frozenPaymentRow" class="summary-row payment-type-row">
+          <span>
+            Frozen Seats Advance
+            <small id="frozenSeatCount">0 seats × 50%</small>
+          </span>
 
-        <div class="summary-row">
-          <span> GST </span>
-
-          <span id="gst"> ₹0 </span>
+          <strong id="frozenAdvanceAmount">₹0.00</strong>
         </div>
 
         <div class="summary-divider"></div>
 
-        <div class="summary-row total">
-          <strong> Total Amount </strong>
+        <!-- TICKET PAYMENT NOW -->
 
-          <strong id="totalAmount"> ₹0 </strong>
+        <div class="summary-row">
+          <span>Ticket Amount Payable Now</span>
+          <strong id="ticketAmountPayNow">₹0.00</strong>
         </div>
+
+        <!-- CONVENIENCE -->
+
+        <div class="summary-row">
+          <span>Convenience Fee</span>
+          <strong id="convenienceFee">₹0.00</strong>
+        </div>
+
+        <!-- GST -->
+
+        <div class="summary-row">
+          <span>GST (18%)</span>
+          <strong id="gst">₹0.00</strong>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <!-- TOTAL -->
+
+        <div class="summary-row total">
+          <span>
+            <strong>Amount Payable Now</strong>
+            <small>Pay this amount to continue</small>
+          </span>
+
+          <strong id="totalAmount">₹0.00</strong>
+        </div>
+
+        <!-- REMAINING PAYMENT -->
+
+        <div id="remainingPaymentSummary" class="remaining-payment-summary">
+          <div>
+            <span>Remaining Payment for Frozen Seats</span>
+            <small>Pay before the deadline shown above.</small>
+          </div>
+
+          <strong id="priceRemainingAmount">₹0.00</strong>
+        </div>
+
       </section>
 
-      <!-- =================================
-                 TERMS
-            ================================== -->
+      <!-- =====================================
+             TERMS
+        ====================================== -->
 
       <div class="terms">
         <label>
@@ -182,28 +309,26 @@
   <!-- =========================================
          BOTTOM PAYMENT BAR
     ========================================== -->
-    
+
   <footer class="payment-bar">
     <div class="payment-content">
       <div>
-        <span class="pay-label"> Amount Payable </span>
-
-        <strong id="bottomTotal"> ₹0 </strong>
+        <span class="pay-label">Amount Payable Now</span>
+        <strong id="bottomTotal">₹0.00</strong>
       </div>
 
-      <button id="proceedPaymentButton" class="payment-button" disabled>
+      <button id="proceedPaymentButton" class="payment-button" type="button" disabled>
         Proceed to Payment
       </button>
-      <button
-      id="confirmTicketButton"
-        class="confirm-ticket-button"
-      >
-       Confirm Ticket
-    </button>
     </div>
   </footer>
 
+  <!-- =========================================
+         SCRIPTS
+    ========================================== -->
+
   <script type="module" src="js/main.js"></script>
+
   <script type="module" src="js/booking-summary.js"></script>
 </body>
 
