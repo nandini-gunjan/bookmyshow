@@ -7,6 +7,201 @@
    STATE
 ========================================= */
 
+function initialize() {
+  const loaded = loadFinalBooking();
+
+  if (!loaded) {
+    return;
+  }
+
+  displayFrozenBooking();
+
+  checkBookingExpiry();
+
+  startConfirmationCountdown();
+
+  const confirmButton =
+    document.getElementById("confirmTicketButton");
+
+  if (confirmButton) {
+    confirmButton.addEventListener(
+      "click",
+      confirmTicket
+    );
+  }
+}
+
+initialize();
+let finalBooking = null;
+
+function loadFinalBooking() {
+  const storedBooking = sessionStorage.getItem(
+    "bookItBroFinalBooking"
+  );
+
+  if (!storedBooking) {
+    alert("Booking information not found.");
+
+    window.location.href = "seat-selection.html";
+
+    return false;
+  }
+
+  try {
+    finalBooking = JSON.parse(storedBooking);
+
+    return true;
+  } catch (error) {
+    console.error("Booking data error:", error);
+
+    return false;
+  }
+}
+
+function displayFrozenBooking() {
+  if (!finalBooking) {
+    return;
+  }
+
+  document.getElementById("bookingStatus").textContent =
+    finalBooking.bookingStatus || "FROZEN";
+
+  const deadline = new Date(
+    finalBooking.confirmationDeadline
+  );
+
+  document.getElementById("confirmationDeadline").textContent =
+    deadline.toLocaleString("en-IN", {
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+
+  document.getElementById("advanceAmount").textContent =
+    `₹${Number(finalBooking.advanceAmount || 0).toFixed(2)}`;
+
+  document.getElementById("remainingAmount").textContent =
+    `₹${Number(finalBooking.remainingAmount || 0).toFixed(2)}`;
+}
+
+function checkBookingExpiry() {
+  if (!finalBooking) {
+    return;
+  }
+
+  /*
+      Don't cancel confirmed bookings
+  */
+
+  if (finalBooking.bookingStatus === "CONFIRMED") {
+    return;
+  }
+
+  /*
+      Don't process already cancelled bookings
+  */
+
+  if (finalBooking.bookingStatus === "CANCELLED") {
+    return;
+  }
+
+  /*
+      Check if 2-hour deadline has passed
+  */
+
+  if (
+    Date.now() >=
+    Number(finalBooking.confirmationDeadline)
+  ) {
+    finalBooking.bookingStatus = "CANCELLED";
+
+    finalBooking.paymentStatus = "ADVANCE_FORFEITED";
+
+    finalBooking.cancelledAt = Date.now();
+
+    /*
+        Save updated booking
+    */
+
+    sessionStorage.setItem(
+      "bookItBroFinalBooking",
+      JSON.stringify(finalBooking)
+    );
+
+    alert(
+      "Your booking has been automatically cancelled because you did not confirm it before the deadline."
+    );
+
+    window.location.href = "index.html";
+  }
+}
+
+function startConfirmationCountdown() {
+  const countdownElement = document.getElementById(
+    "confirmationCountdown"
+  );
+
+  if (!countdownElement || !finalBooking) {
+    return;
+  }
+
+  function updateCountdown() {
+    const remainingTime =
+      Number(finalBooking.confirmationDeadline) -
+      Date.now();
+
+    /*
+        Time expired
+    */
+
+    if (remainingTime <= 0) {
+      countdownElement.textContent = "Booking Expired";
+
+      checkBookingExpiry();
+
+      return;
+    }
+
+    /*
+        Convert milliseconds
+    */
+
+    const totalSeconds =
+      Math.floor(remainingTime / 1000);
+
+    const hours =
+      Math.floor(totalSeconds / 3600);
+
+    const minutes =
+      Math.floor(
+        (totalSeconds % 3600) / 60
+      );
+
+    const seconds =
+      totalSeconds % 60;
+
+    /*
+        Display countdown
+    */
+
+    countdownElement.textContent =
+      `${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  /*
+      Update immediately
+  */
+
+  updateCountdown();
+
+  /*
+      Update every second
+  */
+
+  setInterval(updateCountdown, 1000);
+}
+
 let booking = null;
 
 /*
@@ -24,6 +219,81 @@ const CONVENIENCE_FEE = 30;
 */
 
 const GST_RATE = 0.18;
+function confirmTicket() {
+  if (!finalBooking) {
+    return;
+  }
+
+  /*
+      Check deadline one final time
+  */
+
+  if (
+    Date.now() >=
+    Number(finalBooking.confirmationDeadline)
+  ) {
+    finalBooking.bookingStatus = "CANCELLED";
+
+    finalBooking.paymentStatus = "ADVANCE_FORFEITED";
+
+    sessionStorage.setItem(
+      "bookItBroFinalBooking",
+      JSON.stringify(finalBooking)
+    );
+
+    alert(
+      "The confirmation deadline has passed. Your booking has been cancelled."
+    );
+
+    window.location.href = "index.html";
+
+    return;
+  }
+
+  /*
+      Confirm booking
+  */
+
+  finalBooking.bookingStatus = "CONFIRMED";
+
+  finalBooking.confirmedAt = Date.now();
+
+  /*
+      For demo purposes, mark as fully paid
+  */
+
+  finalBooking.paymentStatus = "FULLY_PAID";
+
+  finalBooking.remainingAmount = 0;
+
+  finalBooking.paidAmount =
+    finalBooking.totalAmount;
+
+  /*
+      Save confirmed booking
+  */
+
+  sessionStorage.setItem(
+    "bookItBroFinalBooking",
+    JSON.stringify(finalBooking)
+  );
+
+  /*
+      Confirmation page currently reads
+      bookItBroConfirmation, so create that too
+  */
+
+  sessionStorage.setItem(
+    "bookItBroConfirmation",
+    JSON.stringify(finalBooking)
+  );
+
+  /*
+      Go to confirmation page
+  */
+
+  window.location.href = "confirmation.html";
+}
 
 /* =========================================
    LOAD BOOKING

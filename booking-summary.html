@@ -108,6 +108,21 @@
         </div>
       </section>
 
+      <div class="freeze-status">
+       <span>Booking Status</span>
+         <strong id="bookingStatus">SEATS FROZEN</strong>
+      </div>
+
+      <div class="freeze-deadline">
+        <span>Confirm Before</span>
+          <strong id="confirmationDeadline">--</strong>
+      </div>
+
+      <div class="remaining-payment">
+        <span>Remaining Amount</span>
+          <strong id="remainingAmount">₹0</strong>
+      </div>
+
       <!-- =================================
                  PRICE DETAILS
             ================================== -->
@@ -167,7 +182,7 @@
   <!-- =========================================
          BOTTOM PAYMENT BAR
     ========================================== -->
-
+    
   <footer class="payment-bar">
     <div class="payment-content">
       <div>
@@ -179,6 +194,12 @@
       <button id="proceedPaymentButton" class="payment-button" disabled>
         Proceed to Payment
       </button>
+      <button
+      id="confirmTicketButton"
+        class="confirm-ticket-button"
+      >
+       Confirm Ticket
+    </button>
     </div>
   </footer>
 

@@ -92,10 +92,10 @@ body.dark-mode .ticket-number strong {
 
 .logo span {
   background: #e51937;
-  padding: 3px 4px;
+  padding: 3px 6px;
   display: inline-block;
   rotate: 8deg;
-  border: 4px dotted white;
+  border: 3px dotted white;
 }
 
 /* =========================================

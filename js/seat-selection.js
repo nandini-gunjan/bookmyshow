@@ -211,6 +211,74 @@ function isOccupied(rowIndex, seatNumber) {
 }
 
 /* =========================================
+   CHECK BOOKING EXPIRY
+========================================= */
+
+function checkBookingExpiry() {
+  const storedBooking =
+    sessionStorage.getItem("bookItBroFinalBooking");
+
+  if (!storedBooking) {
+    return null;
+  }
+
+  let booking;
+
+  try {
+    booking = JSON.parse(storedBooking);
+  } catch (error) {
+    console.error("Invalid booking data");
+    return null;
+  }
+
+  /*
+      Already confirmed
+  */
+  if (booking.bookingStatus === "CONFIRMED") {
+    return booking;
+  }
+
+  /*
+      Already cancelled
+  */
+  if (booking.bookingStatus === "CANCELLED") {
+    return booking;
+  }
+
+  /*
+      Only frozen bookings expire
+  */
+  if (
+    booking.bookingStatus === "FROZEN" &&
+    Date.now() >= booking.confirmationDeadline
+  ) {
+    booking.bookingStatus = "CANCELLED";
+
+    booking.paymentStatus = "ADVANCE_FORFEITED";
+
+    booking.cancelledAt = Date.now();
+
+    /*
+        Remove frozen seats
+    */
+    booking.seats = [];
+
+    sessionStorage.setItem(
+      "bookItBroFinalBooking",
+      JSON.stringify(booking)
+    );
+
+    console.log(
+      "Booking automatically cancelled:",
+      booking
+    );
+
+    return booking;
+  }
+
+  return booking;
+}
+/* =========================================
    SELECT / DESELECT SEAT
 ========================================= */
 
@@ -247,31 +315,49 @@ function toggleSeat(seat) {
 ========================================= */
 
 function updateSummary() {
-  const selectedSeatsElement = document.getElementById("selectedSeats");
+  const selectedSeatsElement =
+    document.getElementById("selectedSeats");
 
-  const ticketCountElement = document.getElementById("ticketCount");
+  const ticketCountElement =
+    document.getElementById("ticketCount");
 
-  const totalPriceElement = document.getElementById("totalPrice");
+  const totalPriceElement =
+    document.getElementById("totalPrice");
 
-  const continueButton = document.getElementById("continueButton");
+  const advancePriceElement =
+    document.getElementById("advancePrice");
+
+  const continueButton =
+    document.getElementById("continueButton");
 
   if (selectedSeats.length === 0) {
     selectedSeatsElement.textContent = "None";
   } else {
-    selectedSeatsElement.textContent = selectedSeats.join(", ");
+    selectedSeatsElement.textContent =
+      selectedSeats.join(", ");
   }
 
-  ticketCountElement.textContent = selectedSeats.length;
+  ticketCountElement.textContent =
+    selectedSeats.length;
 
-  const total = selectedSeats.length * ticketPrice;
+  const total =
+    selectedSeats.length * ticketPrice;
 
-  totalPriceElement.textContent = `₹${total}`;
+  const advance =
+    total * 0.5;
 
-  continueButton.disabled = selectedSeats.length === 0;
+  totalPriceElement.textContent =
+    `₹${total}`;
+
+  advancePriceElement.textContent =
+    `₹${advance}`;
+
+  continueButton.disabled =
+    selectedSeats.length === 0;
 }
-
-/* =========================================
-   CONTINUE
+  
+  /* =========================================
+   CONTINUE TO BOOKING SUMMARY
 ========================================= */
 
 function continueToSummary() {
@@ -279,29 +365,95 @@ function continueToSummary() {
     return;
   }
 
+  const totalAmount = selectedSeats.length * ticketPrice;
+
+  // 50% advance required to freeze seats
+  const advanceAmount = totalAmount * 0.5;
+
+  /*
+      Calculate movie/show date and time
+  */
+  const showDateTime = getShowDateTime();
+
+  if (!showDateTime) {
+    alert("Unable to determine movie show time.");
+    return;
+  }
+
+  /*
+      Confirmation deadline:
+      2 hours before movie starts
+  */
+  const confirmationDeadline =
+    showDateTime.getTime() - 2 * 60 * 60 * 1000;
+
+  /*
+      If movie is already within 2 hours,
+      seats cannot be frozen.
+  */
+  if (Date.now() >= confirmationDeadline) {
+    alert(
+      "Seat freezing is no longer available because the movie starts within 2 hours."
+    );
+
+    return;
+  }
+
   const finalBooking = {
     ...bookingData,
 
-    seats: selectedSeats,
+    seats: [...selectedSeats],
 
     numberOfTickets: selectedSeats.length,
 
-    totalAmount: selectedSeats.length * ticketPrice,
+    totalAmount: totalAmount,
+
+    /*
+        50% payment for freezing seats
+    */
+    advanceAmount: advanceAmount,
+
+    remainingAmount: totalAmount - advanceAmount,
+
+    /*
+        Booking status
+    */
+    bookingStatus: "FROZEN",
+
+    /*
+        Time when seats were frozen
+    */
+    frozenAt: Date.now(),
+
+    /*
+        Deadline to confirm ticket
+    */
+    confirmationDeadline: confirmationDeadline,
+
+    /*
+        Movie/show start time
+    */
+    showDateTime: showDateTime.getTime(),
+
+    /*
+        Generate booking ID
+    */
+    bookingId: generateBookingId(),
+
+    /*
+        Payment information
+    */
+    paymentStatus: "ADVANCE_PAID",
+
+    paymentMethod: "UPI",
   };
 
-  /*
-        Save complete booking.
-    */
+  sessionStorage.setItem(
+    "bookItBroFinalBooking",
+    JSON.stringify(finalBooking)
+  );
 
-  sessionStorage.setItem("bookItBroFinalBooking", JSON.stringify(finalBooking));
-
-  console.log("Final booking:", finalBooking);
-
-  /*
-        Next page we'll create:
-
-        booking-summary.html
-    */
+  console.log("Frozen booking:", finalBooking);
 
   window.location.href = "booking-summary.html";
 }
@@ -332,6 +484,66 @@ function formatDate(dateString) {
   });
 }
 
+/* =========================================
+   GET SHOW DATE + TIME
+========================================= */
+
+function getShowDateTime() {
+  if (!bookingData.date || !bookingData.showTime) {
+    return null;
+  }
+
+  const date = new Date(bookingData.date);
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  /*
+      Extract time such as:
+      7:30 PM
+      10:00 AM
+      6:45 PM
+  */
+
+  const timeMatch = bookingData.showTime.match(
+    /(\d{1,2}):(\d{2})\s*(AM|PM)/i
+  );
+
+  if (!timeMatch) {
+    console.error("Invalid show time:", bookingData.showTime);
+    return null;
+  }
+
+  let hours = Number(timeMatch[1]);
+  const minutes = Number(timeMatch[2]);
+  const period = timeMatch[3].toUpperCase();
+
+  if (period === "PM" && hours !== 12) {
+    hours += 12;
+  }
+
+  if (period === "AM" && hours === 12) {
+    hours = 0;
+  }
+
+  date.setHours(hours);
+  date.setMinutes(minutes);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+
+  return date;
+}
+
+/* =========================================
+   GENERATE BOOKING ID
+========================================= */
+
+function generateBookingId() {
+  const random = Math.floor(100000 + Math.random() * 900000);
+
+  return `BIB${random}`;
+}
 /* =========================================
    ERROR
 ========================================= */
