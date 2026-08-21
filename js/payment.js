@@ -274,7 +274,17 @@ function displaySportsBooking() {
 ========================================= */
 
 function displayPrice() {
+  /* =====================================
+     AMOUNTS
+  ====================================== */
+
   const ticketCount = Number(paymentData.ticketCount) || 0;
+
+  const ticketAmount = Number(paymentData.ticketAmountPayNow) || 0;
+
+  const foodAmount = Number(paymentData.foodAmount) || 0;
+
+  const foodItemCount = Number(paymentData.foodItemCount) || 0;
 
   const baseAmount = Number(paymentData.baseAmount) || 0;
 
@@ -284,45 +294,107 @@ function displayPrice() {
 
   const totalAmount = Number(paymentData.totalAmount) || 0;
 
-  /*
-        Ticket amount
-    */
+  /* =====================================
+     TICKET AMOUNT
+  ====================================== */
 
-  document.getElementById("ticketPrice").textContent =
-    formatCurrency(baseAmount);
+  const ticketPriceElement = document.getElementById("ticketPrice");
 
-  /*
-        Ticket count
-    */
+  if (ticketPriceElement) {
+    ticketPriceElement.textContent = formatCurrency(ticketAmount);
+  }
 
-  document.getElementById("ticketCount").textContent = ticketCount;
+  /* =====================================
+     TICKET COUNT
+  ====================================== */
 
-  /*
-        Convenience fee
-    */
+  const ticketCountElement = document.getElementById("ticketCount");
 
-  document.getElementById("convenienceFee").textContent =
-    formatCurrency(convenienceFee);
+  if (ticketCountElement) {
+    ticketCountElement.textContent = `${ticketCount} ticket${
+      ticketCount === 1 ? "" : "s"
+    }`;
+  }
 
-  /*
-        GST
-    */
+  /* =====================================
+     FOOD AMOUNT
 
-  document.getElementById("gst").textContent = formatCurrency(gst);
+     These elements are optional so the
+     page will still work until you update
+     payment.html.
+  ====================================== */
 
-  /*
-        Total
-    */
+  const foodRow = document.getElementById("foodPaymentRow");
 
-  document.getElementById("totalAmount").textContent =
-    formatCurrency(totalAmount);
+  const foodAmountElement = document.getElementById("foodAmount");
 
-  /*
-        Pay button amount
-    */
+  const foodCountElement = document.getElementById("foodItemCount");
 
-  document.getElementById("payAmount").textContent =
-    formatCurrency(totalAmount);
+  if (foodRow) {
+    foodRow.style.display = foodAmount > 0 ? "flex" : "none";
+  }
+
+  if (foodAmountElement) {
+    foodAmountElement.textContent = formatCurrency(foodAmount);
+  }
+
+  if (foodCountElement) {
+    foodCountElement.textContent = `${foodItemCount} item${
+      foodItemCount === 1 ? "" : "s"
+    }`;
+  }
+
+  /* =====================================
+     BASE AMOUNT
+
+     Optional display element.
+  ====================================== */
+
+  const baseAmountElement = document.getElementById("baseAmount");
+
+  if (baseAmountElement) {
+    baseAmountElement.textContent = formatCurrency(baseAmount);
+  }
+
+  /* =====================================
+     CONVENIENCE FEE
+  ====================================== */
+
+  const convenienceFeeElement = document.getElementById("convenienceFee");
+
+  if (convenienceFeeElement) {
+    convenienceFeeElement.textContent = formatCurrency(convenienceFee);
+  }
+
+  /* =====================================
+     GST
+  ====================================== */
+
+  const gstElement = document.getElementById("gst");
+
+  if (gstElement) {
+    gstElement.textContent = formatCurrency(gst);
+  }
+
+  /* =====================================
+     TOTAL AMOUNT
+  ====================================== */
+
+  const totalAmountElement = document.getElementById("totalAmount");
+
+  if (totalAmountElement) {
+    totalAmountElement.textContent = formatCurrency(totalAmount);
+  }
+
+  /* =====================================
+     PAY BUTTON AMOUNT
+  ====================================== */
+
+  const payAmountElement = document.getElementById("payAmount");
+
+  if (payAmountElement) {
+    payAmountElement.textContent = formatCurrency(totalAmount);
+  }
 }
 
 /* =========================================

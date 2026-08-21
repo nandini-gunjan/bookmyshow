@@ -744,7 +744,7 @@ function continueToPayment() {
      GO TO PAYMENT / SUMMARY
   ========================================= */
 
-  window.location.href = "booking-summary.html";
+  window.location.href = "pre-order-food.html";
 }
 
 /* =========================================

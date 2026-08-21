@@ -1084,3 +1084,84 @@ body.dark-mode ::-webkit-scrollbar-thumb {
 body.dark-mode ::-webkit-scrollbar-thumb:hover {
   background: #666666;
 }
+
+/* =========================================
+   FOOD ORDER
+========================================= */
+
+.food-order-card {
+  margin-top: 20px;
+}
+
+.food-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.food-summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f7f7f7;
+}
+
+.food-summary-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.food-summary-image {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.food-summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.food-summary-details strong {
+  font-size: 15px;
+}
+
+.food-summary-details span {
+  font-size: 13px;
+  color: #777;
+}
+
+.food-summary-price {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.food-total-row {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.no-food-message {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+}
+
+.no-food-message p {
+  margin: 4px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.no-food-icon {
+  font-size: 28px;
+}

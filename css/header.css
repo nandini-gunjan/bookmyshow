@@ -80,11 +80,10 @@ body.dark-mode .ticket-number strong {
 
 .logo {
   text-decoration: none;
+  color: black;
 
   font-size: 28px;
   font-weight: 700;
-
-  color: #222222;
 
   letter-spacing: -1px;
   white-space: nowrap;
@@ -96,6 +95,7 @@ body.dark-mode .ticket-number strong {
   display: inline-block;
   rotate: 8deg;
   border: 3px dotted white;
+  color: black;
 }
 
 /* =========================================
