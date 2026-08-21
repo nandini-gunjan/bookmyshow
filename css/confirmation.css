@@ -148,7 +148,7 @@ body {
 
   color: var(--primary);
 
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 800;
 
   letter-spacing: 1.5px;
@@ -980,5 +980,100 @@ body.dark-mode .ticket-logo {
 
 body.dark-mode .ticket-logo-it {
   background: #e51937;
+  color: #ffffff;
+}
+
+/* =========================================
+   FOOD & BEVERAGES
+========================================= */
+
+.food-section {
+  padding: 5px 28px 28px;
+}
+
+.food-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.food-section-header > span {
+  font-size: 24px;
+}
+
+.food-section-header div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.food-section-header strong {
+  font-size: 14px;
+}
+
+.confirmation-food-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.confirmation-food-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.confirmation-food-item div > strong {
+  font-size: 14px;
+}
+
+.confirmation-food-item small {
+  color: #777777;
+  font-size: 12px;
+}
+
+.confirmation-food-item > strong {
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.food-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-top: 15px;
+
+  font-size: 14px;
+}
+
+.food-total strong {
+  color: #e51937;
+  font-size: 16px;
+}
+
+body.dark-mode .food-section-header {
+  border-bottom-color: #383838;
+}
+
+body.dark-mode .confirmation-food-item {
+  border-bottom-color: #383838;
+}
+
+body.dark-mode .confirmation-food-item small {
+  color: #a0a0a0;
+}
+
+body.dark-mode .food-total {
   color: #ffffff;
 }

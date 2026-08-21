@@ -1147,3 +1147,12 @@ body.dark-mode .success-icon {
 body.dark-mode .sports-label {
   color: #ff4d6a;
 }
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}

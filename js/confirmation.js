@@ -415,6 +415,96 @@ function displaySportsConfirmation() {
 }
 
 /* =========================================
+   DISPLAY FOOD ORDER
+========================================= */
+
+function displayFoodOrder() {
+  const foodSection = document.getElementById("foodSection");
+  const foodItemsElement = document.getElementById("foodItems");
+  const foodItemCountElement = document.getElementById("foodItemCount");
+  const foodTotalElement = document.getElementById("foodTotal");
+
+  if (!foodSection || !foodItemsElement) {
+    return;
+  }
+
+  const foodOrder = Array.isArray(confirmationData.foodOrder)
+    ? confirmationData.foodOrder.filter((item) => Number(item.quantity) > 0)
+    : [];
+
+  /*
+      NO FOOD
+  */
+
+  if (foodOrder.length === 0) {
+    foodSection.style.display = "none";
+    return;
+  }
+
+  foodSection.style.display = "block";
+
+  /*
+      CLEAR OLD ITEMS
+  */
+
+  foodItemsElement.innerHTML = "";
+
+  let totalQuantity = 0;
+  let totalAmount = 0;
+
+  /*
+      DISPLAY FOOD ITEMS
+  */
+
+  foodOrder.forEach((item) => {
+    const name = item.name || "Food Item";
+    const quantity = Number(item.quantity) || 0;
+    const price = Number(item.price) || 0;
+
+    const itemTotal = quantity * price;
+
+    totalQuantity += quantity;
+    totalAmount += itemTotal;
+
+    const foodItem = document.createElement("div");
+
+    foodItem.className = "confirmation-food-item";
+
+    foodItem.innerHTML = `
+      <div>
+        <strong>${escapeHtml(name)}</strong>
+
+        <small>
+          ${quantity} × ${formatCurrency(price)}
+        </small>
+      </div>
+
+      <strong>
+        ${formatCurrency(itemTotal)}
+      </strong>
+    `;
+
+    foodItemsElement.appendChild(foodItem);
+  });
+
+  /*
+      ITEM COUNT
+  */
+
+  if (foodItemCountElement) {
+    foodItemCountElement.textContent = `${totalQuantity} item${totalQuantity === 1 ? "" : "s"}`;
+  }
+
+  /*
+      TOTAL
+  */
+
+  if (foodTotalElement) {
+    foodTotalElement.textContent = formatCurrency(totalAmount);
+  }
+}
+
+/* =========================================
    DISPLAY PAYMENT
 ========================================= */
 
@@ -504,6 +594,18 @@ function formatPaymentMethod(method) {
   const normalizedMethod = String(method).trim().toLowerCase();
 
   return methods[normalizedMethod] || "Online Payment";
+}
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value) {
+  const div = document.createElement("div");
+
+  div.textContent = value || "";
+
+  return div.innerHTML;
 }
 
 /* =========================================
@@ -692,6 +794,8 @@ function initialize() {
       was missing return true.
   */
 
+  displayFoodOrder();
+  
   displayPayment();
 
   setupActions();
