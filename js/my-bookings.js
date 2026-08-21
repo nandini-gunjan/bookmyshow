@@ -150,16 +150,15 @@ function renderBookings() {
 // =========================================
 
 function filterBookings(bookings, filter) {
-  if (filter === "all") {
-    return bookings;
-  }
-
   return bookings.filter((booking) => {
-    const status = getBookingStatus(booking);
+    const status = getDisplayBookingStatus(booking);
 
     switch (filter) {
+      case "all":
+        return true;
+
       case "upcoming":
-        return status === "CONFIRMED";
+        return isBookingUpcoming(booking);
 
       case "frozen":
         return status === "FROZEN";
@@ -181,7 +180,225 @@ function filterBookings(bookings, filter) {
 // =========================================
 
 function getBookingStatus(booking) {
-  return (booking.bookingStatus || "CONFIRMED").toUpperCase();
+  // =========================================
+  // CHECK FROZEN STATUS FROM FIRESTORE
+  // =========================================
+
+  if (booking.frozenStatus !== undefined && booking.frozenStatus !== null) {
+    const frozenStatus = String(booking.frozenStatus).trim().toUpperCase();
+
+    // ACTIVE frozen seat
+    if (frozenStatus === "ACTIVE") {
+      return "FROZEN";
+    }
+
+    // Boolean/string frozen values
+    if (
+      booking.frozenStatus === true ||
+      frozenStatus === "TRUE" ||
+      frozenStatus === "FROZEN"
+    ) {
+      return "FROZEN";
+    }
+
+    // Expired or cancelled frozen booking
+    if (frozenStatus === "EXPIRED" || frozenStatus === "CANCELLED") {
+      return "CANCELLED";
+    }
+
+    // Remaining payment completed
+    if (frozenStatus === "COMPLETED" || frozenStatus === "PAID") {
+      return "CONFIRMED";
+    }
+  }
+
+  // =========================================
+  // NORMAL BOOKING STATUS
+  // =========================================
+
+  return String(booking.bookingStatus || "CONFIRMED")
+    .trim()
+    .toUpperCase();
+}
+
+// =========================================
+// CHECK UPCOMING BOOKING
+// =========================================
+
+function isBookingUpcoming(booking) {
+  const status = getBookingStatus(booking);
+
+  // Cancelled bookings are not upcoming
+  if (status === "CANCELLED") {
+    return false;
+  }
+
+  // Completed bookings are not upcoming
+  if (status === "COMPLETED") {
+    return false;
+  }
+
+  const showDateTime = getBookingDateTime(booking);
+
+  // If date/time is unavailable, keep active
+  // confirmed and frozen bookings as upcoming
+  if (!showDateTime) {
+    return status === "CONFIRMED" || status === "FROZEN";
+  }
+
+  // Future booking = upcoming
+  return showDateTime > new Date();
+}
+
+// =========================================
+// CHECK COMPLETED BOOKING
+// =========================================
+
+function isBookingCompleted(booking) {
+  const status = getBookingStatus(booking);
+
+  // Explicitly completed
+
+  if (status === "COMPLETED") {
+    return true;
+  }
+
+  // Cancelled is NOT completed.
+
+  if (status === "CANCELLED") {
+    return false;
+  }
+
+  // Frozen is NOT completed.
+
+  if (status === "FROZEN") {
+    return false;
+  }
+
+  const showDateTime = getBookingDateTime(booking);
+
+  // If there is no usable date/time,
+  // don't automatically mark it completed.
+
+  if (!showDateTime) {
+    return false;
+  }
+
+  return showDateTime <= new Date();
+}
+
+// =========================================
+// GET BOOKING DATE + TIME
+// =========================================
+
+function getBookingDateTime(booking) {
+  if (!booking.date) {
+    return null;
+  }
+
+  let date;
+
+  // Firestore Timestamp
+
+  if (typeof booking.date.toDate === "function") {
+    date = booking.date.toDate();
+  }
+
+  // JavaScript Date
+  else if (booking.date instanceof Date) {
+    date = new Date(booking.date.getTime());
+  }
+
+  // String / ISO date
+  else {
+    date = new Date(booking.date);
+  }
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  // -------------------------------------
+  // ADD SHOW TIME
+  // -------------------------------------
+
+  if (booking.showTime) {
+    const time = parseShowTime(booking.showTime);
+
+    if (time) {
+      date.setHours(time.hours, time.minutes, 0, 0);
+    }
+  }
+
+  return date;
+}
+
+// =========================================
+// PARSE SHOW TIME
+// =========================================
+
+function parseShowTime(showTime) {
+  if (!showTime) {
+    return null;
+  }
+
+  const value = String(showTime).trim().toUpperCase();
+
+  // -------------------------------------
+  // 24-HOUR FORMAT
+  // Example: 18:30
+  // -------------------------------------
+
+  let match = value.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (match) {
+    const hours = Number(match[1]);
+
+    const minutes = Number(match[2]);
+
+    if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
+      return {
+        hours,
+        minutes,
+      };
+    }
+  }
+
+  // -------------------------------------
+  // 12-HOUR FORMAT
+  // Example: 6:30 PM
+  // -------------------------------------
+
+  match = value.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/);
+
+  if (match) {
+    let hours = Number(match[1]);
+
+    const minutes = Number(match[2]);
+
+    const period = match[3];
+
+    if (hours < 1 || hours > 12 || minutes < 0 || minutes > 59) {
+      return null;
+    }
+
+    if (period === "AM") {
+      if (hours === 12) {
+        hours = 0;
+      }
+    } else {
+      if (hours !== 12) {
+        hours += 12;
+      }
+    }
+
+    return {
+      hours,
+      minutes,
+    };
+  }
+
+  return null;
 }
 
 // =========================================
@@ -203,7 +420,7 @@ function createBookingCard(booking) {
         `${booking.homeTeam || "Home Team"} VS ${booking.awayTeam || "Away Team"}`
       : booking.movieTitle || "Movie Booking";
 
-  const status = getBookingStatus(booking);
+  const status = getDisplayBookingStatus(booking);
 
   const statusClass = getStatusClass(status);
 
@@ -357,47 +574,71 @@ function createBookingCard(booking) {
 
         <!-- BOTTOM -->
 
-        <div class="booking-card-bottom">
+<div class="booking-card-bottom">
+
+    <div class="booking-payment-summary">
+
+        ${
+          status === "FROZEN"
+            ? `
+        <div class="booking-price frozen-amount">
+
+            <span class="booking-price-label">
+                Amount Paid
+            </span>
+
+            <span class="booking-price-value">
+                ${formatCurrency(booking.frozenAdvanceAmount)}
+            </span>
+
+        </div>
 
 
-            <div class="booking-price">
+        <div class="booking-price frozen-remaining">
 
-                <span class="booking-price-label">
-                    Total Amount
-                </span>
+            <span class="booking-price-label">
+                Remaining
+            </span>
 
-                <span class="booking-price-value">
-                    ${amount}
-                </span>
+            <span class="booking-price-value">
+                ${formatCurrency(booking.frozenRemainingAmount)}
+            </span>
 
-            </div>
+        </div>
+      `
+            : ""
+        }
 
 
-            <div class="booking-actions">
+        <div class="booking-price">
 
-              <button
-                 class="view-details-button"
-                  data-booking-id="${escapeHTML(booking.id)}">
+            <span class="booking-price-label">
+                Total Amount
+            </span>
 
-                 View Details
+            <span class="booking-price-value">
+                ${amount}
+            </span>
 
-              </button>
+        </div>
 
-              ${
-                bookingType === "MOVIE" && status === "CONFIRMED"
-                 ? `
+    </div>
+
+
+    <div class="booking-actions">
+
                 <button
-                 class="preorder-food-button">
+                    class="view-details-button"
+                    data-booking-id="${escapeHTML(booking.id)}">
 
-                  🍿 Pre-Order Food
+                    View Details
 
                 </button>
-                  `
-                  : ""
-              }
 
             </div>
-         </div>
+
+
+        </div>
 
     `;
 
@@ -540,62 +781,21 @@ function createFoodPreOrderSection(booking) {
 // =========================================
 
 function createFrozenSection(booking) {
-  const amountPaid = Number(booking.amountPaid) || 0;
-
-  const remainingAmount = Number(booking.remainingAmount) || 0;
-
-  const deadline = booking.paymentDeadline
-    ? formatDateTime(booking.paymentDeadline)
+  const deadline = booking.confirmationDeadline
+    ? formatDateTime(booking.confirmationDeadline)
     : "Payment deadline not available";
 
   return `
-
         <div class="frozen-payment-box">
-
-            <div class="frozen-payment-row">
-
-                <span class="frozen-payment-label">
-                    Amount Paid
-                </span>
-
-                <span class="frozen-payment-value">
-                    ${formatCurrency(amountPaid)}
-                </span>
-
-            </div>
-
-
-            <div class="frozen-payment-row">
-
-                <span class="frozen-payment-label">
-                    Remaining
-                </span>
-
-                <span class="frozen-payment-value">
-                    ${formatCurrency(remainingAmount)}
-                </span>
-
-            </div>
-
 
             <p class="frozen-deadline">
 
-                Pay remaining amount before:
+                <strong>Payment Deadline:</strong>
                 ${deadline}
 
             </p>
 
-
-            <button
-                class="pay-remaining-button"
-                data-booking-id="${escapeHTML(booking.id)}">
-
-                Pay Remaining
-
-            </button>
-
         </div>
-
     `;
 }
 
@@ -655,7 +855,7 @@ function openBookingDetails(booking) {
                 </span>
 
                 <span class="modal-detail-value">
-                    ${escapeHTML(getBookingStatus(booking))}
+                    ${escapeHTML(getDisplayBookingStatus(booking))}
                 </span>
 
             </div>
@@ -1057,9 +1257,18 @@ function formatDateTime(dateValue) {
 
   let date;
 
+  // Firestore Timestamp
   if (typeof dateValue.toDate === "function") {
     date = dateValue.toDate();
-  } else {
+  }
+
+  // Milliseconds timestamp
+  else if (typeof dateValue === "number") {
+    date = new Date(dateValue);
+  }
+
+  // String / Date
+  else {
     date = new Date(dateValue);
   }
 
@@ -1082,8 +1291,8 @@ function formatDateTime(dateValue) {
 
 function getStatusClass(status) {
   switch (status) {
-    case "CONFIRMED":
-      return "status-confirmed";
+    case "UPCOMING":
+      return "status-upcoming";
 
     case "FROZEN":
       return "status-frozen";
@@ -1095,7 +1304,7 @@ function getStatusClass(status) {
       return "status-cancelled";
 
     default:
-      return "status-confirmed";
+      return "status-upcoming";
   }
 }
 
@@ -1126,6 +1335,37 @@ function escapeHTML(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+// =========================================
+// GET DISPLAY BOOKING STATUS
+// =========================================
+
+function getDisplayBookingStatus(booking) {
+  const status = getBookingStatus(booking);
+
+  // Cancelled always remains cancelled
+  if (status === "CANCELLED") {
+    return "CANCELLED";
+  }
+
+  // Frozen always remains frozen
+  if (status === "FROZEN") {
+    return "FROZEN";
+  }
+
+  // Explicitly completed
+  if (status === "COMPLETED") {
+    return "COMPLETED";
+  }
+
+  // Automatically completed after show time
+  if (isBookingCompleted(booking)) {
+    return "COMPLETED";
+  }
+
+  // Otherwise it is upcoming
+  return "UPCOMING";
 }
 
 // =========================================
