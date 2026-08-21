@@ -181,67 +181,101 @@ function displayShowDetails() {
 
   const ticketCountElement = document.getElementById("ticketCount");
 
-  /* =========================================
-     THEATRE
-  ========================================= */
+  // =========================================
+  // THEATRE
+  // =========================================
 
   if (theatreName) {
     theatreName.textContent = confirmationData.theatreName || "Theatre";
   }
 
-  /* =========================================
-     SCREEN
-  ========================================= */
+  // =========================================
+  // SCREEN
+  // =========================================
 
   if (screenName) {
     screenName.textContent = confirmationData.screen || "Screen 1";
   }
 
-  /* =========================================
-     DATE
-  ========================================= */
+  // =========================================
+  // DATE
+  // =========================================
 
   if (showDate) {
     showDate.textContent = formatDate(confirmationData.date);
   }
 
-  /* =========================================
-     SHOWTIME
-  ========================================= */
+  // =========================================
+  // SHOWTIME
+  // =========================================
 
   if (showTime) {
     showTime.textContent = confirmationData.showTime || "—";
   }
 
-  /* =========================================
-     CONFIRMED SEATS
-  ========================================= */
+  // =========================================
+  // CONFIRMED SEATS
+  // =========================================
 
-  const confirmedSeats = Array.isArray(confirmationData.confirmedSeats)
+  let confirmedSeats = Array.isArray(confirmationData.confirmedSeats)
     ? confirmationData.confirmedSeats
     : [];
+
+  // Normal booking fallback
+  if (
+    confirmedSeats.length === 0 &&
+    confirmationData.bookingStatus === "CONFIRMED" &&
+    Array.isArray(confirmationData.seats)
+  ) {
+    confirmedSeats = confirmationData.seats;
+  }
+
+  // =========================================
+  // FROZEN SEATS
+  // =========================================
+
+  let frozenSeats = Array.isArray(confirmationData.frozenSeats)
+    ? confirmationData.frozenSeats
+    : [];
+
+  // =========================================
+  // FROZEN BOOKING PAYMENT COMPLETED
+  //
+  // Move frozen seats to confirmed seats.
+  // =========================================
+
+  if (
+    confirmationData.frozenStatus === "COMPLETED" ||
+    confirmationData.paymentMode === "frozen-confirmation"
+  ) {
+    if (confirmedSeats.length === 0 && frozenSeats.length > 0) {
+      confirmedSeats = [...frozenSeats];
+    }
+
+    frozenSeats = [];
+  }
+
+  // =========================================
+  // DISPLAY CONFIRMED SEATS
+  // =========================================
 
   if (confirmedSeatsElement) {
     confirmedSeatsElement.textContent =
       confirmedSeats.length > 0 ? confirmedSeats.join(", ") : "None";
   }
 
-  /* =========================================
-     FROZEN SEATS
-  ========================================= */
-
-  const frozenSeats = Array.isArray(confirmationData.frozenSeats)
-    ? confirmationData.frozenSeats
-    : [];
+  // =========================================
+  // DISPLAY FROZEN SEATS
+  // =========================================
 
   if (frozenSeatsElement) {
     frozenSeatsElement.textContent =
       frozenSeats.length > 0 ? frozenSeats.join(", ") : "None";
   }
 
-  /* =========================================
-     TOTAL TICKETS
-  ========================================= */
+  // =========================================
+  // TOTAL TICKETS
+  // =========================================
 
   const totalTickets = confirmedSeats.length + frozenSeats.length;
 
@@ -788,14 +822,8 @@ function initialize() {
     return;
   }
 
-  /*
-      These were not running for movie
-      bookings because displayMovieConfirmation()
-      was missing return true.
-  */
-
   displayFoodOrder();
-  
+
   displayPayment();
 
   setupActions();

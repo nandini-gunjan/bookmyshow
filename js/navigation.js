@@ -44,9 +44,6 @@ async function loadPage(page) {
     let pageFile;
 
     if (categoryPages.includes(page)) {
-      // Movies, Stream, Events, Plays,
-      // Sports and Activities all use
-      // the same category structure.
 
       pageFile = "components/category.html";
     } else {

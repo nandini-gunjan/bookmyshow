@@ -42,10 +42,6 @@ function initializeMyBookingsPage() {
 
   setupExploreButton();
 
-  setupFoodModal();
-
-  setupFoodPaymentOptions();
-
   loadUserBookings();
 }
 
@@ -627,20 +623,30 @@ function createBookingCard(booking) {
 
     <div class="booking-actions">
 
-                <button
-                    class="view-details-button"
-                    data-booking-id="${escapeHTML(booking.id)}">
+    <button
+        class="view-details-button"
+        data-booking-id="${escapeHTML(booking.id)}">
 
-                    View Details
+        View Details
 
-                </button>
+    </button>
 
-            </div>
+    ${
+      status === "FROZEN"
+        ? `
+            <button
+                class="confirm-ticket-button"
+                data-booking-id="${escapeHTML(booking.id)}">
 
+                Confirm Ticket
 
-        </div>
+            </button>
+          `
+        : ""
+    }
 
-    `;
+</div>
+  </div>`;
 
   const detailsButton = card.querySelector(".view-details-button");
 
@@ -649,57 +655,47 @@ function createBookingCard(booking) {
       openBookingDetails(booking);
     });
   }
-  
-  const foodButton =
-  card.querySelector(".preorder-food-button");
+
+  const confirmTicketButton = card.querySelector(".confirm-ticket-button");
+
+  if (confirmTicketButton) {
+    confirmTicketButton.addEventListener("click", () => {
+      confirmFrozenTicket(booking);
+    });
+  }
+
+  const foodButton = card.querySelector(".preorder-food-button");
 
   if (foodButton) {
+    foodButton.addEventListener("click", () => {
+      const foodBookingData = {
+        id: booking.id,
 
-  foodButton.addEventListener("click", () => {
+        bookingId: booking.bookingId || booking.id,
 
-    const foodBookingData = {
-      id: booking.id,
+        movieTitle: booking.movieTitle || "",
 
-      bookingId:
-        booking.bookingId || booking.id,
+        theatreName: booking.theatreName || "",
 
-      movieTitle:
-        booking.movieTitle || "",
+        showTime: booking.showTime || "",
 
-      theatreName:
-        booking.theatreName || "",
+        date: booking.date || "",
 
-      showTime:
-        booking.showTime || "",
+        seats: booking.seats || [],
 
-      date:
-        booking.date || "",
+        moviePoster: booking.moviePoster || booking.poster || "",
 
-      seats:
-        booking.seats || [],
+        bookingType: booking.bookingType || "movie",
+      };
 
-      moviePoster:
-        booking.moviePoster ||
-        booking.poster ||
-        "",
+      sessionStorage.setItem(
+        "bookItBroFoodBooking",
+        JSON.stringify(foodBookingData),
+      );
 
-      bookingType:
-        booking.bookingType || "movie"
-    };
-
-
-    sessionStorage.setItem(
-      "bookItBroFoodBooking",
-      JSON.stringify(foodBookingData)
-    );
-
-
-    window.location.href =
-      "food-preorder.html";
-
-  });
-
-}
+      window.location.href = "food-preorder.html";
+    });
+  }
 
   const posterElement = card.querySelector(".booking-poster");
 
@@ -717,7 +713,6 @@ function createBookingCard(booking) {
 // =========================================
 
 function createFoodPreOrderSection(booking) {
-
   return `
 
     <div class="food-preorder-box">
@@ -1366,6 +1361,93 @@ function getDisplayBookingStatus(booking) {
 
   // Otherwise it is upcoming
   return "UPCOMING";
+}
+
+// =========================================
+// GET DEADLINE DATE
+// =========================================
+
+function getDeadlineDate(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value.toDate === "function") {
+    return value.toDate();
+  }
+
+  if (typeof value === "number") {
+    return new Date(value);
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date;
+}
+
+// =========================================
+// CONFIRM FROZEN TICKET
+// =========================================
+
+function confirmFrozenTicket(booking) {
+  const deadline = getDeadlineDate(booking.confirmationDeadline);
+
+  // Check whether the confirmation deadline has passed.
+  if (deadline && deadline <= new Date()) {
+    alert(
+      "The payment deadline for this frozen ticket has expired. The booking can no longer be confirmed.",
+    );
+
+    return;
+  }
+
+  const remainingAmount = Number(
+    booking.frozenRemainingAmount || booking.remainingAmount || 0,
+  );
+
+  if (remainingAmount <= 0) {
+    alert("Remaining payment amount is not available.");
+
+    return;
+  }
+
+  // Prepare the existing booking for the payment page.
+  const paymentData = {
+    ...booking,
+
+    paymentMode: "frozen-confirmation",
+
+    existingBookingId: booking.bookingId || booking.id,
+
+    firestoreDocumentId: booking.id,
+
+    ticketCount:
+      booking.ticketCount ||
+      booking.confirmedSeatCount ||
+      (Array.isArray(booking.seats) ? booking.seats.length : 0),
+
+    ticketAmountPayNow: remainingAmount,
+
+    baseAmount: remainingAmount,
+
+    convenienceFee: 0,
+
+    gst: 0,
+
+    foodAmount: 0,
+
+    foodItemCount: 0,
+
+    totalAmount: remainingAmount,
+  };
+
+  sessionStorage.setItem("bookItBroPayment", JSON.stringify(paymentData));
+
+  window.location.href = "payment.html";
 }
 
 // =========================================

@@ -1516,3 +1516,394 @@ button {
     font-size: 15px;
   }
 }
+
+/* =====================================================
+   PRE-ORDER FOOD - DARK MODE
+===================================================== */
+
+body.dark-mode {
+  --text: #f5f5f5;
+  --muted: #a8a8b3;
+
+  --background: #121212;
+  --card: #1d1d1f;
+
+  --border: #35353a;
+
+  --green: #52c878;
+  --gold: #f5b71b;
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body.dark-mode {
+  background: var(--background);
+  color: var(--text);
+}
+
+/* =====================================================
+   MOVIE INFO
+===================================================== */
+
+body.dark-mode .booking-food-info {
+  background: #18181b;
+  border-color: var(--border);
+}
+
+body.dark-mode .movie-food-card img {
+  background: #2a2a2e;
+}
+
+body.dark-mode .movie-food-card h2 {
+  color: var(--text);
+}
+
+/* =====================================================
+   FOOD HERO
+===================================================== */
+
+body.dark-mode .food-hero {
+  background: linear-gradient(135deg, #1d1115, #47151e);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+body.dark-mode .food-section-header h2 {
+  color: var(--text);
+}
+
+/* =====================================================
+   CATEGORY BUTTONS
+===================================================== */
+
+body.dark-mode .category-button {
+  background: #1d1d1f;
+  color: #b5b5bd;
+  border-color: var(--border);
+}
+
+body.dark-mode .category-button:hover {
+  background: #29292d;
+  border-color: #d64a61;
+}
+
+body.dark-mode .category-button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* =====================================================
+   FOOD CARDS
+===================================================== */
+
+body.dark-mode .food-card {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+body.dark-mode .food-card:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .food-card .food-image {
+  background: #2a2a2e;
+}
+
+body.dark-mode .food-image-fallback {
+  background: linear-gradient(135deg, #2b171b, #3a1d23);
+}
+
+body.dark-mode .food-category {
+  background: #3a1c22;
+  color: #ff8799;
+}
+
+body.dark-mode .food-card-top .food-price {
+  color: var(--text);
+}
+
+body.dark-mode .food-card h3 {
+  color: var(--text);
+}
+
+body.dark-mode .food-card p {
+  color: var(--muted);
+}
+
+/* =====================================================
+   ADD BUTTON
+===================================================== */
+
+body.dark-mode .add-food-button {
+  background: #321a20;
+  color: #ff7589;
+  border-color: #8d3544;
+}
+
+body.dark-mode .add-food-button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* =====================================================
+   FOOD QUANTITY CONTROLS
+===================================================== */
+
+body.dark-mode .food-quantity-controls,
+body.dark-mode .food-quantity-control {
+  background: #321a20;
+  border-color: #73303b;
+}
+
+body.dark-mode .food-quantity-controls strong,
+body.dark-mode .quantity-value {
+  color: var(--text);
+}
+
+body.dark-mode .quantity-button {
+  background: var(--primary);
+  color: white;
+}
+
+body.dark-mode .quantity-button:hover {
+  background: var(--primary-dark);
+}
+
+/* =====================================================
+   NO FOOD MESSAGE
+===================================================== */
+
+body.dark-mode .no-food-message {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+body.dark-mode .no-food-message h3 {
+  color: var(--text);
+}
+
+body.dark-mode .no-food-message p {
+  color: var(--muted);
+}
+
+/* =====================================================
+   ORDER SIDEBAR
+===================================================== */
+
+body.dark-mode .order-card {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .order-card-header {
+  background: #1d1d1f;
+  border-color: var(--border);
+}
+
+body.dark-mode .order-card-header h2 {
+  color: var(--text);
+}
+
+body.dark-mode .cart-count {
+  background: #3a1c22;
+  color: #ff8799;
+}
+
+/* =====================================================
+   EMPTY CART
+===================================================== */
+
+body.dark-mode .empty-cart {
+  background: var(--card);
+}
+
+body.dark-mode .empty-cart-icon {
+  background: #2c2023;
+}
+
+body.dark-mode .empty-cart h3 {
+  color: var(--text);
+}
+
+body.dark-mode .empty-cart p {
+  color: var(--muted);
+}
+
+/* =====================================================
+   CART ITEMS
+===================================================== */
+
+body.dark-mode .cart-item {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+body.dark-mode .cart-item-icon {
+  background: #2d1c20;
+}
+
+body.dark-mode .cart-item-info h4 {
+  color: var(--text);
+}
+
+body.dark-mode .cart-item-info span {
+  color: var(--muted);
+}
+
+/* =====================================================
+   REMOVE BUTTON
+===================================================== */
+
+body.dark-mode .remove-cart-item {
+  background: #2b2b2f;
+  color: #b8b8c0;
+}
+
+body.dark-mode .remove-cart-item:hover {
+  background: #4a2028;
+  color: #ff8799;
+}
+
+/* =====================================================
+   CART QUANTITY
+===================================================== */
+
+body.dark-mode .cart-quantity-controls strong {
+  color: var(--text);
+}
+
+body.dark-mode .cart-quantity-button {
+  background: #29292d;
+  color: #e5e5e5;
+  border-color: #44444a;
+}
+
+body.dark-mode .cart-quantity-button:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* =====================================================
+   PRICE SECTION
+===================================================== */
+
+body.dark-mode .order-price-section {
+  background: var(--card);
+}
+
+body.dark-mode .price-line {
+  color: var(--muted);
+}
+
+body.dark-mode .reward-line {
+  color: #58c97b;
+}
+
+body.dark-mode .price-divider {
+  background: var(--border);
+}
+
+body.dark-mode .total-line {
+  color: var(--text);
+}
+
+body.dark-mode .total-line strong {
+  color: #ff637a;
+}
+
+/* =====================================================
+   CONTINUE BUTTON
+===================================================== */
+
+body.dark-mode .continue-food-button {
+  background: var(--primary);
+  color: white;
+}
+
+body.dark-mode .continue-food-button:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+body.dark-mode .continue-food-button:disabled {
+  background: #39393e;
+  color: #777780;
+}
+
+/* =====================================================
+   SECURE MESSAGE
+===================================================== */
+
+body.dark-mode .secure-message {
+  color: #888891;
+}
+
+/* =====================================================
+   REWARDS CARD
+===================================================== */
+
+body.dark-mode .rewards-card {
+  background: linear-gradient(135deg, #332b15, #423718);
+  border-color: #6b5922;
+}
+
+body.dark-mode .rewards-big-icon {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .rewards-card-top span {
+  color: #e6c55c;
+}
+
+body.dark-mode .rewards-card h3 {
+  color: #fff3c4;
+}
+
+body.dark-mode .progress-track {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+body.dark-mode .progress-text {
+  color: #d6bd65;
+}
+
+body.dark-mode .rewards-card > p {
+  color: #d6c77d;
+}
+
+/* =====================================================
+   MOBILE CART BAR
+===================================================== */
+
+@media (max-width: 850px) {
+  body.dark-mode .mobile-cart-bar {
+    background: #1a1a1d;
+    border-top-color: var(--border);
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.35);
+  }
+
+  body.dark-mode .mobile-cart-bar span {
+    color: #a0a0a8;
+  }
+
+  body.dark-mode .mobile-cart-bar strong {
+    color: #ff637a;
+  }
+
+  body.dark-mode .mobile-cart-bar button {
+    background: var(--primary);
+    color: white;
+  }
+
+  body.dark-mode .mobile-cart-bar button:disabled {
+    background: #39393e;
+    color: #777780;
+  }
+}

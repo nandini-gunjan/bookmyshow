@@ -2,11 +2,13 @@
    BOOKITBRO
    PAYMENT PAGE
 ========================================= */
+
 import { auth, db } from "./firebase.js";
 
 import {
   doc,
   setDoc,
+  updateDoc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -27,7 +29,6 @@ function loadPaymentData() {
 
   if (!storedData) {
     showPaymentError();
-
     return false;
   }
 
@@ -46,22 +47,11 @@ function loadPaymentData() {
   }
 }
 
-// =========================================
-// DISPLAY BOOKING
-// =========================================
+/* =========================================
+   DISPLAY BOOKING
+========================================= */
 
 function displayBooking() {
-  /*
-      Check booking type.
-
-      Sports bookings contain:
-      bookingType: "sports"
-
-      Movie bookings either contain:
-      bookingType: "movie"
-      or have no bookingType.
-  */
-
   if (paymentData.bookingType === "sports") {
     displaySportsBooking();
   } else {
@@ -69,53 +59,38 @@ function displayBooking() {
   }
 }
 
-// =========================================
-// DISPLAY MOVIE BOOKING
-// =========================================
+/* =========================================
+   DISPLAY MOVIE BOOKING
+========================================= */
 
 function displayMovieBooking() {
   const movieSection = document.getElementById("movieBookingDetails");
-
   const sportsSection = document.getElementById("sportsBookingDetails");
 
-  /*
-      Show movie section.
-  */
-
   movieSection.style.display = "block";
-
   sportsSection.style.display = "none";
 
-  /*
-      Heading.
-  */
-
-  document.getElementById("bookingHeading").textContent = "Your Booking";
+  document.getElementById("bookingHeading").textContent =
+    paymentData.paymentMode === "frozen-confirmation"
+      ? "Confirm Your Frozen Ticket"
+      : "Your Booking";
 
   document.getElementById("bookingSubheading").textContent =
-    "Review your movie booking details";
-
-  /*
-      Movie title.
-  */
+    paymentData.paymentMode === "frozen-confirmation"
+      ? "Complete the remaining payment to confirm your ticket"
+      : "Review your movie booking details";
 
   document.getElementById("movieTitle").textContent =
     paymentData.movieTitle || "Movie";
 
-  /*
-      Movie metadata.
-  */
-
   document.getElementById("movieMeta").textContent =
     `${paymentData.language || "Movie"} • ${paymentData.certificate || "UA"}`;
-
-  /*
-      Poster.
-  */
 
   const poster = paymentData.moviePoster || paymentData.poster || "";
 
   const posterElement = document.getElementById("moviePoster");
+
+  posterElement.style.display = "";
 
   if (poster) {
     posterElement.src = poster;
@@ -127,136 +102,90 @@ function displayMovieBooking() {
     posterElement.style.display = "none";
   }
 
-  /*
-      Theatre.
-  */
-
   document.getElementById("theatreName").textContent =
     paymentData.theatreName || "Theatre";
 
-  /*
-      Screen.
-  */
-
   document.getElementById("screenName").textContent =
     paymentData.screen || "Screen 1";
-
-  /*
-      Date.
-  */
 
   document.getElementById("showDate").textContent = formatDate(
     paymentData.date,
   );
 
-  /*
-      Showtime.
-  */
-
   document.getElementById("showTime").textContent = paymentData.showTime || "—";
 
-  /*
-      Seats.
-  */
+  // =========================================
+  // SEATS
+  // =========================================
 
-  const seats = Array.isArray(paymentData.seats) ? paymentData.seats : [];
+  // For frozen ticket confirmation, show only frozen seats.
+  const seats =
+    paymentData.paymentMode === "frozen-confirmation"
+      ? Array.isArray(paymentData.frozenSeats)
+        ? paymentData.frozenSeats
+        : []
+      : Array.isArray(paymentData.seats)
+        ? paymentData.seats
+        : [];
 
   document.getElementById("selectedSeats").textContent = seats.length
     ? seats.join(", ")
     : "No seats selected";
 }
 
-// =========================================
-// DISPLAY SPORTS BOOKING
-// =========================================
+/* =========================================
+   DISPLAY SPORTS BOOKING
+========================================= */
 
 function displaySportsBooking() {
   const movieSection = document.getElementById("movieBookingDetails");
-
   const sportsSection = document.getElementById("sportsBookingDetails");
 
-  /*
-      Hide movie section.
-  */
-
   movieSection.style.display = "none";
-
-  /*
-      Show sports section.
-  */
-
   sportsSection.style.display = "block";
 
-  /*
-      Heading.
-  */
-
-  document.getElementById("bookingHeading").textContent = "Your Sports Booking";
+  document.getElementById("bookingHeading").textContent =
+    paymentData.paymentMode === "frozen-confirmation"
+      ? "Confirm Your Frozen Ticket"
+      : "Your Sports Booking";
 
   document.getElementById("bookingSubheading").textContent =
-    "Review your sports event details";
-
-  /*
-      Event name.
-  */
+    paymentData.paymentMode === "frozen-confirmation"
+      ? "Complete the remaining payment to confirm your ticket"
+      : "Review your sports event details";
 
   document.getElementById("sportsEventName").textContent =
-    paymentData.eventName || "Sports Event";
-
-  /*
-      League.
-  */
+    paymentData.eventName ||
+    `${paymentData.homeTeam || "Home Team"} VS ${
+      paymentData.awayTeam || "Away Team"
+    }`;
 
   document.getElementById("sportsLeague").textContent =
     paymentData.league || "Sports Event";
 
-  /*
-      Sport.
-  */
-
   document.getElementById("sportsSport").textContent =
     paymentData.sport || "Sports";
 
-  /*
-      Venue.
-  */
-
   document.getElementById("sportsVenue").textContent =
     paymentData.venue || "Venue";
-
-  /*
-      Date.
-  */
 
   document.getElementById("sportsDate").textContent = formatDate(
     paymentData.date,
   );
 
-  /*
-      Time.
-  */
-
   document.getElementById("sportsTime").textContent =
     paymentData.showTime || "—";
 
-  /*
-      Teams.
-  */
-
   const homeTeam = paymentData.homeTeam || "Home Team";
-
   const awayTeam = paymentData.awayTeam || "Away Team";
 
   document.getElementById("sportsTeams").textContent =
     `${homeTeam} VS ${awayTeam}`;
 
-  /*
-      Sports poster.
-  */
-
   const poster = paymentData.poster || "";
-
   const posterElement = document.getElementById("sportsPoster");
+
+  posterElement.style.display = "";
 
   if (poster) {
     posterElement.src = poster;
@@ -274,29 +203,37 @@ function displaySportsBooking() {
 ========================================= */
 
 function displayPrice() {
-  /* =====================================
-     AMOUNTS
-  ====================================== */
+  const isFrozenConfirmation =
+    paymentData.paymentMode === "frozen-confirmation";
 
-  const ticketCount = Number(paymentData.ticketCount) || 0;
+  const ticketCount =
+    paymentData.paymentMode === "frozen-confirmation"
+      ? Array.isArray(paymentData.frozenSeats)
+        ? paymentData.frozenSeats.length
+        : Number(paymentData.frozenSeatCount) || 0
+      : Number(paymentData.ticketCount) || 0;
 
-  const ticketAmount = Number(paymentData.ticketAmountPayNow) || 0;
+  const ticketAmount = isFrozenConfirmation
+    ? Number(paymentData.frozenRemainingAmount || paymentData.totalAmount || 0)
+    : Number(paymentData.ticketAmountPayNow || paymentData.baseAmount || 0);
 
-  const foodAmount = Number(paymentData.foodAmount) || 0;
+  const foodAmount = isFrozenConfirmation
+    ? 0
+    : Number(paymentData.foodAmount) || 0;
 
-  const foodItemCount = Number(paymentData.foodItemCount) || 0;
+  const foodItemCount = isFrozenConfirmation
+    ? 0
+    : Number(paymentData.foodItemCount) || 0;
 
-  const baseAmount = Number(paymentData.baseAmount) || 0;
+  const convenienceFee = isFrozenConfirmation
+    ? 0
+    : Number(paymentData.convenienceFee) || 0;
 
-  const convenienceFee = Number(paymentData.convenienceFee) || 0;
+  const gst = isFrozenConfirmation ? 0 : Number(paymentData.gst) || 0;
 
-  const gst = Number(paymentData.gst) || 0;
-
-  const totalAmount = Number(paymentData.totalAmount) || 0;
-
-  /* =====================================
-     TICKET AMOUNT
-  ====================================== */
+  const totalAmount = isFrozenConfirmation
+    ? Number(paymentData.frozenRemainingAmount || paymentData.totalAmount || 0)
+    : Number(paymentData.totalAmount) || 0;
 
   const ticketPriceElement = document.getElementById("ticketPrice");
 
@@ -304,30 +241,14 @@ function displayPrice() {
     ticketPriceElement.textContent = formatCurrency(ticketAmount);
   }
 
-  /* =====================================
-     TICKET COUNT
-  ====================================== */
-
   const ticketCountElement = document.getElementById("ticketCount");
 
   if (ticketCountElement) {
-    ticketCountElement.textContent = `${ticketCount} ticket${
-      ticketCount === 1 ? "" : "s"
-    }`;
+    ticketCountElement.textContent = `${ticketCount} ticket${ticketCount === 1 ? "" : "s"}`;
   }
 
-  /* =====================================
-     FOOD AMOUNT
-
-     These elements are optional so the
-     page will still work until you update
-     payment.html.
-  ====================================== */
-
   const foodRow = document.getElementById("foodPaymentRow");
-
   const foodAmountElement = document.getElementById("foodAmount");
-
   const foodCountElement = document.getElementById("foodItemCount");
 
   if (foodRow) {
@@ -339,26 +260,8 @@ function displayPrice() {
   }
 
   if (foodCountElement) {
-    foodCountElement.textContent = `${foodItemCount} item${
-      foodItemCount === 1 ? "" : "s"
-    }`;
+    foodCountElement.textContent = `${foodItemCount} item${foodItemCount === 1 ? "" : "s"}`;
   }
-
-  /* =====================================
-     BASE AMOUNT
-
-     Optional display element.
-  ====================================== */
-
-  const baseAmountElement = document.getElementById("baseAmount");
-
-  if (baseAmountElement) {
-    baseAmountElement.textContent = formatCurrency(baseAmount);
-  }
-
-  /* =====================================
-     CONVENIENCE FEE
-  ====================================== */
 
   const convenienceFeeElement = document.getElementById("convenienceFee");
 
@@ -366,19 +269,11 @@ function displayPrice() {
     convenienceFeeElement.textContent = formatCurrency(convenienceFee);
   }
 
-  /* =====================================
-     GST
-  ====================================== */
-
   const gstElement = document.getElementById("gst");
 
   if (gstElement) {
     gstElement.textContent = formatCurrency(gst);
   }
-
-  /* =====================================
-     TOTAL AMOUNT
-  ====================================== */
 
   const totalAmountElement = document.getElementById("totalAmount");
 
@@ -386,14 +281,24 @@ function displayPrice() {
     totalAmountElement.textContent = formatCurrency(totalAmount);
   }
 
-  /* =====================================
-     PAY BUTTON AMOUNT
-  ====================================== */
-
   const payAmountElement = document.getElementById("payAmount");
 
   if (payAmountElement) {
     payAmountElement.textContent = formatCurrency(totalAmount);
+  }
+
+  /*
+    Update Pay button text for frozen tickets.
+  */
+
+  const payButton = document.getElementById("payButton");
+
+  if (payButton && isFrozenConfirmation) {
+    const payText = payButton.querySelector("span");
+
+    if (payText) {
+      payText.textContent = "Confirm & Pay";
+    }
   }
 }
 
@@ -406,9 +311,7 @@ function setupPaymentMethods() {
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const method = button.dataset.method;
-
-      selectPaymentMethod(method);
+      selectPaymentMethod(button.dataset.method);
     });
   });
 }
@@ -420,25 +323,13 @@ function setupPaymentMethods() {
 function selectPaymentMethod(method) {
   selectedMethod = method;
 
-  /*
-        Update buttons
-    */
-
   document.querySelectorAll(".method-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.method === method);
   });
 
-  /*
-        Hide all forms
-    */
-
   document.querySelectorAll(".payment-form").forEach((form) => {
     form.classList.remove("active");
   });
-
-  /*
-        Show selected form
-    */
 
   const selectedForm = document.getElementById(`${method}Form`);
 
@@ -452,10 +343,6 @@ function selectPaymentMethod(method) {
 ========================================= */
 
 function validatePayment() {
-  /*
-        UPI
-    */
-
   if (selectedMethod === "upi") {
     const upi = document.getElementById("upiId").value.trim();
 
@@ -467,10 +354,6 @@ function validatePayment() {
       return false;
     }
 
-    /*
-            Basic UPI format.
-        */
-
     const upiPattern = /^[\w.-]+@[\w.-]+$/;
 
     if (!upiPattern.test(upi)) {
@@ -481,10 +364,6 @@ function validatePayment() {
       return false;
     }
   }
-
-  /*
-        CARD
-    */
 
   if (selectedMethod === "card") {
     const cardNumber = document
@@ -530,10 +409,6 @@ function validatePayment() {
     }
   }
 
-  /*
-        NET BANKING
-    */
-
   if (selectedMethod === "netbanking") {
     const bank = document.getElementById("bank").value;
 
@@ -545,10 +420,6 @@ function validatePayment() {
       return false;
     }
   }
-
-  /*
-        WALLET
-    */
 
   if (selectedMethod === "wallet") {
     const wallet = document.getElementById("wallet").value;
@@ -566,44 +437,10 @@ function validatePayment() {
 }
 
 /* =========================================
-   FORMAT CURRENCY
-========================================= */
-
-function formatCurrency(amount) {
-  return `₹${Number(amount).toFixed(2)}`;
-}
-
-/* =========================================
-   FORMAT DATE
-========================================= */
-
-function formatDate(dateString) {
-  if (!dateString) {
-    return "—";
-  }
-
-  const date = new Date(dateString);
-
-  if (Number.isNaN(date.getTime())) {
-    return dateString;
-  }
-
-  return date.toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-/* =========================================
    PROCESS PAYMENT
 ========================================= */
 
 function processPayment() {
-  /*
-        Validate payment first.
-    */
-
   if (!validatePayment()) {
     return;
   }
@@ -612,45 +449,74 @@ function processPayment() {
 
   processingModal.classList.remove("hidden");
 
-  /*
-        Demo payment processing.
-
-        We are NOT charging a real
-        card / UPI account.
-    */
-
   setTimeout(async () => {
-    processingModal.classList.add("hidden");
+    try {
+      processingModal.classList.add("hidden");
 
-    await completePayment();
+      await completePayment();
+    } catch (error) {
+      processingModal.classList.add("hidden");
+
+      console.error("Payment processing error:", error);
+
+      alert(
+        error.message || "Payment could not be completed. Please try again.",
+      );
+    }
   }, 1800);
 }
 
 /* =========================================
-   SAVE BOOKING TO FIREBASE
+   COMPLETE PAYMENT
+========================================= */
+
+async function completePayment() {
+  if (paymentData.paymentMode === "frozen-confirmation") {
+    await confirmFrozenBooking();
+
+    return;
+  }
+
+  /*
+    Normal booking payment.
+  */
+
+  const bookingId = generateBookingId();
+
+  const confirmationData = {
+    ...paymentData,
+
+    bookingId,
+
+    bookingStatus: "CONFIRMED",
+
+    paymentStatus: "SUCCESS",
+
+    paymentMethod: selectedMethod,
+
+    paymentDate: new Date().toISOString(),
+  };
+
+  await saveBookingToFirebase(confirmationData);
+
+  sessionStorage.setItem(
+    "bookItBroConfirmation",
+    JSON.stringify(confirmationData),
+  );
+
+  showSuccessAndRedirect();
+}
+
+/* =========================================
+   SAVE NEW BOOKING TO FIREBASE
 ========================================= */
 
 async function saveBookingToFirebase(confirmationData) {
   const user = auth.currentUser;
 
-  /*
-      User must be signed in.
-  */
-
   if (!user) {
     throw new Error("User is not signed in.");
   }
-
-  /*
-      Create booking document.
-
-      Path:
-
-      users
-        └── USER UID
-              └── bookings
-                    └── BOOKING ID
-  */
 
   const bookingRef = doc(
     db,
@@ -659,10 +525,6 @@ async function saveBookingToFirebase(confirmationData) {
     "bookings",
     confirmationData.bookingId,
   );
-
-  /*
-      Save complete booking data.
-  */
 
   await setDoc(bookingRef, {
     ...confirmationData,
@@ -680,57 +542,200 @@ async function saveBookingToFirebase(confirmationData) {
     updatedAt: serverTimestamp(),
   });
 
-  console.log("Booking saved successfully:", confirmationData.bookingId);
+  console.log("New booking saved successfully:", confirmationData.bookingId);
 }
 
 /* =========================================
-   COMPLETE PAYMENT
+   CONFIRM FROZEN BOOKING
 ========================================= */
 
-async function completePayment() {
-  try {
-    const bookingId = generateBookingId();
+async function confirmFrozenBooking() {
+  const user = auth.currentUser;
 
-    const confirmationData = {
-      ...paymentData,
-      bookingId,
-      bookingStatus: "CONFIRMED",
-      paymentStatus: "SUCCESS",
-      paymentMethod: selectedMethod,
-      paymentDate: new Date().toISOString(),
-    };
-
-    console.log("Firebase user:", auth.currentUser);
-    console.log("Firebase UID:", auth.currentUser?.uid);
-    console.log("Payment data:", paymentData);
-    console.log("Confirmation data:", confirmationData);
-
-    await saveBookingToFirebase(confirmationData);
-
-    console.log("Booking saved successfully!");
-
-    sessionStorage.setItem(
-      "bookItBroConfirmation",
-      JSON.stringify(confirmationData),
-    );
-
-    const successModal = document.getElementById("successModal");
-    successModal.classList.remove("hidden");
-
-    setTimeout(() => {
-      window.location.href = "confirmation.html";
-    }, 1200);
-  } catch (error) {
-    console.error("========== FIRESTORE ERROR ==========");
-    console.error("Error object:", error);
-    console.error("Error code:", error.code);
-    console.error("Error message:", error.message);
-    console.error("====================================");
-
-    alert(
-      `Booking could not be saved.\n\nCode: ${error.code}\nMessage: ${error.message}`,
-    );
+  if (!user) {
+    throw new Error("User is not signed in.");
   }
+
+  const bookingDocumentId =
+    paymentData.firestoreDocumentId || paymentData.existingBookingId;
+
+  if (!bookingDocumentId) {
+    throw new Error("Frozen booking information was not found.");
+  }
+
+  const bookingRef = doc(db, "users", user.uid, "bookings", bookingDocumentId);
+
+  // Remaining amount paid now
+  const remainingAmount = Number(
+    paymentData.frozenRemainingAmount || paymentData.remainingAmount || 0,
+  );
+
+  // Amount already paid during seat freezing
+  const advanceAmount = Number(paymentData.frozenAdvanceAmount || 0);
+
+  // Final total paid for frozen seats
+  const finalFrozenAmount = remainingAmount + advanceAmount;
+
+  // Previously confirmed seats
+  const existingConfirmedSeats = Array.isArray(paymentData.confirmedSeats)
+    ? paymentData.confirmedSeats
+    : [];
+
+  // Seats that were frozen
+  const frozenSeats = Array.isArray(paymentData.frozenSeats)
+    ? paymentData.frozenSeats
+    : [];
+
+  // Move frozen seats into confirmed seats
+  const finalConfirmedSeats = [...existingConfirmedSeats, ...frozenSeats];
+
+  // Prevent duplicate seats
+  const uniqueConfirmedSeats = [...new Set(finalConfirmedSeats)];
+
+  // =========================================
+  // UPDATE SAME FIRESTORE BOOKING
+  // =========================================
+
+  await updateDoc(bookingRef, {
+    bookingStatus: "CONFIRMED",
+
+    frozenStatus: "COMPLETED",
+
+    paymentStatus: "SUCCESS",
+
+    paymentMethod: selectedMethod,
+
+    // Move all frozen seats to confirmed
+    confirmedSeats: uniqueConfirmedSeats,
+
+    confirmedSeatCount: uniqueConfirmedSeats.length,
+
+    // No seats remain frozen
+    frozenSeats: [],
+
+    frozenSeatCount: 0,
+
+    // Payment information
+    remainingAmountPaid: remainingAmount,
+
+    frozenRemainingAmount: 0,
+
+    confirmedAmount: finalFrozenAmount,
+
+    totalAmount: finalFrozenAmount,
+
+    paymentDate: new Date().toISOString(),
+
+    updatedAt: serverTimestamp(),
+  });
+
+  console.log("Frozen booking confirmed successfully:", bookingDocumentId);
+
+  // =========================================
+  // CONFIRMATION PAGE DATA
+  // =========================================
+
+  const confirmationData = {
+    ...paymentData,
+
+    bookingId:
+      paymentData.bookingId ||
+      paymentData.existingBookingId ||
+      bookingDocumentId,
+
+    firestoreDocumentId: bookingDocumentId,
+
+    bookingStatus: "CONFIRMED",
+
+    frozenStatus: "COMPLETED",
+
+    paymentStatus: "SUCCESS",
+
+    paymentMethod: selectedMethod,
+
+    paymentDate: new Date().toISOString(),
+
+    // Final confirmed seats
+    confirmedSeats: uniqueConfirmedSeats,
+
+    confirmedSeatCount: uniqueConfirmedSeats.length,
+
+    // No frozen seats remain
+    frozenSeats: [],
+
+    frozenSeatCount: 0,
+
+    remainingAmountPaid: remainingAmount,
+
+    frozenRemainingAmount: 0,
+
+    confirmedAmount: finalFrozenAmount,
+
+    totalAmount: finalFrozenAmount,
+  };
+
+  sessionStorage.setItem(
+    "bookItBroConfirmation",
+    JSON.stringify(confirmationData),
+  );
+
+  showSuccessAndRedirect();
+}
+
+/* =========================================
+   SHOW SUCCESS AND REDIRECT
+========================================= */
+
+function showSuccessAndRedirect() {
+  const successModal = document.getElementById("successModal");
+
+  if (successModal) {
+    successModal.classList.remove("hidden");
+  }
+
+  setTimeout(() => {
+    window.location.href = "confirmation.html";
+  }, 1200);
+}
+
+/* =========================================
+   FORMAT CURRENCY
+========================================= */
+
+function formatCurrency(amount) {
+  return `₹${(Number(amount) || 0).toFixed(2)}`;
+}
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(dateValue) {
+  if (!dateValue) {
+    return "—";
+  }
+
+  let date;
+
+  /*
+    Firestore Timestamp.
+  */
+
+  if (typeof dateValue.toDate === "function") {
+    date = dateValue.toDate();
+  } else {
+    date = new Date(dateValue);
+  }
+
+  if (Number.isNaN(date.getTime())) {
+    return String(dateValue);
+  }
+
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 /* =========================================
@@ -752,6 +757,10 @@ function generateBookingId() {
 function setupCardNumberFormatting() {
   const input = document.getElementById("cardNumber");
 
+  if (!input) {
+    return;
+  }
+
   input.addEventListener("input", () => {
     let value = input.value.replace(/\D/g, "");
 
@@ -770,6 +779,10 @@ function setupCardNumberFormatting() {
 function setupExpiryFormatting() {
   const input = document.getElementById("expiry");
 
+  if (!input) {
+    return;
+  }
+
   input.addEventListener("input", () => {
     let value = input.value.replace(/\D/g, "");
 
@@ -784,11 +797,15 @@ function setupExpiryFormatting() {
 }
 
 /* =========================================
-   CVV
+   CVV FORMAT
 ========================================= */
 
 function setupCVV() {
   const input = document.getElementById("cvv");
+
+  if (!input) {
+    return;
+  }
 
   input.addEventListener("input", () => {
     input.value = input.value.replace(/\D/g, "").substring(0, 3);
@@ -800,7 +817,13 @@ function setupCVV() {
 ========================================= */
 
 function setupBackButton() {
-  document.getElementById("backButton").addEventListener("click", () => {
+  const button = document.getElementById("backButton");
+
+  if (!button) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
     window.history.back();
   });
 }
@@ -811,65 +834,58 @@ function setupBackButton() {
 
 function showPaymentError() {
   document.body.innerHTML = `
+    <div style="
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #f5f5f7;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    ">
+
+      <div style="max-width: 420px;">
 
         <div style="
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-            background:#f5f5f7;
-            font-family:Arial,sans-serif;
-            text-align:center;
+          font-size: 50px;
+          margin-bottom: 15px;
         ">
-
-            <div style="
-                max-width:420px;
-            ">
-
-                <div style="
-                    font-size:50px;
-                    margin-bottom:15px;
-                ">
-                    ⚠️
-                </div>
-
-                <h2 style="
-                    margin-bottom:10px;
-                ">
-                    Payment Information Not Found
-                </h2>
-
-                <p style="
-                    color:#777;
-                    line-height:1.6;
-                    margin-bottom:22px;
-                ">
-                    Your booking information could not
-                    be found. Please return to the
-                    booking summary and try again.
-                </p>
-
-                <button
-                    onclick="history.back()"
-                    style="
-                        border:none;
-                        padding:12px 24px;
-                        border-radius:7px;
-                        background:#e51937;
-                        color:white;
-                        font-weight:600;
-                        cursor:pointer;
-                    "
-                >
-                    Go Back
-                </button>
-
-            </div>
-
+          ⚠️
         </div>
 
-    `;
+        <h2 style="margin-bottom: 10px;">
+          Payment Information Not Found
+        </h2>
+
+        <p style="
+          color: #777;
+          line-height: 1.6;
+          margin-bottom: 22px;
+        ">
+          Your booking information could not be found.
+          Please return to the booking summary and try again.
+        </p>
+
+        <button
+          onclick="history.back()"
+          style="
+            border: none;
+            padding: 12px 24px;
+            border-radius: 7px;
+            background: #e51937;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+          "
+        >
+          Go Back
+        </button>
+
+      </div>
+
+    </div>
+  `;
 }
 
 /* =========================================
@@ -877,37 +893,17 @@ function showPaymentError() {
 ========================================= */
 
 function initialize() {
-  /*
-        Load payment data.
-    */
-
   const loaded = loadPaymentData();
 
   if (!loaded) {
     return;
   }
 
-  /*
-        Display booking.
-    */
-
   displayBooking();
-
-  /*
-        Display price.
-    */
 
   displayPrice();
 
-  /*
-        Setup payment methods.
-    */
-
   setupPaymentMethods();
-
-  /*
-        Setup input formatting.
-    */
 
   setupCardNumberFormatting();
 
@@ -915,19 +911,13 @@ function initialize() {
 
   setupCVV();
 
-  /*
-        Back button.
-    */
-
   setupBackButton();
 
-  /*
-        Pay button.
-    */
+  const payButton = document.getElementById("payButton");
 
-  document
-    .getElementById("payButton")
-    .addEventListener("click", processPayment);
+  if (payButton) {
+    payButton.addEventListener("click", processPayment);
+  }
 }
 
 /* =========================================
