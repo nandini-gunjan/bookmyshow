@@ -2636,6 +2636,7 @@ body.dark-mode .logo {
 body.dark-mode .logo span {
   background: #e51937;
   color: #ffffff;
+  border-color: #121212;
 }
 
 /* =========================================
