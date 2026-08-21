@@ -32,18 +32,15 @@ function loadBooking() {
     }
 
     /*
-        Ensure food fields always exist.
+        Ensure food order always exists.
+
+        pre-order-food.js saves food using:
+        booking.foodOrder
     */
 
-    if (!Array.isArray(booking.foodItems)) {
-      booking.foodItems = [];
+    if (!Array.isArray(booking.foodOrder)) {
+      booking.foodOrder = [];
     }
-
-    booking.foodItemCount = Number(booking.foodItemCount) || 0;
-
-    booking.foodTotal = Number(booking.foodTotal) || 0;
-
-    booking.foodPreOrdered = booking.foodItems.length > 0;
 
     return true;
   } catch (error) {
@@ -60,7 +57,11 @@ function loadBooking() {
 ========================================= */
 
 function getConfirmedSeats() {
-  return Array.isArray(booking.confirmedSeats) ? booking.confirmedSeats : [];
+  if (Array.isArray(booking.confirmedSeats)) {
+    return booking.confirmedSeats;
+  }
+
+  return [];
 }
 
 /* =========================================
@@ -68,7 +69,11 @@ function getConfirmedSeats() {
 ========================================= */
 
 function getFrozenSeats() {
-  return Array.isArray(booking.frozenSeats) ? booking.frozenSeats : [];
+  if (Array.isArray(booking.frozenSeats)) {
+    return booking.frozenSeats;
+  }
+
+  return [];
 }
 
 /* =========================================
@@ -84,9 +89,13 @@ function getAllSeats() {
 ========================================= */
 
 function getFoodItems() {
-  return Array.isArray(booking.foodItems)
-    ? booking.foodItems.filter((item) => Number(item.quantity) > 0)
-    : [];
+  if (!Array.isArray(booking.foodOrder)) {
+    return [];
+  }
+
+  return booking.foodOrder.filter((item) => {
+    return Number(item.quantity) > 0;
+  });
 }
 
 /* =========================================
@@ -106,7 +115,6 @@ function getFoodItemCount() {
 function calculateFoodTotal() {
   return getFoodItems().reduce((total, item) => {
     const price = Number(item.price) || 0;
-
     const quantity = Number(item.quantity) || 0;
 
     return total + price * quantity;
@@ -119,9 +127,7 @@ function calculateFoodTotal() {
 
 function displayMovie() {
   const poster = document.getElementById("moviePoster");
-
   const title = document.getElementById("movieTitle");
-
   const meta = document.getElementById("movieMeta");
 
   if (title) {
@@ -144,7 +150,6 @@ function displayMovie() {
 
   if (meta) {
     const language = booking.language || "Movie";
-
     const certificate = booking.certificate || "UA";
 
     meta.textContent = `${language} • ${certificate}`;
@@ -157,11 +162,8 @@ function displayMovie() {
 
 function displayShowDetails() {
   const theatre = document.getElementById("theatreName");
-
   const date = document.getElementById("showDate");
-
   const time = document.getElementById("showTime");
-
   const screen = document.getElementById("screenName");
 
   if (theatre) {
@@ -187,11 +189,9 @@ function displayShowDetails() {
 
 function displaySeats() {
   const confirmedSeats = getConfirmedSeats();
-
   const frozenSeats = getFrozenSeats();
 
   const confirmedElement = document.getElementById("confirmedSeats");
-
   const frozenElement = document.getElementById("frozenSeats");
 
   if (confirmedElement) {
@@ -208,33 +208,29 @@ function displaySeats() {
 /* =========================================
    DISPLAY FOOD ORDER
 ========================================= */
+/* =========================================
+   DISPLAY FOOD ORDER
+========================================= */
 
 function displayFoodOrder() {
-  const foodItems = getFoodItems();
-
-  const foodItemsList = document.getElementById("foodItemsList");
-
+  const foodOrderSection = document.getElementById("foodOrderSection");
+  const foodOrderItems = document.getElementById("foodOrderItems");
+  const foodOrderTotal = document.getElementById("foodOrderTotal");
+  const foodOrderSubtitle = document.getElementById("foodOrderSubtitle");
   const noFoodMessage = document.getElementById("noFoodMessage");
-
   const foodTotalRow = document.getElementById("foodTotalRow");
 
-  const foodTotalElement = document.getElementById("foodTotal");
+  const foodItems = getFoodItems();
 
-  const subtitle = document.getElementById("foodOrderSubtitle");
-
-  /*
-      Clear existing items.
-  */
-
-  if (foodItemsList) {
-    foodItemsList.innerHTML = "";
-  }
-
-  /*
-      NO FOOD
-  */
+  /* =========================================
+     NO FOOD ORDER
+  ========================================= */
 
   if (foodItems.length === 0) {
+    if (foodOrderSection) {
+      foodOrderSection.style.display = "none";
+    }
+
     if (noFoodMessage) {
       noFoodMessage.style.display = "flex";
     }
@@ -243,16 +239,20 @@ function displayFoodOrder() {
       foodTotalRow.style.display = "none";
     }
 
-    if (subtitle) {
-      subtitle.textContent = "You have not pre-ordered any food.";
+    if (foodOrderSubtitle) {
+      foodOrderSubtitle.textContent = "You have not pre-ordered any food.";
     }
 
     return;
   }
 
-  /*
-      FOOD EXISTS
-  */
+  /* =========================================
+     FOOD EXISTS
+  ========================================= */
+
+  if (foodOrderSection) {
+    foodOrderSection.style.display = "block";
+  }
 
   if (noFoodMessage) {
     noFoodMessage.style.display = "none";
@@ -262,41 +262,52 @@ function displayFoodOrder() {
     foodTotalRow.style.display = "flex";
   }
 
-  if (subtitle) {
-    subtitle.textContent = `${getFoodItemCount()} item${
-      getFoodItemCount() === 1 ? "" : "s"
+  const totalItemCount = getFoodItemCount();
+
+  if (foodOrderSubtitle) {
+    foodOrderSubtitle.textContent = `${totalItemCount} item${
+      totalItemCount === 1 ? "" : "s"
     } pre-ordered.`;
   }
 
-  /*
-      CREATE FOOD ITEMS
-  */
+  /* =========================================
+     DISPLAY FOOD ITEMS
+  ========================================= */
+
+  if (!foodOrderItems) {
+    return;
+  }
+
+  foodOrderItems.innerHTML = "";
+
+  let total = 0;
 
   foodItems.forEach((item) => {
-    const foodItem = document.createElement("div");
-
-    foodItem.className = "food-summary-item";
-
-    const imageUrl = item.image || "";
-
+    const name = item.name || "Food Item";
     const price = Number(item.price) || 0;
-
     const quantity = Number(item.quantity) || 0;
+    const image = item.image || "";
 
-    const subtotal = price * quantity;
+    const itemTotal = price * quantity;
 
-    foodItem.innerHTML = `
+    total += itemTotal;
 
+    const itemElement = document.createElement("div");
+
+    itemElement.className = "food-summary-item";
+
+    itemElement.innerHTML = `
       <div class="food-summary-info">
 
         ${
-          imageUrl
+          image
             ? `
-            <img
-              class="food-summary-image"
-              src="${imageUrl}"
-              alt="${escapeHtml(item.name || "Food item")}"
-            >
+              <img
+                src="${image}"
+                alt="${escapeHtml(name)}"
+                class="food-summary-image"
+                onerror="this.style.display='none'"
+              >
             `
             : ""
         }
@@ -304,37 +315,31 @@ function displayFoodOrder() {
         <div class="food-summary-details">
 
           <strong>
-            ${escapeHtml(item.name || "Food Item")}
+            ${escapeHtml(name)}
           </strong>
 
-          <span>
+          <small>
             ${quantity} × ${formatCurrency(price)}
-          </span>
+          </small>
 
         </div>
 
       </div>
 
-
       <strong class="food-summary-price">
-        ${formatCurrency(subtotal)}
+        ${formatCurrency(itemTotal)}
       </strong>
-
     `;
 
-    if (foodItemsList) {
-      foodItemsList.appendChild(foodItem);
-    }
+    foodOrderItems.appendChild(itemElement);
   });
 
-  /*
-      FOOD TOTAL
-  */
+  /* =========================================
+     FOOD TOTAL
+  ========================================= */
 
-  const foodTotal = calculateFoodTotal();
-
-  if (foodTotalElement) {
-    foodTotalElement.textContent = formatCurrency(foodTotal);
+  if (foodOrderTotal) {
+    foodOrderTotal.textContent = formatCurrency(total);
   }
 }
 
@@ -364,7 +369,7 @@ function displayFreezeInformation() {
   freezeSection.style.display = "block";
 
   /*
-      STATUS
+      BOOKING STATUS
   */
 
   const bookingStatus = document.getElementById("bookingStatus");
@@ -404,7 +409,7 @@ function displayFreezeInformation() {
   */
 
   const remainingAmount =
-    getFrozenSeats().length * (Number(booking.ticketPrice) || 0) * 0.5;
+    frozenSeats.length * (Number(booking.ticketPrice) || 0) * 0.5;
 
   const remainingElement = document.getElementById("remainingAmount");
 
@@ -435,19 +440,19 @@ function checkBookingExpiry() {
   }
 
   /*
-      Save cancelled frozen seats.
+      Save cancelled frozen seats
   */
 
   booking.cancelledFrozenSeats = [...frozenSeats];
 
   /*
-      Remove frozen seats.
+      Remove frozen seats
   */
 
   booking.frozenSeats = [];
 
   /*
-      Keep confirmed seats.
+      Keep confirmed seats
   */
 
   booking.seats = [...getConfirmedSeats()];
@@ -455,7 +460,7 @@ function checkBookingExpiry() {
   booking.numberOfTickets = getConfirmedSeats().length;
 
   /*
-      Update status.
+      Update booking status
   */
 
   booking.bookingStatus =
@@ -467,16 +472,11 @@ function checkBookingExpiry() {
 
   booking.frozenSeatsCancelledAt = Date.now();
 
-  /*
-      No remaining payment.
-  */
-
   booking.frozenRemainingAmount = 0;
-
   booking.remainingAmount = 0;
 
   /*
-      Save.
+      Save updated booking
   */
 
   sessionStorage.setItem("bookItBroFinalBooking", JSON.stringify(booking));
@@ -561,17 +561,17 @@ function calculatePrice() {
 
   const ticketPrice = Number(booking.ticketPrice) || 0;
 
-  /* =========================================
-     CONFIRMED SEATS
-     100% PAYMENT NOW
-  ========================================= */
+  /*
+      CONFIRMED SEATS
+      100% PAYMENT
+  */
 
   const confirmedAmount = confirmedCount * ticketPrice;
 
-  /* =========================================
-     FROZEN SEATS
-     50% PAYMENT NOW
-  ========================================= */
+  /*
+      FROZEN SEATS
+      50% PAYMENT NOW
+  */
 
   const frozenFullAmount = frozenCount * ticketPrice;
 
@@ -579,58 +579,52 @@ function calculatePrice() {
 
   const frozenRemainingAmount = frozenFullAmount * 0.5;
 
-  /* =========================================
-     TICKET AMOUNT PAYABLE NOW
-  ========================================= */
+  /*
+      TICKET AMOUNT PAYABLE NOW
+  */
 
   const ticketAmountPayNow = confirmedAmount + frozenAdvanceAmount;
 
-  /* =========================================
-     FOOD ORDER
-  ========================================= */
+  /*
+      FOOD
+  */
 
-  const foodOrder = booking.foodOrder || [];
+  const foodItems = getFoodItems();
 
-  let foodAmount = 0;
+  const foodItemCount = getFoodItemCount();
 
-  foodOrder.forEach((item) => {
-    const price = Number(item.price) || 0;
+  const foodAmount = calculateFoodTotal();
 
-    const quantity = Number(item.quantity) || 0;
-
-    foodAmount += price * quantity;
-  });
-
-  /* =========================================
-     SUBTOTAL PAYABLE NOW
-  ========================================= */
+  /*
+      SUBTOTAL
+  */
 
   const subtotalPayNow = ticketAmountPayNow + foodAmount;
 
-  /* =========================================
-     CONVENIENCE FEE
-  ========================================= */
+  /*
+      CONVENIENCE FEE
+  */
 
   const convenienceFee =
     ticketCount > 0 || foodAmount > 0 ? CONVENIENCE_FEE : 0;
 
-  /* =========================================
-     GST
-  ========================================= */
+  /*
+      GST
+  */
 
   const taxableAmount = subtotalPayNow + convenienceFee;
 
   const gst = taxableAmount * GST_RATE;
 
-  /* =========================================
-     FINAL PAYMENT NOW
-  ========================================= */
+  /*
+      FINAL PAYMENT NOW
+  */
 
   const payableNow = subtotalPayNow + convenienceFee + gst;
 
-  /* =========================================
-     FULL TICKET VALUE
-  ========================================= */
+  /*
+      FULL BOOKING VALUE
+  */
 
   const fullBookingValue = confirmedAmount + frozenFullAmount + foodAmount;
 
@@ -651,7 +645,13 @@ function calculatePrice() {
 
     ticketAmountPayNow,
 
+    foodItems,
+
+    foodItemCount,
+
     foodAmount,
+
+    foodTotal: foodAmount,
 
     subtotalPayNow,
 
@@ -683,7 +683,7 @@ function displayPrice() {
   }
 
   /*
-      CONFIRMED COUNT
+      CONFIRMED SEAT COUNT
   */
 
   const confirmedSeatCount = document.getElementById("confirmedSeatCount");
@@ -695,7 +695,7 @@ function displayPrice() {
   }
 
   /*
-      FROZEN COUNT
+      FROZEN SEAT COUNT
   */
 
   const frozenSeatCount = document.getElementById("frozenSeatCount");
@@ -737,41 +737,8 @@ function displayPrice() {
   }
 
   /*
-      FOOD ITEM COUNT
+      FOOD PAYMENT ROW
   */
-
-  const foodItemCount = document.getElementById("foodItemCount");
-
-  if (foodItemCount) {
-    foodItemCount.textContent = `${price.foodItemCount} item${
-      price.foodItemCount === 1 ? "" : "s"
-    }`;
-  }
-
-  /*
-      FOOD AMOUNT
-  */
-
-  const foodPaymentAmount = document.getElementById("foodPaymentAmount");
-
-  if (foodPaymentAmount) {
-    foodPaymentAmount.textContent = formatCurrency(price.foodTotal);
-  }
-
-  /*
-      Hide food row
-      when no food is ordered.
-  */
-
-  const foodPaymentRow = document.getElementById("foodPaymentRow");
-
-  if (foodPaymentRow) {
-    foodPaymentRow.style.display = price.foodItemCount > 0 ? "flex" : "none";
-  }
-
-  /* =========================================
-   FOOD AMOUNT
-========================================= */
 
   const foodPaymentRow = document.getElementById("foodPaymentRow");
 
@@ -779,14 +746,8 @@ function displayPrice() {
 
   const foodItemCount = document.getElementById("foodItemCount");
 
-  const foodOrder = Array.isArray(booking.foodOrder) ? booking.foodOrder : [];
-
-  const totalFoodItems = foodOrder.reduce((total, item) => {
-    return total + (Number(item.quantity) || 0);
-  }, 0);
-
   if (foodPaymentRow) {
-    foodPaymentRow.style.display = totalFoodItems > 0 ? "flex" : "none";
+    foodPaymentRow.style.display = price.foodItemCount > 0 ? "flex" : "none";
   }
 
   if (foodAmount) {
@@ -794,8 +755,8 @@ function displayPrice() {
   }
 
   if (foodItemCount) {
-    foodItemCount.textContent = `${totalFoodItems} item${
-      totalFoodItems === 1 ? "" : "s"
+    foodItemCount.textContent = `${price.foodItemCount} item${
+      price.foodItemCount === 1 ? "" : "s"
     }`;
   }
 
@@ -860,7 +821,7 @@ function displayPrice() {
   }
 
   /*
-      Hide rows with no seats.
+      HIDE EMPTY SEAT ROWS
   */
 
   const confirmedRow = document.getElementById("confirmedPaymentRow");
@@ -910,22 +871,12 @@ function proceedToPayment() {
 
   const price = calculatePrice();
 
-  const foodOrder = Array.isArray(booking.foodOrder) ? booking.foodOrder : [];
-
-  const foodItemCount = foodOrder.reduce((total, item) => {
-    return total + (Number(item.quantity) || 0);
-  }, 0);
-
-  /* =========================================
-     PAYMENT DATA
-  ========================================= */
-
   const paymentData = {
     ...booking,
 
-    /* =====================================
-       SEATS
-    ====================================== */
+    /*
+        SEATS
+    */
 
     seats: getAllSeats(),
 
@@ -941,9 +892,9 @@ function proceedToPayment() {
 
     numberOfTickets: price.ticketCount,
 
-    /* =====================================
-       TICKET PRICE DETAILS
-    ====================================== */
+    /*
+        TICKET DETAILS
+    */
 
     ticketPrice: price.ticketPrice,
 
@@ -959,50 +910,49 @@ function proceedToPayment() {
 
     ticketAmountPayNow: Number(price.ticketAmountPayNow.toFixed(2)),
 
-    /* =====================================
-       FOOD ORDER
-    ====================================== */
+    /*
+        FOOD
+    */
 
-    foodOrder,
+    foodOrder: price.foodItems,
 
-    foodItemCount,
+    foodItemCount: price.foodItemCount,
 
     foodAmount: Number(price.foodAmount.toFixed(2)),
 
-    /* =====================================
-       BASE AMOUNT
+    foodTotal: Number(price.foodAmount.toFixed(2)),
 
-       This is the amount before
-       convenience fee and GST.
-    ====================================== */
+    /*
+        BASE AMOUNT
+    */
 
     baseAmount: Number(price.subtotalPayNow.toFixed(2)),
 
-    /* =====================================
-       FEES
-    ====================================== */
+    /*
+        FEES
+    */
 
     convenienceFee: Number(price.convenienceFee.toFixed(2)),
 
     gst: Number(price.gst.toFixed(2)),
 
-    /* =====================================
-       FINAL PAYMENT
-    ====================================== */
+    /*
+        FINAL PAYMENT
+    */
 
     payableNow: Number(price.payableNow.toFixed(2)),
 
     totalAmount: Number(price.payableNow.toFixed(2)),
 
-    /* =====================================
-       FULL BOOKING VALUE
-    ====================================== */
+    /*
+        FULL BOOKING VALUE
+    */
 
     fullBookingValue: Number(price.fullBookingValue.toFixed(2)),
 
-    /* =====================================
-       STATUS
-    ====================================== */
+    /*
+        STATUS
+    */
 
     paymentStatus: "PENDING",
   };
@@ -1019,11 +969,6 @@ function proceedToPayment() {
 ========================================= */
 
 function changeSeats() {
-  /*
-      Return directly to
-      seat selection.
-  */
-
   window.location.href = "seat-selection.html";
 }
 
@@ -1032,11 +977,6 @@ function changeSeats() {
 ========================================= */
 
 function changeFood() {
-  /*
-      Return directly to
-      food selection.
-  */
-
   window.location.href = "pre-order-food.html";
 }
 
@@ -1069,7 +1009,7 @@ function formatDate(dateString) {
 
   /*
       Prevent timezone shift
-      for YYYY-MM-DD.
+      for YYYY-MM-DD
   */
 
   if (
@@ -1140,10 +1080,8 @@ function showBookingError() {
           color: #777;
           margin: 12px 0 20px;
         ">
-
           Please select your movie,
           theatre and seats again.
-
         </p>
 
         <button
@@ -1157,9 +1095,7 @@ function showBookingError() {
             cursor: pointer;
           "
         >
-
           Go Back
-
         </button>
 
       </div>
@@ -1181,14 +1117,13 @@ function initialize() {
   }
 
   /*
-      Check frozen seat expiry.
+      CHECK FROZEN SEAT EXPIRY
   */
 
   const expired = checkBookingExpiry();
 
   if (expired) {
     window.location.reload();
-
     return;
   }
 
@@ -1206,8 +1141,6 @@ function initialize() {
 
   displayFreezeInformation();
 
-  displayFoodOrder();
-
   displayPrice();
 
   /*
@@ -1223,7 +1156,7 @@ function initialize() {
   setupTerms();
 
   /*
-      BACK
+      BACK BUTTON
   */
 
   const backButton = document.getElementById("backButton");
@@ -1260,75 +1193,6 @@ function initialize() {
 
   if (paymentButton) {
     paymentButton.addEventListener("click", proceedToPayment);
-  }
-}
-
-/* =========================================
-   DISPLAY FOOD ORDER
-========================================= */
-
-function displayFoodOrder() {
-  const foodOrderSection = document.getElementById("foodOrderSection");
-
-  const foodOrderItems = document.getElementById("foodOrderItems");
-
-  const foodOrderTotal = document.getElementById("foodOrderTotal");
-
-  const foodOrder = Array.isArray(booking.foodOrder) ? booking.foodOrder : [];
-
-  /* =========================================
-     NO FOOD ORDER
-  ========================================= */
-
-  if (foodOrder.length === 0) {
-    if (foodOrderSection) {
-      foodOrderSection.style.display = "none";
-    }
-
-    return;
-  }
-
-  if (foodOrderSection) {
-    foodOrderSection.style.display = "block";
-  }
-
-  if (!foodOrderItems) {
-    return;
-  }
-
-  foodOrderItems.innerHTML = "";
-
-  let total = 0;
-
-  foodOrder.forEach((item) => {
-    const name = item.name || "Food Item";
-
-    const price = Number(item.price) || 0;
-
-    const quantity = Number(item.quantity) || 0;
-
-    const itemTotal = price * quantity;
-
-    total += itemTotal;
-
-    const itemElement = document.createElement("div");
-
-    itemElement.className = "summary-row";
-
-    itemElement.innerHTML = `
-      <span>
-        ${name}
-        <small>${quantity} × ${formatCurrency(price)}</small>
-      </span>
-
-      <strong>${formatCurrency(itemTotal)}</strong>
-    `;
-
-    foodOrderItems.appendChild(itemElement);
-  });
-
-  if (foodOrderTotal) {
-    foodOrderTotal.textContent = formatCurrency(total);
   }
 }
 

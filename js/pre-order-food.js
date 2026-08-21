@@ -31,6 +31,8 @@ const foodMenu = [
     name: "Classic Salted Popcorn",
     category: "popcorn",
     price: 120,
+    image:
+      "https://images.unsplash.com/photo-1585647347384-2593bc35786b?auto=format&fit=crop&w=800&q=80",
     emoji: "🍿",
     description: "Freshly popped and lightly salted.",
   },
@@ -40,6 +42,8 @@ const foodMenu = [
     name: "Cheesy Popcorn",
     category: "popcorn",
     price: 160,
+    image:
+      "assets/img/cheesePopcorn.jpg",
     emoji: "🧀🍿",
     description: "Crispy popcorn with rich cheese flavour.",
   },
@@ -49,6 +53,8 @@ const foodMenu = [
     name: "Caramel Popcorn",
     category: "popcorn",
     price: 180,
+    image:
+      "assets/img/caramelPopcorn.jpg",
     emoji: "🍯🍿",
     description: "Sweet, crunchy caramel-coated popcorn.",
   },
@@ -58,6 +64,8 @@ const foodMenu = [
     name: "Butter Popcorn",
     category: "popcorn",
     price: 150,
+    image:
+      "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&w=800&q=80",
     emoji: "🧈🍿",
     description: "Movie-style popcorn with buttery flavour.",
   },
@@ -67,6 +75,8 @@ const foodMenu = [
     name: "Veggie Burger",
     category: "snacks",
     price: 140,
+    image:
+      "assets/img/vegBurger.jpg",
     emoji: "🍔",
     description: "A delicious burger with a crispy vegetable patty.",
   },
@@ -76,6 +86,8 @@ const foodMenu = [
     name: "Crispy French Fries",
     category: "snacks",
     price: 110,
+    image:
+      "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
     emoji: "🍟",
     description: "Golden, crispy fries served fresh.",
   },
@@ -85,6 +97,8 @@ const foodMenu = [
     name: "Loaded Nachos",
     category: "snacks",
     price: 170,
+    image:
+      "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=800&q=80",
     emoji: "🧀",
     description: "Crunchy nachos loaded with cheese and toppings.",
   },
@@ -94,6 +108,8 @@ const foodMenu = [
     name: "Veg Pizza",
     category: "snacks",
     price: 220,
+    image:
+      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
     emoji: "🍕",
     description: "Cheesy pizza topped with fresh vegetables.",
   },
@@ -103,6 +119,8 @@ const foodMenu = [
     name: "Popcorn + Coke Combo",
     category: "combos",
     price: 220,
+    image:
+      "assets/img/popCoke.jpg",
     emoji: "🍿🥤",
     description: "Classic popcorn with a chilled soft drink.",
   },
@@ -112,6 +130,8 @@ const foodMenu = [
     name: "Burger Combo",
     category: "combos",
     price: 250,
+    image:
+      "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80",
     emoji: "🍔🍟🥤",
     description: "Burger, fries and a refreshing drink.",
   },
@@ -121,6 +141,8 @@ const foodMenu = [
     name: "Movie Mega Combo",
     category: "combos",
     price: 399,
+    image:
+      "assets/img/popPizzaCoke.jpg",
     emoji: "🍿🍕🥤",
     description: "The perfect sharing combo for your movie.",
   },
@@ -130,6 +152,8 @@ const foodMenu = [
     name: "Coca-Cola",
     category: "drinks",
     price: 80,
+    image:
+      "https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=800&q=80",
     emoji: "🥤",
     description: "Chilled and refreshing soft drink.",
   },
@@ -139,6 +163,8 @@ const foodMenu = [
     name: "Cold Coffee",
     category: "drinks",
     price: 130,
+    image:
+      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80",
     emoji: "🥤",
     description: "Smooth and refreshing cold coffee.",
   },
@@ -148,6 +174,8 @@ const foodMenu = [
     name: "Mineral Water",
     category: "drinks",
     price: 40,
+    image:
+      "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80",
     emoji: "💧",
     description: "Packaged drinking water.",
   },
@@ -365,10 +393,17 @@ function renderFoodGrid() {
 
     card.innerHTML = `
       <div class="food-image">
-        <span class="food-emoji">
-          ${food.emoji}
-        </span>
-      </div>
+  <img
+    src="${food.image}"
+    alt="${food.name}"
+    loading="lazy"
+    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+  />
+
+  <span class="food-emoji food-image-fallback">
+    ${food.emoji}
+  </span>
+</div>
 
       <div class="food-card-content">
 

@@ -186,44 +186,27 @@
      FOOD PRE-ORDER
 ===================================== -->
 
-        <section id="foodOrderSection" class="summary-card food-order-card">
-          <div class="section-title">
+        <section id="foodOrderSection" class="summary-card">
+          <div class="section-header">
             <div>
-              <h3>Food & Beverages</h3>
+              <h2>Food & Beverages</h2>
 
-              <p id="foodOrderSubtitle">Your pre-ordered food items.</p>
+              <p id="foodOrderSubtitle">Your pre-ordered items</p>
             </div>
 
-            <button id="changeFoodButton" class="change-button" type="button">
-              Change
-            </button>
+            <button type="button" id="changeFoodButton">Change</button>
           </div>
 
-          <!-- FOOD ITEMS -->
+          <div id="foodOrderItems"></div>
 
-          <div id="foodItemsList" class="food-items-list">
-            <!-- Food items will be added
-         dynamically by JavaScript -->
+          <div class="summary-row food-total-row" id="foodTotalRow">
+            <span>Food & Beverages Total</span>
+
+            <strong id="foodOrderTotal"> ₹0.00 </strong>
           </div>
 
-          <!-- NO FOOD MESSAGE -->
-
-          <div id="noFoodMessage" class="no-food-message">
-            <span class="no-food-icon"> 🍿 </span>
-
-            <div>
-              <strong> No food pre-ordered </strong>
-
-              <p>You have not added any food or beverages to your booking.</p>
-            </div>
-          </div>
-
-          <!-- FOOD TOTAL -->
-
-          <div id="foodTotalRow" class="summary-row food-total-row">
-            <span> Food & Beverages Total </span>
-
-            <strong id="foodTotal"> ₹0.00 </strong>
+          <div id="noFoodMessage" style="display: none">
+            No food pre-ordered.
           </div>
         </section>
 
@@ -279,25 +262,11 @@
             <strong id="foodAmount">₹0.00</strong>
           </div>
 
-          <div class="summary-divider"></div>
-
           <!-- TICKET PAYMENT NOW -->
 
           <div class="summary-row">
             <span>Ticket Amount Payable Now</span>
             <strong id="ticketAmountPayNow">₹0.00</strong>
-          </div>
-
-          <!-- FOOD PAYMENT -->
-
-          <div id="foodPaymentRow" class="summary-row payment-type-row">
-            <span>
-              Food & Beverages
-
-              <small id="foodItemCount"> 0 items </small>
-            </span>
-
-            <strong id="foodPaymentAmount"> ₹0.00 </strong>
           </div>
 
           <!-- CONVENIENCE -->

@@ -1086,82 +1086,273 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
 }
 
 /* =========================================
-   FOOD ORDER
+   FOOD & BEVERAGES
 ========================================= */
 
-.food-order-card {
-  margin-top: 20px;
-}
+/* Header */
 
-.food-items-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.food-summary-item {
+.section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 15px;
-  padding: 14px;
-  border-radius: 10px;
-  background: #f7f7f7;
+
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+
+  border-bottom: 1px solid var(--border);
 }
 
-.food-summary-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.section-header h2 {
+  color: var(--text-primary);
+
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.food-summary-image {
-  width: 55px;
-  height: 55px;
-  object-fit: cover;
-  border-radius: 8px;
+.section-header p {
+  margin-top: 4px;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
 }
 
-.food-summary-details {
+/* Change Button */
+
+#changeFoodButton {
+  padding: 7px 13px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(229, 25, 55, 0.25);
+  border-radius: 6px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+#changeFoodButton:hover {
+  background: var(--primary);
+
+  color: #ffffff;
+}
+
+/* =========================================
+   FOOD ITEMS CONTAINER
+========================================= */
+
+#foodOrderItems {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+
+  gap: 10px;
+
+  margin-bottom: 14px;
 }
 
-.food-summary-details strong {
-  font-size: 15px;
+/* =========================================
+   INDIVIDUAL FOOD ITEM
+
+   JavaScript creates:
+   <div class="summary-row">
+========================================= */
+
+#foodOrderItems .summary-row {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  width: 100%;
+
+  padding: 14px 16px;
+
+  background: #fafafa;
+
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+
+  color: var(--text-primary);
 }
 
-.food-summary-details span {
-  font-size: 13px;
-  color: #777;
+/* Food Name */
+
+#foodOrderItems .summary-row > span {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  color: var(--text-primary);
+
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.food-summary-price {
+/* Quantity × Price */
+
+#foodOrderItems .summary-row small {
+  color: var(--text-secondary);
+
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* Item Total */
+
+#foodOrderItems .summary-row > strong {
+  flex-shrink: 0;
+
+  color: var(--text-primary);
+
+  font-size: 14px;
   font-weight: 700;
+
   white-space: nowrap;
 }
 
+/* =========================================
+   FOOD TOTAL
+========================================= */
+
 .food-total-row {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #e5e5e5;
-}
-
-.no-food-message {
   display: flex;
+
   align-items: center;
-  gap: 14px;
-  padding: 16px 0;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding-top: 16px;
+  margin-top: 4px;
+
+  border-top: 1px solid var(--border);
 }
 
-.no-food-message p {
-  margin: 4px 0 0;
-  color: #777;
+.food-total-row span {
+  color: var(--text-secondary);
+
+  font-size: 13px;
+}
+
+.food-total-row strong {
+  color: var(--text-primary);
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* =========================================
+   NO FOOD MESSAGE
+========================================= */
+
+#noFoodMessage {
+  padding: 14px 0;
+
+  color: var(--text-secondary);
+
   font-size: 14px;
 }
 
-.no-food-icon {
-  font-size: 28px;
+/* =========================================
+   DARK MODE - FOOD
+========================================= */
+
+body.dark-mode .section-header {
+  border-bottom-color: #363636;
+}
+
+body.dark-mode .section-header h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .section-header p {
+  color: #a5a5a5;
+}
+
+body.dark-mode #changeFoodButton {
+  background: rgba(229, 25, 55, 0.12);
+
+  border-color: rgba(229, 25, 55, 0.35);
+
+  color: #ff6378;
+}
+
+body.dark-mode #changeFoodButton:hover {
+  background: var(--primary);
+
+  color: #ffffff;
+}
+
+body.dark-mode #foodOrderItems .summary-row {
+  background: #252525;
+
+  border-color: #383838;
+
+  color: #ffffff;
+}
+
+body.dark-mode #foodOrderItems .summary-row > span {
+  color: #ffffff;
+}
+
+body.dark-mode #foodOrderItems .summary-row small {
+  color: #a5a5a5;
+}
+
+body.dark-mode #foodOrderItems .summary-row > strong {
+  color: #ffffff;
+}
+
+body.dark-mode .food-total-row {
+  border-top-color: #3a3a3a;
+}
+
+body.dark-mode .food-total-row span {
+  color: #b3b3b3;
+}
+
+body.dark-mode .food-total-row strong {
+  color: #ffffff;
+}
+
+body.dark-mode #noFoodMessage {
+  color: #a5a5a5;
+}
+
+/* =========================================
+   MOBILE FOOD
+========================================= */
+
+@media (max-width: 600px) {
+  .section-header {
+    align-items: flex-start;
+  }
+
+  #foodOrderItems .summary-row {
+    padding: 13px;
+    gap: 10px;
+  }
+
+  #foodOrderItems .summary-row > span {
+    font-size: 13px;
+  }
+
+  #foodOrderItems .summary-row > strong {
+    font-size: 13px;
+  }
 }
