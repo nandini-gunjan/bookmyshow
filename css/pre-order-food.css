@@ -6,15 +6,11 @@
 :root {
   --primary: #e51937;
   --primary-dark: #c91430;
-
   --text: #222;
   --muted: #777;
-
   --background: #f6f6f8;
   --card: #ffffff;
-
   --border: #e8e8e8;
-
   --green: #2e9b55;
   --gold: #f0a500;
 }
@@ -27,11 +23,8 @@
 
 body {
   min-height: 100vh;
-
   background: var(--background);
-
   color: var(--text);
-
   font-family: Arial, sans-serif;
 }
 
@@ -45,24 +38,17 @@ button {
 
 .page-container {
   width: min(1250px, 100%);
-
   margin: auto;
-
   padding-left: 24px;
   padding-right: 24px;
 }
 
 .section-label {
   display: block;
-
   margin-bottom: 6px;
-
   color: var(--primary);
-
   font-size: 11px;
-
   font-weight: 700;
-
   letter-spacing: 1.4px;
 }
 
@@ -72,45 +58,33 @@ button {
 
 .food-header {
   background: linear-gradient(135deg, #171717, #2a1519);
-
   color: white;
-
   border-bottom: 3px solid var(--primary);
 }
 
 .header-container {
   width: min(1250px, 100%);
-
   min-height: 125px;
-
   margin: auto;
-
   padding: 22px 24px;
 
   display: flex;
-
   align-items: center;
-
   gap: 20px;
 }
 
 .back-button {
   width: 46px;
-
   height: 46px;
-
   flex-shrink: 0;
 
   border: 1px solid rgba(255, 255, 255, 0.15);
-
   border-radius: 50%;
 
   background: rgba(255, 255, 255, 0.08);
-
   color: white;
 
   font-size: 25px;
-
   cursor: pointer;
 
   transition:
@@ -120,7 +94,6 @@ button {
 
 .back-button:hover {
   transform: translateX(-3px);
-
   background: rgba(255, 255, 255, 0.16);
 }
 
@@ -130,45 +103,34 @@ button {
 
 .food-tag {
   display: inline-block;
-
   margin-bottom: 7px;
 
   color: #ffbdc8;
-
   font-size: 10px;
-
   font-weight: 700;
-
   letter-spacing: 1.5px;
 }
 
 .header-title h1 {
   margin-bottom: 5px;
-
   font-size: clamp(24px, 4vw, 34px);
-
   line-height: 1.15;
 }
 
 .header-title p {
   color: #bdbdbd;
-
   font-size: 13px;
 }
 
 .reward-mini-card {
   min-width: 175px;
-
   padding: 13px 15px;
 
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 
   border: 1px solid rgba(255, 255, 255, 0.12);
-
   border-radius: 12px;
 
   background: rgba(255, 255, 255, 0.08);
@@ -180,22 +142,17 @@ button {
 
 .reward-mini-card span:not(.reward-icon) {
   display: block;
-
   margin-bottom: 3px;
 
   color: #bbb;
-
   font-size: 10px;
-
   text-transform: uppercase;
-
   letter-spacing: 1px;
 }
 
 .reward-mini-card strong {
-  font-size: 15px;
-
   color: #fff;
+  font-size: 15px;
 }
 
 /* =====================================================
@@ -204,7 +161,6 @@ button {
 
 .booking-food-info {
   background: white;
-
   border-bottom: 1px solid var(--border);
 }
 
@@ -212,19 +168,15 @@ button {
   padding: 18px 0;
 
   display: flex;
-
   align-items: center;
-
   gap: 15px;
 }
 
 .movie-food-card img {
   width: 55px;
-
   height: 76px;
 
   object-fit: cover;
-
   border-radius: 7px;
 
   background: #eee;
@@ -232,27 +184,21 @@ button {
 
 .small-label {
   display: block;
-
   margin-bottom: 5px;
 
   color: var(--primary);
-
   font-size: 9px;
-
   font-weight: 700;
-
   letter-spacing: 1.3px;
 }
 
 .movie-food-card h2 {
   margin-bottom: 5px;
-
   font-size: 18px;
 }
 
 .movie-food-card p {
   color: var(--muted);
-
   font-size: 12px;
 }
 
@@ -266,13 +212,8 @@ button {
 
 .food-layout {
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    370px;
-
+  grid-template-columns: minmax(0, 1fr) 370px;
   gap: 30px;
-
   align-items: start;
 }
 
@@ -284,23 +225,18 @@ button {
   position: relative;
 
   min-height: 235px;
-
   margin-bottom: 35px;
-
   padding: 32px 35px;
 
   overflow: hidden;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
   border-radius: 20px;
 
   background: linear-gradient(135deg, #251012, #5b1520);
-
   color: white;
 
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
@@ -312,11 +248,9 @@ button {
   position: absolute;
 
   width: 280px;
-
   height: 280px;
 
   right: -100px;
-
   bottom: -150px;
 
   border-radius: 50%;
@@ -326,25 +260,19 @@ button {
 
 .hero-badge {
   display: inline-block;
-
   margin-bottom: 12px;
 
   color: #ffbdc8;
-
   font-size: 10px;
-
   font-weight: 700;
-
   letter-spacing: 1.3px;
 }
 
 .food-hero h2 {
   max-width: 520px;
-
   margin-bottom: 13px;
 
   font-size: clamp(27px, 4vw, 42px);
-
   line-height: 1.1;
 }
 
@@ -356,23 +284,18 @@ button {
   max-width: 500px;
 
   color: #d6d6d6;
-
   font-size: 13px;
-
   line-height: 1.7;
 }
 
 .hero-food-icons {
   position: relative;
-
   z-index: 2;
 
   min-width: 180px;
 
   display: flex;
-
   align-items: center;
-
   gap: 8px;
 
   font-size: 55px;
@@ -423,41 +346,31 @@ button {
 
 .food-categories {
   display: flex;
-
   gap: 10px;
 
   margin-bottom: 28px;
+  padding-bottom: 5px;
 
   overflow-x: auto;
-
-  padding-bottom: 5px;
 }
 
 .category-button {
   min-width: 92px;
-
   padding: 11px 14px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 7px;
 
   border: 1px solid var(--border);
-
   border-radius: 12px;
 
   background: white;
-
   color: #666;
 
   font-size: 12px;
-
   cursor: pointer;
-
   white-space: nowrap;
 
   transition: 0.2s ease;
@@ -465,15 +378,12 @@ button {
 
 .category-button:hover {
   transform: translateY(-2px);
-
   border-color: #f3a1ae;
 }
 
 .category-button.active {
   background: var(--primary);
-
   color: white;
-
   border-color: var(--primary);
 
   box-shadow: 0 7px 15px rgba(229, 25, 55, 0.22);
@@ -492,9 +402,12 @@ button {
 .food-card {
   position: relative;
   overflow: hidden;
+
   border: 1px solid var(--border);
   border-radius: 18px;
+
   background: white;
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -502,6 +415,7 @@ button {
 
 .food-card:hover {
   transform: translateY(-4px);
+
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
 }
 
@@ -540,6 +454,7 @@ button {
   inset: 0;
 
   display: none;
+
   align-items: center;
   justify-content: center;
 
@@ -590,9 +505,9 @@ button {
   margin-bottom: 7px;
 
   color: var(--text);
-
   font-size: 16px;
   font-weight: 700;
+
   line-height: 1.3;
 }
 
@@ -601,7 +516,6 @@ button {
   margin-bottom: 15px;
 
   color: var(--muted);
-
   font-size: 11px;
   line-height: 1.55;
 }
@@ -620,12 +534,11 @@ button {
 }
 
 /* =====================================================
-   ADD BUTTON
+   ADD FOOD BUTTON
 ===================================================== */
 
 .add-food-button {
   min-width: 85px;
-
   padding: 9px 13px;
 
   display: inline-flex;
@@ -658,7 +571,6 @@ button {
 .add-food-button:hover {
   background: var(--primary);
   color: white;
-
   transform: translateY(-1px);
 }
 
@@ -666,7 +578,8 @@ button {
    FOOD QUANTITY CONTROLS
 ===================================================== */
 
-.food-quantity-controls {
+.food-quantity-controls,
+.food-quantity-control {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -679,18 +592,16 @@ button {
   background: #fff7f8;
 }
 
-.food-quantity-controls strong {
+.food-quantity-controls strong,
+.quantity-value {
   min-width: 22px;
 
   color: var(--text);
-
   text-align: center;
-  font-size: 13px;
-}
 
-/* =====================================================
-   QUANTITY BUTTON
-===================================================== */
+  font-size: 13px;
+  font-weight: 700;
+}
 
 .quantity-button {
   width: 27px;
@@ -751,92 +662,11 @@ button {
 }
 
 /* =====================================================
-   ADD BUTTON
-===================================================== */
-
-.add-food-button {
-  min-width: 85px;
-
-  padding: 9px 13px;
-
-  border: 1px solid var(--primary);
-
-  border-radius: 8px;
-
-  background: #fff7f8;
-
-  color: var(--primary);
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.add-food-button:hover {
-  background: var(--primary);
-
-  color: white;
-}
-
-/* =====================================================
-   QUANTITY CONTROL
-===================================================== */
-
-.food-quantity-control {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  padding: 4px;
-
-  border: 1px solid #f0b3bd;
-
-  border-radius: 8px;
-
-  background: #fff7f8;
-}
-
-.quantity-button {
-  width: 25px;
-
-  height: 25px;
-
-  border: none;
-
-  border-radius: 5px;
-
-  background: var(--primary);
-
-  color: white;
-
-  font-size: 16px;
-
-  cursor: pointer;
-}
-
-.quantity-value {
-  min-width: 18px;
-
-  text-align: center;
-
-  font-size: 12px;
-
-  font-weight: 700;
-}
-
-/* =====================================================
    ORDER SIDEBAR
 ===================================================== */
 
 .order-sidebar {
   position: sticky;
-
   top: 20px;
 }
 
@@ -844,7 +674,6 @@ button {
   overflow: hidden;
 
   border: 1px solid var(--border);
-
   border-radius: 20px;
 
   background: white;
@@ -856,10 +685,9 @@ button {
   padding: 22px 22px 16px;
 
   display: flex;
-
-  justify-content: space-between;
-
   align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
 
   border-bottom: 1px solid #eee;
 }
@@ -874,11 +702,9 @@ button {
   border-radius: 20px;
 
   background: #fff0f2;
-
   color: var(--primary);
 
   font-size: 10px;
-
   font-weight: 700;
 }
 
@@ -888,19 +714,16 @@ button {
 
 .empty-cart {
   padding: 42px 20px;
-
   text-align: center;
 }
 
 .empty-cart-icon {
   width: 65px;
-
   height: 65px;
 
   margin: 0 auto 15px;
 
   display: grid;
-
   place-items: center;
 
   border-radius: 50%;
@@ -912,15 +735,12 @@ button {
 
 .empty-cart h3 {
   margin-bottom: 7px;
-
   font-size: 16px;
 }
 
 .empty-cart p {
   color: var(--muted);
-
   font-size: 12px;
-
   line-height: 1.6;
 }
 
@@ -929,7 +749,7 @@ button {
 ===================================================== */
 
 .cart-items {
-  max-height: 310px;
+  max-height: 420px;
   overflow-y: auto;
 }
 
@@ -941,17 +761,11 @@ button {
   background: white;
 }
 
-/* =====================================================
-   CART ITEM TOP
-===================================================== */
-
 .cart-item-main {
   display: flex;
   align-items: center;
   gap: 11px;
 }
-
-/* Food emoji inside cart */
 
 .cart-item-icon {
   width: 45px;
@@ -969,10 +783,6 @@ button {
 
   font-size: 25px;
 }
-
-/* =====================================================
-   CART ITEM INFORMATION
-===================================================== */
 
 .cart-item-info {
   flex: 1;
@@ -997,10 +807,6 @@ button {
   color: var(--muted);
   font-size: 11px;
 }
-
-/* =====================================================
-   REMOVE BUTTON
-===================================================== */
 
 .remove-cart-item {
   width: 25px;
@@ -1035,10 +841,6 @@ button {
   color: var(--primary);
 }
 
-/* =====================================================
-   CART ITEM BOTTOM
-===================================================== */
-
 .cart-item-bottom {
   margin-top: 10px;
 
@@ -1047,10 +849,6 @@ button {
   justify-content: space-between;
   gap: 10px;
 }
-
-/* =====================================================
-   CART QUANTITY CONTROLS
-===================================================== */
 
 .cart-quantity-controls {
   display: flex;
@@ -1066,10 +864,6 @@ button {
   text-align: center;
   font-size: 12px;
 }
-
-/* =====================================================
-   CART QUANTITY BUTTONS
-===================================================== */
 
 .cart-quantity-button {
   width: 25px;
@@ -1100,24 +894,484 @@ button {
 
 .cart-quantity-button:hover {
   border-color: var(--primary);
-
   background: var(--primary);
   color: white;
 }
 
-/* =====================================================
-   CART ITEM TOTAL
-===================================================== */
-
 .cart-item-total {
   color: var(--primary);
-
   font-size: 13px;
   font-weight: 700;
 }
 
+.food-assignment-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
 /* =====================================================
-   PRICE
+   MULTI-FRIEND FOOD ASSIGNMENT
+===================================================== */
+
+.food-assignment-section {
+  margin-top: 12px;
+  padding-top: 12px;
+
+  border-top: 1px dashed var(--border);
+}
+
+.food-assignment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  margin-bottom: 8px;
+}
+
+.food-assignment-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.food-assignment-title span {
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.shared-food-badge {
+  padding: 4px 7px;
+
+  border-radius: 20px;
+
+  background: #fff0f2;
+  color: var(--primary);
+
+  font-size: 8px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.assigned-friends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  margin-bottom: 9px;
+}
+
+.assigned-friend-chip {
+  min-height: 28px;
+  padding: 4px 7px 4px 5px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  border: 1px solid #f0c0c8;
+  border-radius: 20px;
+
+  background: #fff7f8;
+}
+
+.assigned-friend-avatar {
+  width: 20px;
+  height: 20px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+  color: white;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.assigned-friend-name {
+  max-width: 80px;
+
+  overflow: hidden;
+
+  color: var(--text);
+
+  font-size: 9px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.remove-assigned-friend {
+  width: 16px;
+  height: 16px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: #999;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.remove-assigned-friend:hover {
+  background: #ffe1e6;
+  color: var(--primary);
+}
+
+/* =====================================================
+   ASSIGN FRIEND BUTTON
+===================================================== */
+
+.assign-friends-button {
+  width: 100%;
+  padding: 8px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border: 1px dashed #e5a3ae;
+  border-radius: 8px;
+
+  background: #fffafb;
+  color: var(--primary);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.assign-friends-button:hover {
+  border-color: var(--primary);
+  background: #fff0f2;
+  transform: translateY(-1px);
+}
+
+.assign-friends-button span {
+  font-size: 14px;
+}
+
+/* =====================================================
+   FRIEND ASSIGNMENT POPUP
+===================================================== */
+
+.friend-assignment-popup {
+  position: relative;
+
+  margin-top: 8px;
+  padding: 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: white;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  animation: assignmentPopupAppear 0.18s ease;
+}
+
+@keyframes assignmentPopupAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.assignment-popup-title {
+  margin-bottom: 9px;
+
+  color: var(--text);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.assignment-friend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.assignment-friend-option {
+  width: 100%;
+  padding: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: white;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.assignment-friend-option:hover {
+  border-color: #efa6b1;
+  background: #fff7f8;
+}
+
+.assignment-friend-option.selected {
+  border-color: var(--primary);
+  background: #fff0f2;
+}
+
+.assignment-friend-option input {
+  accent-color: var(--primary);
+}
+
+.assignment-friend-option-avatar {
+  width: 27px;
+  height: 27px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+  color: white;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.assignment-friend-option-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.assignment-friend-option-info strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--text);
+
+  font-size: 10px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.assignment-friend-option-info span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--muted);
+
+  font-size: 8px;
+}
+
+.assignment-popup-actions {
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.assignment-cancel-button,
+.assignment-save-button {
+  padding: 7px 10px;
+
+  border-radius: 7px;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.assignment-cancel-button {
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+}
+
+.assignment-save-button {
+  border: none;
+  background: var(--primary);
+  color: white;
+}
+
+.assignment-save-button:hover {
+  background: var(--primary-dark);
+}
+
+/* =====================================================
+   PER FRIEND FOOD QUANTITY
+===================================================== */
+
+.friend-quantity-list {
+  margin-top: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.friend-quantity-row {
+  padding: 7px 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--background);
+}
+
+.friend-quantity-person {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.friend-quantity-person-avatar {
+  width: 24px;
+  height: 24px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+  color: white;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.friend-quantity-person span {
+  overflow: hidden;
+
+  color: var(--text);
+
+  font-size: 9px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.friend-mini-quantity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.friend-mini-quantity button {
+  width: 21px;
+  height: 21px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  background: white;
+  color: #555;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.friend-mini-quantity button:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.friend-mini-quantity strong {
+  min-width: 17px;
+
+  color: var(--text);
+
+  text-align: center;
+  font-size: 10px;
+}
+
+/* =====================================================
+   ASSIGNMENT TOTAL WARNING
+===================================================== */
+
+.assignment-quantity-warning {
+  margin-top: 7px;
+  padding: 7px 8px;
+
+  border-radius: 7px;
+
+  background: #fff4df;
+  color: #9b6800;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.assignment-quantity-warning.success {
+  background: #ecf8f0;
+  color: var(--green);
+}
+
+/* =====================================================
+   PRICE SECTION
 ===================================================== */
 
 .order-price-section {
@@ -1128,13 +1382,10 @@ button {
   margin-bottom: 12px;
 
   display: flex;
-
   justify-content: space-between;
-
   gap: 15px;
 
   color: var(--muted);
-
   font-size: 13px;
 }
 
@@ -1154,13 +1405,11 @@ button {
   margin-bottom: 0;
 
   color: var(--text);
-
   font-size: 16px;
 }
 
 .total-line strong {
   color: var(--primary);
-
   font-size: 20px;
 }
 
@@ -1176,23 +1425,17 @@ button {
   padding: 15px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 10px;
 
   border: none;
-
   border-radius: 11px;
 
   background: var(--primary);
-
   color: white;
 
   font-size: 14px;
-
   font-weight: 700;
 
   cursor: pointer;
@@ -1204,15 +1447,12 @@ button {
 
 .continue-food-button:hover:not(:disabled) {
   transform: translateY(-2px);
-
   background: var(--primary-dark);
 }
 
 .continue-food-button:disabled {
   background: #ddd;
-
   color: #999;
-
   cursor: not-allowed;
 }
 
@@ -1222,7 +1462,6 @@ button {
   color: #999;
 
   text-align: center;
-
   font-size: 10px;
 }
 
@@ -1232,7 +1471,6 @@ button {
 
 .rewards-card {
   margin-top: 18px;
-
   padding: 20px;
 
   border-radius: 18px;
@@ -1244,19 +1482,15 @@ button {
 
 .rewards-card-top {
   display: flex;
-
   align-items: center;
-
   gap: 12px;
 }
 
 .rewards-big-icon {
   width: 50px;
-
   height: 50px;
 
   display: grid;
-
   place-items: center;
 
   border-radius: 14px;
@@ -1274,9 +1508,7 @@ button {
   color: #9b7100;
 
   font-size: 9px;
-
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
@@ -1290,7 +1522,6 @@ button {
 
 .progress-track {
   width: 100%;
-
   height: 9px;
 
   overflow: hidden;
@@ -1302,7 +1533,6 @@ button {
 
 .progress-fill {
   width: 0%;
-
   height: 100%;
 
   border-radius: inherit;
@@ -1316,7 +1546,6 @@ button {
   margin-top: 8px;
 
   display: flex;
-
   justify-content: space-between;
 
   color: #866400;
@@ -1326,10 +1555,574 @@ button {
 
 .rewards-card > p {
   color: #7c660c;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+/* =====================================================
+   SMART BILL SPLITTING - FRIENDS SECTION
+===================================================== */
+
+.friends-section {
+  margin-bottom: 38px;
+  padding: 24px;
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  background: var(--card);
+}
+
+.friends-section .food-section-header {
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.friends-section .food-section-header h2 {
+  margin-bottom: 7px;
+}
+
+.friends-description {
+  max-width: 560px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* =====================================================
+   ADD FRIEND BUTTON
+===================================================== */
+
+.add-friend-button {
+  flex-shrink: 0;
+
+  min-width: 125px;
+  padding: 11px 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+
+  background: var(--primary);
+  color: white;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-friend-button span {
+  width: 20px;
+  height: 20px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  font-size: 17px;
+  line-height: 1;
+}
+
+.add-friend-button:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 18px rgba(229, 25, 55, 0.2);
+}
+
+/* =====================================================
+   FRIEND LIST
+===================================================== */
+
+.friends-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.friend-card {
+  min-width: 170px;
+  padding: 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--background);
+}
+
+.friend-card.current-user {
+  border-color: rgba(229, 25, 55, 0.35);
+  background: #fff7f8;
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.friend-card.current-user .friend-avatar {
+  background: linear-gradient(135deg, var(--primary), #ff647a);
+}
+
+.friend-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.friend-info h4 {
+  overflow: hidden;
+
+  margin-bottom: 4px;
+
+  color: var(--text);
+
+  font-size: 13px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.friend-info span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.remove-friend-button {
+  width: 25px;
+  height: 25px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: #999;
+
+  font-size: 18px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.remove-friend-button:hover {
+  background: #ffe5e9;
+  color: var(--primary);
+}
+
+/* =====================================================
+   ADD FRIEND MODAL
+===================================================== */
+
+.friend-modal {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.friend-modal.show,
+.friend-modal.active {
+  display: flex;
+}
+
+.friend-modal-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  backdrop-filter: blur(4px);
+}
+
+.friend-modal-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(480px, 100%);
+
+  padding: 32px;
+
+  border-radius: 20px;
+
+  background: white;
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+
+  animation: friendModalAppear 0.25s ease;
+}
+
+@keyframes friendModalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.close-friend-modal {
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f4f4f5;
+  color: #777;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.close-friend-modal:hover {
+  background: #ffe5e9;
+  color: var(--primary);
+}
+
+.friend-modal-icon {
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 18px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 16px;
+
+  background: #fff0f2;
+
+  font-size: 29px;
+}
+
+.friend-modal-content h2 {
+  margin-bottom: 9px;
+
+  color: var(--text);
+
+  font-size: 24px;
+}
+
+.friend-modal-content > p {
+  margin-bottom: 24px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* =====================================================
+   FRIEND INPUT
+===================================================== */
+
+.friend-input-group {
+  margin-bottom: 22px;
+}
+
+.friend-input-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--text);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.friend-input-group input {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  outline: none;
+
+  background: var(--background);
+  color: var(--text);
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.friend-input-group input:focus {
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 3px rgba(229, 25, 55, 0.1);
+}
+
+.upi-help-text {
+  display: block;
+
+  margin-top: 7px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+/* =====================================================
+   MODAL BUTTONS
+===================================================== */
+
+.friend-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-friend-button,
+.save-friend-button {
+  padding: 11px 18px;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.cancel-friend-button {
+  border: 1px solid var(--border);
+
+  background: white;
+  color: var(--text);
+}
+
+.cancel-friend-button:hover {
+  background: #f5f5f5;
+}
+
+.save-friend-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  border: none;
+
+  background: var(--primary);
+  color: white;
+}
+
+.save-friend-button span {
+  font-size: 16px;
+}
+
+.save-friend-button:hover {
+  background: var(--primary-dark);
+}
+
+/* =====================================================
+   BILL SPLIT SUMMARY
+===================================================== */
+
+.bill-split-summary {
+  padding: 18px 20px;
+
+  border-bottom: 1px solid var(--border);
+
+  background: #fafafa;
+}
+
+.bill-split-header {
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.split-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.bill-split-header h3 {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.split-icon {
+  font-size: 20px;
+}
+
+.split-description {
+  margin: 0 0 14px;
+
+  color: var(--muted);
 
   font-size: 11px;
+  line-height: 1.6;
+}
 
-  line-height: 1.65;
+.split-add-friend-button {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.friend-bill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.friend-bill-row {
+  padding: 10px 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: white;
+}
+
+.friend-bill-person {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.friend-bill-avatar {
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #fff0f2;
+  color: var(--primary);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.friend-bill-name {
+  overflow: hidden;
+
+  color: var(--text);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.friend-bill-total {
+  flex-shrink: 0;
+
+  color: var(--primary);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.no-friend-bill {
+  padding: 14px;
+
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+
+  color: var(--muted);
+
+  text-align: center;
+
+  font-size: 11px;
 }
 
 /* =====================================================
@@ -1346,15 +2139,12 @@ button {
 
 @media (max-width: 1050px) {
   .food-layout {
-    grid-template-columns:
-      minmax(0, 1fr)
-      330px;
+    grid-template-columns: minmax(0, 1fr) 330px;
   }
 
   .hero-food-icons {
-    font-size: 45px;
-
     min-width: 140px;
+    font-size: 45px;
   }
 }
 
@@ -1381,7 +2171,6 @@ button {
 
   .mobile-cart-bar {
     position: fixed;
-
     z-index: 200;
 
     left: 0;
@@ -1391,11 +2180,8 @@ button {
     padding: 12px 16px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
 
     background: white;
@@ -1417,7 +2203,6 @@ button {
 
   .mobile-cart-bar strong {
     color: var(--primary);
-
     font-size: 18px;
   }
 
@@ -1427,11 +2212,9 @@ button {
     padding: 13px 18px;
 
     border: none;
-
     border-radius: 9px;
 
     background: var(--primary);
-
     color: white;
 
     font-weight: 700;
@@ -1441,7 +2224,6 @@ button {
 
   .mobile-cart-bar button:disabled {
     background: #ddd;
-
     color: #999;
   }
 }
@@ -1458,7 +2240,6 @@ button {
 
   .header-container {
     min-height: 105px;
-
     padding: 18px 16px;
   }
 
@@ -1472,7 +2253,6 @@ button {
 
   .food-hero {
     min-height: 210px;
-
     padding: 25px 22px;
   }
 
@@ -1482,7 +2262,6 @@ button {
 
   .food-hero p {
     max-width: 90%;
-
     font-size: 11px;
   }
 
@@ -1490,7 +2269,6 @@ button {
     position: absolute;
 
     right: -25px;
-
     bottom: 12px;
 
     opacity: 0.45;
@@ -1502,49 +2280,99 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .food-image-wrapper {
+  .food-card .food-image {
     height: 210px;
   }
 
   .category-button {
     min-width: 82px;
-
     padding: 9px 11px;
   }
 
   .movie-food-card h2 {
     font-size: 15px;
   }
+
+  /* Friends */
+
+  .friends-section {
+    padding: 18px;
+  }
+
+  .friends-section .food-section-header {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .add-friend-button {
+    width: 100%;
+  }
+
+  .friends-list {
+    flex-direction: column;
+  }
+
+  .friend-card {
+    width: 100%;
+  }
+
+  .friend-modal-content {
+    padding: 28px 20px;
+  }
+
+  .friend-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-friend-button,
+  .save-friend-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Multi-friend assignment */
+
+  .assigned-friend-chip {
+    max-width: 100%;
+  }
+
+  .assigned-friend-name {
+    max-width: 65px;
+  }
+
+  .friend-quantity-row {
+    padding: 8px;
+  }
+
+  .assignment-popup-actions {
+    flex-direction: column;
+  }
+
+  .assignment-cancel-button,
+  .assignment-save-button {
+    width: 100%;
+  }
 }
 
 /* =====================================================
-   PRE-ORDER FOOD - DARK MODE
+   DARK MODE
 ===================================================== */
 
 body.dark-mode {
   --text: #f5f5f5;
   --muted: #a8a8b3;
-
   --background: #121212;
   --card: #1d1d1f;
-
   --border: #35353a;
-
   --green: #52c878;
   --gold: #f5b71b;
-}
 
-/* =====================================================
-   BODY
-===================================================== */
-
-body.dark-mode {
   background: var(--background);
   color: var(--text);
 }
 
 /* =====================================================
-   MOVIE INFO
+   DARK - MOVIE INFO
 ===================================================== */
 
 body.dark-mode .booking-food-info {
@@ -1561,24 +2389,21 @@ body.dark-mode .movie-food-card h2 {
 }
 
 /* =====================================================
-   FOOD HERO
+   DARK - HERO
 ===================================================== */
 
 body.dark-mode .food-hero {
   background: linear-gradient(135deg, #1d1115, #47151e);
+
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
-
-/* =====================================================
-   SECTION
-===================================================== */
 
 body.dark-mode .food-section-header h2 {
   color: var(--text);
 }
 
 /* =====================================================
-   CATEGORY BUTTONS
+   DARK - CATEGORY
 ===================================================== */
 
 body.dark-mode .category-button {
@@ -1599,7 +2424,7 @@ body.dark-mode .category-button.active {
 }
 
 /* =====================================================
-   FOOD CARDS
+   DARK - FOOD CARDS
 ===================================================== */
 
 body.dark-mode .food-card {
@@ -1637,7 +2462,7 @@ body.dark-mode .food-card p {
 }
 
 /* =====================================================
-   ADD BUTTON
+   DARK - ADD BUTTON
 ===================================================== */
 
 body.dark-mode .add-food-button {
@@ -1652,7 +2477,7 @@ body.dark-mode .add-food-button:hover {
 }
 
 /* =====================================================
-   FOOD QUANTITY CONTROLS
+   DARK - QUANTITY
 ===================================================== */
 
 body.dark-mode .food-quantity-controls,
@@ -1676,7 +2501,7 @@ body.dark-mode .quantity-button:hover {
 }
 
 /* =====================================================
-   NO FOOD MESSAGE
+   DARK - NO FOOD
 ===================================================== */
 
 body.dark-mode .no-food-message {
@@ -1693,12 +2518,13 @@ body.dark-mode .no-food-message p {
 }
 
 /* =====================================================
-   ORDER SIDEBAR
+   DARK - ORDER SIDEBAR
 ===================================================== */
 
 body.dark-mode .order-card {
   background: var(--card);
   border-color: var(--border);
+
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
@@ -1717,7 +2543,7 @@ body.dark-mode .cart-count {
 }
 
 /* =====================================================
-   EMPTY CART
+   DARK - EMPTY CART
 ===================================================== */
 
 body.dark-mode .empty-cart {
@@ -1737,7 +2563,7 @@ body.dark-mode .empty-cart p {
 }
 
 /* =====================================================
-   CART ITEMS
+   DARK - CART
 ===================================================== */
 
 body.dark-mode .cart-item {
@@ -1757,10 +2583,6 @@ body.dark-mode .cart-item-info span {
   color: var(--muted);
 }
 
-/* =====================================================
-   REMOVE BUTTON
-===================================================== */
-
 body.dark-mode .remove-cart-item {
   background: #2b2b2f;
   color: #b8b8c0;
@@ -1770,10 +2592,6 @@ body.dark-mode .remove-cart-item:hover {
   background: #4a2028;
   color: #ff8799;
 }
-
-/* =====================================================
-   CART QUANTITY
-===================================================== */
 
 body.dark-mode .cart-quantity-controls strong {
   color: var(--text);
@@ -1792,7 +2610,127 @@ body.dark-mode .cart-quantity-button:hover {
 }
 
 /* =====================================================
-   PRICE SECTION
+   DARK - MULTI FRIEND ASSIGNMENT
+===================================================== */
+
+body.dark-mode .food-assignment-section {
+  border-color: var(--border);
+}
+
+body.dark-mode .food-assignment-title {
+  color: var(--text);
+}
+
+body.dark-mode .shared-food-badge {
+  background: #3a1c22;
+  color: #ff8799;
+}
+
+body.dark-mode .assigned-friend-chip {
+  background: #321a20;
+  border-color: #73303b;
+}
+
+body.dark-mode .assigned-friend-name {
+  color: var(--text);
+}
+
+body.dark-mode .remove-assigned-friend {
+  color: #aaa;
+}
+
+body.dark-mode .remove-assigned-friend:hover {
+  background: #4a2028;
+  color: #ff8799;
+}
+
+body.dark-mode .assign-friends-button {
+  background: #25171a;
+  border-color: #73303b;
+  color: #ff8799;
+}
+
+body.dark-mode .assign-friends-button:hover {
+  background: #321a20;
+  border-color: var(--primary);
+}
+
+body.dark-mode .friend-assignment-popup {
+  background: #1d1d1f;
+  border-color: var(--border);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .assignment-popup-title {
+  color: var(--text);
+}
+
+body.dark-mode .assignment-friend-option {
+  background: #242427;
+  border-color: var(--border);
+}
+
+body.dark-mode .assignment-friend-option:hover {
+  background: #321a20;
+  border-color: #73303b;
+}
+
+body.dark-mode .assignment-friend-option.selected {
+  background: #321a20;
+  border-color: var(--primary);
+}
+
+body.dark-mode .assignment-friend-option-info strong {
+  color: var(--text);
+}
+
+body.dark-mode .assignment-friend-option-info span {
+  color: var(--muted);
+}
+
+body.dark-mode .assignment-cancel-button {
+  background: #29292d;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+body.dark-mode .friend-quantity-row {
+  background: #242427;
+  border-color: var(--border);
+}
+
+body.dark-mode .friend-quantity-person span {
+  color: var(--text);
+}
+
+body.dark-mode .friend-mini-quantity button {
+  background: #29292d;
+  color: #e5e5e5;
+  border-color: #44444a;
+}
+
+body.dark-mode .friend-mini-quantity button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+body.dark-mode .friend-mini-quantity strong {
+  color: var(--text);
+}
+
+body.dark-mode .assignment-quantity-warning {
+  background: #3a2d15;
+  color: #e6c55c;
+}
+
+body.dark-mode .assignment-quantity-warning.success {
+  background: #193021;
+  color: #58c97b;
+}
+
+/* =====================================================
+   DARK - PRICE
 ===================================================== */
 
 body.dark-mode .order-price-section {
@@ -1820,7 +2758,7 @@ body.dark-mode .total-line strong {
 }
 
 /* =====================================================
-   CONTINUE BUTTON
+   DARK - CONTINUE
 ===================================================== */
 
 body.dark-mode .continue-food-button {
@@ -1837,16 +2775,12 @@ body.dark-mode .continue-food-button:disabled {
   color: #777780;
 }
 
-/* =====================================================
-   SECURE MESSAGE
-===================================================== */
-
 body.dark-mode .secure-message {
   color: #888891;
 }
 
 /* =====================================================
-   REWARDS CARD
+   DARK - REWARDS
 ===================================================== */
 
 body.dark-mode .rewards-card {
@@ -1879,13 +2813,138 @@ body.dark-mode .rewards-card > p {
 }
 
 /* =====================================================
-   MOBILE CART BAR
+   DARK - FRIENDS
+===================================================== */
+
+body.dark-mode .friends-section {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+body.dark-mode .friends-description {
+  color: var(--muted);
+}
+
+body.dark-mode .friend-card {
+  background: #242427;
+  border-color: var(--border);
+}
+
+body.dark-mode .friend-card.current-user {
+  background: #321a20;
+  border-color: #73303b;
+}
+
+body.dark-mode .friend-info h4 {
+  color: var(--text);
+}
+
+body.dark-mode .friend-info span {
+  color: var(--muted);
+}
+
+body.dark-mode .remove-friend-button {
+  color: #aaa;
+}
+
+body.dark-mode .remove-friend-button:hover {
+  background: #4a2028;
+  color: #ff8799;
+}
+
+/* =====================================================
+   DARK - MODAL
+===================================================== */
+
+body.dark-mode .friend-modal-content {
+  background: #1d1d1f;
+  color: var(--text);
+}
+
+body.dark-mode .close-friend-modal {
+  background: #2b2b2f;
+  color: #bbb;
+}
+
+body.dark-mode .close-friend-modal:hover {
+  background: #4a2028;
+  color: #ff8799;
+}
+
+body.dark-mode .friend-modal-icon {
+  background: #321a20;
+}
+
+body.dark-mode .friend-modal-content h2 {
+  color: var(--text);
+}
+
+body.dark-mode .friend-modal-content > p {
+  color: var(--muted);
+}
+
+body.dark-mode .friend-input-group label {
+  color: var(--text);
+}
+
+body.dark-mode .friend-input-group input {
+  background: #29292d;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+body.dark-mode .cancel-friend-button {
+  background: #29292d;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+body.dark-mode .cancel-friend-button:hover {
+  background: #353539;
+}
+
+/* =====================================================
+   DARK - BILL SPLIT
+===================================================== */
+
+body.dark-mode .bill-split-summary {
+  background: #19191c;
+  border-color: var(--border);
+}
+
+body.dark-mode .bill-split-header h3 {
+  color: var(--text);
+}
+
+body.dark-mode .friend-bill-row {
+  background: #242427;
+  border-color: var(--border);
+}
+
+body.dark-mode .friend-bill-avatar {
+  background: #321a20;
+  color: #ff8799;
+}
+
+body.dark-mode .friend-bill-name {
+  color: var(--text);
+}
+
+body.dark-mode .no-friend-bill {
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+/* =====================================================
+   DARK - MOBILE CART
 ===================================================== */
 
 @media (max-width: 850px) {
   body.dark-mode .mobile-cart-bar {
     background: #1a1a1d;
+
     border-top-color: var(--border);
+
     box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.35);
   }
 

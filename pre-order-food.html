@@ -1,269 +1,394 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Pre-Order Food | BookItBro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/pre-order-food.css" />
-    <link rel="stylesheet" href="css/dark-mode.css" />
-  </head>
+  <title>Pre-Order Food | BookItBro</title>
 
-  <body>
-    <!-- =========================================
+  <link rel="stylesheet" href="css/pre-order-food.css" />
+  <link rel="stylesheet" href="css/dark-mode.css" />
+</head>
+
+<body>
+  <!-- =========================================
          HEADER
-    ========================================== -->
+  ========================================== -->
 
-    <header class="food-header">
-      <div class="header-container">
-        <button id="backButton" class="back-button" aria-label="Go back">
-          ←
-        </button>
+  <header class="food-header">
+    <div class="header-container">
+      <button id="backButton" class="back-button" type="button" aria-label="Go back">
+        ←
+      </button>
 
-        <div class="header-title">
-          <span class="food-tag"> 🍔 FOOD & BEVERAGES </span>
+      <div class="header-title">
+        <span class="food-tag"> 🍔 FOOD & BEVERAGES </span>
 
-          <h1>Pre-order your favourites</h1>
+        <h1>Pre-order your favourites</h1>
 
-          <p>Skip the queue. Your food will be ready for you.</p>
-        </div>
+        <p>Skip the queue. Your food will be ready for you.</p>
+      </div>
 
-        <div class="reward-mini-card">
-          <span class="reward-icon"> ⭐ </span>
+      <div class="reward-mini-card">
+        <span class="reward-icon">⭐</span>
 
-          <div>
-            <span> Rewards </span>
+        <div>
+          <span>Rewards</span>
 
-            <strong id="headerPoints"> 0 Points </strong>
-          </div>
+          <strong id="headerPoints"> 0 Points </strong>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- =========================================
-         MOVIE BOOKING INFO
-    ========================================== -->
+  <!-- =========================================
+         MOVIE BOOKING INFORMATION
+  ========================================== -->
 
-    <section class="booking-food-info">
-      <div class="page-container">
-        <div class="movie-food-card">
-          <img id="moviePoster" src="" alt="Movie Poster" />
+  <section class="booking-food-info">
+    <div class="page-container">
+      <div class="movie-food-card">
+        <img id="moviePoster" src="" alt="Movie Poster" />
 
-          <div>
-            <span class="small-label"> YOUR SHOW </span>
+        <div>
+          <span class="small-label"> YOUR SHOW </span>
 
-            <h2 id="movieTitle">Loading...</h2>
+          <h2 id="movieTitle">Loading...</h2>
 
-            <p id="showDetails">Loading show details...</p>
-          </div>
+          <p id="showDetails">Loading show details...</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- =========================================
-         MAIN
-    ========================================== -->
+  <!-- =========================================
+         MAIN CONTENT
+  ========================================== -->
 
-    <main class="food-page">
-      <div class="page-container food-layout">
-        <!-- =================================
-                 LEFT CONTENT
-            ================================== -->
+  <main class="food-page">
+    <div class="page-container food-layout">
+      <!-- ==================================
+             LEFT CONTENT
+      ================================== -->
 
-        <section class="food-content">
-          <!-- HERO -->
+      <section class="food-content">
+        <!-- ==================================
+               FOOD HERO
+        ================================== -->
 
-          <div class="food-hero">
-            <div>
-              <span class="hero-badge"> ✨ MAKE YOUR MOVIE BETTER </span>
+        <div class="food-hero">
+          <div>
+            <span class="hero-badge"> ✨ MAKE YOUR MOVIE BETTER </span>
 
-              <h2>
-                Movie without snacks?
-                <br />
-                <span> Impossible. </span>
-              </h2>
-
-              <p>
-                Pre-order now and enjoy your movie without standing in the food
-                counter queue.
-              </p>
-            </div>
-
-            <div class="hero-food-icons">
-              <span>🍿</span>
-              <span>🥤</span>
-              <span>🍕</span>
-            </div>
-          </div>
-
-          <!-- =================================
-                     CATEGORIES
-                ================================== -->
-
-          <div class="food-section-header">
-            <div>
-              <span class="section-label"> EXPLORE MENU </span>
-
-              <h2>What are you craving?</h2>
-            </div>
-          </div>
-
-          <div id="foodCategories" class="food-categories">
-            <button class="category-button active" data-category="all">
-              🍽️
-              <span>All</span>
-            </button>
-
-            <button class="category-button" data-category="popcorn">
-              🍿
-              <span>Popcorn</span>
-            </button>
-
-            <button class="category-button" data-category="snacks">
-              🍔
-              <span>Snacks</span>
-            </button>
-
-            <button class="category-button" data-category="combos">
-              🎉
-              <span>Combos</span>
-            </button>
-
-            <button class="category-button" data-category="drinks">
-              🥤
-              <span>Drinks</span>
-            </button>
-          </div>
-
-          <!-- =================================
-                     FOOD GRID
-                ================================== -->
-
-          <div id="foodGrid" class="food-grid">
-            <!-- Food cards will be generated
-                         by JavaScript -->
-          </div>
-        </section>
-
-        <!-- =================================
-                 ORDER SIDEBAR
-            ================================== -->
-
-        <aside class="order-sidebar">
-          <div class="order-card">
-            <div class="order-card-header">
-              <div>
-                <span class="section-label"> YOUR ORDER </span>
-
-                <h2>Food Cart</h2>
-              </div>
-
-              <span id="cartCount" class="cart-count"> 0 items </span>
-            </div>
-
-            <!-- EMPTY CART -->
-
-            <div id="emptyCart" class="empty-cart">
-              <div class="empty-cart-icon">🍿</div>
-
-              <h3>Your cart is empty</h3>
-
-              <p>Add your favourite snacks for the movie.</p>
-            </div>
-
-            <!-- CART ITEMS -->
-
-            <div id="cartItems" class="cart-items"></div>
-
-            <!-- PRICE -->
-
-            <div class="order-price-section">
-              <div class="price-line">
-                <span> Food Total </span>
-
-                <strong id="foodSubtotal"> ₹0 </strong>
-              </div>
-
-              <div class="price-line reward-line">
-                <span> ⭐ Points you'll earn </span>
-
-                <strong id="pointsPreview"> +0 </strong>
-              </div>
-
-              <div class="price-divider"></div>
-
-              <div class="price-line total-line">
-                <span> Total </span>
-
-                <strong id="foodTotal"> ₹0 </strong>
-              </div>
-            </div>
-
-            <!-- CONTINUE -->
-
-            <button
-              id="continueFoodButton"
-              class="continue-food-button"
-              disabled
-            >
-              Continue
-
-              <span> → </span>
-            </button>
-
-            <p class="secure-message">🔒 Secure payment powered by BookItBro</p>
-          </div>
-
-          <!-- REWARDS CARD -->
-
-          <div class="rewards-card">
-            <div class="rewards-card-top">
-              <div class="rewards-big-icon">⭐</div>
-
-              <div>
-                <span> BOOKITBRO REWARDS </span>
-
-                <h3>Every order gives you points!</h3>
-              </div>
-            </div>
-
-            <div class="reward-progress">
-              <div class="progress-track">
-                <div id="rewardProgress" class="progress-fill"></div>
-              </div>
-
-              <div class="progress-text">
-                <span id="currentPoints"> 0 / 100 Points </span>
-
-                <span> ₹100 Reward </span>
-              </div>
-            </div>
+            <h2>
+              Movie without snacks?
+              <br />
+              <span>Impossible.</span>
+            </h2>
 
             <p>
-              Collect <strong>100 points</strong> and get
-              <strong>₹100 OFF</strong> on your next order.
+              Pre-order now and enjoy your movie without standing in the food
+              counter queue.
             </p>
           </div>
-        </aside>
-      </div>
-    </main>
 
-    <!-- =========================================
+          <div class="hero-food-icons">
+            <span>🍿</span>
+            <span>🥤</span>
+            <span>🍕</span>
+          </div>
+        </div>
+
+        <!-- ==================================
+               FOOD MENU
+        ================================== -->
+
+        <div class="food-section-header">
+          <div>
+            <span class="section-label"> EXPLORE MENU </span>
+
+            <h2>What are you craving?</h2>
+          </div>
+        </div>
+
+        <!-- ==================================
+               FOOD CATEGORIES
+        ================================== -->
+
+        <div id="foodCategories" class="food-categories">
+          <button class="category-button active" type="button" data-category="all">
+            🍽️
+            <span>All</span>
+          </button>
+
+          <button class="category-button" type="button" data-category="popcorn">
+            🍿
+            <span>Popcorn</span>
+          </button>
+
+          <button class="category-button" type="button" data-category="snacks">
+            🍔
+            <span>Snacks</span>
+          </button>
+
+          <button class="category-button" type="button" data-category="combos">
+            🎉
+            <span>Combos</span>
+          </button>
+
+          <button class="category-button" type="button" data-category="drinks">
+            🥤
+            <span>Drinks</span>
+          </button>
+        </div>
+
+        <!-- ==================================
+               FOOD GRID
+
+               Generated by JavaScript.
+        ================================== -->
+
+        <div id="foodGrid" class="food-grid">
+          <!-- Food cards generated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- ==================================
+             RIGHT ORDER SIDEBAR
+      ================================== -->
+
+      <aside class="order-sidebar">
+        <!-- ==================================
+               ORDER CARD
+        ================================== -->
+
+        <div class="order-card">
+          <!-- ORDER HEADER -->
+
+          <div class="order-card-header">
+            <div>
+              <span class="section-label"> YOUR ORDER </span>
+
+              <h2>Food Cart</h2>
+            </div>
+
+            <span id="cartCount" class="cart-count"> 0 items </span>
+
+
+            <!-- ==================================
+                 FRIENDS SECTION
+            ================================== -->
+
+            <div class="friends-section">
+              <div class="friends-section-header">
+                <div>
+                  <span class="split-label">MOVIE FRIENDS</span>
+                  <h3>Split food with friends</h3>
+                </div>
+
+                <button id="addFriendButton" class="add-friend-button" type="button">
+                  <span>+</span>
+                  Add Friend
+                </button>
+              </div>
+
+              <div id="friendsList" class="friends-list">
+                <!-- Friends generated by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================================
+                   BILL SPLIT SUMMARY
+              ================================== -->
+
+          <div id="billSplitSummary" class="bill-split-summary">
+            <div class="bill-split-header">
+              <div>
+                <span class="split-label">SMART SPLIT</span>
+                <h3>Who pays for what?</h3>
+              </div>
+
+              <span class="split-icon">👥</span>
+            </div>
+
+            <p class="split-description">
+              Add friends, assign their food, and request payment using their
+              UPI ID. They do not need a BookItBro account.
+            </p>
+
+            <div id="friendBillList" class="friend-bill-list">
+              <!-- Friend-wise totals generated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- ==================================
+                 EMPTY CART
+          ================================== -->
+
+          <div id="emptyCart" class="empty-cart">
+            <div class="empty-cart-icon">🍿</div>
+
+            <h3>Your cart is empty</h3>
+
+            <p>Add your favourite snacks for the movie.</p>
+          </div>
+
+          <!-- ==================================
+                 CART ITEMS
+          ================================== -->
+
+          <div id="cartItems" class="cart-items">
+            <!-- Cart items generated by JavaScript -->
+          </div>
+
+          <!-- ==================================
+                 PRICE INFORMATION
+          ================================== -->
+
+          <div class="order-price-section">
+            <div class="price-line">
+              <span> Food Total </span>
+
+              <strong id="foodSubtotal"> ₹0.00 </strong>
+            </div>
+
+            <div class="price-line reward-line">
+              <span> ⭐ Points you'll earn </span>
+
+              <strong id="pointsPreview"> +0 </strong>
+            </div>
+
+            <div class="price-divider"></div>
+
+            <div class="price-line total-line">
+              <span> Total </span>
+
+              <strong id="foodTotal"> ₹0.00 </strong>
+            </div>
+          </div>
+
+          <!-- ==================================
+                 CONTINUE
+          ================================== -->
+
+          <button id="continueFoodButton" class="continue-food-button" type="button">
+            Continue
+            <span>→</span>
+          </button>
+
+          <p class="secure-message">🔒 Secure payment powered by BookItBro</p>
+        </div>
+
+        <!-- ==================================
+               REWARDS CARD
+        ================================== -->
+
+        <div class="rewards-card">
+          <div class="rewards-card-top">
+            <div class="rewards-big-icon">⭐</div>
+
+            <div>
+              <span> BOOKITBRO REWARDS </span>
+
+              <h3>Every order gives you points!</h3>
+            </div>
+          </div>
+
+          <div class="reward-progress">
+            <div class="progress-track">
+              <div id="rewardProgress" class="progress-fill"></div>
+            </div>
+
+            <div class="progress-text">
+              <span id="currentPoints"> 0 / 100 Points </span>
+
+              <span> ₹100 Reward </span>
+            </div>
+          </div>
+
+          <p>
+            Collect <strong>100 points</strong> and get
+            <strong>₹100 OFF</strong> on your next order.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- =========================================
+     ADD FRIEND MODAL
+========================================== -->
+
+  <div id="addFriendModal" class="friend-modal" aria-hidden="true">
+    <div id="friendModalOverlay" class="friend-modal-overlay"></div>
+
+    <div class="friend-modal-content" role="dialog" aria-modal="true" aria-labelledby="addFriendModalTitle">
+      <button id="closeFriendModal" class="close-friend-modal" type="button" aria-label="Close">
+        ×
+      </button>
+
+      <div class="friend-modal-icon">👥</div>
+
+      <span class="section-label">ADD FRIEND</span>
+
+      <h2 id="addFriendModalTitle">Add someone to the booking</h2>
+
+      <p>
+        Add your friend's name. You can assign food items to them and their
+        food bill will be calculated separately.
+      </p>
+
+      <form id="addFriendForm">
+        <div class="friend-input-group">
+          <label for="friendNameInput"> Friend's Name </label>
+
+          <input id="friendNameInput" type="text" placeholder="Enter friend's name" maxlength="30" autocomplete="off"
+            required />
+        </div>
+
+        <p class="upi-help-text">
+          You will enter your friend's UPI ID later during payment. No
+          BookItBro account is required.
+        </p>
+
+        <div class="friend-modal-actions">
+          <button id="cancelFriendButton" class="cancel-friend-button" type="button">
+            Cancel
+          </button>
+
+          <button id="saveFriendButton" class="save-friend-button" type="submit">
+            Add Friend
+            <span>+</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================
          MOBILE CART BAR
-    ========================================== -->
+  ========================================== -->
 
-    <div class="mobile-cart-bar">
-      <div>
-        <span> Your Order </span>
+  <div class="mobile-cart-bar">
+    <div>
+      <span> Your Order </span>
 
-        <strong id="mobileFoodTotal"> ₹0 </strong>
-      </div>
-
-      <button id="mobileContinueButton" disabled>Continue →</button>
+      <strong id="mobileFoodTotal"> ₹0.00 </strong>
     </div>
 
-    <script type="module" src="js/pre-order-food.js"></script>
-  </body>
+    <button id="mobileContinueButton" type="button">Continue →</button>
+  </div>
+
+  <!-- =========================================
+         JAVASCRIPT
+  ========================================== -->
+
+  <script src="js/pre-order-food.js" defer></script>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
 </html>

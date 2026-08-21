@@ -1852,44 +1852,54 @@ body.dark-mode .reward-icon {
 }
 
 /* =========================================
-   CONFIRM FROZEN TICKET BUTTON
-=========================================
+   CANCEL BOOKING BUTTON
+========================================= */
 
-.confirm-ticket-button {
-  border: none;
+.cancel-booking-button {
+  padding: 10px 16px;
+
+  border: 1px solid #dc3545;
+
   border-radius: 8px;
 
-  padding: 11px 18px;
+  background: transparent;
 
-  background: linear-gradient(135deg, #e51937, #ff4b61);
+  color: #dc3545;
 
-  color: #ffffff;
+  font-size: 12px;
 
-  font-size: 0.9rem;
   font-weight: 700;
 
   cursor: pointer;
 
-  box-shadow: 0 8px 18px rgba(229, 25, 55, 0.18);
-
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.confirm-ticket-button:hover {
-  transform: translateY(-2px);
+.cancel-booking-button:hover {
+  background: #dc3545;
 
-  box-shadow: 0 12px 24px rgba(229, 25, 55, 0.28);
+  color: white;
+
+  transform: translateY(-1px);
 }
 
-.confirm-ticket-button:active {
-  transform: translateY(0);
-}
+@media (max-width: 600px) {
+  .booking-actions {
+    width: 100%;
 
-@media (max-width: 700px) {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+  }
+
+  .view-details-button,
+  .cancel-booking-button,
   .confirm-ticket-button {
     flex: 1;
   }
-} */
+}

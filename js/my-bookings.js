@@ -623,27 +623,41 @@ function createBookingCard(booking) {
 
     <div class="booking-actions">
 
-    <button
-        class="view-details-button"
-        data-booking-id="${escapeHTML(booking.id)}">
+  <button
+    class="view-details-button"
+    data-booking-id="${escapeHTML(booking.id)}">
 
-        View Details
+    View Details
 
-    </button>
+  </button>
 
-    ${
-      status === "FROZEN"
-        ? `
-            <button
-                class="confirm-ticket-button"
-                data-booking-id="${escapeHTML(booking.id)}">
+  ${
+    status === "UPCOMING" || status === "FROZEN"
+      ? `
+          <button
+            class="cancel-booking-button"
+            data-booking-id="${escapeHTML(booking.id)}">
 
-                Confirm Ticket
+            Cancel Booking
 
-            </button>
-          `
-        : ""
-    }
+          </button>
+        `
+      : ""
+  }
+
+  ${
+    status === "FROZEN"
+      ? `
+          <button
+            class="confirm-ticket-button"
+            data-booking-id="${escapeHTML(booking.id)}">
+
+            Confirm Ticket
+
+          </button>
+        `
+      : ""
+  }
 
 </div>
   </div>`;
@@ -661,6 +675,14 @@ function createBookingCard(booking) {
   if (confirmTicketButton) {
     confirmTicketButton.addEventListener("click", () => {
       confirmFrozenTicket(booking);
+    });
+  }
+
+  const cancelBookingButton = card.querySelector(".cancel-booking-button");
+
+  if (cancelBookingButton) {
+    cancelBookingButton.addEventListener("click", () => {
+      cancelBooking(booking);
     });
   }
 
@@ -1448,6 +1470,62 @@ function confirmFrozenTicket(booking) {
   sessionStorage.setItem("bookItBroPayment", JSON.stringify(paymentData));
 
   window.location.href = "payment.html";
+}
+
+// =========================================
+// CANCEL BOOKING
+// =========================================
+
+async function cancelBooking(booking) {
+  const confirmed = confirm("Are you sure you want to cancel this booking?");
+
+  if (!confirmed) {
+    return;
+  }
+
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please sign in to cancel your booking.");
+
+    return;
+  }
+
+  try {
+    const bookingRef = doc(db, "users", user.uid, "bookings", booking.id);
+
+    await updateDoc(bookingRef, {
+      bookingStatus: "CANCELLED",
+
+      frozenStatus:
+        getBookingStatus(booking) === "FROZEN"
+          ? "CANCELLED"
+          : booking.frozenStatus || null,
+
+      cancelledAt: serverTimestamp(),
+    });
+
+    // Update local booking data
+    const bookingIndex = allBookings.findIndex(
+      (item) => item.id === booking.id,
+    );
+
+    if (bookingIndex !== -1) {
+      allBookings[bookingIndex].bookingStatus = "CANCELLED";
+
+      if (getBookingStatus(booking) === "FROZEN") {
+        allBookings[bookingIndex].frozenStatus = "CANCELLED";
+      }
+    }
+
+    alert("Your booking has been cancelled successfully.");
+
+    renderBookings();
+  } catch (error) {
+    console.error("Booking cancellation error:", error);
+
+    alert(error.message || "Unable to cancel your booking. Please try again.");
+  }
 }
 
 // =========================================

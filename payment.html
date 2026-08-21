@@ -335,6 +335,172 @@
               </p>
             </div>
           </section>
+
+          <!-- =================================
+                 PAYMENT PLAN
+          ================================== -->
+
+          <section class="payment-card payment-plan-card">
+            <div class="section-heading">
+              <div>
+                <span class="section-number">3</span>
+
+                <div>
+                  <h2>Choose Payment Plan</h2>
+
+                  <p>Select how you want to pay for your booking</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-plans">
+              <!-- FULL PAYMENT -->
+
+              <button
+                class="payment-plan active"
+                data-plan="full"
+                type="button"
+              >
+                <span class="plan-icon">💳</span>
+
+                <div class="plan-content">
+                  <strong>Pay Full Amount</strong>
+
+                  <p>Pay the complete booking amount now.</p>
+                </div>
+              </button>
+
+              <!-- SPLIT BILL -->
+
+              <button class="payment-plan" data-plan="split" type="button">
+                <span class="plan-icon">👥</span>
+
+                <div class="plan-content">
+                  <strong>Split Bill with Friends</strong>
+
+                  <p>
+                    Split ticket costs fairly. Each person pays only for the
+                    food they ordered.
+                  </p>
+                </div>
+              </button>
+
+              <!-- 25% PAYMENT -->
+
+              <button class="payment-plan" data-plan="counter" type="button">
+                <span class="plan-icon">🎟️</span>
+
+                <div class="plan-content">
+                  <strong>Pay 25% Now</strong>
+
+                  <p>
+                    Reserve your seats by paying 25% online and pay the
+                    remaining 75% at the theatre counter.
+                  </p>
+                </div>
+              </button>
+            </div>
+
+            <!-- SPLIT BILL OPTIONS -->
+
+            <div id="splitBillSection" class="split-bill-section hidden">
+            
+              <h3>Split Your Bill</h3>
+            
+              <p class="split-description">
+                Your ticket cost will be divided equally among you and your friends.
+                Food orders remain assigned to the person who ordered them.
+              </p>
+            
+              <!-- FIXED PEOPLE COUNT -->
+              <div class="split-input-group">
+                <label>
+                  Number of People
+                </label>
+            
+                <div class="split-controls">
+                  <span id="splitPeopleCount">1</span>
+                </div>
+            
+                <small>
+                  You + your added friends
+                </small>
+              </div>
+            
+              <!-- SPLIT SUMMARY -->
+              <div id="splitSummary" class="split-summary"></div>
+            
+              <!-- UPI DETAILS -->
+              <div class="split-upi-section">
+            
+                <h3>UPI Details</h3>
+            
+                <p class="split-description">
+                  Enter your UPI ID and your friends' UPI IDs to send payment requests.
+                </p>
+            
+                <!-- CURRENT USER -->
+                <div class="friend-payment-item">
+            
+                  <div class="friend-payment-header">
+                    <strong>You</strong>
+                    <span>Your Share</span>
+                  </div>
+            
+                  <label for="currentUserUpi">
+                    Your UPI ID
+                  </label>
+            
+                  <input type="text" id="currentUserUpi" class="split-upi-input" placeholder="example@upi" autocomplete="off" />
+            
+                </div>
+            
+                <!-- FRIENDS -->
+                <div id="friendPaymentList"></div>
+            
+                <!-- SEND REQUEST -->
+                <button type="button" id="sendPaymentRequest" class="send-payment-request">
+                  Send Payment Request
+                </button>
+            
+              </div>
+            
+            </div>
+
+            <!-- PAY AT COUNTER OPTIONS -->
+
+            <div
+              id="counterPaymentSection"
+              class="counter-payment-section hidden"
+            >
+              <div class="counter-payment-info">
+                <div class="counter-payment-icon">🏛️</div>
+
+                <div>
+                  <h3>25% Online Reservation</h3>
+
+                  <p>
+                    Pay 25% now to reserve your seats. The remaining 75% must be
+                    paid at the theatre ticket counter.
+                  </p>
+                </div>
+              </div>
+
+              <div class="counter-payment-summary">
+                <div>
+                  <span>Pay Online Now</span>
+
+                  <strong id="onlineReservationAmount"> ₹0.00 </strong>
+                </div>
+
+                <div>
+                  <span>Pay at Theatre Counter</span>
+
+                  <strong id="counterRemainingAmount"> ₹0.00 </strong>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
 
         <!-- =================================

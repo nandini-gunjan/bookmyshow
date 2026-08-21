@@ -8,17 +8,15 @@
 ========================================= */
 
 let booking = null;
-
 let selectedCategory = "all";
-
 let cart = [];
+let friends = [];
 
 /* =========================================
    REWARD SETTINGS
 ========================================= */
 
 const REWARD_TARGET = 100;
-
 const POINTS_PER_RUPEE = 0.1;
 
 /* =========================================
@@ -33,32 +31,24 @@ const foodMenu = [
     price: 120,
     image:
       "https://images.unsplash.com/photo-1585647347384-2593bc35786b?auto=format&fit=crop&w=800&q=80",
-    emoji: "🍿",
     description: "Freshly popped and lightly salted.",
   },
-
   {
     id: "cheese-popcorn",
     name: "Cheesy Popcorn",
     category: "popcorn",
     price: 160,
-    image:
-      "assets/img/cheesePopcorn.jpg",
-    emoji: "🧀🍿",
+    image: "assets/img/cheesePopcorn.jpg",
     description: "Crispy popcorn with rich cheese flavour.",
   },
-
   {
     id: "caramel-popcorn",
     name: "Caramel Popcorn",
     category: "popcorn",
     price: 180,
-    image:
-      "assets/img/caramelPopcorn.jpg",
-    emoji: "🍯🍿",
+    image: "assets/img/caramelPopcorn.jpg",
     description: "Sweet, crunchy caramel-coated popcorn.",
   },
-
   {
     id: "butter-popcorn",
     name: "Butter Popcorn",
@@ -66,21 +56,16 @@ const foodMenu = [
     price: 150,
     image:
       "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&w=800&q=80",
-    emoji: "🧈🍿",
     description: "Movie-style popcorn with buttery flavour.",
   },
-
   {
     id: "veg-burger",
     name: "Veggie Burger",
     category: "snacks",
     price: 140,
-    image:
-      "assets/img/vegBurger.jpg",
-    emoji: "🍔",
+    image: "assets/img/vegBurger.jpg",
     description: "A delicious burger with a crispy vegetable patty.",
   },
-
   {
     id: "french-fries",
     name: "Crispy French Fries",
@@ -88,10 +73,8 @@ const foodMenu = [
     price: 110,
     image:
       "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
-    emoji: "🍟",
     description: "Golden, crispy fries served fresh.",
   },
-
   {
     id: "nachos",
     name: "Loaded Nachos",
@@ -99,10 +82,8 @@ const foodMenu = [
     price: 170,
     image:
       "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=800&q=80",
-    emoji: "🧀",
     description: "Crunchy nachos loaded with cheese and toppings.",
   },
-
   {
     id: "veg-pizza",
     name: "Veg Pizza",
@@ -110,21 +91,16 @@ const foodMenu = [
     price: 220,
     image:
       "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
-    emoji: "🍕",
     description: "Cheesy pizza topped with fresh vegetables.",
   },
-
   {
     id: "popcorn-combo",
     name: "Popcorn + Coke Combo",
     category: "combos",
     price: 220,
-    image:
-      "assets/img/popCoke.jpg",
-    emoji: "🍿🥤",
+    image: "assets/img/popCoke.jpg",
     description: "Classic popcorn with a chilled soft drink.",
   },
-
   {
     id: "burger-combo",
     name: "Burger Combo",
@@ -132,21 +108,16 @@ const foodMenu = [
     price: 250,
     image:
       "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80",
-    emoji: "🍔🍟🥤",
     description: "Burger, fries and a refreshing drink.",
   },
-
   {
     id: "movie-mega-combo",
     name: "Movie Mega Combo",
     category: "combos",
     price: 399,
-    image:
-      "assets/img/popPizzaCoke.jpg",
-    emoji: "🍿🍕🥤",
+    image: "assets/img/popPizzaCoke.jpg",
     description: "The perfect sharing combo for your movie.",
   },
-
   {
     id: "coke",
     name: "Coca-Cola",
@@ -154,10 +125,8 @@ const foodMenu = [
     price: 80,
     image:
       "https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=800&q=80",
-    emoji: "🥤",
     description: "Chilled and refreshing soft drink.",
   },
-
   {
     id: "cold-coffee",
     name: "Cold Coffee",
@@ -165,10 +134,8 @@ const foodMenu = [
     price: 130,
     image:
       "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80",
-    emoji: "🥤",
     description: "Smooth and refreshing cold coffee.",
   },
-
   {
     id: "mineral-water",
     name: "Mineral Water",
@@ -176,13 +143,632 @@ const foodMenu = [
     price: 40,
     image:
       "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80",
-    emoji: "💧",
     description: "Packaged drinking water.",
   },
 ];
 
 /* =========================================
-   LOAD BOOKING DATA
+   FRIEND MANAGEMENT
+========================================= */
+
+function getCurrentUserName() {
+  return booking?.userName || booking?.customerName || booking?.name || "You";
+}
+
+function createCurrentUser() {
+  return {
+    id: "current-user",
+    name: getCurrentUserName(),
+    isCurrentUser: true,
+  };
+}
+
+function generateFriendId() {
+  return `friend-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+}
+
+function loadFriends() {
+  const savedFriends = Array.isArray(booking?.friends) ? booking.friends : [];
+
+  friends = [
+    createCurrentUser(),
+
+    ...savedFriends
+      .filter((friend) => friend.id !== "current-user")
+      .map((friend, index) => ({
+        id: friend.id || `friend-${Date.now()}-${index}`,
+        name: friend.name || "Friend",
+        upiId: friend.upiId || "",
+        isCurrentUser: false,
+      })),
+  ];
+}
+
+/* =========================================
+   ASSIGNMENT HELPERS
+========================================= */
+
+/*
+  Every food item now has:
+
+  assignments: {
+    "current-user": 2,
+    "friend-123": 1,
+    "friend-456": 1
+  }
+
+  The total of all assignment quantities
+  must never be greater than item.quantity.
+*/
+
+function createDefaultAssignments(quantity) {
+  return {
+    "current-user": Number(quantity) || 0,
+  };
+}
+
+function getAssignmentTotal(item) {
+  if (!item || !item.assignments) {
+    return 0;
+  }
+
+  return Object.values(item.assignments).reduce((total, quantity) => {
+    return total + (Number(quantity) || 0);
+  }, 0);
+}
+
+function normalizeItemAssignments(item) {
+  if (!item) {
+    return;
+  }
+
+  const quantity = Math.max(Number(item.quantity) || 0, 0);
+
+  if (!item.assignments || typeof item.assignments !== "object") {
+    item.assignments = createDefaultAssignments(quantity);
+    return;
+  }
+
+  const validFriendIds = new Set(friends.map((friend) => friend.id));
+
+  const cleanedAssignments = {};
+
+  Object.entries(item.assignments).forEach(([friendId, amount]) => {
+    if (!validFriendIds.has(friendId)) {
+      return;
+    }
+
+    const numericAmount = Math.max(Number(amount) || 0, 0);
+
+    if (numericAmount > 0) {
+      cleanedAssignments[friendId] = Math.floor(numericAmount);
+    }
+  });
+
+  let assignedTotal = Object.values(cleanedAssignments).reduce(
+    (total, amount) => total + amount,
+    0,
+  );
+
+  /*
+    If old data used assignedTo, convert it.
+  */
+
+  if (
+    assignedTotal === 0 &&
+    item.assignedTo &&
+    validFriendIds.has(item.assignedTo)
+  ) {
+    cleanedAssignments[item.assignedTo] = quantity;
+    assignedTotal = quantity;
+  }
+
+  /*
+    Any unassigned quantity goes to the current user.
+  */
+
+  if (assignedTotal < quantity) {
+    cleanedAssignments["current-user"] =
+      (cleanedAssignments["current-user"] || 0) + (quantity - assignedTotal);
+  }
+
+  /*
+    If assignments somehow exceed the quantity,
+    reduce them safely.
+  */
+
+  assignedTotal = Object.values(cleanedAssignments).reduce(
+    (total, amount) => total + amount,
+    0,
+  );
+
+  if (assignedTotal > quantity) {
+    let excess = assignedTotal - quantity;
+
+    const ids = Object.keys(cleanedAssignments).reverse();
+
+    for (const friendId of ids) {
+      if (excess <= 0) {
+        break;
+      }
+
+      const removable = Math.min(cleanedAssignments[friendId], excess);
+
+      cleanedAssignments[friendId] -= removable;
+      excess -= removable;
+
+      if (cleanedAssignments[friendId] <= 0) {
+        delete cleanedAssignments[friendId];
+      }
+    }
+  }
+
+  item.assignments = cleanedAssignments;
+}
+
+function getAssignedQuantity(item, friendId) {
+  if (!item || !item.assignments) {
+    return 0;
+  }
+
+  return Number(item.assignments[friendId]) || 0;
+}
+
+function getUnassignedQuantity(item) {
+  const quantity = Number(item?.quantity) || 0;
+  const assigned = getAssignmentTotal(item);
+
+  return Math.max(quantity - assigned, 0);
+}
+
+// =========================================
+// CHANGE FOOD ASSIGNMENT
+// =========================================
+
+function changeFoodAssignment(foodId, friendId, change) {
+  const item = cart.find((cartItem) => cartItem.id === foodId);
+
+  if (!item) {
+    return;
+  }
+
+  if (!item.assignments) {
+    item.assignments = {};
+  }
+
+  const totalQuantity = Number(item.quantity) || 0;
+
+  // Make sure every friend has an assignment entry
+  friends.forEach((friend) => {
+    if (!Object.prototype.hasOwnProperty.call(item.assignments, friend.id)) {
+      item.assignments[friend.id] = 0;
+    }
+  });
+
+  if (change > 0) {
+    // =========================================
+    // ASSIGN ONE ITEM TO FRIEND
+    // =========================================
+
+    // Find someone who currently owns an item.
+    // Prefer current user.
+    let sourceFriendId = null;
+
+    const currentUserQuantity = Number(item.assignments["current-user"]) || 0;
+
+    if (currentUserQuantity > 0) {
+      sourceFriendId = "current-user";
+    } else {
+      const otherOwner = friends.find(
+        (friend) =>
+          friend.id !== friendId &&
+          (Number(item.assignments[friend.id]) || 0) > 0,
+      );
+
+      if (otherOwner) {
+        sourceFriendId = otherOwner.id;
+      }
+    }
+
+    // Nobody has an available quantity to transfer
+    if (!sourceFriendId) {
+      return;
+    }
+
+    // Remove one from current owner
+    item.assignments[sourceFriendId] =
+      (Number(item.assignments[sourceFriendId]) || 0) - 1;
+
+    // Give one to selected friend
+    item.assignments[friendId] = (Number(item.assignments[friendId]) || 0) + 1;
+  } else {
+    // =========================================
+    // REMOVE ONE ITEM FROM FRIEND
+    // =========================================
+
+    const friendQuantity = Number(item.assignments[friendId]) || 0;
+
+    if (friendQuantity <= 0) {
+      return;
+    }
+
+    // Remove one from friend
+    item.assignments[friendId] = friendQuantity - 1;
+
+    // Return it to current user
+    item.assignments["current-user"] =
+      (Number(item.assignments["current-user"]) || 0) + 1;
+  }
+
+  // Remove zero-value entries
+  Object.keys(item.assignments).forEach((id) => {
+    if (Number(item.assignments[id]) <= 0) {
+      delete item.assignments[id];
+    }
+  });
+
+  renderCart();
+  renderFriends();
+}
+
+/* =========================================
+   SETUP FRIEND SECTION
+========================================= */
+
+function setupFriendSection() {
+  const addFriendButton = document.getElementById("addFriendButton");
+  const closeButton = document.getElementById("closeFriendModal");
+  const cancelButton = document.getElementById("cancelFriendButton");
+  const overlay = document.getElementById("friendModalOverlay");
+  const form = document.getElementById("addFriendForm");
+
+  console.log("Friend section initialized");
+  console.log("Add Friend Button:", addFriendButton);
+  console.log("Friend Modal:", document.getElementById("addFriendModal"));
+  console.log("Friend Form:", form);
+
+  if (addFriendButton) {
+    addFriendButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      console.log("Add Friend button clicked");
+      openFriendModal();
+    });
+  } else {
+    console.error("addFriendButton was NOT found.");
+  }
+
+  if (closeButton) {
+    closeButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      closeFriendModalBox();
+    });
+  }
+
+  if (cancelButton) {
+    cancelButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      closeFriendModalBox();
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay) {
+        closeFriendModalBox();
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      handleAddFriend(event);
+    });
+  } else {
+    console.error("addFriendForm was NOT found.");
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeFriendModalBox();
+    }
+  });
+}
+
+/* =========================================
+   OPEN FRIEND MODAL
+========================================= */
+
+function openFriendModal() {
+  const modal = document.getElementById("addFriendModal");
+  const input = document.getElementById("friendNameInput");
+
+  console.log("Opening modal:", modal);
+
+  if (!modal) {
+    console.error("Add friend modal was not found.");
+    return;
+  }
+
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden", "false");
+
+  document.body.style.overflow = "hidden";
+
+  if (input) {
+    input.value = "";
+
+    setTimeout(() => {
+      input.focus();
+    }, 100);
+  }
+}
+
+/* =========================================
+   CLOSE FRIEND MODAL
+========================================= */
+
+function closeFriendModalBox() {
+  const modal = document.getElementById("addFriendModal");
+  const form = document.getElementById("addFriendForm");
+
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
+
+  /*
+    IMPORTANT:
+    Restore page scrolling after closing modal.
+  */
+
+  document.body.style.overflow = "";
+
+  if (form) {
+    form.reset();
+  }
+}
+
+/* =========================================
+   ADD FRIEND
+========================================= */
+
+function handleAddFriend(event) {
+  event.preventDefault();
+
+  const input = document.getElementById("friendNameInput");
+
+  if (!input) {
+    return;
+  }
+
+  const name = input.value.trim();
+
+  if (!name) {
+    alert("Please enter your friend's name.");
+    return;
+  }
+
+  // =========================================
+  // MAX FRIEND LIMIT BASED ON BOOKED SEATS
+  // =========================================
+
+  const selectedSeats = getSelectedSeats();
+  const totalSeats = selectedSeats.length;
+
+  // Current user already occupies one seat.
+  // Therefore maximum friends = total seats - 1.
+  const maxFriends = Math.max(totalSeats - 1, 0);
+
+  const currentFriendCount = friends.filter(
+    (friend) => !friend.isCurrentUser,
+  ).length;
+
+  if (currentFriendCount >= maxFriends) {
+    alert(
+      `You can add a maximum of ${maxFriends} friend${
+        maxFriends === 1 ? "" : "s"
+      } for ${totalSeats} booked seat${totalSeats === 1 ? "" : "s"}.`,
+    );
+    return;
+  }
+
+  // =========================================
+  // CHECK DUPLICATE FRIEND
+  // =========================================
+
+  const alreadyExists = friends.some(
+    (friend) => friend.name.trim().toLowerCase() === name.toLowerCase(),
+  );
+
+  if (alreadyExists) {
+    alert("This friend has already been added.");
+    return;
+  }
+
+  // =========================================
+  // CREATE FRIEND
+  // =========================================
+
+  const newFriend = {
+    id: generateFriendId(),
+    name: name,
+    upiId: "",
+    isCurrentUser: false,
+  };
+
+  friends.push(newFriend);
+
+  // =========================================
+  // ADD FRIEND TO EXISTING FOOD ITEMS
+  // =========================================
+
+  cart.forEach((item) => {
+    normalizeItemAssignments(item);
+
+    if (!item.assignments[newFriend.id]) {
+      item.assignments[newFriend.id] = 0;
+    }
+  });
+
+  console.log("Friend added:", newFriend);
+
+  updateFoodPage();
+  closeFriendModalBox();
+}
+
+/* =========================================
+   REMOVE FRIEND
+========================================= */
+
+function removeFriend(friendId) {
+  const friend = friends.find((item) => item.id === friendId);
+
+  if (!friend || friend.isCurrentUser) {
+    return;
+  }
+
+  /*
+    Move this friend's food quantities
+    back to the current user.
+  */
+
+  cart.forEach((item) => {
+    normalizeItemAssignments(item);
+
+    const friendQuantity = getAssignedQuantity(item, friendId);
+
+    if (friendQuantity > 0) {
+      item.assignments["current-user"] =
+        (item.assignments["current-user"] || 0) + friendQuantity;
+    }
+
+    delete item.assignments[friendId];
+
+    normalizeItemAssignments(item);
+  });
+
+  friends = friends.filter((item) => item.id !== friendId);
+
+  updateFoodPage();
+}
+
+/* =========================================
+   RENDER FRIENDS / BILL SPLIT
+========================================= */
+
+function renderFriends() {
+  const friendBillList = document.getElementById("friendBillList");
+
+  if (!friendBillList) {
+    return;
+  }
+
+  if (cart.length === 0) {
+    friendBillList.innerHTML = `
+      <div class="no-split-items">
+        Add food items and assign them to your friends.
+      </div>
+    `;
+
+    return;
+  }
+
+  friendBillList.innerHTML = "";
+
+  let hasAssignedFood = false;
+
+  friends.forEach((friend) => {
+    const total = getFriendTotal(friend.id);
+
+    if (total <= 0) {
+      return;
+    }
+
+    hasAssignedFood = true;
+
+    const billItem = document.createElement("div");
+
+    billItem.className = "friend-bill-item";
+
+    billItem.innerHTML = `
+      <div class="friend-bill-person">
+
+        <span class="friend-bill-avatar">
+          ${friend.isCurrentUser ? "👤" : "👥"}
+        </span>
+
+        <div>
+          <strong>${escapeHTML(friend.name)}</strong>
+
+          <span>
+            ${
+              friend.isCurrentUser
+                ? "Your food"
+                : `Food assigned to ${escapeHTML(friend.name)}`
+            }
+          </span>
+        </div>
+
+      </div>
+
+      <div class="friend-bill-right">
+
+        <strong class="friend-bill-total">
+          ${formatCurrency(total)}
+        </strong>
+
+        ${
+          !friend.isCurrentUser
+            ? `
+              <button
+                type="button"
+                class="remove-friend-button"
+                data-remove-friend="${friend.id}"
+                aria-label="Remove ${escapeHTML(friend.name)}"
+              >
+                ×
+              </button>
+            `
+            : ""
+        }
+
+      </div>
+    `;
+
+    friendBillList.appendChild(billItem);
+  });
+
+  if (!hasAssignedFood) {
+    friendBillList.innerHTML = `
+      <div class="no-split-items">
+        Assign food quantities to your friends to see their bills.
+      </div>
+    `;
+  }
+
+  document.querySelectorAll("[data-remove-friend]").forEach((button) => {
+    button.addEventListener("click", () => {
+      removeFriend(button.dataset.removeFriend);
+    });
+  });
+}
+
+/* =========================================
+   GET FRIEND TOTAL
+========================================= */
+
+function getFriendTotal(friendId) {
+  return cart.reduce((total, item) => {
+    const quantity = getAssignedQuantity(item, friendId);
+
+    return total + (Number(item.price) || 0) * quantity;
+  }, 0);
+}
+
+/* =========================================
+   LOAD BOOKING
 ========================================= */
 
 function loadBooking() {
@@ -190,7 +776,6 @@ function loadBooking() {
 
   if (!storedBooking) {
     showBookingError();
-
     return false;
   }
 
@@ -201,18 +786,38 @@ function loadBooking() {
       throw new Error("Invalid booking data");
     }
 
-    /*
-        Restore previous food cart.
-
-        This is useful if the user goes back
-        from the booking summary page.
-    */
+    loadFriends();
 
     if (Array.isArray(booking.foodOrder)) {
-      cart = booking.foodOrder.map((item) => ({
-        ...item,
-        quantity: Number(item.quantity) || 1,
-      }));
+      cart = booking.foodOrder
+        .map((item) => {
+          const normalizedItem = {
+            ...item,
+            price: Number(item.price) || 0,
+            quantity: Number(item.quantity) || 1,
+          };
+
+          /*
+            Support both:
+            1. New assignments system
+            2. Old assignedTo system
+          */
+
+          if (item.assignments && typeof item.assignments === "object") {
+            normalizedItem.assignments = {
+              ...item.assignments,
+            };
+          } else {
+            normalizedItem.assignments = {
+              [item.assignedTo || "current-user"]: normalizedItem.quantity,
+            };
+          }
+
+          normalizeItemAssignments(normalizedItem);
+
+          return normalizedItem;
+        })
+        .filter((item) => item.quantity > 0);
     }
 
     return true;
@@ -240,40 +845,32 @@ function displayBookingInformation() {
     movieTitle.textContent = booking.movieTitle || "Movie";
   }
 
-  /*
-      Poster
-  */
-
   if (moviePoster) {
-    const poster = booking.moviePoster || booking.poster || "";
+    const poster = booking.moviePoster || booking.poster || booking.image || "";
 
     if (poster) {
       moviePoster.src = poster;
-
-      moviePoster.onerror = () => {
-        moviePoster.style.display = "none";
-      };
     } else {
       moviePoster.style.display = "none";
     }
   }
-
-  /*
-      Show details
-  */
 
   if (showDetails) {
     const theatre = booking.theatreName || "Theatre";
 
     const date = formatDate(booking.date);
 
-    const time = booking.showTime || "";
+    const time = booking.showTime || booking.time || "";
 
     const seats = getSelectedSeats();
 
-    const seatText = seats.length > 0 ? ` • Seats: ${seats.join(", ")}` : "";
+    const details = [theatre, date, time].filter(Boolean);
 
-    showDetails.textContent = `${theatre} • ${date} • ${time}${seatText}`;
+    if (seats.length > 0) {
+      details.push(`Seats: ${seats.join(", ")}`);
+    }
+
+    showDetails.textContent = details.join(" • ");
   }
 }
 
@@ -308,19 +905,11 @@ function setupCategories() {
     button.addEventListener("click", () => {
       selectedCategory = button.dataset.category || "all";
 
-      /*
-          Update active button
-      */
-
       categoryButtons.forEach((item) => {
         item.classList.remove("active");
       });
 
       button.classList.add("active");
-
-      /*
-          Render filtered food
-      */
 
       renderFoodGrid();
     });
@@ -348,39 +937,12 @@ function renderFoodGrid() {
     return;
   }
 
-  /*
-      Filter food by category
-  */
-
   const filteredFood =
     selectedCategory === "all"
       ? foodMenu
       : foodMenu.filter((food) => food.category === selectedCategory);
 
-  /*
-      Clear grid
-  */
-
   foodGrid.innerHTML = "";
-
-  /*
-      No food
-  */
-
-  if (filteredFood.length === 0) {
-    foodGrid.innerHTML = `
-      <div class="no-food-message">
-        <h3>No items found</h3>
-        <p>Please select another category.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  /*
-      Generate cards
-  */
 
   filteredFood.forEach((food) => {
     const quantity = getCartQuantity(food.id);
@@ -389,21 +951,14 @@ function renderFoodGrid() {
 
     card.className = "food-card";
 
-    card.dataset.foodId = food.id;
-
     card.innerHTML = `
       <div class="food-image">
-  <img
-    src="${food.image}"
-    alt="${food.name}"
-    loading="lazy"
-    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-  />
-
-  <span class="food-emoji food-image-fallback">
-    ${food.emoji}
-  </span>
-</div>
+        <img
+          src="${food.image}"
+          alt="${escapeHTML(food.name)}"
+          loading="lazy"
+        />
+      </div>
 
       <div class="food-card-content">
 
@@ -419,12 +974,10 @@ function renderFoodGrid() {
 
         </div>
 
-        <h3>
-          ${food.name}
-        </h3>
+        <h3>${escapeHTML(food.name)}</h3>
 
         <p>
-          ${food.description}
+          ${escapeHTML(food.description)}
         </p>
 
         <div class="food-card-bottom">
@@ -437,8 +990,7 @@ function renderFoodGrid() {
                   type="button"
                   data-add="${food.id}"
                 >
-                  Add
-                  <span>+</span>
+                  Add <span>+</span>
                 </button>
               `
               : `
@@ -452,9 +1004,7 @@ function renderFoodGrid() {
                     −
                   </button>
 
-                  <strong>
-                    ${quantity}
-                  </strong>
+                  <strong>${quantity}</strong>
 
                   <button
                     type="button"
@@ -476,10 +1026,6 @@ function renderFoodGrid() {
     foodGrid.appendChild(card);
   });
 
-  /*
-      Setup card buttons
-  */
-
   setupFoodButtons();
 }
 
@@ -488,29 +1034,17 @@ function renderFoodGrid() {
 ========================================= */
 
 function setupFoodButtons() {
-  /*
-      Add food
-  */
-
   document.querySelectorAll("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {
       addFood(button.dataset.add);
     });
   });
 
-  /*
-      Increase quantity
-  */
-
   document.querySelectorAll("[data-increase]").forEach((button) => {
     button.addEventListener("click", () => {
       changeFoodQuantity(button.dataset.increase, 1);
     });
   });
-
-  /*
-      Decrease quantity
-  */
 
   document.querySelectorAll("[data-decrease]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -532,29 +1066,33 @@ function addFood(foodId) {
 
   const existingItem = cart.find((item) => item.id === foodId);
 
-  /*
-      Already exists
-  */
-
   if (existingItem) {
     existingItem.quantity += 1;
-  } else {
+
+    normalizeItemAssignments(existingItem);
+
     /*
-        Add new item
+      The newly added quantity belongs
+      to the current user by default.
     */
 
+    existingItem.assignments["current-user"] =
+      (existingItem.assignments["current-user"] || 0) + 1;
+  } else {
     cart.push({
       id: food.id,
-
       name: food.name,
-
       category: food.category,
-
       price: food.price,
-
       quantity: 1,
 
-      emoji: food.emoji,
+      /*
+        First quantity belongs to current user.
+      */
+
+      assignments: {
+        "current-user": 1,
+      },
     });
   }
 
@@ -572,14 +1110,71 @@ function changeFoodQuantity(foodId, change) {
     return;
   }
 
-  cartItem.quantity += change;
+  normalizeItemAssignments(cartItem);
 
-  /*
-      Remove item if quantity is zero
-  */
+  if (change > 0) {
+    cartItem.quantity += change;
+
+    /*
+      New quantity is assigned to current user.
+    */
+
+    cartItem.assignments["current-user"] =
+      (cartItem.assignments["current-user"] || 0) + change;
+  } else {
+    const removeCount = Math.abs(change);
+
+    /*
+      Remove from current user's assignment first.
+    */
+
+    let remainingToRemove = removeCount;
+
+    const currentUserQuantity = getAssignedQuantity(cartItem, "current-user");
+
+    const removeFromCurrentUser = Math.min(
+      currentUserQuantity,
+      remainingToRemove,
+    );
+
+    if (removeFromCurrentUser > 0) {
+      cartItem.assignments["current-user"] -= removeFromCurrentUser;
+
+      remainingToRemove -= removeFromCurrentUser;
+    }
+
+    /*
+      If current user has no quantity left,
+      remove from other assignments.
+    */
+
+    if (remainingToRemove > 0) {
+      const otherFriendIds = Object.keys(cartItem.assignments).filter(
+        (id) => id !== "current-user",
+      );
+
+      for (const friendId of otherFriendIds) {
+        if (remainingToRemove <= 0) {
+          break;
+        }
+
+        const friendQuantity = getAssignedQuantity(cartItem, friendId);
+
+        const removeAmount = Math.min(friendQuantity, remainingToRemove);
+
+        cartItem.assignments[friendId] -= removeAmount;
+
+        remainingToRemove -= removeAmount;
+      }
+    }
+
+    cartItem.quantity -= removeCount;
+  }
 
   if (cartItem.quantity <= 0) {
     cart = cart.filter((item) => item.id !== foodId);
+  } else {
+    normalizeItemAssignments(cartItem);
   }
 
   updateFoodPage();
@@ -601,11 +1196,9 @@ function removeFood(foodId) {
 
 function updateFoodPage() {
   renderFoodGrid();
-
   renderCart();
-
+  renderFriends();
   updateRewardInformation();
-
   updateContinueButtons();
 }
 
@@ -624,15 +1217,7 @@ function renderCart() {
     return;
   }
 
-  /*
-      Total item quantity
-  */
-
   const totalItems = getTotalItemCount();
-
-  /*
-      Cart count
-  */
 
   if (cartCount) {
     cartCount.textContent = `${totalItems} ${
@@ -640,48 +1225,97 @@ function renderCart() {
     }`;
   }
 
-  /*
-      Empty cart
-  */
-
   if (cart.length === 0) {
     emptyCart.style.display = "block";
-
     cartItems.innerHTML = "";
-
     return;
   }
 
-  /*
-      Show cart
-  */
-
   emptyCart.style.display = "none";
-
   cartItems.innerHTML = "";
 
-  /*
-      Create cart items
-  */
-
   cart.forEach((item) => {
+    normalizeItemAssignments(item);
+
     const total = Number(item.price) * Number(item.quantity);
 
     const cartItem = document.createElement("div");
 
     cartItem.className = "cart-item";
 
+    /*
+      Create assignment controls for every friend.
+    */
+
+    const assignmentHTML = friends
+      .map((friend) => {
+        const assignedQuantity = getAssignedQuantity(item, friend.id);
+
+        return `
+          <div class="food-assignment-row">
+
+            <div class="food-assignment-person">
+
+              <span class="assignment-avatar">
+                ${friend.isCurrentUser ? "👤" : "👥"}
+              </span>
+
+              <span>
+                ${
+                  friend.isCurrentUser
+                    ? `${escapeHTML(friend.name)} (You)`
+                    : escapeHTML(friend.name)
+                }
+              </span>
+
+            </div>
+
+            <div class="food-assignment-controls">
+
+              <button
+                type="button"
+                class="cart-quantity-button"
+                data-assignment-decrease="${item.id}"
+                data-friend-id="${friend.id}"
+              >
+                −
+              </button>
+
+              <strong>
+                ${assignedQuantity}
+              </strong>
+
+              <button
+                type="button"
+                class="cart-quantity-button"
+                data-assignment-increase="${item.id}"
+                data-friend-id="${friend.id}"
+              >
+                +
+              </button>
+
+            </div>
+
+          </div>
+        `;
+      })
+      .join("");
+
+    const assignedTotal = getAssignmentTotal(item);
+
+    const unassigned = Math.max(Number(item.quantity) - assignedTotal, 0);
+
     cartItem.innerHTML = `
       <div class="cart-item-main">
 
         <div class="cart-item-icon">
-          ${item.emoji || "🍿"}
+          🍿
         </div>
 
         <div class="cart-item-info">
 
           <h4>
-            ${item.name}
+            ${escapeHTML(item.name)}
           </h4>
 
           <span>
@@ -694,10 +1328,39 @@ function renderCart() {
           class="remove-cart-item"
           type="button"
           data-remove="${item.id}"
-          aria-label="Remove ${item.name}"
         >
           ×
         </button>
+
+      </div>
+
+      <div class="food-owner-section">
+
+        <label>
+          Who ordered this?
+        </label>
+
+        <div class="food-assignment-list">
+
+          ${assignmentHTML}
+
+        </div>
+
+        ${
+          unassigned > 0
+            ? `
+              <div class="unassigned-food">
+                ${unassigned}
+                ${unassigned === 1 ? " item" : " items"}
+                not assigned
+              </div>
+            `
+            : `
+              <div class="all-food-assigned">
+                ✓ All items assigned
+              </div>
+            `
+        }
 
       </div>
 
@@ -737,10 +1400,6 @@ function renderCart() {
     cartItems.appendChild(cartItem);
   });
 
-  /*
-      Cart button events
-  */
-
   setupCartButtons();
 }
 
@@ -749,19 +1408,11 @@ function renderCart() {
 ========================================= */
 
 function setupCartButtons() {
-  /*
-      Increase
-  */
-
   document.querySelectorAll("[data-cart-increase]").forEach((button) => {
     button.addEventListener("click", () => {
       changeFoodQuantity(button.dataset.cartIncrease, 1);
     });
   });
-
-  /*
-      Decrease
-  */
 
   document.querySelectorAll("[data-cart-decrease]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -769,64 +1420,75 @@ function setupCartButtons() {
     });
   });
 
-  /*
-      Remove
-  */
-
   document.querySelectorAll("[data-remove]").forEach((button) => {
     button.addEventListener("click", () => {
       removeFood(button.dataset.remove);
     });
   });
+
+  /*
+    Assignment + buttons
+  */
+
+  document.querySelectorAll("[data-assignment-increase]").forEach((button) => {
+    button.addEventListener("click", () => {
+      changeFoodAssignment(
+        button.dataset.assignmentIncrease,
+        button.dataset.friendId,
+        1,
+      );
+    });
+  });
+
+  /*
+    Assignment - buttons
+  */
+
+  document.querySelectorAll("[data-assignment-decrease]").forEach((button) => {
+    button.addEventListener("click", () => {
+      changeFoodAssignment(
+        button.dataset.assignmentDecrease,
+        button.dataset.friendId,
+        -1,
+      );
+    });
+  });
 }
 
 /* =========================================
-   GET TOTAL FOOD ITEMS
+   TOTAL FOOD ITEMS
 ========================================= */
 
 function getTotalItemCount() {
-  return cart.reduce((total, item) => total + (Number(item.quantity) || 0), 0);
-}
-
-/* =========================================
-   CALCULATE FOOD SUBTOTAL
-========================================= */
-
-function calculateFoodSubtotal() {
   return cart.reduce((total, item) => {
-    const price = Number(item.price) || 0;
-
-    const quantity = Number(item.quantity) || 0;
-
-    return total + price * quantity;
+    return total + (Number(item.quantity) || 0);
   }, 0);
 }
 
 /* =========================================
-   CALCULATE POINTS
+   FOOD SUBTOTAL
 ========================================= */
 
-function calculatePoints() {
-  const subtotal = calculateFoodSubtotal();
-
-  return Math.floor(subtotal * POINTS_PER_RUPEE);
+function calculateFoodSubtotal() {
+  return cart.reduce((total, item) => {
+    return total + (Number(item.price) || 0) * (Number(item.quantity) || 0);
+  }, 0);
 }
 
 /* =========================================
-   UPDATE PRICE
+   CALCULATE REWARD POINTS
+========================================= */
+
+function calculatePoints() {
+  return Math.floor(calculateFoodSubtotal() * POINTS_PER_RUPEE);
+}
+
+/* =========================================
+   UPDATE PRICE INFORMATION
 ========================================= */
 
 function updatePriceInformation() {
   const subtotal = calculateFoodSubtotal();
-
-  /*
-      Currently no additional
-      GST or food charge.
-
-      Total = food subtotal.
-  */
-
-  const total = subtotal;
 
   const foodSubtotal = document.getElementById("foodSubtotal");
 
@@ -839,11 +1501,11 @@ function updatePriceInformation() {
   }
 
   if (foodTotal) {
-    foodTotal.textContent = formatCurrency(total);
+    foodTotal.textContent = formatCurrency(subtotal);
   }
 
   if (mobileFoodTotal) {
-    mobileFoodTotal.textContent = formatCurrency(total);
+    mobileFoodTotal.textContent = formatCurrency(subtotal);
   }
 }
 
@@ -852,46 +1514,27 @@ function updatePriceInformation() {
 ========================================= */
 
 function updateRewardInformation() {
-  /*
-      Existing points.
-
-      If user points are added to the
-      booking object later, this will use them.
-  */
-
-  const existingPoints = Number(booking.rewardPoints) || 0;
+  const existingPoints = Number(booking?.rewardPoints) || 0;
 
   const earnedPoints = calculatePoints();
 
   const totalPoints = existingPoints + earnedPoints;
 
-  /*
-      Header points
-  */
-
   const headerPoints = document.getElementById("headerPoints");
 
-  if (headerPoints) {
-    headerPoints.textContent = `${totalPoints} ${
-      totalPoints === 1 ? "Point" : "Points"
-    }`;
-  }
-
-  /*
-      Preview points
-  */
-
   const pointsPreview = document.getElementById("pointsPreview");
+
+  const currentPoints = document.getElementById("currentPoints");
+
+  const rewardProgress = document.getElementById("rewardProgress");
+
+  if (headerPoints) {
+    headerPoints.textContent = `${totalPoints} Points`;
+  }
 
   if (pointsPreview) {
     pointsPreview.textContent = `+${earnedPoints}`;
   }
-
-  /*
-      Current points
-  */
-
-  const currentPoints = document.getElementById("currentPoints");
 
   if (currentPoints) {
     currentPoints.textContent = `${Math.min(
@@ -900,21 +1543,11 @@ function updateRewardInformation() {
     )} / ${REWARD_TARGET} Points`;
   }
 
-  /*
-      Progress bar
-  */
-
-  const rewardProgress = document.getElementById("rewardProgress");
-
   if (rewardProgress) {
     const percentage = Math.min((totalPoints / REWARD_TARGET) * 100, 100);
 
     rewardProgress.style.width = `${percentage}%`;
   }
-
-  /*
-      Update price information too
-  */
 
   updatePriceInformation();
 }
@@ -924,23 +1557,12 @@ function updateRewardInformation() {
 ========================================= */
 
 function updateContinueButtons() {
-  const hasFood = cart.length > 0;
-
   const continueButton = document.getElementById("continueFoodButton");
 
   const mobileButton = document.getElementById("mobileContinueButton");
 
-  /*
-      Keep buttons enabled.
-
-      Users can continue even without food
-      because pre-ordering is optional.
-  */
-
   if (continueButton) {
     continueButton.disabled = false;
-
-    continueButton.classList.toggle("has-food", hasFood);
   }
 
   if (mobileButton) {
@@ -958,38 +1580,62 @@ function saveFoodOrder() {
   const foodPoints = calculatePoints();
 
   /*
-      Clean food data
-      before saving.
+    Normalize all assignments
+    before saving.
   */
 
-  const foodOrder = cart.map((item) => ({
-    id: item.id,
+  cart.forEach((item) => {
+    normalizeItemAssignments(item);
+  });
 
-    name: item.name,
+  const foodOrder = cart.map((item) => {
+    const assignments = {
+      ...item.assignments,
+    };
 
-    category: item.category,
+    /*
+      For backward compatibility:
+      if exactly one person owns the complete
+      food item, save assignedTo as well.
+    */
 
-    price: Number(item.price),
+    const assignmentEntries = Object.entries(assignments).filter(
+      ([, quantity]) => Number(quantity) > 0,
+    );
 
-    quantity: Number(item.quantity),
+    let assignedTo = null;
 
-    itemTotal: Number(item.price) * Number(item.quantity),
-  }));
+    if (assignmentEntries.length === 1) {
+      assignedTo = assignmentEntries[0][0];
+    }
 
-  /*
-      Update booking.
+    return {
+      id: item.id,
+      name: item.name,
+      category: item.category,
+      price: Number(item.price),
+      quantity: Number(item.quantity),
+      itemTotal: Number(item.price) * Number(item.quantity),
 
-      Food information is added to the
-      existing booking created by
-      seat-selection.js.
-  */
+      /*
+        NEW:
+        Multiple people can own
+        different quantities.
+      */
+
+      assignments,
+
+      /*
+        Kept for compatibility
+        with older code.
+      */
+
+      assignedTo,
+    };
+  });
 
   const updatedBooking = {
     ...booking,
-
-    /*
-        Food items
-    */
 
     foodOrder,
 
@@ -999,39 +1645,41 @@ function saveFoodOrder() {
 
     foodTotal: Number(foodSubtotal.toFixed(2)),
 
-    /*
-        Rewards
-    */
-
     foodPointsEarned: foodPoints,
 
+    foodOrderStatus: foodOrder.length > 0 ? "PRE_ORDERED" : "NO_FOOD_ORDER",
+
+    friends: friends
+      .filter((friend) => !friend.isCurrentUser)
+      .map((friend) => ({
+        id: friend.id,
+        name: friend.name,
+        upiId: friend.upiId || "",
+      })),
+
     /*
-        Optional order status
+      Friend-wise bill split.
     */
 
-    foodOrderStatus: foodOrder.length > 0 ? "PRE_ORDERED" : "NO_FOOD_ORDER",
+    foodBillSplit: friends.map((friend) => ({
+      friendId: friend.id,
+
+      name: friend.name,
+
+      upiId: friend.isCurrentUser ? null : friend.upiId || null,
+
+      isCurrentUser: friend.isCurrentUser,
+
+      amount: getFriendTotal(friend.id),
+    })),
   };
 
-  /*
-      Update global state
-  */
-
   booking = updatedBooking;
-
-  /*
-      Save back to session storage.
-
-      IMPORTANT:
-      This keeps all seat information
-      and adds the food order.
-  */
 
   sessionStorage.setItem(
     "bookItBroFinalBooking",
     JSON.stringify(updatedBooking),
   );
-
-  console.log("Food order saved:", updatedBooking);
 
   return updatedBooking;
 }
@@ -1041,21 +1689,13 @@ function saveFoodOrder() {
 ========================================= */
 
 function continueToBookingSummary() {
-  /*
-      Save selected food.
-  */
-
   saveFoodOrder();
-
-  /*
-      Go to booking summary.
-  */
 
   window.location.href = "booking-summary.html";
 }
 
 /* =========================================
-   SETUP CONTINUE BUTTONS
+   CONTINUE BUTTONS
 ========================================= */
 
 function setupContinueButtons() {
@@ -1089,6 +1729,18 @@ function setupBackButton() {
 }
 
 /* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value) {
+  const div = document.createElement("div");
+
+  div.textContent = value || "";
+
+  return div.innerHTML;
+}
+
+/* =========================================
    FORMAT CATEGORY
 ========================================= */
 
@@ -1118,11 +1770,6 @@ function formatDate(dateString) {
   if (!dateString) {
     return "—";
   }
-
-  /*
-      Prevent timezone shift
-      for YYYY-MM-DD
-  */
 
   if (
     typeof dateString === "string" &&
@@ -1158,25 +1805,19 @@ function formatDate(dateString) {
 
 function showBookingError() {
   document.body.innerHTML = `
-    <div style="
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      background:#f5f5f7;
-      font-family:Arial,sans-serif;
-      text-align:center;
-    ">
+    <div
+      style="
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        text-align:center;
+      "
+    >
+      <div>
 
-      <div style="
-        max-width:450px;
-      ">
-
-        <div style="
-          font-size:52px;
-          margin-bottom:15px;
-        ">
+        <div style="font-size:52px">
           🍿
         </div>
 
@@ -1184,33 +1825,19 @@ function showBookingError() {
           Booking Information Not Found
         </h2>
 
-        <p style="
-          color:#777;
-          line-height:1.6;
-          margin:12px 0 22px;
-        ">
+        <p>
           We could not find your booking
-          information. Please select your
-          movie and seats again.
+          information.
         </p>
 
         <button
+          type="button"
           onclick="history.back()"
-          style="
-            border:none;
-            padding:12px 24px;
-            border-radius:8px;
-            background:#e51937;
-            color:#fff;
-            font-weight:600;
-            cursor:pointer;
-          "
         >
           Go Back
         </button>
 
       </div>
-
     </div>
   `;
 }
@@ -1220,64 +1847,28 @@ function showBookingError() {
 ========================================= */
 
 function initialize() {
-  /*
-      Load booking created
-      in seat-selection.js
-  */
-
   const loaded = loadBooking();
 
   if (!loaded) {
     return;
   }
 
-  /*
-      Display show information
-  */
-
   displayBookingInformation();
-
-  /*
-      Setup categories
-  */
 
   setupCategories();
 
-  /*
-      Render menu
-  */
-
-  renderFoodGrid();
-
-  /*
-      Render existing cart
-  */
-
-  renderCart();
-
-  /*
-      Rewards
-  */
-
-  updateRewardInformation();
-
-  /*
-      Continue buttons
-  */
-
-  updateContinueButtons();
+  setupFriendSection();
 
   setupContinueButtons();
 
-  /*
-      Back
-  */
-
   setupBackButton();
+
+  updateFoodPage();
 }
 
 /* =========================================
    START
 ========================================= */
-
-initialize();
+document.addEventListener("DOMContentLoaded", () => {
+  initialize();
+});
